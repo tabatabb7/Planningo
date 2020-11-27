@@ -1,14 +1,11 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
 
-const Group = db.define("group", {
+const GroceryItem = db.define("groceryItem", {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
   },
 });
 
-module.exports = Group;
+module.exports = GroceryItem;
