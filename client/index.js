@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { Router } from "react-router-dom";
+import {Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import history from "./history";
 import store from './store';
@@ -13,7 +13,6 @@ ReactDOM.render(
       <App />
     </Router>
   </Provider>,
-
   document.getElementById("app")
 );
 

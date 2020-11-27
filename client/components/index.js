@@ -1,6 +1,6 @@
 export { default as Navbar } from "./Navbar";
-export { default as Home } from "./Home";
-//login/register
+export { default as UserHome } from "./UserHome";
+//login/signup
 export {Login, Signup} from './AuthForm'
 
 

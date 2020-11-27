@@ -39,6 +39,7 @@ export const auth = (
   firstName,
   lastName
 ) => async dispatch => {
+  let res
   try {
     res = await axios.post(`/auth/${method}`, {
       email,
@@ -50,6 +51,12 @@ export const auth = (
     history.push('/home')
   } catch (authError) {
     return dispatch(getUser({error: authError}))
+}
+try {
+  dispatch(getUser(res.data))
+  history.push('/home')
+} catch (dispatchOrHistoryErr) {
+  console.error(dispatchOrHistoryErr)
 }
 }
 

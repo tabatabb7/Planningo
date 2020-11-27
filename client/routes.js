@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {withRouter, Route, Switch, Redirect} from 'react-router-dom';
+import {withRouter, Route, Switch} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import{
-  Home,
+  UserHome,
   Login,
   Signup
 } from './components';
@@ -15,15 +15,23 @@ class Routes extends Component {
   }
 
   render() {
-    const {isLoggedIn} = this.props;
-    return (
-      <Switch>
-        <Route path="/login" component={Login} />
-        <Route path="/home" component={Home} />
-        <Route path="/signup" component={Signup} />
+    const {isLoggedIn} = this.props
+  return (
+    <Switch>
+      {/* Routes placed here are available to all visitors */}
+      <Route path="/login" component={Login} />
+      <Route path="/signup" component={Signup} />
+      {isLoggedIn && (
+        <Switch>
+          {/* Routes placed here are only available after logging in */}
+          <Route exact path="/home" component={UserHome} />
+        </Switch>
+      )}
+      {/* Displays our Login component as a fallback */}
+      <Route component={Login} />
     </Switch>
-    );
-  }
+  )
+}
 }
 
 const mapState = (state) => {
@@ -44,7 +52,9 @@ const mapDispatch = (dispatch) => {
 // when the url changes
 export default withRouter(connect(mapState, mapDispatch)(Routes));
 
+
 Routes.propTypes = {
   loadInitialData: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
 };
+

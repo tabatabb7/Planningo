@@ -1,35 +1,17 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import PropTypes from 'prop-types'
-import {auth} from '../store'
+import React from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { auth } from "../store";
+import { withRouter } from "react-router-dom";
 
-const AuthForm = props => {
-  const {name, displayName, handleSubmit, error} = props
+const AuthForm = (props) => {
+  const { name, displayName, handleSubmit, error} = props;
 
   return (
     <div className="forms">
       <div className="form_info">
         <form onSubmit={handleSubmit} name={name}>
-          <div className="form-input">
-            <label htmlFor="email">
-              <small className="form-names">Email</small>
-            </label>
-            <input className="info-input" name="email" type="text" required />
-          </div>
-
-          <div className="form-input">
-            <label htmlFor="password">
-              <small className="form-names">Password</small>
-            </label>
-            <input
-              className="info-input"
-              name="password"
-              type="password"
-              required
-            />
-          </div>
-
-          {displayName != 'Login' ? (
+          {displayName != "Login" ? (
             <div>
               <div className="form-input">
                 <label htmlFor="firstName">
@@ -57,6 +39,38 @@ const AuthForm = props => {
           ) : null}
 
           <div className="form-input">
+            <label htmlFor="email">
+              <small className="form-names">Email</small>
+            </label>
+            <input className="info-input" name="email" type="text" required />
+          </div>
+
+          <div className="form-input">
+            <label htmlFor="password">
+              <small className="form-names">Password</small>
+            </label>
+            <input
+              className="info-input"
+              name="password"
+              type="password"
+              required
+            />
+          </div>
+
+          {displayName != "Login" ? (
+            <div className="form-input">
+              <label htmlFor="confirmPassword">
+                <small className="form-names">Confirm Password</small>
+              </label>
+              <input
+                className="info-input"
+                name="confirmPassword"
+                type="password"
+                required
+              />
+            </div>
+          ) : null}
+          <div className="form-input">
             <button className="login_button" type="submit">
               {displayName}
             </button>
@@ -68,53 +82,53 @@ const AuthForm = props => {
       </div>
       <a href="/auth/google">{displayName} with Google</a>
     </div>
-  )
-}
+  );
+};
 
-const mapLogin = state => {
+
+const mapLogin = (state) => {
   return {
-    name: 'login',
-    displayName: 'Login',
-    error: state.user.error
-  }
-}
+    name: "login",
+    displayName: "Login",
+    error: state.user.error,
+  };
+};
 
-const mapSignup = state => {
+const mapSignup = (state) => {
   return {
-    name: 'signup',
-    displayName: 'Sign Up',
-    error: state.user.error
-  }
-}
+    name: "signup",
+    displayName: "Sign Up",
+    error: state.user.error,
+  };
+};
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
     handleSubmit(evt) {
-      evt.preventDefault()
-      const formName = evt.target.name
-      if (formName === 'login') {
-        const email = evt.target.email.value
-        const password = evt.target.password.value
-        dispatch(auth(email, password, formName))
-      } else if (formName === 'signup') {
-        const email = evt.target.email.value
-        const password = evt.target.password.value
-        const firstName = evt.target.firstName.value
-        const lastName = evt.target.lastName.value
-        dispatch(
-          auth(email, password, formName, firstName, lastName)
-        )
-      }
-    }
-  }
-}
+      evt.preventDefault();
+      const formName = evt.target.name;
 
-export const Login = connect(mapLogin, mapDispatch)(AuthForm)
-export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
+      if (formName === "login") {
+        const email = evt.target.email.value;
+        const password = evt.target.password.value;
+        dispatch(auth(email, password, formName));
+      } else if (formName === "signup") {
+        const email = evt.target.email.value;
+        const password = evt.target.password.value;
+        const firstName = evt.target.firstName.value;
+        const lastName = evt.target.lastName.value;
+        dispatch(auth(email, password, formName, firstName, lastName));
+      }
+    },
+  };
+};
+
+export const Login = withRouter(connect(mapLogin, mapDispatch)(AuthForm));
+export const Signup = withRouter(connect(mapSignup, mapDispatch)(AuthForm));
 
 AuthForm.propTypes = {
   name: PropTypes.string.isRequired,
   displayName: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  error: PropTypes.object
-}
+  error: PropTypes.object,
+};
