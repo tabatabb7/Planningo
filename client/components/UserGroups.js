@@ -5,12 +5,11 @@ import { connect } from "react-redux";
 /**
  * COMPONENT
  */
-export const Home = props => {
-  const { email } = props;
+export const UserGroups = props => {
 
   return (
     <div>
-      <h3>UserHome</h3>
+      <h3>My Groups</h3>
     </div>
   );
 };
@@ -20,15 +19,15 @@ export const Home = props => {
  */
 const mapState = state => {
   return {
-    email: state.user.email
+    firstName: state.user.firstName
   };
 };
 
-export default connect(mapState)(Home);
+export default connect(mapState)(UserGroups);
 
 /**
  * PROP TYPES
  */
-Home.propTypes = {
-  email: PropTypes.string
+UserGroups.propTypes = {
+  firstName: PropTypes.string
 };

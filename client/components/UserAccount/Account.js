@@ -1,16 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 /**
  * COMPONENT
  */
-export const Home = props => {
+export const Account = props => {
   const { email } = props;
 
   return (
     <div>
-      <h3>UserHome</h3>
+      <h3>My Account</h3>
+      <Link to="/account/settings">Account Settings</Link>
+      <div>Edit Groups</div>
+      <div>My Stats</div>
     </div>
   );
 };
@@ -24,11 +28,11 @@ const mapState = state => {
   };
 };
 
-export default connect(mapState)(Home);
+export default connect(mapState)(Account);
 
 /**
  * PROP TYPES
  */
-Home.propTypes = {
+Account.propTypes = {
   email: PropTypes.string
 };
