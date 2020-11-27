@@ -1,15 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-// import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
-import {Route} from 'react-router-dom';
+import React from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-class Home extends React.Component {
-  render() {
-    const {isLoggedIn} = props;
-    return <div>Home</div>;
-  }
-}
+export const Home = (props) => {
+  const {isLoggedIn, firstName} = props;
+
+  return (
+    <div> <h3>Welcome, {isLoggedIn ? firstName : "Guest"}</h3>
+    </div>
+  );
+};
+
 const mapState = (state) => {
   return {
     firstName: state.user.firstName,
@@ -17,9 +18,8 @@ const mapState = (state) => {
   };
 };
 
-// export default connect(mapState)(Home);
-export default Home;
+export default connect(mapState)(Home);
 
 Home.propTypes = {
-  email: PropTypes.string,
+  isLoggedIn: PropTypes.bool.isRequired,
 };

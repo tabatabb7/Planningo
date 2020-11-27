@@ -6,14 +6,30 @@ const User = db.define("user", {
   email: {
     type: Sequelize.STRING,
     allowNull: false,
+    unique: true,
+    validate: {
+      notEmpty: true,
+      isEmail: true,
+    }
   },
   firstName: {
     type: Sequelize.STRING,
     allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
   },
   lastName: {
     type: Sequelize.STRING,
     allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
+  },
+  avatarUrl: {
+    type: Sequelize.TEXT,
+    defaultValue: "https://picsum.photos/50/50",
+
   },
   //for protecting api routes
   // isAdmin:{
@@ -27,16 +43,12 @@ const User = db.define("user", {
   password: {
     type: Sequelize.STRING,
     allowNull: false,
-    // Making `.password` act like a func hides it when serializing to JSON.
-    // This is a hack to get around Sequelize's lack of a "private" option.
     get() {
       return () => this.getDataValue("password");
     },
   },
   salt: {
     type: Sequelize.STRING,
-    // Making `.salt` act like a function hides it when serializing to JSON.
-    // This is a hack to get around Sequelize's lack of a "private" option.
     get() {
       return () => this.getDataValue("salt");
     },

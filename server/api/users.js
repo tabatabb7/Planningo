@@ -1,5 +1,5 @@
-const router = require("express").Router();
-const { User } = require("../db/models");
+const router = require('express').Router();
+const {User} = require('../db/models');
 
 // function isAdmin(req, res, next) {
 //   if (req.user && req.user.role === 'admin') {
@@ -9,34 +9,39 @@ const { User } = require("../db/models");
 //   }
 // }
 
-//POST
-router.post("/", async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
-    console.log("server received signup request");
+    console.log('server received post signup request');
     const user = await User.create(req.body);
     req.login(user, (err) => (err ? next(err) : res.json(user)));
+  } catch (err) {
+    if (err.name === 'SequelizeUniqueConstraintError') {
+      res.status(401).send('User already exists');
+    } else {
+      next(err);
+    }
+  }
+});
+
+router.get('/', async (req, res, next) => {
+  try {
+    const users = await User.findAll({
+      attributes: ['id', 'firstName', 'lastName', 'email', 'role'],
+    });
+    res.json(users);
   } catch (err) {
     next(err);
   }
 });
 
-//GET
-
-// router.get('/', isAdmin, async (req, res, next) => {
-//   try {
-//     const users = await User.findAll({
-//       attributes: ['id', 'firstName', 'lastName', 'email', 'role'],
-//     });
-//     res.json(users);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
-
-router.get("/:userId", async (req, res, next) => {
+router.get('/:userId', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.userId, {
-      attributes: ["firstName", "lastName", "email"],
+      attributes: [
+        'firstName',
+        'lastName',
+        'email',
+      ],
     });
     res.json(user);
   } catch (err) {
@@ -44,18 +49,14 @@ router.get("/:userId", async (req, res, next) => {
   }
 });
 
-//PUT
-
-// router.put('/:userId', async (req, res, next) => {
-//   try {
-//     const user = await User.findByPk(req.params.userId);
-//     await User.update(req.body);
-//     res.json(user);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
-
-//DELETE
+router.put('/:userId', async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.userId);
+    await User.update(req.body);
+    res.json(user);
+  } catch (err) {
+    next(err);
+  }
+});
 
 module.exports = router;

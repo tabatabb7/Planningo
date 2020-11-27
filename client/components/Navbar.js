@@ -1,18 +1,31 @@
 import React from "react";
-// import { connect } from "react-redux";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import {logout} from '../store';
 
-class Navbar extends React.Component {
-  render() {
-    return <div><h3>Navbar</h3>
-     <Link to="/home">Home</Link>
-    <Link to="/login">Login</Link>
-    <Link to="/register">Register</Link>
+import './styles/Navbar.css'
 
-    </div>;
-  }
-}const mapState = (state) => {
+const Navbar = ({ handleClick, isLoggedIn, firstName }) => (
+  <div className ="navbar-wrapper">
+    <h3>Navbar</h3>
+    <Link to="/home">Home</Link>
+    {isLoggedIn ? (
+      <React.Fragment>
+        <a href="#" onClick={handleClick}>
+          <p>logout</p>
+        </a>
+      </React.Fragment>
+    ) : (
+      <React.Fragment>
+        <Link to="/login">Login</Link>
+        <Link to="/signup">Sign Up</Link>
+      </React.Fragment>
+    )}
+  </div>
+);
+
+const mapState = (state) => {
   return {
     isLoggedIn: !!state.user.id,
     firstName: state.user.firstName,
@@ -26,8 +39,7 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-// export default connect(mapState, mapDispatch)(Navbar);
-export default Navbar;
+export default connect(mapState, mapDispatch)(Navbar);
 
 Navbar.propTypes = {
   handleClick: PropTypes.func.isRequired,
