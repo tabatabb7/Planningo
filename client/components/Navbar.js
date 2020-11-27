@@ -8,13 +8,14 @@ import './styles/Navbar.css'
 
 const Navbar = ({ handleClick, isLoggedIn, firstName }) => (
   <div className ="navbar-wrapper">
-    <h3>Navbar</h3>
     <Link to="/home">Home</Link>
     {isLoggedIn ? (
       <React.Fragment>
         <a href="#" onClick={handleClick}>
-          <p>logout</p>
+          Logout
         </a>
+        <Link to="/groups">My Groups</Link>
+        <Link to="/account">My Account</Link>
       </React.Fragment>
     ) : (
       <React.Fragment>
