@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 import { auth } from "../store";
 import { withRouter } from "react-router-dom";
 
-const AuthForm = (props) => {
-  const { name, displayName, handleSubmit, error} = props;
+const AuthForm = props => {
+  const { name, displayName, handleSubmit, error } = props;
 
   return (
     <div className="forms">
@@ -85,24 +85,23 @@ const AuthForm = (props) => {
   );
 };
 
-
-const mapLogin = (state) => {
+const mapLogin = state => {
   return {
     name: "login",
     displayName: "Login",
-    error: state.user.error,
+    error: state.user.error
   };
 };
 
-const mapSignup = (state) => {
+const mapSignup = state => {
   return {
     name: "signup",
     displayName: "Sign Up",
-    error: state.user.error,
+    error: state.user.error
   };
 };
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = dispatch => {
   return {
     handleSubmit(evt) {
       evt.preventDefault();
@@ -119,7 +118,7 @@ const mapDispatch = (dispatch) => {
         const lastName = evt.target.lastName.value;
         dispatch(auth(email, password, formName, firstName, lastName));
       }
-    },
+    }
   };
 };
 
@@ -130,5 +129,5 @@ AuthForm.propTypes = {
   name: PropTypes.string.isRequired,
   displayName: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  error: PropTypes.object,
+  error: PropTypes.object
 };
