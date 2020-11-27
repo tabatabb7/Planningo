@@ -5,12 +5,15 @@ import { connect } from "react-redux";
 /**
  * COMPONENT
  */
-export const Home = props => {
+export const EditAccount = props => {
   const { email } = props;
 
   return (
     <div>
-      <h3>UserHome</h3>
+      <h3>Account Settings</h3>
+      <div>Change Icon</div>
+      <div>Edit Info</div>
+      <div>Delete Account</div>
     </div>
   );
 };
@@ -24,11 +27,11 @@ const mapState = state => {
   };
 };
 
-export default connect(mapState)(Home);
+export default connect(mapState)(EditAccount);
 
 /**
  * PROP TYPES
  */
-Home.propTypes = {
+EditAccount.propTypes = {
   email: PropTypes.string
 };
