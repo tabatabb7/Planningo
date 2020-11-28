@@ -44,7 +44,7 @@ export const addTaskThunk = (task) => async (dispatch) => {
   }
 };
 
-export const removeTask = (taskId) => async (dispatch) => {
+export const removeTaskThunk = (taskId) => async (dispatch) => {
   try {
     await axios.delete(`/api/tasks/${taskId}`);
     dispatch(deleteTask(taskId));

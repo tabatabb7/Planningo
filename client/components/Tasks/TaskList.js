@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchTasksThunk, addTaskThunk, removeTask } from "../../store/tasks";
+import { fetchTasksThunk, addTaskThunk, removeTaskThunk } from "../../store/tasks";
 
-class TaskList extends Component {
+class TaskList extends React.Component {
   constructor(props) {
     super(props);
 
@@ -32,6 +32,15 @@ class TaskList extends Component {
     }
   }
 
+  async handleDelete(id) {
+    try {
+      await this.props.deleteTask(id);
+      this.props.fetchTasks();
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   render() {
     let { tasks } = this.props;
 
@@ -53,7 +62,7 @@ class TaskList extends Component {
           <p key={task.id}>
             <Link to={`tasks/${task.id}`}> {task.name} </Link>
             <button
-              onClick={() => this.props.deleteTask(task.id)}
+              onClick={() => this.handleDelete(task.id)}
               className="deleteTask"
             >
               X
@@ -72,7 +81,7 @@ const mapState = (state) => ({
 
 const mapDispatch = (dispatch) => ({
   fetchTasks: (userId) => dispatch(fetchTasksThunk(userId)),
-  deleteTask: (taskId) => dispatch(removeTask(taskId)),
+  deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
   addTask: (task) => dispatch(addTaskThunk(task)),
 });
 

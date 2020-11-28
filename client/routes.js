@@ -26,7 +26,7 @@ class Routes extends Component {
             <Route exact path="/account" component={Account} />
             <Route exact path="/account/settings" component={AccountSettings} />
             <Route path="/grocery" component={GroceryHome} />
-            <Route path="/calendar" component={Calendar} />
+            {/* <Route path="/calendar" component={Calendar} /> */}
             <Route exact path="/tasks" component={TaskList} />
           </Switch>
         )}
