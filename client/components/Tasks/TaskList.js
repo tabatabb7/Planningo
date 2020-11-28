@@ -2,12 +2,23 @@ import React from "react";
 import { connect } from "react-redux";
 import { updateSingleTask } from "../../store/singletask";
 import SingleTask from './SingleTask'
+import "../styles/Tasks.css";
+
 
 import {
   fetchTasksThunk,
   addTaskThunk,
   removeTaskThunk,
 } from "../../store/tasks";
+
+
+/*
+TODOS:
+1. Don't allow user to enter empty task
+2. Make add/edit modals
+3. Cross out completed tasks
+4. Button to filter out completed tasks
+*/
 
 class TaskList extends React.Component {
   constructor(props) {
@@ -52,14 +63,14 @@ class TaskList extends React.Component {
     }
   }
 
-  async updateTask(studentId) {
-    try {
-      await this.props.updateStudentThunk(studentId);
-      this.props.fetchStudents();
-    } catch (err) {
-      console.error(err);
-    }
-  }
+  // async updateTask(studentId) {
+  //   try {
+  //     await this.props.updateStudentThunk(studentId);
+  //     this.props.fetchStudents();
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // }
   showModal(e) {
     this.setState({ showModal: true });
   }
@@ -69,7 +80,21 @@ class TaskList extends React.Component {
     let { tasks } = this.props;
 
     return (
-      <div id="tasks">
+      <div className="task-wrapper">
+        <h1 className="tool-title">My Tasks</h1>
+        <div id="task-box">
+        {tasks.map((task) => (
+          <p key={task.id} className="singletask">
+            {task.name}
+            <button
+              onClick={() => this.handleDelete(task.id)}
+              className="deleteTask"
+            >
+              X
+            </button>
+          </p>
+        ))}
+        </div>
         <form id="add-task-form" onSubmit={this.handleSubmit}>
           <label htmlFor="name">Add Task:</label>
           <input
@@ -81,18 +106,6 @@ class TaskList extends React.Component {
           <button type="submit">Add</button>
         </form>
 
-        <h3>YOUR TASKS</h3>
-        {tasks.map((task) => (
-          <p key={task.id}>
-            {task.name}
-            <button
-              onClick={() => this.handleDelete(task.id)}
-              className="deleteTask"
-            >
-              X
-            </button>
-          </p>
-        ))}
       </div>
     );
   }
