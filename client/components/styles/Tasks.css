@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+.task-wrapper{
+  background-color: white;
+  width: 90%;
+  height: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.tool-title{
+  font-family: 'Montserrat', sans-serif;
+}
+
+.singletask{
+width: 100%;
+padding-top: 2%;
+padding-bottom: 2%;
+max-height: 5%;
+text-align: center;
+font-family: 'Montserrat', sans-serif;
+font-size: 1.5em;
+}
+
+
+.singletask:hover{
+ background-color: wheat;
+}
+
+
+#task-box{
+background-color: #F8E9A1;
+width: 90%;
+height: 90%;
+display:flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+}
