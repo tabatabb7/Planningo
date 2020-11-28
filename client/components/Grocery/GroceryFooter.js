@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setVisibilityFilter } from '../store';
+import { setVisibilityFilter } from '../../store';
 
 const GroceryFooter = props => {
   return (

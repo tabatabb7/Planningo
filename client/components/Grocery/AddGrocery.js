@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addGrocery } from '../store';
+import { addGrocery } from '../../store';
 
 class AddGrocery extends Component {
   constructor(props) {

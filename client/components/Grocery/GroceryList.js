@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import GroceryItem from './GroceryItem';
-import { toggleGrocery } from '../store';
+import { toggleGrocery } from '../../store';
 
 
 const GroceryList = props => {

@@ -18,8 +18,7 @@
     "start": "node server",
     "start-dev": "NODE_ENV='development' npm run build-client-watch & NODE_ENV='development' npm run start-server",
     "start-server": "nodemon server -e html,js,scss --ignore public --ignore client",
-  "author": "Fullstack Academy of Code",
-=======
+    "author": "Fullstack Academy of Code",
     "test": "mocha ./tests --recursive --exit --watch"
   },
   "author": "Persimmons",
@@ -53,6 +52,8 @@
     "semantic-ui-react": "^2.0.1",
     "sequelize": "^5.3.1",
     "socket.io": "^2.2.0",
+    "uuid": "^8.3.1",
+    "uuidv4": "^6.2.5",
     "web-vitals": "^1.0.1"
   },
   "devDependencies": {

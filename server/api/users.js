@@ -1,13 +1,13 @@
 const router = require('express').Router();
 const {User} = require('../db/models');
 
-// function isAdmin(req, res, next) {
-//   if (req.user && req.user.role === 'admin') {
-//     next(); // allow the next route to run
-//   } else {
-//     res.status(403).send("You don't have permission to view this page.");
-//   }
-// }
+function isAdmin(req, res, next) {
+  if (req.user && req.user.isAdmin) {
+    next();
+  } else {
+    res.status(403).send("You don't have permission to view this page.");
+  }
+}
 
 router.post('/', async (req, res, next) => {
   try {
@@ -23,10 +23,10 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.get('/', async (req, res, next) => {
+router.get('/', isAdmin, async (req, res, next) => {
   try {
     const users = await User.findAll({
-      attributes: ['id', 'firstName', 'lastName', 'email', 'role'],
+      attributes: ['id', 'firstName', 'lastName', 'email', 'isAdmin'],
     });
     res.json(users);
   } catch (err) {
@@ -34,7 +34,7 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.get('/:userId', async (req, res, next) => {
+router.get('/:userId', isAdmin, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.userId, {
       attributes: [
@@ -49,7 +49,7 @@ router.get('/:userId', async (req, res, next) => {
   }
 });
 
-router.put('/:userId', async (req, res, next) => {
+router.put('/:userId', isAdmin, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.userId);
     await User.update(req.body);

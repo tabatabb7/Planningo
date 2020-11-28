@@ -1,34 +1,31 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
-/**
- * COMPONENT
- */
-export const Home = props => {
-  const { email } = props;
+
+export const UserHome = props => {
+  const { firstName } = props;
 
   return (
     <div>
-      <h3>UserHome</h3>
+      <h3>Welcome, {firstName}</h3>
+      <h4>This is your dashboard. Here, you can access all of your productivity tools.</h4>
+
+      <Link to="/grocery">Grocery List</Link>
+
     </div>
   );
 };
 
-/**
- * CONTAINER
- */
 const mapState = state => {
   return {
-    email: state.user.email
+    firstName: state.user.firstName
   };
 };
 
-export default connect(mapState)(Home);
+export default connect(mapState)(UserHome);
 
-/**
- * PROP TYPES
- */
-Home.propTypes = {
-  email: PropTypes.string
+UserHome.propTypes = {
+  firstName: PropTypes.string
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setQuantity } from '../store';
+import { setQuantity } from '../../store';
 
 const GroceryItem = ({ onClick, bought, text, id, setQuantity }) => {
   const handleChange = evt => {
