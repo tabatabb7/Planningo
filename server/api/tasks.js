@@ -66,8 +66,8 @@ router.delete("/:taskId", async (req, res, next) => {
   try {
     await Task.destroy({
       where: {
-        userId: req.user.id,
-      },
+        id: req.params.taskId
+      }
     });
     res.sendStatus(204);
   } catch (err) {
