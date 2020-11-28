@@ -33,7 +33,7 @@ export const setQuantity = (id, quantity) => ({
   quantity,
 });
 
-const reducer = (state = { groceries: [], visFilter: SHOW_ALL }, action) => {
+export default function(state = { groceries: [], visFilter: SHOW_ALL }, action){
   switch (action.type) {
     case ADD_GROCERY:
       const newGrocery = {

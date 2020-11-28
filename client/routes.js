@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch } from "react-router-dom";
 import PropTypes from "prop-types";
-import { UserHome, Login, Signup, UserGroups, Account, EditAccount, TaskList, SingleTask, CreateTask } from "./components";
+import { UserHome, HomePage, Login, Signup, UserGroups, Account, AccountSettings, GroceryHome, Calendar, TaskList, SingleTask, CreateTask} from "./components";
 import { me } from "./store";
 
 class Routes extends Component {
@@ -17,6 +17,7 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route exact path="/" component={HomePage}/>
         <Route exact path="/tasks" component={TaskList} />
         <Route exact path="/tasks/:taskId" component={SingleTask} />
         <Route exact path="/add" component={CreateTask} />
@@ -27,7 +28,9 @@ class Routes extends Component {
             <Route exact path="/home" component={UserHome} />
             <Route path="/groups" component={UserGroups} />
             <Route exact path="/account" component={Account} />
-            <Route exact path="/account/settings" component={EditAccount} />
+            <Route exact path="/account/settings" component={AccountSettings} />
+            <Route path="/grocery" component={GroceryHome} />
+            <Route path="/calendar" component={Calendar} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}

@@ -2,21 +2,18 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-/**
- * COMPONENT
- */
 export const UserGroups = props => {
 
   return (
     <div>
-      <h3>My Groups</h3>
+      <h3>You are not a part of any groups.</h3>
+      <h4>? What are groups ?</h4>
+      <h3>Create Group</h3>
+      <h3>Join Group</h3>
     </div>
   );
 };
 
-/**
- * CONTAINER
- */
 const mapState = state => {
   return {
     firstName: state.user.firstName
@@ -25,9 +22,6 @@ const mapState = state => {
 
 export default connect(mapState)(UserGroups);
 
-/**
- * PROP TYPES
- */
 UserGroups.propTypes = {
   firstName: PropTypes.string
 };

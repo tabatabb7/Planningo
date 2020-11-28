@@ -32,14 +32,10 @@ const User = db.define("user", {
 
   },
   //for protecting api routes
-  // isAdmin:{
-  //   type: Sequelize.BOOLEAN,
-  //   allowNull: false;
-  // }
-  //for social - able to assign tasks
-  // taskAdmin:{
-  //   type: Sequelize.BOOLEAN,
-  // }
+  isAdmin:{
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+  },
   password: {
     type: Sequelize.STRING,
     allowNull: false,

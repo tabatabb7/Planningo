@@ -5,7 +5,7 @@ import GroceryList from "./GroceryList";
 
 const GroceryHome = () => (
   <div className="grocery-home">
-    
+
 
     <div className="list">
       <AddGrocery />
