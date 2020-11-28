@@ -2,20 +2,14 @@ const Sequelize = require("sequelize");
 const db = require("../db");
 
 const Task = db.define("tasks", {
-  taskName: {
+  name: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
   },
-  userId: {
-    type: Sequelize.INTEGER,
-    allowNull: false
-  },
-  completed: {
+  isCompleted: {
     type: Sequelize.BOOLEAN,
+    defaultValue: false,
   },
-  tasksCompleted: {
-    type: Sequelize.INTEGER,
-  }
 });
 
 module.exports = Task;
