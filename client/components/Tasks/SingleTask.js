@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
-import { fetchTaskThunk } from "../store/singletask"
+import { fetchTaskThunk } from "../../store/singletask"
 
 class SingleTask extends Component {
 
@@ -18,8 +18,7 @@ class SingleTask extends Component {
 
     return (
       <div id='single-task'>
-        <h3>{task.taskName}</h3>
-        <p>Assigned to: {task.userId} </p>
+        <h3>{task.name}</h3>
       </div>
     )
   }

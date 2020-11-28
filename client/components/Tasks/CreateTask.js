@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { addTaskThunk } from "../store/tasks"
+import { addTaskThunk } from "../../store/tasks"
 import { connect } from "react-redux";
 
 
