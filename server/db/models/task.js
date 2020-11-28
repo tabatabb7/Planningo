@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
 
-const Todo = db.define("todos", {
+const Task = db.define("tasks", {
   taskName: {
     type: Sequelize.STRING,
     allowNull: false
@@ -12,12 +12,10 @@ const Todo = db.define("todos", {
   },
   completed: {
     type: Sequelize.BOOLEAN,
-    allowNull: false
   },
   tasksCompleted: {
     type: Sequelize.INTEGER,
-    allowNull: false
   }
 });
 
-module.exports = Todo;
+module.exports = Task;

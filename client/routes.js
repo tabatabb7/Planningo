@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch } from "react-router-dom";
 import PropTypes from "prop-types";
-import { UserHome, HomePage, Login, Signup, UserGroups, Account, AccountSettings, GroceryHome, Calendar} from "./components";
+import { UserHome, HomePage, Login, Signup, UserGroups, Account, AccountSettings, GroceryHome, Calendar, TaskList, SingleTask, CreateTask} from "./components";
 import { me } from "./store";
 
 class Routes extends Component {
@@ -18,6 +18,10 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/" component={HomePage}/>
+        <Route exact path="/tasks" component={TaskList} />
+        <Route exact path="/tasks/:taskId" component={SingleTask} />
+        <Route exact path="/add" component={CreateTask} />
+
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
