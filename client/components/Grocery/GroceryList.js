@@ -80,7 +80,7 @@ class GroceryList extends React.Component {
           <button type="submit">Add</button>
         </form>
 
-        <h3>YOUR GROCERY LIST</h3>
+        <h3>My Groceries</h3>
         {groceries.map((grocery) => (
           <p key={grocery.id}>
             {grocery.name}

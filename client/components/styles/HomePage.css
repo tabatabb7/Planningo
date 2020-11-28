@@ -1,19 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500&display=swap");
 
-.homepage-hero {
-  background-color: #fc6c6c;
-  height: 70vh;
+.homepage-body {
+  height: 100%;
+  width: 100%;
   display: flex;
   justify-content: center;
   font-family: "IBM Plex Serif", serif;
-  align-items: center;
-  flex-direction: column;
-}
-
-#homepage-body{
-  display: flex;
-  justify-content: center;
-  font-family: "IBM Plex Serif", serif;
-  align-items: center;
-  flex-direction: column;
 }

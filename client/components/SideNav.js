@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import {logout} from '../store';
 import { Link } from "react-router-dom";
 import "./styles/SideNav.css";
 
-const SideNav = ({ handleClick, isLoggedIn, firstName }) => (
+const SideNav = ({ handleClick, isLoggedIn, user }) => (
   <div className="sidenav-wrapper">
     <div id="logo">
       <Link to="/home">Home</Link>
@@ -15,15 +16,17 @@ const SideNav = ({ handleClick, isLoggedIn, firstName }) => (
           <h3>My Tools</h3>
           <Link to="/tasks">Tasks</Link>
           <Link to="/grocery">Groceries</Link>
-        </div>
-        <div className="accountlinks">
           <Link to="/groups">My Groups</Link>
-
+        </div>
+        <div className="account-box">
+        <Link to="/account"><img src={user.avatarUrl}></img></Link>
+        <div className="accountlinks">
+          <div>{user.firstName} {user.lastName}</div>
           <Link to="/account">My Account</Link>
-
           <a href="#" onClick={handleClick}>
             Sign Out
           </a>
+          </div>
         </div>
       </React.Fragment>
     ) : (
@@ -39,7 +42,7 @@ const SideNav = ({ handleClick, isLoggedIn, firstName }) => (
 
 const mapState = (state) => {
   return {
-    firstName: state.user.firstName,
+    user: state.user,
     isLoggedIn: !!state.user.id,
   };
 };
@@ -55,7 +58,7 @@ const mapDispatch = (dispatch) => {
 export default connect(mapState, mapDispatch)(SideNav);
 
 SideNav.propTypes = {
-  firstName: PropTypes.string,
+  user: PropTypes.object.isRequired,
   handleClick: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
 };
