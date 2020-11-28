@@ -5,11 +5,13 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import user from './user';
 import tasks from './tasks';
 import singletask from './singletask';
+import groceries from './groceries'
 
 const reducer = combineReducers({
   user,
   singletask,
-  tasks
+  tasks,
+  groceries
 });
 
 const middleware = composeWithDevTools(
@@ -19,4 +21,3 @@ const store = createStore(reducer, middleware);
 
 export default store;
 export * from './user';
-export * from './grocery'

@@ -39,14 +39,6 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-// router.post("/", async (req, res, next) => {
-//   try {
-//     const task = await Task.create(req.body);
-//     res.json(task);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
 
 router.put("/:taskId", async (req, res, next) => {
   try {

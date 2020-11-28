@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch } from "react-router-dom";
 import PropTypes from "prop-types";
-import { UserHome, HomePage, Login, Signup, UserGroups, Account, AccountSettings, GroceryHome, Calendar, TaskList} from "./components";
+import { UserHome, HomePage, Login, Signup, UserGroups, Account, AccountSettings, GroceryList, Calendar, TaskList} from "./components";
 import { me } from "./store";
 
 class Routes extends Component {
@@ -25,7 +25,7 @@ class Routes extends Component {
             <Route path="/groups" component={UserGroups} />
             <Route exact path="/account" component={Account} />
             <Route exact path="/account/settings" component={AccountSettings} />
-            <Route path="/grocery" component={GroceryHome} />
+            <Route path="/grocery" component={GroceryList} />
             {/* <Route path="/calendar" component={Calendar} /> */}
             <Route exact path="/tasks" component={TaskList} />
           </Switch>

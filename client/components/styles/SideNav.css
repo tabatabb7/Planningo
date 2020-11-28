@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap');
+
+.sidenav-wrapper{
+  background-color: #374785;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 20vw;
+  color: #A8D0E6;
+  font-family: 'Raleway', sans-serif;
+
+}
+
+#logo{
+  margin-top: 20%;
+}
+
+.sidenav-wrapper a{
+  color: white;
+  text-decoration: none;
+}
+
+.accountlinks{
+  float: right;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10%;
+  justify-content: space-evenly;
+  height: 10%;
+}
+
+#myTools{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  max-height: 50%;
+  min-height: 20%;
+}

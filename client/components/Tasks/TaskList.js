@@ -1,7 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { fetchTasksThunk, addTaskThunk, removeTaskThunk } from "../../store/tasks";
+import { updateSingleTask } from "../../store/singletask";
+import SingleTask from './SingleTask'
+
+import {
+  fetchTasksThunk,
+  addTaskThunk,
+  removeTaskThunk,
+} from "../../store/tasks";
 
 class TaskList extends React.Component {
   constructor(props) {
@@ -9,9 +15,11 @@ class TaskList extends React.Component {
 
     this.state = {
       name: "",
+      showModal: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.showModal = this.showModal.bind(this);
   }
   componentDidMount() {
     this.props.fetchTasks(this.props.match.params.userId);
@@ -26,7 +34,10 @@ class TaskList extends React.Component {
   async handleSubmit(event) {
     event.preventDefault();
     try {
-      this.props.addTask(this.state);
+      await this.props.addTask(this.state);
+      this.setState({
+        name: "",
+      });
     } catch (err) {
       console.log("error creating task", err);
     }
@@ -41,6 +52,19 @@ class TaskList extends React.Component {
     }
   }
 
+  async updateTask(studentId) {
+    try {
+      await this.props.updateStudentThunk(studentId);
+      this.props.fetchStudents();
+    } catch (err) {
+      console.error(err);
+    }
+  }
+  showModal(e) {
+    this.setState({ showModal: true });
+  }
+
+
   render() {
     let { tasks } = this.props;
 
@@ -52,7 +76,7 @@ class TaskList extends React.Component {
             name="name"
             type="text"
             onChange={this.handleChange}
-            value={this.props.name}
+            value={this.state.name}
           />
           <button type="submit">Add</button>
         </form>
@@ -60,7 +84,7 @@ class TaskList extends React.Component {
         <h3>YOUR TASKS</h3>
         {tasks.map((task) => (
           <p key={task.id}>
-            <Link to={`tasks/${task.id}`}> {task.name} </Link>
+            {task.name}
             <button
               onClick={() => this.handleDelete(task.id)}
               className="deleteTask"
@@ -83,6 +107,7 @@ const mapDispatch = (dispatch) => ({
   fetchTasks: (userId) => dispatch(fetchTasksThunk(userId)),
   deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
   addTask: (task) => dispatch(addTaskThunk(task)),
+  updateTask: (task) => dispatch(updateSingleTask(task))
 });
 
 export default connect(mapState, mapDispatch)(TaskList);

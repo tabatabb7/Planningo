@@ -1,12 +1,14 @@
 import React from "react";
-import { Navbar } from "./components";
+import { SideNav } from "./components";
 import Routes from "./routes";
+import "./components/styles/App.css";
 
 const App = () => {
   return (
-    <div>
-      <Navbar />
-      <Routes />
+    <div className="app-wrap">
+        <SideNav/>
+        <div id="sitebody">
+      <Routes /></div>
     </div>
   );
 };
