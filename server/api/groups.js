@@ -18,12 +18,7 @@ router.get("/", async (req, res, next) => {
 
 router.get("/:groupId", async (req, res, next) => {
   try {
-    const group = await User_Group.findOne({
-      where: {
-        userId: req.user.id,
-        groupId: req.params.groupId,
-      },
-    });
+    const group = await Group.findByPk(req.params.groupId)
     res.json(group);
   } catch (err) {
     next(err);
@@ -34,6 +29,7 @@ router.post("/", async (req, res, next) => {
   try {
     const group = await Group.create({
           name: req.body.name,
+          description: req.body.description
         })
       await User_Group.create({
         userId: req.user.id,
