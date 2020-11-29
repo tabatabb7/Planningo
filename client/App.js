@@ -1,14 +1,17 @@
 import React from "react";
 import { SideNav } from "./components";
+import {BottomNav} from './components'
 import Routes from "./routes";
-import "./components/styles/App.css";
+import "./App.css";
 
 const App = () => {
   return (
     <div className="app-wrap">
         <SideNav/>
         <div id="sitebody">
-      <Routes /></div>
+      <Routes />
+      <BottomNav/></div>
+
     </div>
   );
 };

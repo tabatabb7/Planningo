@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import "./styles/UserHome.css";
+import "./UserHome.css";
 
 
 export const UserHome = props => {

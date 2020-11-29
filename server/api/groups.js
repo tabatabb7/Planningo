@@ -4,13 +4,14 @@ const { Group, User_Group } = require("../db/models");
 //GET /api/groups
 router.get("/", async (req, res, next) => {
   try {
-    const group = await Group.findAll()
-    await User_Group.findAll({
-      where: {
-        userId: req.user.id
-      }
-    })
-    res.json(group);
+    const groups = await req.user.getGroups()
+    // const group = await Group.findAll()
+    // await User_Group.findAll({
+    //   where: {
+    //     userId: req.user.id
+    //   }
+    // })
+    res.json(groups);
   } catch (err) {
     next(err);
   }
