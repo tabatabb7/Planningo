@@ -11,8 +11,6 @@
   color: #A8D0E6;
   font-family: 'Raleway', sans-serif;
   max-height: 100vh;
-  padding-top: 20%;
-  padding-bottom: 5%;
 }
 
 /* #logo{
@@ -31,7 +29,7 @@
 .account-box{
   display: flex;
   background-color: #F76c6c;
-  min-height: 15%;
+  height: 10%;
   padding: 2%;
   width: 80%;
   justify-content: center;
@@ -49,7 +47,6 @@
 
 .accountlinks a{
   color: black;
-
 }
 
 #myTools{
