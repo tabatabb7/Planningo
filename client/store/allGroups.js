@@ -1,77 +1,69 @@
 import axios from "axios";
 
-// ACTIONS
-const SET_ALL_GROUPS = "SET_ALL_GROUPS";
-const CREATE_GROUP = "CREATE_GROUP";
+/**
+ * ACTION TYPES
+ */
+
+const GET_GROUPS = "GET_GROUPS";
+const ADD_GROUP = "ADD_GROUP";
 const DELETE_GROUP = "DELETE_GROUP";
 
-// ACTION CREATORS
-export const setAllGroups = (groups) => ({
-  type: SET_ALL_GROUPS,
-  groups,
-});
+/**
+ * INITIAL STATE
+ */
 
-export const createGroup = (group) => ({
-  type: CREATE_GROUP,
-  group,
-});
+const initialState = [];
 
-export const deleteGroup = (id) => ({
-  type: DELETE_GROUP,
-  id,
-});
+/**
+ * ACTION CREATORS
+ */
+const getGroups = (groups) => ({ type: GET_GROUPS, groups });
+const addGroup = (group) => ({ type: ADD_GROUP, group });
+const deleteGroup = (groupId) => ({ type: DELETE_GROUP, groupId });
 
-// THUNK CREATORS
+/**
+ * THUNK CREATORS
+ */
 
-//get a user's groups
-export const fetchGroupThunk = () => {
-  return async (dispatch) => {
-    try {
-      const { data: groups } = await axios.get(`/api/${userId}/groups`);
-      dispatch(setAllGroups(groups));
-    } catch (err) {
-      console.log(err);
-    }
-  };
+export const fetchGroupsThunk = () => async (dispatch) => {
+  try {
+    console.log("inside thunks");
+    const { data: groups } = await axios.get(`/api/groups`);
+    console.log(groups, "groups inside thunks");
+    dispatch(getGroups(groups));
+  } catch (error) {
+    console.log("error fetching groups");
+  }
 };
 
-//create a group
-export const createGroupThunk = (group) => {
-  return async (dispatch) => {
-    try {
-      const {data} = await axios.post(`/api/groups`, group);
-      dispatch(createGroup(data));
-    } catch (error) {
-      console.log('error creating group', group);
-    }
-  };
+export const addGroupThunk = (group) => async (dispatch) => {
+  try {
+    const { data: newGroup } = await axios.post("/api/groups", group);
+    dispatch(addGroup(newGroup));
+  } catch (error) {
+    console.error("Error adding group!");
+    console.error(error);
+  }
 };
 
-//delete a group
-export const deleteGroupThunk = (id) => {
-  return async (dispatch) => {
-    try {
-      const {data} = await axios.delete(`/api/groups/{id}`);
-      dispatch(deleteGroup(data));
-    } catch (error) {
-      console.log(`error deleting group with id ${id}`, error);
-    }
-  };
+export const removeGroupThunk = (groupId) => async (dispatch) => {
+  try {
+    await axios.delete(`/api/groups/${groupId}`);
+    dispatch(deleteGroup(groupId));
+  } catch (error) {
+    console.error("Error deleting group!");
+    console.error(error);
+  }
 };
 
-
-
-// REDUCER
-const initialState = {};
-
-export default function groupReducer(state = initialState, action) {
+export default function groupsReducer(state = initialState, action) {
   switch (action.type) {
-    case SET_ALL_GROUPS:
+    case GET_GROUPS:
       return action.groups;
-    case CREATE_GROUP:
+    case ADD_GROUP:
       return [...state, action.group];
     case DELETE_GROUP:
-      return [...state]
+      return [...state];
     default:
       return state;
   }
