@@ -1,8 +1,8 @@
 export { default as SideNav } from "./Navigation/SideNav";
 export { default as BottomNav } from "./Navigation/BottomNav";
 
-export { default as UserHome } from "./UserHome";
-export { default as HomePage } from "./HomePage";
+export { default as UserHome } from "./UserHome/UserHome";
+export { default as HomePage } from "./AllHome/HomePage";
 //login/signup
 export { Login, Signup } from "./UserAccount/AuthForm";
 
