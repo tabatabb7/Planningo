@@ -1,90 +1,90 @@
 const router = require("express").Router();
-const { Group, User_Group, User } = require("../db/models");
+const { Group, User_Group } = require("../db/models");
 
-//GET /api/groups
+//GET all groups associated with a user
 router.get("/", async (req, res, next) => {
   try {
-    console.log("inside api routes");
-    //find all group ids on user group where userId matches
-    //return groups from group table where groupid matches
-    const group = await User_Group.findAll({
-      userId: req.user.id,
-    });
-    const allGroups = await Group.findAll({
-      groupId: group.id,
-    });
-
-    // User.getGroup();
-    //     const groups = await Group.findAll({
-    //       where: {
-    //         userId: req.user.id,
-    //       },
-    //       include: {
-    //         userId:
-    //       },
-    //     });
-
-    console.log("groups inside api routes", groups);
-    // const groups = await Group.findAll({
-    //   where: {
-    //     userId: req.user.id,
-    //   },
-    // });
-    res.json(allGroups);
-  } catch (err) {
-    next(err);
-  }
-});
-
-router.get("/:groupId", async (req, res, next) => {
-  try {
-    const group = await User_Group.findOne({
+    const groups = await User_Group.findAll({
       where: {
         userId: req.user.id,
-        groupId: req.params.groupId,
       },
     });
-    res.json(group);
+    console.log(groups, "groups from get route");
+    // const userGroups = await Group.findAll({
+    //   where: {
+    //     groupId: groups.groupId,
+    //   },
+    // });
+    res.send(groups);
   } catch (err) {
     next(err);
   }
 });
 
-router.post("/", async (req, res, next) => {
-  try {
-    const group = await User_Group.create({
-      userId: req.user.id,
-      name: req.body.name,
-    });
-
-    res.json(group);
-  } catch (err) {
-    next(err);
-  }
-});
-
-router.put("/:groupId", async (req, res, next) => {
+//GET single group
+router.get("/:groupId", async (req, res, next) => {
   try {
     const group = await Group.findOne({
       where: {
         userId: req.user.id,
+        id: req.params.groupId,
+      },
+      include: {
+        model: User_Group,
       },
     });
-    await Group.update(req.body);
+    res.send(group);
+  } catch (err) {
+    next(err);
+  }
+});
+
+//POST group
+router.post("/", async (req, res, next) => {
+  try {
+    const group = await Group.create({ name: req.body.name });
+    //check User Group table
+    //findorcreate where userId: req.user.id, groupId: group.id
+
+    const newGroup = await User_Group.findOrCreate({
+      where: {
+        userId: req.user.id,
+        groupId: group.id,
+      },
+      defaults: {
+        isActive: true,
+        name: group.name,
+      },
+    });
     res.json(group);
   } catch (err) {
     next(err);
   }
 });
 
+//PUT group
+router.put("/:groupId", async (req, res, next) => {
+  try {
+    const group = await Group.findByPk(req.params.groupId);
+    group.update(req.body);
+    res.json(group);
+  } catch (err) {
+    next(err);
+  }
+});
+
+//DELETE group
 router.delete("/:groupId", async (req, res, next) => {
   try {
-    await Group.destroy({
+    const group = await Group.findOne({
+      where: { id: req.params.groupId },
+    });
+    console.log(group, "group inside delete route");
+    await User_Group.destroy({
       where: {
-        id: req.params.groupId,
+        groupId: group.id,
       },
     });
-    res.sendStatus(204);
   } catch (err) {
     next(err);
   }

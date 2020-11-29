@@ -3,7 +3,7 @@ const User = require("./user");
 const Task = require("./task");
 const Group = require("./group");
 const Grocery = require("./grocery");
-
+const User_Group = require("./user_group");
 //ASSOCIATIONS
 
 //User and Group --- many-to-many association w/ through table
@@ -28,4 +28,5 @@ module.exports = {
   Task,
   Group,
   Grocery,
+  User_Group,
 };

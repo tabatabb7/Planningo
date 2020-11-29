@@ -53,7 +53,7 @@ class GroupList extends React.Component {
   async handleDelete(id) {
     try {
       await this.props.deleteGroup(id);
-      this.props.fetchGroups();
+      this.props.fetchGroups(this.props.match.params.userId);
     } catch (err) {
       console.error(err);
     }
@@ -73,21 +73,21 @@ class GroupList extends React.Component {
 
   render() {
     let { groups } = this.props;
-
+    console.log(groups, "inside the render grouplist");
     return (
       <div className="group-wrapper">
         <h1 className="tool-title">My Groups</h1>
         <div id="group-box">
           {groups.map((group) => (
-            <p key={group.id} className="singlegroup">
+            <div key={group.groupId} className="singlegroup">
               {group.name}
               <button
-                onClick={() => this.handleDelete(group.id)}
+                onClick={() => this.handleDelete(group.groupId)}
                 className="deletegroup"
               >
                 X
               </button>
-            </p>
+            </div>
           ))}
         </div>
         <form id="add-group-form" onSubmit={this.handleSubmit}>
