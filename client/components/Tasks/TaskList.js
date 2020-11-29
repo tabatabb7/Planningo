@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { updateSingleTask } from "../../store/singletask";
 import SingleTask from './SingleTask'
-import "../styles/Tasks.css";
+import "./Tasks.css";
 
 
 import {
