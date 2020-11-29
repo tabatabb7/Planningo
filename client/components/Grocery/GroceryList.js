@@ -63,7 +63,6 @@ class GroceryList extends React.Component {
     this.setState({ showModal: true });
   }
 
-
   render() {
     let { groceries } = this.props;
 

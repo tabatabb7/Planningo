@@ -1,17 +1,19 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { createLogger } from 'redux-logger';
-import thunkMiddleware from 'redux-thunk';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import user from './user';
-import tasks from './tasks';
-import singletask from './singletask';
-import groceries from './groceries'
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import { createLogger } from "redux-logger";
+import thunkMiddleware from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
+import user from "./user";
+import tasks from "./tasks";
+import singletask from "./singletask";
+import groceries from "./groceries";
+import groups from "./allGroups";
 
 const reducer = combineReducers({
   user,
   singletask,
   tasks,
-  groceries
+  groceries,
+  groups,
 });
 
 const middleware = composeWithDevTools(
@@ -20,4 +22,4 @@ const middleware = composeWithDevTools(
 const store = createStore(reducer, middleware);
 
 export default store;
-export * from './user';
+export * from "./user";
