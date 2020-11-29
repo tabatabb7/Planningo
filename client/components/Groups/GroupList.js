@@ -77,6 +77,7 @@ class GroupList extends React.Component {
     return (
       <div className="group-wrapper">
         <h1 className="tool-title">My Groups</h1>
+        {!groups.length ? 'You are not a part of any groups.' : (
         <div id="group-box">
           {groups.map((group) => (
             <div key={group.id} className="singlegroup">
@@ -90,6 +91,7 @@ class GroupList extends React.Component {
             </div>
           ))}
         </div>
+                  )}
         <form id="add-group-form" onSubmit={this.handleSubmit}>
           <label htmlFor="name">Add Group:</label>
           <input
