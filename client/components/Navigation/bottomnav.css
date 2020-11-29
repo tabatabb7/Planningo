@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap');
+
+.bottomnav-wrapper{
+  background-color: #374785;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  bottom: 0;
+  position: fixed;
+  height: 5vh;
+}
+
+.bottomnav-wrapper a{
+  color: white;
+}
+/* hide on anything that isn't */
+@media (min-width: 767px) {
+  .bottomnav-wrapper{
+      display:none;
+  }
+}

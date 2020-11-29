@@ -13,6 +13,14 @@
   max-height: 100vh;
 }
 
+/* hide on mobile */
+@media (max-width: 767px) {
+  .sidenav-wrapper{
+      display:none;
+  }
+}
+
+
 /* #logo{
 }
  */
