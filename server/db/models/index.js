@@ -3,10 +3,10 @@ const User = require("./user");
 const Task = require("./task");
 const Group = require("./group");
 const Grocery = require("./grocery");
-const User_Group = require("./user_group");
 //ASSOCIATIONS
 
 //User and Group --- many-to-many association w/ through table
+const User_Group = db.define('User_Group', {})
 User.belongsToMany(Group, { through: "User_Group" });
 Group.belongsToMany(User, { through: "User_Group" });
 //Task and Group --- one-to-many with through table
