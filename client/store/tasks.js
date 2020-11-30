@@ -36,6 +36,7 @@ export const fetchTasksThunk = () => async (dispatch) => {
 
 export const addTaskThunk = (task) => async (dispatch) => {
   try {
+    console.log(task)
     const { data: newTask } = await axios.post("/api/tasks/", task);
     dispatch(addTask(newTask));
   } catch (error) {

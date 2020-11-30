@@ -1,13 +1,9 @@
 const router = require("express").Router();
-const { Task } = require("../db/models");
+const { Task, User_Task } = require("../db/models");
 
 router.get("/", async (req, res, next) => {
   try {
-    const tasks = await Task.findAll({
-      where: {
-        userId: req.user.id,
-      },
-    });
+    const tasks = await req.user.getTasks()
     res.json(tasks);
   } catch (err) {
     next(err);
@@ -32,6 +28,10 @@ router.post("/", async (req, res, next) => {
     const task = await Task.create({
       userId: req.user.id,
       name: req.body.name,
+    });
+    await User_Task.create({
+      userId: req.user.id,
+      taskId: task.id,
     });
     res.json(task);
   } catch (err) {

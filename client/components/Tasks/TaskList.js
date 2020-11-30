@@ -46,6 +46,7 @@ class TaskList extends React.Component {
     event.preventDefault();
     try {
       await this.props.addTask(this.state);
+      console.log(this.state)
       this.setState({
         name: "",
       });
@@ -78,12 +79,14 @@ class TaskList extends React.Component {
 
   render() {
     let { tasks } = this.props;
+    // console.log(tasks)
 
     return (
       <div className="task-wrapper">
         <h1 className="tool-title">My Tasks</h1>
         <div id="task-box">
-        {tasks.map((task) => (
+        {tasks.length ? 
+        tasks.map((task) => (
           <p key={task.id} className="singletask">
             {task.name}
             <button
@@ -93,7 +96,7 @@ class TaskList extends React.Component {
               X
             </button>
           </p>
-        ))}
+        )) : "You have no tasks"}
         </div>
         <form id="add-task-form" onSubmit={this.handleSubmit}>
           <label htmlFor="name">Add Task:</label>

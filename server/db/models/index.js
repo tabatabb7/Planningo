@@ -1,7 +1,6 @@
 const db = require("../db");
 const User = require("./user");
 const Task = require("./task");
-const User_Task = require("./task");
 const Group = require("./group");
 const Grocery = require("./grocery");
 const Sequelize = require("sequelize");
@@ -24,6 +23,9 @@ Task.belongsToMany(Group, {through: "Task_Group"});
 Group.belongsToMany(Task, {through: "Task_Group"})
 
 //user and task. We might need through table once we put groups in? not sure
+const User_Task = db.define("User_Task", {
+});
+
 User.belongsToMany(Task, {through: "User_Task"});
 Task.belongsToMany(User, {through: "User_Task"});
 
