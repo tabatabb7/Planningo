@@ -130,5 +130,12 @@
     "lastName": "Collado",
     "email": "nads@gmail.com",
     "password": "1234"
+  },
+  {
+    "firstName": "Sally",
+    "lastName": "Yoo",
+    "email": "sally@gmail.com",
+    "password": "123",
+    "isAdmin": "true"
   }
 ]

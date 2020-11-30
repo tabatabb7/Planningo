@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-// import { updateSingleGroceryItem } from "../../store/singleGrocery";
 
 import {
   fetchGroceriesThunk,
@@ -8,7 +7,7 @@ import {
   removeGroceryItemThunk,
 } from "../../store/groceries";
 
-class GroceryList extends React.Component {
+class GroupGroceryList extends React.Component {
   constructor(props) {
     super(props);
 
@@ -51,21 +50,13 @@ class GroceryList extends React.Component {
     }
   }
 
-  // async updateTask(studentId) {
-  //   try {
-  //     await this.props.updateStudentThunk(studentId);
-  //     this.props.fetchStudents();
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // }
   showModal(e) {
     this.setState({ showModal: true });
   }
 
   render() {
     let { groceries } = this.props;
-    console.log(this.props, "this.props in render of grocerylist");
+    console.log(this.props, "this.props in render of groupgrocerylist");
 
     return (
       <div id="groceries-wrap">
@@ -109,4 +100,4 @@ const mapDispatch = (dispatch) => ({
   // updateItem: (grocery) => dispatch(updateSingleGroceryItem(grocery))
 });
 
-export default connect(mapState, mapDispatch)(GroceryList);
+export default connect(mapState, mapDispatch)(GroupGroceryList);

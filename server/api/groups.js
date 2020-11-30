@@ -5,12 +5,14 @@ const { Group, User_Group, User } = require("../db/models");
 router.get("/", async (req, res, next) => {
   try {
     const group = await Group.findAll({
-      include: [{
-        model: User,
-        where: {
-          id: req.user.id
-        }
-      }]
+      include: [
+        {
+          model: User,
+          where: {
+            id: req.user.id,
+          },
+        },
+      ],
     });
     res.json(group);
   } catch (err) {
@@ -18,18 +20,30 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-
 //GET single group
 router.get("/:groupId", async (req, res, next) => {
   try {
     const group = await Group.findByPk(req.params.groupId, {
       include: {
         model: User,
-      }
+      },
     });
     res.json(group);
   } catch (err) {
     next(err);
+  }
+});
+//GET /api/groups/:groupId/grocery
+router.get("/:groupId/grocery", async (req, res, next) => {
+  try {
+    const grocery = await Grocery.findAll({
+      where: {
+        groupId: req.params.groupId,
+      },
+    });
+    res.json(grocery);
+  } catch (error) {
+    next(error);
   }
 });
 
@@ -43,7 +57,7 @@ router.post("/", async (req, res, next) => {
     await User_Group.create({
       userId: req.user.id,
       groupId: group.id,
-      role: 'owner'
+      role: "owner",
     });
     res.json(group);
   } catch (err) {
@@ -66,7 +80,7 @@ router.put("/:groupId", async (req, res, next) => {
 router.delete("/:groupId", async (req, res, next) => {
   try {
     await Group.destroy({
-      where: { id: req.params.groupId }
+      where: { id: req.params.groupId },
     });
     res.sendStatus(204);
   } catch (err) {
@@ -80,7 +94,7 @@ router.post("/:groupId", async (req, res, next) => {
     const newUser = await User_Group.findOrCreate({
       where: {
         groupId: req.params.groupId,
-        userId: req.body.userId
+        userId: req.body.userId,
       },
     });
     res.json(newUser);
@@ -95,11 +109,10 @@ router.delete("/:groupId/:userId", async (req, res, next) => {
     await User_Group.destroy({
       where: {
         groupId: req.params.groupId,
-        userId: req.params.userId
+        userId: req.params.userId,
       },
     });
     res.sendStatus(204);
-
   } catch (err) {
     next(err);
   }
