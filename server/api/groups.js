@@ -4,11 +4,13 @@ const { Group, User_Group, User } = require("../db/models");
 //GET groups for a member
 router.get("/", async (req, res, next) => {
   try {
-    const group = await Group.findAll();
-    await User_Group.findAll({
-      where: {
-        userId: req.user.id,
-      },
+    const group = await Group.findAll({
+      include: [{
+        model: User,
+        where: {
+          id: req.user.id
+        }
+      }]
     });
     res.json(group);
   } catch (err) {
@@ -16,13 +18,13 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+
 //GET single group
 router.get("/:groupId", async (req, res, next) => {
   try {
     const group = await Group.findByPk(req.params.groupId, {
       include: {
         model: User,
-        through: {attributes: []}
       }
     });
     res.json(group);
@@ -41,6 +43,7 @@ router.post("/", async (req, res, next) => {
     await User_Group.create({
       userId: req.user.id,
       groupId: group.id,
+      role: 'owner'
     });
     res.json(group);
   } catch (err) {

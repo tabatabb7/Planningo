@@ -1,7 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-
+import {Redirect} from 'react-router-dom';
 import { addGroupThunk } from "../../store/allGroups";
+
+/*TODOS:
+1. allow group creator to choose whether private/public group? (can be changed later when we make settings) like invite only? or anyone can just join.. etc
+2. option to invite members when creating
+3. redirect to new group page onsubmit
+*/
 
 class CreateGroup extends React.Component {
   constructor() {
@@ -10,6 +16,7 @@ class CreateGroup extends React.Component {
     this.state = {
       name: "",
       description: "",
+      redirectTo: null,
       // showError: false,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -31,16 +38,19 @@ class CreateGroup extends React.Component {
         alert("group name can't be empty!")
       }
       this.setState({
-        name: "",
-        description: "",
+        redirectTo: '/groups'
       });
+      alert(`Your group "${this.state.name}" was created! Redirecting you to your groups page..`)
     } catch (err) {
       console.log("error creating group", err);
     }
   }
 
   render() {
-    return (
+      if (this.state.redirectTo) {
+        return <Redirect to={{pathname: this.state.redirectTo}} />;
+      } else {
+        return(
       <div className="group-wrapper">
         <h1>Create Group</h1>
 
@@ -66,6 +76,7 @@ class CreateGroup extends React.Component {
       </div>
     );
   }
+}
 }
 
 const mapDispatch = (dispatch) => ({
