@@ -2,7 +2,6 @@ import axios from "axios";
 
 //ACTIONS
 const SET_SINGLE_GROUP = "SET_SINGLE_GROUP";
-
 //ACTION CREATORS
 
 export const setSingleGroup = (group) => {
@@ -12,7 +11,9 @@ export const setSingleGroup = (group) => {
   };
 };
 
+
 //THUNK CREATORS
+
 export const fetchSingleGroup = (groupId) => {
   return async (dispatch) => {
     try {
@@ -25,12 +26,11 @@ export const fetchSingleGroup = (groupId) => {
   };
 };
 
-
 //update group info
 export const updateGroupThunk = (group) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.put(`/api/groups/${group.id}`, group);
+      const { data } = await axios.put(`/api/groups/${groupId}`, group);
       dispatch(setSingleGroup(data));
     } catch (error) {
       console.log("error updating group");
@@ -38,17 +38,16 @@ export const updateGroupThunk = (group) => {
   };
 };
 
-//add user to group
+// add user to group
 export const addToGroupThunk = (groupId, userId) => {
   return async (dispatch) => {
     try {
-      const { data: updatedGroup } = await axios.post(
-        `/api/groups/${groupId}/${userId}`,
-        {
-          userId,
+      const { data: newUser } = await axios.post(
+        `/api/groups/${groupId}`, {
+          userId
         }
       );
-      dispatch(receiveGroup(updatedGroup));
+      dispatch(setSingleGroup(newUser));
     } catch (err) {
       console.log(err);
     }
@@ -59,10 +58,10 @@ export const addToGroupThunk = (groupId, userId) => {
 export const deleteFromGroupThunk = (groupId, userId) => {
   return async (dispatch) => {
     try {
-      const { data: updatedGroup } = await axios.delete(
+      const { data: deletedUser } = await axios.delete(
         `/api/groups/${groupId}/${userId}`
       );
-      dispatch(receiveGroup(updatedGroup));
+      dispatch(setSingleGroup(deletedUser));
     } catch (err) {
       console.log(err);
     }

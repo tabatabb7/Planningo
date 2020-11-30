@@ -66,7 +66,7 @@ router.put("/:groupId", async (req, res, next) => {
 router.delete("/:groupId", async (req, res, next) => {
   try {
     await Group.destroy({
-      where: { id: req.params.groupId },
+      where: { id: req.params.groupId }
     });
     res.sendStatus(204);
   } catch (err) {
@@ -74,21 +74,35 @@ router.delete("/:groupId", async (req, res, next) => {
   }
 });
 
+//POST USER to group
+router.post("/:groupId", async (req, res, next) => {
+  try {
+    const newUser = await User_Group.findOrCreate({
+      where: {
+        groupId: req.params.groupId,
+        userId: req.body.userId
+      },
+    });
+    res.json(newUser);
+  } catch (err) {
+    next(err);
+  }
+});
+
 //DELETE USER from group
-// router.delete("/:groupId", async (req, res, next) => {
-//   try {
-//     const group = await Group.findOne({
-//       where: { id: req.params.id },
-//     });
-//     console.log(group, "group inside delete route");
-//     await User_Group.destroy({
-//       where: {
-//         groupId: group.id,
-//       },
-//     });
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+router.delete("/:groupId/:userId", async (req, res, next) => {
+  try {
+    await User_Group.destroy({
+      where: {
+        groupId: req.params.groupId,
+        userId: req.params.userId
+      },
+    });
+    res.sendStatus(204);
+
+  } catch (err) {
+    next(err);
+  }
+});
 
 module.exports = router;

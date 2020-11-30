@@ -2,32 +2,36 @@ import React from "react";
 import { connect } from "react-redux";
 import { updateGroupThunk, fetchSingleGroup } from "../../store/singleGroup";
 import { Link } from "react-router-dom";
-import { removeGroupThunk } from "../../store/allGroups";
-
-
-/* TODOS:
-1. move users list to its own component
-2. join button
-3. view group info page where you can leave group
-4. each  user pic in user list will link to the user's public profile : see UserPublicProfile in ./User
-*/
+import { addToGroupThunk, deleteFromGroupThunk } from "../../store/singleGroup";
 
 class SingleGroup extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      userId: "",
+    }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchGroup(this.props.match.params.groupId);
   }
 
-  async handleDelete(id) {
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  }
+  async handleSubmit(event) {
+    event.preventDefault();
     try {
-      await this.props.deleteGroup(id);
+      this.props.addUser(this.props.group.id, this.state.userId);
     } catch (err) {
-      console.error(err);
+      console.log("handlesubmit err", err);
     }
   }
+
 
   render() {
    const group = this.props.group;
@@ -35,6 +39,18 @@ class SingleGroup extends React.Component {
    return (
       <div key={group.id} id="group-info">
         Edit group
+        <form id="addform" onSubmit={this.handleSubmit}>
+        <h3>Add a User</h3>
+        <label htmlFor="userId">id</label>
+        <input
+          name="userId"
+          type="text"
+          onChange={this.handleChange}
+          value={this.props.userId}
+        />
+             <button type="submit">Submit</button>
+      </form>
+
         <h1 className="tool-title">Group: {group.name}</h1>
         <img src={group.imageUrl}></img>
         <h3>Description: {group.description}</h3>
@@ -67,8 +83,8 @@ const mapState = (state) => ({
 
 const mapDispatch = (dispatch) => ({
   fetchGroup: (group) => dispatch(fetchSingleGroup(group)),
-  deleteGroup: (groupId) => dispatch(removeGroupThunk(groupId)),
   updateGroup: (group) => dispatch(updateGroupThunk(group)),
+  addUser: (groupId, userId) => dispatch(addToGroupThunk(groupId, userId))
 });
 
 export default connect(mapState, mapDispatch)(SingleGroup);
