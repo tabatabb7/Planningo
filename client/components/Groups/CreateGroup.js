@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-
+import {Redirect} from 'react-router-dom';
 import { addGroupThunk } from "../../store/allGroups";
 
 class CreateGroup extends React.Component {
@@ -10,6 +10,7 @@ class CreateGroup extends React.Component {
     this.state = {
       name: "",
       description: "",
+      redirectTo: null,
       // showError: false,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -31,16 +32,19 @@ class CreateGroup extends React.Component {
         alert("group name can't be empty!")
       }
       this.setState({
-        name: "",
-        description: "",
+        redirectTo: '/groups'
       });
+      alert(`Your group "${this.state.name}" was created! Redirecting you to your groups page..`)
     } catch (err) {
       console.log("error creating group", err);
     }
   }
 
   render() {
-    return (
+      if (this.state.redirectTo) {
+        return <Redirect to={{pathname: this.state.redirectTo}} />;
+      } else {
+        return(
       <div className="group-wrapper">
         <h1>Create Group</h1>
 
@@ -66,6 +70,7 @@ class CreateGroup extends React.Component {
       </div>
     );
   }
+}
 }
 
 const mapDispatch = (dispatch) => ({
