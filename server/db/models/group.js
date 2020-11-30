@@ -20,6 +20,7 @@ const Group = db.define("group", {
   },
 });
 
+
 // Group.beforeCreate(group => group.id = uuid())
 
 module.exports = Group;
