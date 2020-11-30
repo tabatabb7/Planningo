@@ -24,21 +24,21 @@ class SingleGroup extends React.Component {
   render() {
    const group = this.props.group;
 
-    return (
+   return (
       <div key={group.id} id="group-info">
         Edit group
         <h1 className="tool-title">{group.name}</h1>
         <h3>{group.description}</h3>
         Users:
-          {group.users.length}
-        {/* {group.users.map((user) => (
+      {group.users ? (<div>
+       {group.users.map((user) => (
               <div key={user.id}>
                   <img src={user.avatarUrl} />
                   <h3>
                     {user.firstName} {user.lastName}
                   </h3>
               </div>
-            ))} */}
+            ))}</div>) : "This group has no members."}
       </div>
     );
   }
