@@ -1,16 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import { updateGroupThunk, fetchSingleGroup } from "../../store/singleGroup";
-import {Link} from 'react-router-dom'
-
-import {
-  removeGroupThunk,
-} from "../../store/allGroups";
+import { Link } from "react-router-dom";
+import { removeGroupThunk } from "../../store/allGroups";
 
 class SingleGroup extends React.Component {
   constructor(props) {
     super(props);
   }
+
   componentDidMount() {
     this.props.fetchGroup(this.props.match.params.groupId);
   }
@@ -24,25 +22,35 @@ class SingleGroup extends React.Component {
   }
 
   render() {
-    let { group } = this.props;
+   const group = this.props.group;
 
     return (
       <div key={group.id} id="group-info">
+        Edit group
         <h1 className="tool-title">{group.name}</h1>
         <h3>{group.description}</h3>
-        {/* <Link to="/groups/edit">Edit Group</Link> */}
-
+        Users:
+          {group.users.length}
+        {/* {group.users.map((user) => (
+              <div key={user.id}>
+                  <img src={user.avatarUrl} />
+                  <h3>
+                    {user.firstName} {user.lastName}
+                  </h3>
+              </div>
+            ))} */}
       </div>
     );
   }
 }
+
 
 const mapState = (state) => ({
   group: state.singleGroup,
 });
 
 const mapDispatch = (dispatch) => ({
-  fetchGroup: (userId) => dispatch(fetchSingleGroup(userId)),
+  fetchGroup: (group) => dispatch(fetchSingleGroup(group)),
   deleteGroup: (groupId) => dispatch(removeGroupThunk(groupId)),
   updateGroup: (group) => dispatch(updateGroupThunk(group)),
 });
