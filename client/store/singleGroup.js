@@ -59,7 +59,9 @@ export const deleteFromGroupThunk = (groupId, userId) => {
   return async (dispatch) => {
     try {
       const { data: deletedUser } = await axios.delete(
-        `/api/groups/${groupId}/${userId}`
+        `/api/groups/${groupId}`, {
+          userId
+        }
       );
       dispatch(setSingleGroup(deletedUser));
     } catch (err) {
