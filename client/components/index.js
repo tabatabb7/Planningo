@@ -16,3 +16,5 @@ export { default as TaskList } from "./Tasks/TaskList";
 export { default as GroceryList } from "./Grocery/GroceryList";
 //groups
 export { default as GroupList } from "./Groups/GroupList";
+export { default as CreateGroup } from "./Groups/CreateGroup";
+export {default as SingleGroup} from "./Groups/SingleGroup"

@@ -7,6 +7,7 @@ import tasks from "./tasks";
 import singletask from "./singletask";
 import groceries from "./groceries";
 import groups from "./allGroups";
+import singleGroup from "./singleGroup"
 
 const reducer = combineReducers({
   user,
@@ -14,6 +15,7 @@ const reducer = combineReducers({
   tasks,
   groceries,
   groups,
+  singleGroup
 });
 
 const middleware = composeWithDevTools(

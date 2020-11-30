@@ -1,27 +1,13 @@
 const router = require("express").Router();
-const { Group, User_Group } = require("../db/models");
+const { Group, User_Group, User } = require("../db/models");
 
-//GET /api/groups
+//GET groups for a member
 router.get("/", async (req, res, next) => {
   try {
-    const group = await Group.findAll()
+    const group = await Group.findAll();
     await User_Group.findAll({
       where: {
-        userId: req.user.id
-      }
-    })
-    res.json(group);
-  } catch (err) {
-    next(err);
-  }
-});
-
-router.get("/:groupId", async (req, res, next) => {
-  try {
-    const group = await User_Group.findOne({
-      where: {
         userId: req.user.id,
-        groupId: req.params.groupId,
       },
     });
     res.json(group);
@@ -30,16 +16,33 @@ router.get("/:groupId", async (req, res, next) => {
   }
 });
 
+//GET single group
+router.get("/:groupId", async (req, res, next) => {
+  try {
+    const group = await Group.findByPk(req.params.groupId, {
+      include: {
+        model: User,
+        through: {attributes: []}
+      }
+    });
+    res.json(group);
+  } catch (err) {
+    next(err);
+  }
+});
+
+//POST - create group
 router.post("/", async (req, res, next) => {
   try {
     const group = await Group.create({
-          name: req.body.name,
-        })
-      await User_Group.create({
-        userId: req.user.id,
-        groupId: group.id
-      })
-res.json(group);
+      name: req.body.name,
+      description: req.body.description,
+    });
+    await User_Group.create({
+      userId: req.user.id,
+      groupId: group.id,
+    });
+    res.json(group);
   } catch (err) {
     next(err);
   }
@@ -63,7 +66,6 @@ router.delete("/:groupId", async (req, res, next) => {
       where: { id: req.params.groupId },
     });
     res.sendStatus(204);
-
   } catch (err) {
     next(err);
   }
@@ -85,6 +87,5 @@ router.delete("/:groupId", async (req, res, next) => {
 //     next(err);
 //   }
 // });
-
 
 module.exports = router;
