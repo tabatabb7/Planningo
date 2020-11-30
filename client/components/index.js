@@ -4,11 +4,11 @@ export { default as BottomNav } from "./Navigation/BottomNav";
 export { default as UserHome } from "./UserHome/UserHome";
 export { default as HomePage } from "./AllHome/HomePage";
 //login/signup
-export { Login, Signup } from "./UserAccount/AuthForm";
+export { Login, Signup } from "./User/AuthForm";
 
-//user settings
-export { default as Account } from "./UserAccount/Account";
-export { default as AccountSettings } from "./UserAccount/AccountSettings";
+//user
+export { default as Account } from "./User/Account";
+export { default as AccountSettings } from "./User/AccountSettings";
 //calendar
 export { default as Calendar } from "./Calendar/Calendar";
 export { default as TaskList } from "./Tasks/TaskList";
