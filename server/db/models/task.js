@@ -12,4 +12,13 @@ const Task = db.define("tasks", {
   },
 });
 
-module.exports = Task;
+const User_Task = db.define("User_Task", {
+  assignedTo: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+});
+
+
+
+module.exports = Task, User_Task
