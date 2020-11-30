@@ -4,6 +4,14 @@ import { updateGroupThunk, fetchSingleGroup } from "../../store/singleGroup";
 import { Link } from "react-router-dom";
 import { removeGroupThunk } from "../../store/allGroups";
 
+
+/* TODOS:
+1. move users list to its own component
+2. join button
+3. view group info page where you can leave group
+4. each  user pic in user list will link to the user's public profile : see UserPublicProfile in ./User
+*/
+
 class SingleGroup extends React.Component {
   constructor(props) {
     super(props);

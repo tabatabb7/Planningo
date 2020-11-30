@@ -3,6 +3,12 @@ import { connect } from "react-redux";
 import {Redirect} from 'react-router-dom';
 import { addGroupThunk } from "../../store/allGroups";
 
+/*TODOS:
+1. allow group creator to choose whether private/public group? (can be changed later when we make settings) like invite only? or anyone can just join.. etc
+2. option to invite members when creating
+3. redirect to new group page onsubmit
+*/
+
 class CreateGroup extends React.Component {
   constructor() {
     super();

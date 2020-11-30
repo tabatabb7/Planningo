@@ -1,7 +1,8 @@
 const { blue, cyan, green, red } = require("chalk");
-const { User } = require("../server/db/models");
+const { User, Group, User_Group } = require("../server/db/models");
 const seedUsers = require('./users.json')
-// const seedGroups = require('./groups.json')
+const seedGroups = require('./groups.json')
+const seedUserGroups = require('./usergroups.json')
 const db = require("../server/db")
 
 const seed = async () => {
@@ -10,7 +11,8 @@ const seed = async () => {
    await db.sync({ force: true });
 //connect to the database
 await Promise.all(seedUsers.map((user) => User.create(user)));
-// await Promise.all(seedGroups.map((group) => Group.create(group)));
+await Promise.all(seedGroups.map((group) => Group.create(group)));
+await Promise.all(seedUserGroups.map((userGroup) => User_Group.create(userGroup)));
 
   console.log(blue('🌱 Seeding the database...'));
     // seed your database here!
