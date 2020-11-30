@@ -33,7 +33,7 @@ class SingleTask extends Component {
 }
 
 const mapState = state => ({
-  task: state.task
+  task: state.singletask
 })
 
 const mapDispatch = dispatch => ({

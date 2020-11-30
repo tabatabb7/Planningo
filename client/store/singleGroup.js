@@ -13,7 +13,6 @@ export const setSingleGroup = (group) => {
 };
 
 //THUNK CREATORS
-
 export const fetchSingleGroup = (groupId) => {
   return async (dispatch) => {
     try {
@@ -25,6 +24,7 @@ export const fetchSingleGroup = (groupId) => {
     }
   };
 };
+
 
 //update group info
 export const updateGroupThunk = (group) => {

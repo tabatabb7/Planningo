@@ -13,6 +13,8 @@ import {
   GroceryList,
   Calendar,
   TaskList,
+  CreateGroup,
+  SingleGroup
 } from "./components";
 import { me } from "./store";
 
@@ -29,6 +31,7 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/" component={HomePage} />
+
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
@@ -40,6 +43,8 @@ class Routes extends Component {
             {/* <Route path="/calendar" component={Calendar} /> */}
             <Route exact path="/tasks" component={TaskList} />
             <Route exact path="/groups" component={GroupList} />
+            <Route exact path="/groups/create" component={CreateGroup} />
+            <Route path="/groups/:groupId" component={SingleGroup}/>
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
