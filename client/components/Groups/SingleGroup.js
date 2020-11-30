@@ -26,7 +26,7 @@ class SingleGroup extends React.Component {
   async handleSubmit(event) {
     event.preventDefault();
     try {
-      this.props.addUser(this.props.group.id, this.state.userId);
+      await this.props.addUser(this.props.group.id, this.state.userId)
     } catch (err) {
       console.log("handlesubmit err", err);
     }
@@ -35,6 +35,7 @@ class SingleGroup extends React.Component {
 
   render() {
    const group = this.props.group;
+   console.log(group)
 
    return (
       <div key={group.id} id="group-info">
