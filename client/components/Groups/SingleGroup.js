@@ -26,12 +26,12 @@ class SingleGroup extends React.Component {
   async handleSubmit(event) {
     event.preventDefault();
     try {
-      await this.props.addUser(this.props.group.id, this.state.userId)
+     await this.props.addUser(this.props.group.id, this.state.userId);
+     this.props.fetchGroup(this.props.match.params.groupId)
     } catch (err) {
       console.log("handlesubmit err", err);
     }
   }
-
 
   render() {
    const group = this.props.group;
