@@ -1,49 +1,69 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import {logout} from '../../store';
+import { logout } from "../../store";
 import { Link } from "react-router-dom";
 import "./SideNav.css";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {
+  faCheck,
+} from '@fortawesome/free-solid-svg-icons';
+import {
+faCalendar,
+faUserCircle
+} from '@fortawesome/free-regular-svg-icons';
 
-const SideNav = ({ handleClick, isLoggedIn, user }) => (
+const SideNav = ({ handleClick, user }) => (
   <div className="sidenav-wrapper">
-    <div id="logo">
-      <Link to="/home">Home</Link>
+
+<div id="userprof">
+    <img src={user.avatarUrl} id="usericon"></img>
+      {user.firstName} {user.lastName}
+    <div id="homebutton-wrap">
+      <Link to="/home">
+        <button id="homebutton">Home</button>
+      </Link>
     </div>
-    {isLoggedIn ? (
-      <React.Fragment>
-        <div id="myTools">
-          <h3>My Tools</h3>
-          <Link to="/tasks">Tasks</Link>
-          <Link to="/grocery">Groceries</Link>
-          <Link to="/groups">My Groups</Link>
-        </div>
-        <div className="account-box">
-        <Link to="/account"><img src={user.avatarUrl}></img></Link>
-        <div className="accountlinks">
-          <div>{user.firstName} {user.lastName}</div>
-          <Link to="/account">My Account</Link>
-          <a href="#" onClick={handleClick}>
-            Sign Out
-          </a>
-          </div>
-        </div>
-      </React.Fragment>
-    ) : (
-      <React.Fragment>
-        <div className="accountlinks">
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-        </div>
-      </React.Fragment>
-    )}
+    </div>
+
+<div id="link-acc-wrap">
+    <div id="nav-links">
+      <div id="each-nav-link">
+      <Link to="/groups">
+      <div className="icon">
+      <FontAwesomeIcon icon={faUserCircle} />
+       </div>Groups</Link>
+       </div>
+
+       <div id="each-nav-link">
+      <Link to="/calendar">
+      <div className="icon">
+      <FontAwesomeIcon icon={faCalendar} />
+       </div>Calendar</Link>
+       </div>
+
+       <div id="each-nav-link">
+      <Link to="/tasks">
+      <div className="icon">
+      <FontAwesomeIcon icon={faCheck} />
+       </div>Tasks</Link>
+       </div>
+
+    </div>
+
+    <div id="nav-account-links">
+      <Link to="/account">My account</Link>
+      <a href="#" onClick={handleClick}>
+        Sign out
+      </a>
+    </div>
+    </div>
   </div>
 );
 
 const mapState = (state) => {
   return {
     user: state.user,
-    isLoggedIn: !!state.user.id,
   };
 };
 
@@ -60,5 +80,4 @@ export default connect(mapState, mapDispatch)(SideNav);
 SideNav.propTypes = {
   user: PropTypes.object.isRequired,
   handleClick: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
 };
