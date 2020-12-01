@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Group, User_Group, User } = require("../db/models");
+const { Group, User_Group, User, Grocery } = require("../db/models");
 
 //GET groups for a member
 router.get("/", async (req, res, next) => {
@@ -36,6 +36,7 @@ router.get("/:groupId", async (req, res, next) => {
 //GET /api/groups/:groupId/grocery
 router.get("/:groupId/grocery", async (req, res, next) => {
   try {
+    console.log("is api route working for fetch groceries");
     const grocery = await Grocery.findAll({
       where: {
         groupId: req.params.groupId,
@@ -60,6 +61,19 @@ router.post("/", async (req, res, next) => {
       role: "owner",
     });
     res.json(group);
+  } catch (err) {
+    next(err);
+  }
+});
+//POST /api/groups/:groupId/grocery
+router.post("/:groupId/grocery", async (req, res, next) => {
+  try {
+    console.log("inside the post route for group groceries");
+    const grocery = await Grocery.create({
+      groupId: req.params.groupId,
+      name: req.body.name,
+    });
+    res.json(grocery);
   } catch (err) {
     next(err);
   }
@@ -118,4 +132,18 @@ router.delete("/:groupId/:userId", async (req, res, next) => {
   }
 });
 
+//DELETE /api/groups/:groupId/grocery/:groceryId
+router.delete("/:groupId/grocery/:groceryId", async (req, res, next) => {
+  try {
+    await Grocery.destroy({
+      where: {
+        groupId: req.params.groupId,
+        id: req.params.groceryId,
+      },
+    });
+    res.sendStatus(204);
+  } catch (error) {
+    next(error);
+  }
+});
 module.exports = router;

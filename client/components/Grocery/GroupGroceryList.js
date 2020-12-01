@@ -14,7 +14,6 @@ class GroupGroceryList extends React.Component {
     this.state = {
       name: "",
       showModal: false,
-      groupId: this.props.match.params.groupId,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,19 +32,23 @@ class GroupGroceryList extends React.Component {
   async handleSubmit(event) {
     event.preventDefault();
     try {
-      await this.props.addItem(this.state);
+      await this.props.addItem(
+        this.state,
+        Number(this.props.match.params.groupId)
+      );
       this.setState({
         name: "",
+        groupId: this.props.match.params.groupId,
       });
     } catch (err) {
       console.log("error creating grocery item", err);
     }
   }
 
-  async handleDelete(id) {
+  async handleDelete(groceryId, groupId) {
     try {
-      await this.props.deleteItem(id);
-      this.props.fetchItems();
+      await this.props.deleteItem(groceryId, this.props.match.params.groupId);
+      this.props.fetchItems(this.props.match.params.groupId);
     } catch (err) {
       console.error(err);
     }
@@ -57,9 +60,7 @@ class GroupGroceryList extends React.Component {
 
   render() {
     let { groceries } = this.props;
-    console.log(this.state, "this.state in render of gglist");
-    console.log(this.props, "this.props in render of groupgrocerylist");
-    console.log(this.props.match.params.groupId, "please be the groupid");
+
     return (
       <div id="groceries-wrap">
         <form id="add-grocery-form" onSubmit={this.handleSubmit}>
@@ -96,8 +97,10 @@ const mapState = (state) => ({
 
 const mapDispatch = (dispatch) => ({
   fetchItems: (groupId) => dispatch(fetchGroceriesThunk(groupId)),
-  deleteItem: (groceryId) => dispatch(removeGroceryItemThunk(groceryId)),
-  addItem: (grocery) => dispatch(addGroceryItemThunk(grocery)),
+  deleteItem: (groceryId, groupId) =>
+    dispatch(removeGroceryItemThunk(groceryId, groupId)),
+  addItem: (grocery, groupId) =>
+    dispatch(addGroceryItemThunk(grocery, groupId)),
   // updateItem: (grocery) => dispatch(updateSingleGroceryItem(grocery))
 });
 
