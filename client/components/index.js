@@ -14,7 +14,8 @@ export { default as AppCalendar } from "./Calendar/AppCalendar";
 export { default as TaskList } from "./Tasks/TaskList";
 //groceries
 export { default as GroceryList } from "./Grocery/GroceryList";
+export { default as GroupGroceryList } from "./Grocery/GroupGroceryList";
 //groups
 export { default as GroupList } from "./Groups/GroupList";
 export { default as CreateGroup } from "./Groups/CreateGroup";
-export {default as SingleGroup} from "./Groups/SingleGroup"
+export { default as SingleGroup } from "./Groups/SingleGroup";
