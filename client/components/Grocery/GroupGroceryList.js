@@ -5,7 +5,7 @@ import {
   fetchGroceriesThunk,
   addGroceryItemThunk,
   removeGroceryItemThunk,
-} from "../../store/groceries";
+} from "../../store/groupGroceries";
 
 class GroupGroceryList extends React.Component {
   constructor(props) {
@@ -14,13 +14,14 @@ class GroupGroceryList extends React.Component {
     this.state = {
       name: "",
       showModal: false,
+      groupId: this.props.match.params.groupId,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.showModal = this.showModal.bind(this);
   }
   componentDidMount() {
-    this.props.fetchItems(this.props.match.params.userId);
+    this.props.fetchItems(this.props.match.params.groupId);
   }
 
   handleChange(event) {
@@ -56,8 +57,9 @@ class GroupGroceryList extends React.Component {
 
   render() {
     let { groceries } = this.props;
+    console.log(this.state, "this.state in render of gglist");
     console.log(this.props, "this.props in render of groupgrocerylist");
-
+    console.log(this.props.match.params.groupId, "please be the groupid");
     return (
       <div id="groceries-wrap">
         <form id="add-grocery-form" onSubmit={this.handleSubmit}>
@@ -90,11 +92,10 @@ class GroupGroceryList extends React.Component {
 
 const mapState = (state) => ({
   groceries: state.groceries,
-  userId: state.user.id,
 });
 
 const mapDispatch = (dispatch) => ({
-  fetchItems: (userId) => dispatch(fetchGroceriesThunk(userId)),
+  fetchItems: (groupId) => dispatch(fetchGroceriesThunk(groupId)),
   deleteItem: (groceryId) => dispatch(removeGroceryItemThunk(groceryId)),
   addItem: (grocery) => dispatch(addGroceryItemThunk(grocery)),
   // updateItem: (grocery) => dispatch(updateSingleGroceryItem(grocery))

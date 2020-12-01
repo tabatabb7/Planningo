@@ -45,7 +45,7 @@ class Routes extends Component {
             <Route exact path="/tasks" component={TaskList} />
             <Route exact path="/groups" component={GroupList} />
             <Route exact path="/groups/create" component={CreateGroup} />
-            <Route path="/groups/:groupId" component={SingleGroup} />
+            <Route exact path="/groups/:groupId" component={SingleGroup} />
             <Route
               path="/groups/:groupId/grocery"
               component={GroupGroceryList}
