@@ -6,6 +6,7 @@ import {
   fetchGroceriesThunk,
   addGroceryItemThunk,
   removeGroceryItemThunk,
+  toggleGroceryItemThunk,
 } from "../../store/groceries";
 
 class GroceryList extends React.Component {
@@ -15,9 +16,11 @@ class GroceryList extends React.Component {
     this.state = {
       name: "",
       showModal: false,
+      isBought: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handlePurchase = this.handlePurchase.bind(this);
     this.showModal = this.showModal.bind(this);
   }
   componentDidMount() {
@@ -29,7 +32,13 @@ class GroceryList extends React.Component {
       [event.target.name]: event.target.value,
     });
   }
-
+  handlePurchase(event) {
+    try {
+      this.props.toggleItem(this.props.match.params.groceryId);
+    } catch (error) {
+      console.log("error toggling purchase state");
+    }
+  }
   async handleSubmit(event) {
     event.preventDefault();
     try {
@@ -80,18 +89,28 @@ class GroceryList extends React.Component {
           <button type="submit">Add</button>
         </form>
 
-        <h3>My Groceries</h3>
-        {groceries.map((grocery) => (
-          <p key={grocery.id}>
-            {grocery.name}
-            <button
-              onClick={() => this.handleDelete(grocery.id)}
-              className="delete-item"
-            >
-              X
-            </button>
-          </p>
-        ))}
+        <form>
+          <h3>My Groceries</h3>
+          {groceries.map((grocery) => (
+            <p key={grocery.id}>
+              <label>
+                <input
+                  name="isBought"
+                  type="checkbox"
+                  checked={!this.state.isBought}
+                  onChange={this.handlePurchase}
+                />
+                {grocery.name}
+                <button
+                  onClick={() => this.handleDelete(grocery.id)}
+                  className="delete-item"
+                >
+                  X
+                </button>
+              </label>
+            </p>
+          ))}
+        </form>
       </div>
     );
   }
@@ -106,6 +125,7 @@ const mapDispatch = (dispatch) => ({
   fetchItems: (userId) => dispatch(fetchGroceriesThunk(userId)),
   deleteItem: (groceryId) => dispatch(removeGroceryItemThunk(groceryId)),
   addItem: (grocery) => dispatch(addGroceryItemThunk(grocery)),
+  toggleItem: (groceryId) => dispatch(toggleGroceryItemThunk(groceryId)),
   // updateItem: (grocery) => dispatch(updateSingleGroceryItem(grocery))
 });
 
