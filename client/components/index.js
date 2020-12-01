@@ -10,7 +10,7 @@ export { Login, Signup } from "./User/AuthForm";
 export { default as Account } from "./User/Account";
 export { default as AccountSettings } from "./User/AccountSettings";
 //calendar
-export { default as Calendar } from "./Calendar/Calendar";
+export { default as AppCalendar } from "./Calendar/AppCalendar";
 export { default as TaskList } from "./Tasks/TaskList";
 //groceries
 export { default as GroceryList } from "./Grocery/GroceryList";
