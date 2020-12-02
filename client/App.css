@@ -11,3 +11,18 @@
   align-items: center;
   flex-direction: column;
 }
+/* hide on mobile */
+@media (max-width: 1024px) {
+  #sidenav {
+    display: none;
+  }
+}
+
+#sidenav{
+  width: 21vw;
+  max-width: 300px;
+  height: 100vh;
+  max-height: 100vh;
+  overflow:hidden;
+}
+

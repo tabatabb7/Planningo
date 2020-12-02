@@ -7,11 +7,13 @@ import "./App.css";
 const App = () => {
   return (
     <div className="app-wrap">
+      <div id="sidenav">
         <SideNav/>
+        </div>
         <div id="sitebody">
       <Routes />
-      <BottomNav/></div>
-
+      <BottomNav/>
+      </div>
     </div>
   );
 };

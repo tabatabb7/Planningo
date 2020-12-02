@@ -10,17 +10,9 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  width: 300px;
-  height: 100vh;
-  max-height: 100vh;
-}
-
-/* hide on mobile */
-@media (max-width: 767px) {
-  .sidenav-wrapper {
-    display: none;
-  }
+  justify-content: space-evenly;
+  width: 100%;
+  height: 100%;
 }
 
 #userprof {
@@ -32,8 +24,13 @@ a {
   width: 100%;
   max-height: 30%;
   color: white;
-  position:relative;
-  top: 80px;
+}
+
+/* hide on mobile */
+@media (max-height: 600px) {
+  #userprof{
+    display: none;
+  }
 }
 
 
@@ -64,15 +61,16 @@ a {
   height: 45px;
   max-width: 80%;
   position: relative;
-  top: 30px;
+  top: 20px;
 }
 
 /* dashboard links */
 #nav-links {
   font-family: "Poppins", sans-serif;
-  display: inline-block;
-  position: relative;
-  bottom: 150px;
+  display:flex;
+  flex-direction: column;
+  height: 30%;
+  justify-content: space-evenly;
 }
 
 #nav-links a {
@@ -82,7 +80,7 @@ a {
 
 #each-nav-link{
 width: 100%;
-margin-bottom: 5px;
+display: inline-block;
 }
 
 .icon {
@@ -99,19 +97,19 @@ margin-bottom: 5px;
   font-family: "Open Sans", sans-serif;
   color: white;
   letter-spacing: 1px;
-  position: relative;
-  bottom: 40px;
+  height: 20%;
+  justify-content: space-evenly;
 }
 
 #nav-account-links a {
   color: white;
-  margin-bottom: 30px;
 }
 
 #link-acc-wrap{
   display: flex;
   align-items: baseline;
   flex-direction: column;
-  height: 50%;
+  height: 60%;
+  max-height: 60%;
   justify-content: space-between;
 }
