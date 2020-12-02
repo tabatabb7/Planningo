@@ -8,7 +8,8 @@ import moment from "moment";
 export const UserHome = (props) => {
   const { firstName } = props;
   const now = new Date();
-  const showTime = <div>{moment(now).format("HH")}</div>;
+  const currHour = moment().format("HH");
+
 
   return (
     <div className="userhome-wrapper">
@@ -16,14 +17,19 @@ export const UserHome = (props) => {
       <div id="home-top">
         <div id="user-greet">
           {(() => {
-            if (showTime >= 6 && showTime < 12) {
+            if (currHour >= 3 && currHour < 12) {
               return <h3>Good morning, {firstName}.</h3>;
-            } else if (showTime >= 12 && showTime <= 18) {
+            } else if (currHour >= 12 && currHour <= 18) {
               return <h3>Good afternoon, {firstName}.</h3>;
-            } else {
+            } else if(currHour >=18 && currHour < 24) {
               return <h3>Good evening, {firstName}.</h3>;
+            } else if(currHour >=1 && currHour < 3) {
+              return <h3>Good evening, {firstName}.</h3>;
+            } else {
+              return <h3>Hello, {firstName}.</h3>
             }
-          })()}
+            }
+          )()}
         </div>
         <div id="show-weather">
         70° F
