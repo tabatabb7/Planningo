@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./BottomNav.css";
+import "./bottomnav.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faHome, faUserFriends } from "@fortawesome/free-solid-svg-icons";
 import { faCalendar, faUserCircle } from "@fortawesome/free-regular-svg-icons";
