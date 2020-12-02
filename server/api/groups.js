@@ -2,23 +2,34 @@ const router = require("express").Router();
 const { Group, User_Group, User, Grocery, Task, User_Task, Task_Group } = require("../db/models");
 
 //GET groups for a member
+// router.get("/", async (req, res, next) => {
+//   try {
+//     const group = await Group.findAll({
+//       include: [
+//         {
+//           model: User,
+//           where: {
+//             id: req.user.id,
+//           },
+//         },
+//       ],
+//     });
+//     res.json(group);
+//   } catch (err) {
+//     next(err);
+//   }
+// });
+
 router.get("/", async (req, res, next) => {
   try {
-    const group = await Group.findAll({
-      include: [
-        {
-          model: User,
-          where: {
-            id: req.user.id,
-          },
-        },
-      ],
-    });
+    const group = await req.user.getGroups()
     res.json(group);
   } catch (err) {
     next(err);
   }
 });
+
+
 
 //GET single group
 router.get("/:groupId", async (req, res, next) => {
@@ -53,16 +64,15 @@ router.get("/:groupId/grocery", async (req, res, next) => {
 //GET /api/groups/:groupId/tasks
 router.get("/:groupId/tasks", async (req, res, next) => {
   try {
-    const tasks = await Group.findAll({
+    const group = await Group.findOne({
       where: {
-        groupId: req.params.groupId,
+        id: req.params.groupId
       },
       include: {
-        model: Task,
-        attribute: ['name']
+        model: Task
       }
-    });
-    res.json(tasks);
+    })
+    res.json(group.tasks)
   } catch (error) {
     next(error);
   }
@@ -71,7 +81,6 @@ router.get("/:groupId/tasks", async (req, res, next) => {
 //POST /api/groups/:groupId/tasks
 router.post("/:groupId/tasks", async (req, res, next) => {
   try {
-    console.log('GROUP!!!!ID!!!!!!--->', req.params.groupId)
     const task = await Task.create({
       name: req.body.name
     })

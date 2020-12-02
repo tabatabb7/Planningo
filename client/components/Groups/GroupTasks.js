@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import {
-  fetchTasksThunk,
+  fetchGroupTasksThunk,
   addGroupTaskThunk,
   removeTaskThunk,
 } from "../../store/tasks";
@@ -48,7 +48,7 @@ class GroupTaskList extends React.Component {
   async handleDelete(id) {
     try {
       await this.props.deleteTask(id);
-      this.props.fetchTasks();
+      await this.props.fetchTasks(this.props.match.params.groupId);
     } catch (err) {
       console.error(err);
     }
@@ -102,7 +102,7 @@ const mapState = (state) => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  fetchTasks: (groupId) => dispatch(fetchTasksThunk(groupId)),
+  fetchTasks: (groupId) => dispatch(fetchGroupTasksThunk(groupId)),
   deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
   addGroupTask: (groupId, task) => dispatch(addGroupTaskThunk(groupId, task)),
   updateTask: (task) => dispatch(updateSingleTask(task))

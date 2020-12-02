@@ -20,7 +20,7 @@ const initialState = [];
  * ACTION CREATORS
  */
 const getTasks = (tasks) => ({ type: GET_TASKS, tasks });
-const getGroupTasks = (tasks) => ({ type: GET_TASKS, tasks });
+const getGroupTasks = (tasks) => ({ type: GET_GROUP_TASKS, tasks });
 const addTask = (task) => ({ type: ADD_TASK, task });
 const addGroupTask = (task) => ({type: ADD_GROUP_TASK, task})
 const deleteTask = (taskId) => ({ type: DELETE_TASK, taskId });
@@ -51,7 +51,7 @@ export const fetchGroupTasksThunk = (groupId) => async (dispatch) => {
 export const addTaskThunk = (task) => async (dispatch) => {
   try {
     console.log(task)
-    const { data: newTask } = await axios.post("/api/tasks/", task);
+    const { data: newTask } = await axios.post("/api/tasks", task);
     dispatch(addTask(newTask));
   } catch (error) {
     console.error("Error adding task!");
@@ -61,7 +61,7 @@ export const addTaskThunk = (task) => async (dispatch) => {
 
 export const addGroupTaskThunk = (groupId, task) => async (dispatch) => {
   try {
-    const { data: newGroupTask } = await axios.post(`/api/groups/${groupId}/tasks/`, task);
+    const { data: newGroupTask } = await axios.post(`/api/groups/${groupId}/tasks`, task);
     dispatch(addGroupTask(newGroupTask));
   } catch (error) {
     console.error("Error adding task!");
@@ -88,7 +88,7 @@ export default function tasksReducer(state = initialState, action) {
     case ADD_TASK:
       return [...state, action.task];
     case ADD_GROUP_TASK:
-      return [...state, action.task];
+      return [...state, action.task]
     case DELETE_TASK:
       return [...state];
     default:
