@@ -53,6 +53,9 @@ class SingleGroup extends React.Component {
         <h1 className="tool-title">Group: {group.name}</h1>
         <img src={group.imageUrl}></img>
         <h3>Description: {group.description}</h3>
+        <Link to={`/groups/${this.props.group.id}/tasks`}>
+          Group Tasks
+        </Link>
         <Link to={`/groups/${this.props.group.id}/grocery`}>
           Group Groceries
         </Link>

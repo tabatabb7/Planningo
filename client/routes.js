@@ -16,6 +16,7 @@ import {
   CreateGroup,
   SingleGroup,
   GroupGroceryList,
+  GroupTaskList
 } from "./components";
 import { me } from "./store";
 
@@ -46,6 +47,7 @@ class Routes extends Component {
             <Route exact path="/groups" component={GroupList} />
             <Route exact path="/groups/create" component={CreateGroup} />
             <Route exact path="/groups/:groupId" component={SingleGroup} />
+            <Route exact path="/groups/:groupId/tasks" component={GroupTaskList} />
             <Route
               path="/groups/:groupId/grocery"
               component={GroupGroceryList}

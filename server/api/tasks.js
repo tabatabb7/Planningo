@@ -14,7 +14,7 @@ router.get("/:taskId", async (req, res, next) => {
   try {
     const task = await Task.findOne({
       where: {
-        userId: req.user.id,
+        taskId: req.params.taskId
       },
     });
     res.json(task);
@@ -22,6 +22,7 @@ router.get("/:taskId", async (req, res, next) => {
     next(err);
   }
 });
+
 
 router.post("/", async (req, res, next) => {
   try {

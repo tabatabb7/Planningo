@@ -5,6 +5,7 @@ import axios from "axios";
  */
 
 const GET_TASKS = "GET_TASKS";
+const GET_GROUP_TASKS = "GET_GROUP_TASKS";
 const ADD_TASK = "ADD_TASK";
 const DELETE_TASK = "DELETE_TASK";
 
@@ -18,6 +19,7 @@ const initialState = [];
  * ACTION CREATORS
  */
 const getTasks = (tasks) => ({ type: GET_TASKS, tasks });
+const getGroupTasks = (tasks) => ({ type: GET_TASKS, tasks });
 const addTask = (task) => ({ type: ADD_TASK, task });
 const deleteTask = (taskId) => ({ type: DELETE_TASK, taskId });
 
@@ -29,6 +31,15 @@ export const fetchTasksThunk = () => async (dispatch) => {
   try {
     const { data: tasks } = await axios.get(`/api/tasks`);
     dispatch(getTasks(tasks));
+  } catch (error) {
+    console.log("error fetching tasks");
+  }
+};
+
+export const fetchGroupTasksThunk = (groupId) => async (dispatch) => {
+  try {
+    const { data: tasks } = await axios.get(`/api/groups/${groupId}/tasks`);
+    dispatch(getGroupTasks(tasks));
   } catch (error) {
     console.log("error fetching tasks");
   }
@@ -58,6 +69,8 @@ export const removeTaskThunk = (taskId) => async (dispatch) => {
 export default function tasksReducer(state = initialState, action) {
   switch (action.type) {
     case GET_TASKS:
+      return action.tasks;
+    case GET_GROUP_TASKS:
       return action.tasks;
     case ADD_TASK:
       return [...state, action.task];

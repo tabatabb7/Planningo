@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Group, User_Group, User, Grocery } = require("../db/models");
+const { Group, User_Group, User, Grocery, Task } = require("../db/models");
 
 //GET groups for a member
 router.get("/", async (req, res, next) => {
@@ -43,6 +43,25 @@ router.get("/:groupId/grocery", async (req, res, next) => {
       },
     });
     res.json(grocery);
+  } catch (error) {
+    next(error);
+  }
+});
+
+
+//GET /api/groups/:groupId/tasks
+router.get("/:groupId/tasks", async (req, res, next) => {
+  try {
+    const tasks = await Group.findAll({
+      where: {
+        groupId: req.params.groupId,
+      },
+      include: {
+        model: Task,
+        attribute: ['name']
+      }
+    });
+    res.json(tasks);
   } catch (error) {
     next(error);
   }
