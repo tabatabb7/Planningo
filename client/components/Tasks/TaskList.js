@@ -107,24 +107,16 @@ class TaskList extends React.Component {
             onChange={this.handleChange}
             value={this.state.name}
           />
-          <form id="assignee-form" onSubmit={this.handleSubmit}>
+            </form>
+          {/* <form id="assignee-form" onSubmit={this.handleSubmit}>
           <label htmlFor="selected">Assigned to:</label>
-          <select value={this.state.selected} name="selected" onChange={this.handleChange}>
-            {
-            group.users ? 
-            group.users.map((user) => 
-            (
-              <option key={user.id} >{user.firstName} {user.lastName}</option>
-            )) : 
-            "There are no users"
-            }
-        
+          <select value={this.state.selected} onChange={this.handleChange} name="selected">
+            {groups ? groups.map((group) => group.users.map((user) => (
+              <option key={user.id} value={user}>{user.firstName} {user.lastName}</option>
+            ))) : "There are no users"}
           </select>
-            
           <button type="submit">Add</button>
-        </form>
-
-        </form>
+        </form> */}
 
       </div>
     );
