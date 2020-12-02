@@ -26,3 +26,13 @@
   overflow:hidden;
 }
 
+/* hide on anything that isn't */
+@media (min-width: 1024px) {
+  #bottomnav{
+      display:none;
+  }
+}
+
+#bottomnav{
+  width: 100vw;
+}

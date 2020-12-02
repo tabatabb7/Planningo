@@ -3,35 +3,50 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { auth } from "../../store";
 import { withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
+import "./authform.css";
 
-const AuthForm = props => {
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope, faKey, faUserCircle } from "@fortawesome/free-solid-svg-icons";
+
+const AuthForm = (props) => {
   const { name, displayName, handleSubmit, error } = props;
 
   return (
     <div className="forms">
-      <div className="form_info">
+      <div className="form-info">
         <form onSubmit={handleSubmit} name={name}>
+          <h1 id="authtitle">{displayName}</h1>
           {displayName != "Login" ? (
             <div>
               <div className="form-input">
                 <label htmlFor="firstName">
-                  <small className="form-names">First Name</small>
+                  <small className="form-names">
+                    <div className="form-icon">
+                      <FontAwesomeIcon icon={faUserCircle} />
+                    </div>
+                  </small>
                 </label>
                 <input
                   className="info-input"
                   name="firstName"
                   type="text"
+                  placeholder="First name"
                   required
                 />
               </div>
+
               <div className="form-input">
                 <label htmlFor="lastName">
-                  <small className="form-names">Last Name</small>
+                  <small className="form-names"><div className="form-icon">
+                      <FontAwesomeIcon icon={faUserCircle} />
+                    </div></small>
                 </label>
                 <input
                   className="info-input"
                   name="lastName"
                   type="text"
+                  placeholder="Last name"
                   required
                 />
               </div>
@@ -40,23 +55,34 @@ const AuthForm = props => {
 
           <div className="form-input">
             <label htmlFor="email">
-              <small className="form-names">Email</small>
+              <small className="form-names">     <div className="form-icon">
+                      <FontAwesomeIcon icon={faEnvelope} />
+                    </div></small>
             </label>
-            <input className="info-input" name="email" type="text" required />
+            <input
+              className="info-input"
+              name="email"
+              placeholder="Email address"
+              type="text"
+              required
+            />
           </div>
 
           <div className="form-input">
             <label htmlFor="password">
-              <small className="form-names">Password</small>
+              <small className="form-names"><div className="form-icon">
+                      <FontAwesomeIcon icon={faKey} />
+                    </div></small>
             </label>
             <input
               className="info-input"
               name="password"
               type="password"
+              placeholder="Password"
               required
             />
           </div>
-
+          {/*
           {displayName != "Login" ? (
             <div className="form-input">
               <label htmlFor="confirmPassword">
@@ -69,39 +95,48 @@ const AuthForm = props => {
                 required
               />
             </div>
-          ) : null}
-          <div className="form-input">
-            <button className="login_button" type="submit">
+          ) : null} */}
+          <div id="button-wrap">
+            <button className="form-button" type="submit">
               {displayName}
             </button>
           </div>
-          <h3>
-            {error && error.response && <div> {error.response.data} </div>}
-          </h3>
         </form>
+        <h4>{error && error.response && <div> {error.response.data} </div>}</h4>
       </div>
       <a href="/auth/google">{displayName} with Google</a>
+      <div id="login-or-signup">
+        {displayName === "Login" ? (
+          <div>
+            No account? <Link to="/signup">Sign Up</Link>
+          </div>
+        ) : (
+          <div>
+            Have an account? <Link to="/login">Login</Link>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
 
-const mapLogin = state => {
+const mapLogin = (state) => {
   return {
     name: "login",
     displayName: "Login",
-    error: state.user.error
+    error: state.user.error,
   };
 };
 
-const mapSignup = state => {
+const mapSignup = (state) => {
   return {
     name: "signup",
     displayName: "Sign Up",
-    error: state.user.error
+    error: state.user.error,
   };
 };
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
     handleSubmit(evt) {
       evt.preventDefault();
@@ -118,7 +153,7 @@ const mapDispatch = dispatch => {
         const lastName = evt.target.lastName.value;
         dispatch(auth(email, password, formName, firstName, lastName));
       }
-    }
+    },
   };
 };
 
@@ -129,5 +164,5 @@ AuthForm.propTypes = {
   name: PropTypes.string.isRequired,
   displayName: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  error: PropTypes.object
+  error: PropTypes.object,
 };
