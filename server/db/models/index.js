@@ -7,31 +7,39 @@ const Sequelize = require("sequelize");
 
 //ASSOCIATIONS
 //**********USER AND GROUP --- USER_GROUP THROUGH TABLE ***********
-const User_Group = db.define('User_Group', {
+const User_Group = db.define("User_Group", {
   role: {
-    type: Sequelize.ENUM('owner', 'admin', 'member'),
-    defaultValue: 'member'
-  }
-})
+    type: Sequelize.ENUM("owner", "admin", "member"),
+    defaultValue: "member",
+  },
+});
 User.belongsToMany(Group, { through: "User_Group" });
 Group.belongsToMany(User, { through: "User_Group" });
 //***************************************************************** */
 //Task and Group --- one-to-many with through table
 
-const Task_Group = db.define("Task_Group", {})
-Task.belongsToMany(Group, {through: "Task_Group"});
-Group.belongsToMany(Task, {through: "Task_Group"})
+const Task_Group = db.define("Task_Group", {});
+Task.belongsToMany(Group, { through: "Task_Group" });
+Group.belongsToMany(Task, { through: "Task_Group" });
 
 //user and task. We might need through table once we put groups in? not sure
-const User_Task = db.define("User_Task", {
-});
+const User_Task = db.define("User_Task", {});
 
-User.belongsToMany(Task, {through: "User_Task"});
-Task.belongsToMany(User, {through: "User_Task"});
+User.belongsToMany(Task, { through: "User_Task" });
+Task.belongsToMany(User, { through: "User_Task" });
 
 //Single user's grocery list
 User.hasMany(Grocery);
 Grocery.belongsTo(User);
+
+//Group's Grocery List
+Group.hasMany(Grocery);
+Grocery.belongsTo(Group);
+
+//Grocery_Task through Table between Grocery and Task
+const Grocery_Task = db.define("Grocery_Task", {});
+Task.belongsToMany(Grocery, { through: "Grocery_Task" });
+Grocery.belongsToMany(Task, { through: "Grocery_Task" });
 
 //export modules
 module.exports = {
@@ -42,5 +50,5 @@ module.exports = {
   Grocery,
   User_Group,
   User_Task,
-  Task_Group
+  Task_Group,
 };
