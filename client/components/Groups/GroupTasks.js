@@ -1,14 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-
-
+import { removeTaskThunk } from "../../store/tasks";
 import {
-  fetchGroupTasksThunk,
+  fetchSingleGroup,
   addGroupTaskThunk,
-  removeTaskThunk,
-} from "../../store/tasks";
-
-
+} from "../../store/singleGroup";
 
 class GroupTaskList extends React.Component {
   constructor(props) {
@@ -16,6 +12,7 @@ class GroupTaskList extends React.Component {
 
     this.state = {
       name: "",
+      selected: "",
       showModal: false,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -23,9 +20,7 @@ class GroupTaskList extends React.Component {
     this.showModal = this.showModal.bind(this);
   }
   componentDidMount() {
-    // this.props.fetchGroups()
-
-    this.props.fetchTasks(this.props.match.params.groupId);
+    this.props.fetchGroup(this.props.match.params.groupId);
   }
 
   handleChange(event) {
@@ -43,6 +38,7 @@ class GroupTaskList extends React.Component {
         name: "",
         selected: ""
       });
+      await this.props.fetchGroup(this.props.match.params.groupId)
     } catch (err) {
       console.log("error creating task", err);
     }
@@ -51,7 +47,7 @@ class GroupTaskList extends React.Component {
   async handleDelete(id) {
     try {
       await this.props.deleteTask(id);
-      await this.props.fetchTasks(this.props.match.params.groupId);
+      await this.props.fetchGroup(this.props.match.params.groupId)
     } catch (err) {
       console.error(err);
     }
@@ -63,15 +59,14 @@ class GroupTaskList extends React.Component {
 
 
   render() {
-    let { tasks } = this.props;
-    let { groups } = this.props
-    // console.log(tasks)
+    let tasks  = this.props.group.tasks
+    let group = this.props.group
 
     return (
       <div className="group-task-wrapper">
         <h1 className="tool-title">Group Tasks</h1>
         <div id="task-box">
-        {tasks.length ? 
+        {tasks && tasks.length ? 
         tasks.map((task) => (
           <p key={task.id} className="groupsingletask">
             {task.name}
@@ -92,8 +87,15 @@ class GroupTaskList extends React.Component {
             onChange={this.handleChange}
             value={this.state.name}
           />
-         
-      
+        </form>
+        <form id="assignee-form" onSubmit={this.handleSubmit}>
+          <label htmlFor="selected">Assigned to:</label>
+          <select value={this.state.selected} onChange={this.handleChange} name="selected">
+            <option value="" disabled>Select</option>
+            {group && group.users ? group.users.map((user) => (
+              <option key={user.id}>{user.firstName} {user.lastName}</option>
+            )) : "There are no users"}
+          </select>
           <button type="submit">Add</button>
         </form>
 
@@ -104,12 +106,12 @@ class GroupTaskList extends React.Component {
 
 const mapState = (state) => ({
   tasks: state.tasks,
-  userId: state.user.id
+  userId: state.user.id,
+  group: state.singleGroup
 });
 
 const mapDispatch = (dispatch) => ({
-
-  fetchTasks: (groupId) => dispatch(fetchGroupTasksThunk(groupId)),
+  fetchGroup: (groupId) => dispatch(fetchSingleGroup(groupId)),
   deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
   addGroupTask: (groupId, task) => dispatch(addGroupTaskThunk(groupId, task)),
   updateTask: (task) => dispatch(updateSingleTask(task))

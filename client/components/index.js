@@ -13,7 +13,6 @@ export { default as AccountSettings } from "./User/AccountSettings";
 export { default as AppCalendar } from "./Calendar/AppCalendar";
 export { default as TaskList } from "./Tasks/TaskList";
 export { default as GroupTaskList } from "./Groups/GroupTasks";
-export { default as CreateGroupTask } from "./Groups/CreateGroupTask";
 
 //groceries
 export { default as GroceryList } from "./Grocery/GroceryList";
