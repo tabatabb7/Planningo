@@ -1,16 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-
+import { fetchGroupUsersThunk } from "../../store/allGroups";
 
 import {
-  fetchGroupTasksThunk,
   addGroupTaskThunk,
   removeTaskThunk,
 } from "../../store/tasks";
 
-
-
-class GroupTaskList extends React.Component {
+class CreateGroupTask extends React.Component {
   constructor(props) {
     super(props);
 
@@ -23,9 +20,7 @@ class GroupTaskList extends React.Component {
     this.showModal = this.showModal.bind(this);
   }
   componentDidMount() {
-    // this.props.fetchGroups()
-
-    this.props.fetchTasks(this.props.match.params.groupId);
+    this.props.fetchGroups(this.props.match.params.groupId)
   }
 
   handleChange(event) {
@@ -63,27 +58,11 @@ class GroupTaskList extends React.Component {
 
 
   render() {
-    let { tasks } = this.props;
     let { groups } = this.props
-    // console.log(tasks)
 
     return (
-      <div className="group-task-wrapper">
-        <h1 className="tool-title">Group Tasks</h1>
-        <div id="task-box">
-        {tasks.length ? 
-        tasks.map((task) => (
-          <p key={task.id} className="groupsingletask">
-            {task.name}
-            <button
-              onClick={() => this.handleDelete(task.id)}
-              className="deleteTask"
-            >
-              X
-            </button>
-          </p>
-        )) : "You have no tasks"}
-        </div>
+      <div className="create-group-task-wrapper">
+        <h1 className="tool-title">Add Tasks</h1>
         <form id="add-task-form" onSubmit={this.handleSubmit}>
           <label htmlFor="name">Add Task:</label>
           <input
@@ -93,7 +72,14 @@ class GroupTaskList extends React.Component {
             value={this.state.name}
           />
          
-      
+        </form>
+        <form id="assignee-form" onSubmit={this.handleSubmit}>
+          <label htmlFor="selected">Assigned to:</label>
+          <select value={this.state.selected} onChange={this.handleChange} name="selected">
+            {groups ? groups.map((group) => group.users.map((user) => (
+              <option key={user.id} value={user}>{user.firstName} {user.lastName}</option>
+            ))) : "There are no users"}
+          </select>
           <button type="submit">Add</button>
         </form>
 
@@ -104,15 +90,16 @@ class GroupTaskList extends React.Component {
 
 const mapState = (state) => ({
   tasks: state.tasks,
-  userId: state.user.id
+  userId: state.user.id,
+  group: state.singleGroup,
+  groups: state.groups
 });
 
 const mapDispatch = (dispatch) => ({
-
-  fetchTasks: (groupId) => dispatch(fetchGroupTasksThunk(groupId)),
+  fetchGroups: (groupId) => dispatch(fetchGroupUsersThunk(groupId)),
   deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
   addGroupTask: (groupId, task) => dispatch(addGroupTaskThunk(groupId, task)),
   updateTask: (task) => dispatch(updateSingleTask(task))
 });
 
-export default connect(mapState, mapDispatch)(GroupTaskList);
+export default connect(mapState, mapDispatch)(CreateGroupTask);

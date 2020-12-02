@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { updateSingleTask } from "../../store/singletask";
-import SingleTask from './SingleTask'
 import "./Tasks.css";
 
 
@@ -10,15 +9,6 @@ import {
   addTaskThunk,
   removeTaskThunk,
 } from "../../store/tasks";
-
-
-/*
-TODOS:
-1. Don't allow user to enter empty task
-2. Make add/edit modals
-3. Cross out completed tasks
-4. Button to filter out completed tasks
-*/
 
 class TaskList extends React.Component {
   constructor(props) {
@@ -46,7 +36,6 @@ class TaskList extends React.Component {
     event.preventDefault();
     try {
       await this.props.addTask(this.state);
-      console.log(this.state)
       this.setState({
         name: "",
       });
@@ -79,8 +68,6 @@ class TaskList extends React.Component {
 
   render() {
     let { tasks } = this.props;
-    let { group } = this.props
-    let { groups } = this.props
 
     return (
       <div className="task-wrapper">
@@ -107,17 +94,8 @@ class TaskList extends React.Component {
             onChange={this.handleChange}
             value={this.state.name}
           />
-            </form>
-          {/* <form id="assignee-form" onSubmit={this.handleSubmit}>
-          <label htmlFor="selected">Assigned to:</label>
-          <select value={this.state.selected} onChange={this.handleChange} name="selected">
-            {groups ? groups.map((group) => group.users.map((user) => (
-              <option key={user.id} value={user}>{user.firstName} {user.lastName}</option>
-            ))) : "There are no users"}
-          </select>
           <button type="submit">Add</button>
-        </form> */}
-
+          </form>
       </div>
     );
   }
@@ -126,8 +104,6 @@ class TaskList extends React.Component {
 const mapState = (state) => ({
   tasks: state.tasks,
   userId: state.user.id,
-  group: state.singleGroup,
-  groups: state.groups
 });
 
 const mapDispatch = (dispatch) => ({

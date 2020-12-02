@@ -20,6 +20,8 @@ const { Group, User_Group, User, Grocery, Task, User_Task, Task_Group } = requir
 //   }
 // });
 
+
+
 router.get("/", async (req, res, next) => {
   try {
     const group = await req.user.getGroups()
@@ -37,7 +39,7 @@ router.get("/:groupId", async (req, res, next) => {
     const group = await Group.findByPk(req.params.groupId, {
       include: {
         model: User,
-      },
+      }
     });
     res.json(group);
   } catch (err) {
@@ -64,19 +66,29 @@ router.get("/:groupId/grocery", async (req, res, next) => {
 //GET /api/groups/:groupId/tasks
 router.get("/:groupId/tasks", async (req, res, next) => {
   try {
-    const group = await Group.findOne({
-      where: {
-        id: req.params.groupId
-      },
+    const group = await Group.findByPk(req.params.groupId, {
       include: {
-        model: Task
+          model: Task
       }
-    })
+    });
     res.json(group.tasks)
+    console.log('GROUP TASKS!!!--->', group.tasks)
   } catch (error) {
     next(error);
   }
 });
+
+//GET /api/groups/:groupId/tasks/add
+router.get("/:groupId/tasks/add", async (req, res, next) => {
+  try {
+    const groupUsers = await Group.findByPk(req.params.groupId)
+
+    res.json(groupUsers)
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 //POST /api/groups/:groupId/tasks
 router.post("/:groupId/tasks", async (req, res, next) => {
