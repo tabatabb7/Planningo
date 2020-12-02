@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import {
   fetchTasksThunk,
-  addTaskThunk,
+  addGroupTaskThunk,
   removeTaskThunk,
 } from "../../store/tasks";
 
@@ -15,7 +15,6 @@ class GroupTaskList extends React.Component {
 
     this.state = {
       name: "",
-      selected: "",
       showModal: false,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -35,7 +34,7 @@ class GroupTaskList extends React.Component {
   async handleSubmit(event) {
     event.preventDefault();
     try {
-      await this.props.addTask(this.state);
+      await this.props.addGroupTask(this.props.match.params.groupId, this.state);
       console.log(this.state)
       this.setState({
         name: "",
@@ -105,7 +104,7 @@ const mapState = (state) => ({
 const mapDispatch = (dispatch) => ({
   fetchTasks: (groupId) => dispatch(fetchTasksThunk(groupId)),
   deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
-  addTask: (task) => dispatch(addTaskThunk(task)),
+  addGroupTask: (groupId, task) => dispatch(addGroupTaskThunk(groupId, task)),
   updateTask: (task) => dispatch(updateSingleTask(task))
 });
 

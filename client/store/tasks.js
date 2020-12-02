@@ -7,6 +7,7 @@ import axios from "axios";
 const GET_TASKS = "GET_TASKS";
 const GET_GROUP_TASKS = "GET_GROUP_TASKS";
 const ADD_TASK = "ADD_TASK";
+const ADD_GROUP_TASK = "ADD_GROUP_TASK";
 const DELETE_TASK = "DELETE_TASK";
 
 /**
@@ -21,7 +22,9 @@ const initialState = [];
 const getTasks = (tasks) => ({ type: GET_TASKS, tasks });
 const getGroupTasks = (tasks) => ({ type: GET_TASKS, tasks });
 const addTask = (task) => ({ type: ADD_TASK, task });
+const addGroupTask = (task) => ({type: ADD_GROUP_TASK, task})
 const deleteTask = (taskId) => ({ type: DELETE_TASK, taskId });
+
 
 /**
  * THUNK CREATORS
@@ -56,6 +59,16 @@ export const addTaskThunk = (task) => async (dispatch) => {
   }
 };
 
+export const addGroupTaskThunk = (groupId, task) => async (dispatch) => {
+  try {
+    const { data: newGroupTask } = await axios.post(`/api/groups/${groupId}/tasks/`, task);
+    dispatch(addGroupTask(newGroupTask));
+  } catch (error) {
+    console.error("Error adding task!");
+    console.error(error);
+  }
+};
+
 export const removeTaskThunk = (taskId) => async (dispatch) => {
   try {
     await axios.delete(`/api/tasks/${taskId}`);
@@ -73,6 +86,8 @@ export default function tasksReducer(state = initialState, action) {
     case GET_GROUP_TASKS:
       return action.tasks;
     case ADD_TASK:
+      return [...state, action.task];
+    case ADD_GROUP_TASK:
       return [...state, action.task];
     case DELETE_TASK:
       return [...state];

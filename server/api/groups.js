@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Group, User_Group, User, Grocery, Task } = require("../db/models");
+const { Group, User_Group, User, Grocery, Task, User_Task, Task_Group } = require("../db/models");
 
 //GET groups for a member
 router.get("/", async (req, res, next) => {
@@ -33,6 +33,7 @@ router.get("/:groupId", async (req, res, next) => {
     next(err);
   }
 });
+
 //GET /api/groups/:groupId/grocery
 router.get("/:groupId/grocery", async (req, res, next) => {
   try {
@@ -67,6 +68,27 @@ router.get("/:groupId/tasks", async (req, res, next) => {
   }
 });
 
+//POST /api/groups/:groupId/tasks
+router.post("/:groupId/tasks", async (req, res, next) => {
+  try {
+    console.log('GROUP!!!!ID!!!!!!--->', req.params.groupId)
+    const task = await Task.create({
+      name: req.body.name
+    })
+    await User_Task.create({
+      taskId: task.id,
+      userId: req.user.id
+    })
+    await Task_Group.create({
+      taskId: task.id,
+      groupId: req.params.groupId
+    })
+    res.json(task)
+  } catch (err) {
+    next(err)
+  }
+})
+
 //POST - create group
 router.post("/", async (req, res, next) => {
   try {
@@ -84,6 +106,7 @@ router.post("/", async (req, res, next) => {
     next(err);
   }
 });
+
 //POST /api/groups/:groupId/grocery
 router.post("/:groupId/grocery", async (req, res, next) => {
   try {
