@@ -1,0 +1,28 @@
+@import url("https://use.typekit.net/tlr8pqo.css");
+
+.userhome-wrapper{
+  background-color: #f7eceb;
+  width: 100%;
+  height: 100%;
+  font-family: basic-sans, sans-serif;
+  color: #545871;
+font-weight: 400;
+}
+
+#home-top{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 10%;
+  background-color: pink;
+}
+
+#show-weather{
+  right: 3%;
+  position: relative;
+}
+
+#user-greet{
+  position: relative;
+  left: 6%;
+}

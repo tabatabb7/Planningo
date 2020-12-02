@@ -7,10 +7,10 @@ import "./SideNav.css";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
   faCheck,
+  faUserFriends
 } from '@fortawesome/free-solid-svg-icons';
 import {
-faCalendar,
-faUserCircle
+faCalendar
 } from '@fortawesome/free-regular-svg-icons';
 
 const SideNav = ({ handleClick, user }) => (
@@ -31,7 +31,7 @@ const SideNav = ({ handleClick, user }) => (
       <div id="each-nav-link">
       <Link to="/groups">
       <div className="icon">
-      <FontAwesomeIcon icon={faUserCircle} />
+      <FontAwesomeIcon icon={faUserFriends} />
        </div>Groups</Link>
        </div>
 
