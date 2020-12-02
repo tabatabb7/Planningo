@@ -28,7 +28,7 @@ const User = db.define("user", {
   },
   avatarUrl: {
     type: Sequelize.TEXT,
-    defaultValue: "https://picsum.photos/50/50",
+    defaultValue: "https://picsum.photos/100/100",
 
   },
   //for protecting api routes

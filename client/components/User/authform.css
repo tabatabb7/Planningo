@@ -2,13 +2,14 @@
 
 .forms{
   background-color:#fefde9;
-  min-height: 60%;
-  min-width: 50%;
+  padding:  10%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   font-family: basic-sans, sans-serif;
+  overflow: hidden;
+  position: absolute;
 }
 
 .form-info{
@@ -53,7 +54,7 @@ color: #24315E
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 4%;
 }
 
 .form-button{
@@ -83,4 +84,9 @@ color: #24315E
 
 #form-icon{
   color: #545871;
+}
+
+#auth-link-container{
+  height: 10%;
+  margin-top: 3%;
 }

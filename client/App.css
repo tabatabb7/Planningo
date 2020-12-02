@@ -23,8 +23,11 @@
   max-width: 300px;
   height: 100vh;
   max-height: 100vh;
-  overflow:hidden;
-}
+  }
+  #hiddennav{
+    display:none
+  }
+
 
 /* hide on anything that isn't */
 @media (min-width: 1024px) {

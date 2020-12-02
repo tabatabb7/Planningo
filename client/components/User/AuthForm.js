@@ -104,6 +104,7 @@ const AuthForm = (props) => {
         </form>
         <h4>{error && error.response && <div> {error.response.data} </div>}</h4>
       </div>
+      <div id="auth-link-container">
       <a href="/auth/google">{displayName} with Google</a>
       <div id="login-or-signup">
         {displayName === "Login" ? (
@@ -115,6 +116,7 @@ const AuthForm = (props) => {
             Have an account? <Link to="/login">Login</Link>
           </div>
         )}
+      </div>
       </div>
     </div>
   );

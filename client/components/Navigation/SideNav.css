@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap");
 
-a {
+* {
   text-decoration: none;
 }
 
@@ -36,7 +36,7 @@ a {
 
 #usericon {
   border-radius: 50%;
-  width: 70px;
+  width: 80px;
   height: auto;
   position: relative;
   bottom: 10px;
@@ -55,6 +55,8 @@ a {
   border-radius: 4px;
   letter-spacing: 1px;
 }
+
+
 
 #homebutton-wrap {
   width: 160px;
@@ -84,7 +86,7 @@ display: inline-block;
 }
 
 .icon {
-  font-size: 28px;
+  font-size: 20px;
   color: #a8d0e7;
   display: inline-block;
   margin-right: 25px;
