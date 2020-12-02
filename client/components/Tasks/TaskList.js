@@ -79,7 +79,8 @@ class TaskList extends React.Component {
 
   render() {
     let { tasks } = this.props;
-    // console.log(tasks)
+    let { group } = this.props
+    let { groups } = this.props
 
     return (
       <div className="task-wrapper">
@@ -106,7 +107,23 @@ class TaskList extends React.Component {
             onChange={this.handleChange}
             value={this.state.name}
           />
+          <form id="assignee-form" onSubmit={this.handleSubmit}>
+          <label htmlFor="selected">Assigned to:</label>
+          <select value={this.state.selected} name="selected" onChange={this.handleChange}>
+            {
+            group.users ? 
+            group.users.map((user) => 
+            (
+              <option key={user.id} >{user.firstName} {user.lastName}</option>
+            )) : 
+            "There are no users"
+            }
+        
+          </select>
+            
           <button type="submit">Add</button>
+        </form>
+
         </form>
 
       </div>
@@ -117,6 +134,8 @@ class TaskList extends React.Component {
 const mapState = (state) => ({
   tasks: state.tasks,
   userId: state.user.id,
+  group: state.singleGroup,
+  groups: state.groups
 });
 
 const mapDispatch = (dispatch) => ({
