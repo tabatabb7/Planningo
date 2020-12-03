@@ -32,12 +32,11 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route exact path="/" component={HomePage} />
 
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route exact path="/home" component={UserHome} />
+            <Route exact path={"/home", "/"} component={UserHome} />
 
             <Route exact path="/account" component={Account} />
             <Route exact path="/account/settings" component={AccountSettings} />
