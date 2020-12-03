@@ -139,6 +139,7 @@ class AppCalendar extends React.Component {
             defaultDate={moment().toDate()}
             localizer={localizer}
           />
+
         </div>
       </div>
     );

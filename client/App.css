@@ -11,3 +11,31 @@
   align-items: center;
   flex-direction: column;
 }
+/* hide on mobile */
+@media (max-width: 1024px) {
+  #sidenav {
+    display: none;
+  }
+}
+
+#sidenav{
+  width: 21vw;
+  max-width: 300px;
+  height: 100vh;
+  max-height: 100vh;
+  }
+  #hiddennav{
+    display:none
+  }
+
+
+/* hide on anything that isn't */
+@media (min-width: 1024px) {
+  #bottomnav{
+      display:none;
+  }
+}
+
+#bottomnav{
+  width: 100vw;
+}

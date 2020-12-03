@@ -45,6 +45,7 @@ class GroupList extends React.Component {
           {groups.map((group) => (
             <div key={group.id} className="singlegroup">
               <Link to={`/groups/${group.id}`}>
+                <img src={group.imageUrl}></img>
               {group.name}
               </Link>
               <button
