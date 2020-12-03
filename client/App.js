@@ -1,25 +1,22 @@
 import React from "react";
-import { SideNav } from "./components";
-import {BottomNav} from './components'
+import { TopNav } from "./components";
 import Routes from "./routes";
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import "./App.css";
 
-const App = ({isLoggedIn}) => {
+const App = ({ isLoggedIn }) => {
   return (
     <div className="app-wrap">
-      <div id={isLoggedIn ? "sidenav" : "hiddennav"}>
-        <SideNav/>
-        </div>
-        <div id="sitebody">
-      <Routes />
-      <BottomNav/>
+      <div id="topnav">
+        <TopNav />
+      </div>
+      <div id="sitebody">
+        <Routes />
       </div>
     </div>
   );
 };
-
 
 const mapState = (state) => {
   return {
@@ -32,4 +29,3 @@ export default connect(mapState, null)(App);
 App.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
 };
-
