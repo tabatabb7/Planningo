@@ -88,14 +88,10 @@ export const updatePasswordThunk = (userId, oldPassword, newPassword) => async (
   dispatch
 ) => {
   try {
-    const { data } = await axios.get(`/api/users/${userId}`);
-    console.log(data, "data");
-    if (data.password === oldPassword) {
-      const { updateData } = await axios.post(`/api/users/${userId}`, {
-        password: newPassword,
-      });
-      dispatch(updatePassword(updateData));
-    }
+    const { updateData } = await axios.put(`/api/users/${userId}`, {
+      password: newPassword,
+    });
+    dispatch(updatePassword(updateData));
   } catch (error) {
     console.error(error);
   }

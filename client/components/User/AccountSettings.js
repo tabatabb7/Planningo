@@ -34,9 +34,10 @@ class AccountSettings extends Component {
       <div>
         <div>
           <h3>Personal Info:</h3>
-          <button onClick={this.toggleFormStatus}>Edit</button>
+
           {this.state.formStatus ? (
             <div>
+              <button onClick={this.toggleFormStatus}>Cancel Edit</button>
               <form id="edit-profile-form">
                 <label htmlFor="name"> Name: </label>
                 <input
@@ -44,12 +45,14 @@ class AccountSettings extends Component {
                   id="firstName"
                   type="text"
                   placeholder={user.firstName}
+                  defaultValue={user.firstName}
                 />
                 <input
                   name="lastName"
                   id="lastName"
                   type="text"
                   placeholder={user.lastName}
+                  defaultValue={user.lastName}
                 />
                 <br />
                 <label htmlFor="email"> Email: </label>
@@ -58,6 +61,7 @@ class AccountSettings extends Component {
                   id="email"
                   type="email"
                   placeholder={user.email}
+                  defaultValue={user.email}
                 />
                 <button
                   className="update-profile"
@@ -76,9 +80,19 @@ class AccountSettings extends Component {
               </form>
               <form id="edit-password-form" onSubmit={this.handlePassword}>
                 <label htmlFor="old-password"> Old Password: </label>
-                <input name="old-password" id="old-password" type="password" />
+                <input
+                  name="old-password"
+                  id="old-password"
+                  type="password"
+                  defaultValue={user.password}
+                />
                 <label htmlFor="new-password"> New Password: </label>
-                <input name="new-password" id="new-password" type="password" />
+                <input
+                  name="new-password"
+                  id="new-password"
+                  type="password"
+                  defaultValue={user.password}
+                />
                 {/* <label htmlFor="confirm-password"> Confirm Password: </label>
                 <input name="confirm-password" type="password" /> */}
                 <button
@@ -98,6 +112,7 @@ class AccountSettings extends Component {
             </div>
           ) : (
             <div>
+              <button onClick={this.toggleFormStatus}>Edit</button>
               <p>
                 Name: {user.firstName} {user.lastName}
               </p>

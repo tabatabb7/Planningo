@@ -33,12 +33,13 @@ router.get("/", isAdmin, async (req, res, next) => {
     next(err);
   }
 });
-
+//, {
+//   attributes: ["firstName", "lastName", "email", "password"],
+// });
 router.get("/:userId", isAdmin, async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.userId, {
-      attributes: ["firstName", "lastName", "email", "password"],
-    });
+    const user = await User.findByPk(req.params.userId);
+    console.log(user, "user data from get route");
     res.json(user);
   } catch (err) {
     next(err);
@@ -46,13 +47,31 @@ router.get("/:userId", isAdmin, async (req, res, next) => {
 });
 
 router.put("/:userId", isAdmin, async (req, res, next) => {
+  console.log("inside put route");
   try {
+    if (req.body.password) {
+      try {
+        console.log("inside password check");
+        await User.update(
+          {
+            password: req.body.password,
+          },
+          {
+            where: {
+              id: req.params.userId,
+            },
+          }
+        );
+      } catch (error) {
+        next(error);
+      }
+    }
+
     await User.update(
       {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
-        password: req.body.password,
       },
       {
         where: {
