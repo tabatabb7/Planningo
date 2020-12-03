@@ -4,6 +4,7 @@ const { Task, User_Task } = require("../db/models");
 router.get("/", async (req, res, next) => {
   try {
     const tasks = await req.user.getTasks()
+     
     res.json(tasks);
   } catch (err) {
     next(err);
@@ -14,7 +15,7 @@ router.get("/:taskId", async (req, res, next) => {
   try {
     const task = await Task.findOne({
       where: {
-        userId: req.user.id,
+        taskId: req.params.taskId
       },
     });
     res.json(task);
@@ -22,6 +23,7 @@ router.get("/:taskId", async (req, res, next) => {
     next(err);
   }
 });
+
 
 router.post("/", async (req, res, next) => {
   try {
@@ -33,6 +35,7 @@ router.post("/", async (req, res, next) => {
       userId: req.user.id,
       taskId: task.id,
     });
+    
     res.json(task);
   } catch (err) {
     next(err);

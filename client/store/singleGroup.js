@@ -2,6 +2,9 @@ import axios from "axios";
 
 //ACTIONS
 const SET_SINGLE_GROUP = "SET_SINGLE_GROUP";
+const ADD_GROUP_TASK = "ADD_GROUP_TASK";
+// const DELETE_TASK_FROM_GROUP = "DELETE_TASK_FROM_GROUP";
+
 //ACTION CREATORS
 
 export const setSingleGroup = (group) => {
@@ -10,6 +13,10 @@ export const setSingleGroup = (group) => {
     group,
   };
 };
+
+const addGroupTask = (task) => ({type: ADD_GROUP_TASK, task})
+// const deleteTaskFromGroup = (taskId) => ({ type: DELETE_TASK_FROM_GROUP, taskId });
+
 
 
 //THUNK CREATORS
@@ -70,6 +77,32 @@ export const deleteFromGroupThunk = (groupId, userId) => {
   };
 };
 
+// add task to group 
+export const addGroupTaskThunk = (groupId, task) => async (dispatch) => {
+  try {
+    const { data: newGroupTask } = await axios.post(`/api/groups/${groupId}/tasks`, task);
+    dispatch(addGroupTask(newGroupTask));
+    console.log('NEWGROUP!!!!!!!!', newGroupTask)
+  } catch (error) {
+    console.error("Error adding task!");
+    console.error(error);
+  }
+};
+
+// remove task from group
+// export const removeTaskFromGroupThunk = (groupId, taskId) => async (dispatch) => {
+//   try {
+//     console.log('TASK ID!!!!!!!', taskId)
+//     const { data: deletedTask } = await axios.delete(`/api/groups/${groupId}/tasks`, {
+//       taskId
+//     });
+//     dispatch(deleteTaskFromGroup(deletedTask));
+//   } catch (error) {
+//     console.error("Error deleting task!");
+//     console.error(error);
+//   }
+// };
+
 //INITIAL STATE
 const initialState = {};
 
@@ -79,6 +112,10 @@ const singleGroupReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_SINGLE_GROUP:
       return action.group;
+    case ADD_GROUP_TASK:
+      return {...state, ...action.task}
+    // case DELETE_TASK_FROM_GROUP:
+    //   return [...state]
     default:
       return state;
   }

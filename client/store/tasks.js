@@ -21,6 +21,7 @@ const getTasks = (tasks) => ({ type: GET_TASKS, tasks });
 const addTask = (task) => ({ type: ADD_TASK, task });
 const deleteTask = (taskId) => ({ type: DELETE_TASK, taskId });
 
+
 /**
  * THUNK CREATORS
  */
@@ -37,7 +38,7 @@ export const fetchTasksThunk = () => async (dispatch) => {
 export const addTaskThunk = (task) => async (dispatch) => {
   try {
     console.log(task)
-    const { data: newTask } = await axios.post("/api/tasks/", task);
+    const { data: newTask } = await axios.post("/api/tasks", task);
     dispatch(addTask(newTask));
   } catch (error) {
     console.error("Error adding task!");
@@ -62,7 +63,7 @@ export default function tasksReducer(state = initialState, action) {
     case ADD_TASK:
       return [...state, action.task];
     case DELETE_TASK:
-      return [...state];
+      return [...state]
     default:
       return state;
   }

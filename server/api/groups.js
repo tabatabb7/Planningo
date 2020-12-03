@@ -1,38 +1,55 @@
 const router = require("express").Router();
-const { Group, User_Group, User, Grocery } = require("../db/models");
+const { Group, User_Group, User, Grocery, Task, User_Task, Task_Group } = require("../db/models");
 
 //GET groups for a member
+// router.get("/", async (req, res, next) => {
+//   try {
+//     const group = await Group.findAll({
+//       include: [
+//         {
+//           model: User,
+//           where: {
+//             id: req.user.id,
+//           },
+//         },
+//       ],
+//     });
+//     res.json(group);
+//   } catch (err) {
+//     next(err);
+//   }
+// });
+
+
+
 router.get("/", async (req, res, next) => {
   try {
-    const group = await Group.findAll({
-      include: [
-        {
-          model: User,
-          where: {
-            id: req.user.id,
-          },
-        },
-      ],
-    });
+    const group = await req.user.getGroups()
     res.json(group);
   } catch (err) {
     next(err);
   }
 });
+
+
 
 //GET single group
 router.get("/:groupId", async (req, res, next) => {
   try {
     const group = await Group.findByPk(req.params.groupId, {
-      include: {
+      include: [{
         model: User,
-      },
+      }, 
+      {
+        model: Task
+      }]
     });
     res.json(group);
   } catch (err) {
     next(err);
   }
 });
+
 //GET /api/groups/:groupId/grocery
 router.get("/:groupId/grocery", async (req, res, next) => {
   try {
@@ -47,6 +64,7 @@ router.get("/:groupId/grocery", async (req, res, next) => {
     next(error);
   }
 });
+
 
 //POST - create group
 router.post("/", async (req, res, next) => {
@@ -65,6 +83,7 @@ router.post("/", async (req, res, next) => {
     next(err);
   }
 });
+
 //POST /api/groups/:groupId/grocery
 router.post("/:groupId/grocery", async (req, res, next) => {
   try {
@@ -146,4 +165,59 @@ router.delete("/:groupId/grocery/:groceryId", async (req, res, next) => {
     next(error);
   }
 });
+
+// GET /api/groups/:groupId/tasks
+router.get("/:groupId/tasks", async (req, res, next) => {
+    try {
+      const group = await Group.findByPk(req.params.groupId, {
+        include: [{
+          model: User,
+        }, 
+        {
+          model: Task
+        }]
+      });
+      res.json(group);
+    } catch (err) {
+      next(err);
+    }
+  });
+
+// POST /api/groups/:groupId/tasks
+router.post("/:groupId/tasks", async (req, res, next) => {
+  try {
+    const selected = req.body.selected
+    const selectedNames = selected.split(' ')
+
+    const user = await User.findOne({
+      where: {
+        firstName: selectedNames[0],
+        lastName: selectedNames[1]
+      }
+    })
+
+    const userGroup = await User_Group.findOne({
+      where: {
+        groupId: req.params.groupId
+      }
+    })
+
+    const task = await Task.create({
+      userId: user.id,
+      name: req.body.name,
+    });
+    await User_Task.create({
+      userId: user.id,
+      taskId: task.id,
+    });
+    await Task_Group.create({
+      taskId: task.id,
+      groupId: userGroup.groupId
+    });
+    res.json(task);
+  } catch (err) {
+    next(err);
+  }
+});
+
 module.exports = router;
