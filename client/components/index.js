@@ -1,5 +1,5 @@
+export { default as TopNav } from "./Navigation/TopNav";
 export { default as SideNav } from "./Navigation/SideNav";
-export { default as BottomNav } from "./Navigation/BottomNav";
 
 export { default as UserHome } from "./UserHome/UserHome";
 export { default as HomePage } from "./AllHome/HomePage";

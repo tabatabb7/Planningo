@@ -1,25 +1,45 @@
 import React from "react";
-import { SideNav } from "./components";
-import {BottomNav} from './components'
+import { TopNav, SideNav } from "./components";
 import Routes from "./routes";
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import "./App.css";
 
-const App = ({isLoggedIn}) => {
-  return (
-    <div className="app-wrap">
-      <div id={isLoggedIn ? "sidenav" : "hiddennav"}>
-        <SideNav/>
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      sideNavOpen: false,
+    };
+    this.toggleSideNav = this.toggleSideNav.bind(this);
+  }
+  toggleSideNav() {
+    this.setState({ sideNavOpen: !this.state.sideNavOpen });
+  }
+  render() {
+    return (
+      <div className="app-wrap">
+        <div id="topnav">
+          <TopNav
+            toggleSideNav={this.toggleSideNav}
+            sideNavOpen={this.state.sideNavOpen}
+          />
         </div>
         <div id="sitebody">
-      <Routes />
-      <BottomNav/>
+          <div
+            className={`sidenav ${this.state.sideNavOpen ? "open" : "closed"}`}
+          >
+            <SideNav />
+          </div>
+          <div id="app-content-wrap">
+          <Routes />
+          </div>
+        </div>
       </div>
-    </div>
-  );
-};
-
+    );
+  }
+}
 
 const mapState = (state) => {
   return {
@@ -32,4 +52,3 @@ export default connect(mapState, null)(App);
 App.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
 };
-

@@ -14,6 +14,8 @@ const AuthForm = (props) => {
 
   return (
     <div className="forms">
+          <div className="form-container">
+
       <div className="form-info">
         <form onSubmit={handleSubmit} name={name}>
           <h1 id="authtitle">{displayName}</h1>
@@ -116,6 +118,7 @@ const AuthForm = (props) => {
             Have an account? <Link to="/login">Login</Link>
           </div>
         )}
+      </div>
       </div>
       </div>
     </div>
