@@ -1,21 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
-import { updateSingleTask } from "../../store/singletask";
-import "./Tasks.css";
-
-
+import { removeTaskThunk } from "../../store/tasks";
 import {
-  fetchTasksThunk,
-  addTaskThunk,
-  removeTaskThunk,
-} from "../../store/tasks";
+  fetchSingleGroup,
+  addGroupTaskThunk,
+} from "../../store/singleGroup";
 
-class TaskList extends React.Component {
+class GroupTaskList extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       name: "",
+      selected: "",
       showModal: false,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -23,7 +20,7 @@ class TaskList extends React.Component {
     this.showModal = this.showModal.bind(this);
   }
   componentDidMount() {
-    this.props.fetchTasks(this.props.match.params.userId);
+    this.props.fetchGroup(this.props.match.params.groupId);
   }
 
   handleChange(event) {
@@ -35,10 +32,13 @@ class TaskList extends React.Component {
   async handleSubmit(event) {
     event.preventDefault();
     try {
-      await this.props.addTask(this.state);
+      await this.props.addGroupTask(this.props.match.params.groupId, this.state);
+      console.log(this.state)
       this.setState({
         name: "",
+        selected: ""
       });
+      await this.props.fetchGroup(this.props.match.params.groupId)
     } catch (err) {
       console.log("error creating task", err);
     }
@@ -47,35 +47,28 @@ class TaskList extends React.Component {
   async handleDelete(id) {
     try {
       await this.props.deleteTask(id);
-      this.props.fetchTasks();
+      await this.props.fetchGroup(this.props.match.params.groupId)
     } catch (err) {
       console.error(err);
     }
   }
 
-  // async updateTask(studentId) {
-  //   try {
-  //     await this.props.updateStudentThunk(studentId);
-  //     this.props.fetchStudents();
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // }
   showModal(e) {
     this.setState({ showModal: true });
   }
 
 
   render() {
-    let { tasks } = this.props;
+    let tasks  = this.props.group.tasks
+    let group = this.props.group
 
     return (
-      <div className="task-wrapper">
-        <h1 className="tool-title">My Tasks</h1>
+      <div className="group-task-wrapper">
+        <h1 className="tool-title">Group Tasks</h1>
         <div id="task-box">
-        {tasks.length ? 
+        {tasks && tasks.length ? 
         tasks.map((task) => (
-          <p key={task.id} className="singletask">
+          <p key={task.id} className="groupsingletask">
             {task.name}
             <button
               onClick={() => this.handleDelete(task.id)}
@@ -94,8 +87,18 @@ class TaskList extends React.Component {
             onChange={this.handleChange}
             value={this.state.name}
           />
+        </form>
+        <form id="assignee-form" onSubmit={this.handleSubmit}>
+          <label htmlFor="selected">Assigned to:</label>
+          <select value={this.state.selected} onChange={this.handleChange} name="selected">
+            <option value="" disabled>Select</option>
+            {group && group.users ? group.users.map((user) => (
+              <option key={user.id}>{user.firstName} {user.lastName}</option>
+            )) : "There are no users"}
+          </select>
           <button type="submit">Add</button>
-          </form>
+        </form>
+
       </div>
     );
   }
@@ -104,13 +107,14 @@ class TaskList extends React.Component {
 const mapState = (state) => ({
   tasks: state.tasks,
   userId: state.user.id,
+  group: state.singleGroup
 });
 
 const mapDispatch = (dispatch) => ({
-  fetchTasks: (userId) => dispatch(fetchTasksThunk(userId)),
+  fetchGroup: (groupId) => dispatch(fetchSingleGroup(groupId)),
   deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
-  addTask: (task) => dispatch(addTaskThunk(task)),
+  addGroupTask: (groupId, task) => dispatch(addGroupTaskThunk(groupId, task)),
   updateTask: (task) => dispatch(updateSingleTask(task))
 });
 
-export default connect(mapState, mapDispatch)(TaskList);
+export default connect(mapState, mapDispatch)(GroupTaskList);
