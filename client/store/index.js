@@ -4,7 +4,7 @@ import thunkMiddleware from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import user from "./user";
 import tasks from "./tasks";
-import singletask from "./singletask";
+import singleTask from "./singletask";
 import groceries from "./groceries";
 import groups from "./allGroups";
 import singleGroup from "./singleGroup";
@@ -12,7 +12,7 @@ import groupGroceries from "./groupGroceries";
 
 const reducer = combineReducers({
   user,
-  singletask,
+  singleTask,
   tasks,
   groceries,
   groups,

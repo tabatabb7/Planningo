@@ -1,13 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import { updateSingleTask } from "../../store/singletask";
+// import { updateSingleTask } from "../../store/singletask";
+import TaskModal from './TaskModal'
 import "./Tasks.css";
-
-
 import {
   fetchTasksThunk,
-  addTaskThunk,
-  removeTaskThunk,
+  // addTaskThunk,
+  // removeTaskThunk,
 } from "../../store/tasks";
 
 class TaskList extends React.Component {
@@ -17,35 +16,35 @@ class TaskList extends React.Component {
     this.state = {
       name: "",
       selected: "",
-      showModal: false,
+      show: false,
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
     this.showModal = this.showModal.bind(this);
   }
   componentDidMount() {
-    this.props.fetchTasks(this.props.match.params.userId);
+    this.props.fetchTasks();
   }
 
-  handleChange(event) {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
-  }
+  // handleChange(event) {
+  //   this.setState({
+  //     [event.target.name]: event.target.value,
+  //   });
+  // }
 
-  async handleSubmit(event) {
-    event.preventDefault();
-    try {
-      await this.props.addTask(this.state);
-      this.setState({
-        name: "",
-        selected: "",
-      });
-      await this.props.fetchTasks(this.props.match.params.userId);
-    } catch (err) {
-      console.log("error creating task", err);
-    }
-  }
+  // async handleSubmit(event) {
+  //   event.preventDefault();
+  //   try {
+  //     await this.props.addTask(this.state);
+  //     this.setState({
+  //       name: "",
+  //       selected: "",
+  //     });
+  //     await this.props.fetchTasks();
+  //   } catch (err) {
+  //     console.log("error creating task", err);
+  //   }
+  // }
 
   async handleDelete(id) {
     try {
@@ -65,18 +64,20 @@ class TaskList extends React.Component {
   //   }
   // }
   showModal(e) {
-    this.setState({ showModal: true });
+    this.setState({ show:!this.state.show });
   }
 
 
   render() {
     let { tasks } = this.props.tasks
-    let { groups } = this.props.tasks
+    // let { groups } = this.props.tasks
 
     return (
       <div className="task-wrapper">
         <h1 className="tasks-title">My Tasks</h1>
         <div id="task-box">
+        <button  onClick={e => {this.showModal(e)}}> Add task </button>
+        <TaskModal onClose={e => this.showModal(e)} show={this.state.show} />
         {tasks && tasks.length ? 
         tasks.map((task) => (
           <p key={task.id} className="singletask">
@@ -90,7 +91,7 @@ class TaskList extends React.Component {
           </p>
         )) : "You have no tasks"}
         </div>
-        <form id="add-task-form" onSubmit={this.handleSubmit}>
+        {/* <form id="add-task-form" onSubmit={this.handleSubmit}>
           <label htmlFor="name">Add Task:</label>
           <input
             name="name"
@@ -108,7 +109,7 @@ class TaskList extends React.Component {
             )) : "There are no groups"}
           </select>
           <button type="submit">Add</button>
-        </form>
+        </form> */}
       </div>
     );
   }
@@ -120,10 +121,11 @@ const mapState = (state) => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  fetchTasks: (userId) => dispatch(fetchTasksThunk(userId)),
-  deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
-  addTask: (task) => dispatch(addTaskThunk(task)),
-  updateTask: (task) => dispatch(updateSingleTask(task))
+  fetchTasks: () => dispatch(fetchTasksThunk()),
+  // deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
+  // addTask: (task) => dispatch(addTaskThunk(task)),
+  // updateTask: (task) => dispatch(updateSingleTask(task))
 });
+
 
 export default connect(mapState, mapDispatch)(TaskList);
