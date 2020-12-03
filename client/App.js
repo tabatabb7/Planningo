@@ -1,22 +1,43 @@
 import React from "react";
-import { TopNav } from "./components";
+import { TopNav, SideNav } from "./components";
 import Routes from "./routes";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import "./App.css";
 
-const App = ({ isLoggedIn }) => {
-  return (
-    <div className="app-wrap">
-      <div id="topnav">
-        <TopNav />
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      sideNavOpen: false,
+    };
+    this.toggleSideNav = this.toggleSideNav.bind(this);
+  }
+  toggleSideNav() {
+    this.setState({ sideNavOpen: !this.state.sideNavOpen });
+  }
+  render() {
+    return (
+      <div className="app-wrap">
+        <div id="topnav">
+          <TopNav
+            toggleSideNav={this.toggleSideNav}
+            sideNavOpen={this.state.sideNavOpen}
+          />
+        </div>
+        <div id="sitebody">
+          <div
+            className={`sidenav ${this.state.sideNavOpen ? "open" : "closed"}`}
+          >
+            <SideNav />
+          </div>
+          <Routes />
+        </div>
       </div>
-      <div id="sitebody">
-        <Routes />
-      </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 const mapState = (state) => {
   return {

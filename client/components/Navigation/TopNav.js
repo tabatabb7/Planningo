@@ -9,16 +9,13 @@ import { faCheck, faHome, faBars,
 import { faCalendar, faUserCircle } from "@fortawesome/free-regular-svg-icons";
 
 
-// const TopNav =({toggleSideNav}) => {
-const TopNav = () => {
+const TopNav =({toggleSideNav}) => {
   return (
     <div className="topnav-wrapper">
       <div id="left-nav-links">
-      <div id="each-top-nav-link-open">
-        {/* <div id="open-sidebar-button" onClick={toggleSideNav}> */}
+        <div id="each-top-nav-link-open" onClick={toggleSideNav}>
           <div className="top-nav-icon">
             <FontAwesomeIcon icon={faBars} />
-          {/* </div> */}
         </div>
         </div>
         <div id="each-top-nav-link">
