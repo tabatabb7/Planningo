@@ -98,7 +98,7 @@ class GroceryList extends React.Component {
                   name="isBought"
                   type="checkbox"
                   checked={!this.state.isBought}
-                  onChange={this.handlePurchase}
+                  onChange={this.handlePurchase()}
                 />
                 {grocery.name}
                 <button
