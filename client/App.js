@@ -32,7 +32,9 @@ class App extends React.Component {
           >
             <SideNav />
           </div>
+          <div id="app-content-wrap">
           <Routes />
+          </div>
         </div>
       </div>
     );
