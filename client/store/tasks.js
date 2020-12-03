@@ -12,7 +12,7 @@ const DELETE_TASK = "DELETE_TASK";
  * INITIAL STATE
  */
 
-const initialState = [];
+const initialState = {};
 
 /**
  * ACTION CREATORS
@@ -59,11 +59,11 @@ export const removeTaskThunk = (taskId) => async (dispatch) => {
 export default function tasksReducer(state = initialState, action) {
   switch (action.type) {
     case GET_TASKS:
-      return action.tasks;
+      return action.tasks
     case ADD_TASK:
-      return [...state, action.task];
+      return {...state, ...action.task};
     case DELETE_TASK:
-      return [...state]
+      return {...state}
     default:
       return state;
   }
