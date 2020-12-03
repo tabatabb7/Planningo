@@ -16,6 +16,7 @@ class TaskList extends React.Component {
 
     this.state = {
       name: "",
+      selected: "",
       showModal: false,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -38,7 +39,9 @@ class TaskList extends React.Component {
       await this.props.addTask(this.state);
       this.setState({
         name: "",
+        selected: "",
       });
+      await this.props.fetchTasks(this.props.match.params.userId);
     } catch (err) {
       console.log("error creating task", err);
     }
@@ -67,13 +70,14 @@ class TaskList extends React.Component {
 
 
   render() {
-    let { tasks } = this.props;
+    let { tasks } = this.props.tasks
+    let { groups } = this.props.tasks
 
     return (
       <div className="task-wrapper">
-        <h1 className="tool-title">My Tasks</h1>
+        <h1 className="tasks-title">My Tasks</h1>
         <div id="task-box">
-        {tasks.length ? 
+        {tasks && tasks.length ? 
         tasks.map((task) => (
           <p key={task.id} className="singletask">
             {task.name}
@@ -94,8 +98,17 @@ class TaskList extends React.Component {
             onChange={this.handleChange}
             value={this.state.name}
           />
-          <button type="submit">Add</button>
           </form>
+        <form id="group-form" onSubmit={this.handleSubmit}>
+          <label htmlFor="selected">Group:</label>
+          <select value={this.state.selected} onChange={this.handleChange} name="selected">
+            <option value="" disabled>Select</option>
+            {groups && groups.length ? groups.map((group) => (
+              <option key={group.id}>{group.name} </option>
+            )) : "There are no groups"}
+          </select>
+          <button type="submit">Add</button>
+        </form>
       </div>
     );
   }

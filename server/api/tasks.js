@@ -1,15 +1,36 @@
 const router = require("express").Router();
-const { Task, User_Task } = require("../db/models");
+const { Task, User_Task, Group, User, Task_Group } = require("../db/models");
+
+// router.get("/", async (req, res, next) => {
+//   try {
+//     const tasks = await req.user.getTasks({
+//       in
+//     })
+     
+//     res.json(tasks);
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 
 router.get("/", async (req, res, next) => {
   try {
-    const tasks = await req.user.getTasks()
-     
-    res.json(tasks);
+    const user = await User.findByPk(req.user.id, {
+      include: [{
+        model: Group,
+      }, 
+      {
+        model: Task
+      }]
+    });
+    res.json(user);
+    console.log(user)
   } catch (err) {
     next(err);
   }
 });
+
+
 
 router.get("/:taskId", async (req, res, next) => {
   try {
@@ -27,12 +48,22 @@ router.get("/:taskId", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
+    console.log(req.user)
+    const group = await Group.findOne({
+      where: {
+        name: req.body.selected
+      }
+    })
     const task = await Task.create({
       userId: req.user.id,
       name: req.body.name,
     });
     await User_Task.create({
       userId: req.user.id,
+      taskId: task.id,
+    });
+    await Task_Group.create({
+      groupId: group.id,
       taskId: task.id,
     });
     
