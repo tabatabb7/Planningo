@@ -7,7 +7,8 @@ import history from "../history";
 const GET_USER = "GET_USER";
 const REMOVE_USER = "REMOVE_USER";
 const ADD_USER = "ADD_USER";
-
+const UPDATE_USER = "UPDATE_USER";
+const UPDATE_PASSWORD = "UPDATE_PASSWORD";
 /**
  * INITIAL STATE
  */
@@ -16,14 +17,15 @@ const defaultUser = {};
 /**
  * ACTION CREATORS
  */
-const getUser = user => ({ type: GET_USER, user });
+const getUser = (user) => ({ type: GET_USER, user });
 const removeUser = () => ({ type: REMOVE_USER });
-const addUser = user => ({ type: ADD_USER, user });
-
+const addUser = (user) => ({ type: ADD_USER, user });
+const updateUser = (user) => ({ type: UPDATE_USER, user });
+const updatePassword = (user) => ({ type: UPDATE_PASSWORD, user });
 /**
  * THUNK CREATORS
  */
-export const me = () => async dispatch => {
+export const me = () => async (dispatch) => {
   try {
     const res = await axios.get("/auth/me");
     dispatch(getUser(res.data || defaultUser));
@@ -32,15 +34,9 @@ export const me = () => async dispatch => {
   }
 };
 
-
-
-export const auth = (
-  email,
-  password,
-  method,
-  firstName,
-  lastName
-) => async dispatch => {
+export const auth = (email, password, method, firstName, lastName) => async (
+  dispatch
+) => {
   let res;
   try {
     res = await axios.post(`/auth/${method}`, {
@@ -48,7 +44,7 @@ export const auth = (
       password,
       name,
       firstName,
-      lastName
+      lastName,
     });
     history.push("/home");
   } catch (authError) {
@@ -62,18 +58,49 @@ export const auth = (
   }
 };
 
-export const updateUserThunk = user => {
-  return async dispatch => {
+export const updateUserThunk = (userId, firstName, lastName, email) => {
+  return async (dispatch) => {
     try {
-      const { data } = await axios.put(`/api/users/${user.id}`, user);
-      dispatch(getUser(data));
+      const { data } = await axios.put(`/api/users/${userId}`, {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+      });
+
+      dispatch(updateUser(data));
     } catch (error) {
       console.log("error editing user info");
     }
   };
 };
+// export const updateUserThunk = user => {
+//   return async dispatch => {
+//     try {
+//       const { data } = await axios.put(`/api/users/${user.id}`, user);
+//       dispatch(getUser(data));
+//     } catch (error) {
+//       console.log("error editing user info");
+//     }
+//   };
+// };
 
-export const logout = () => async dispatch => {
+export const updatePasswordThunk = (userId, oldPassword, newPassword) => async (
+  dispatch
+) => {
+  try {
+    const { data } = await axios.get(`/api/users/${userId}`);
+    console.log(data, "data");
+    if (data.password === oldPassword) {
+      const { updateData } = await axios.post(`/api/users/${userId}`, {
+        password: newPassword,
+      });
+      dispatch(updatePassword(updateData));
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+export const logout = () => async (dispatch) => {
   try {
     await axios.post("/auth/logout");
     dispatch(removeUser());
@@ -86,7 +113,7 @@ export const logout = () => async dispatch => {
 /**
  * REDUCER
  */
-export default function(state = defaultUser, action) {
+export default function (state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:
       return action.user;
@@ -94,6 +121,8 @@ export default function(state = defaultUser, action) {
       return defaultUser;
     case ADD_USER:
       return [...state, action.user];
+    case UPDATE_USER:
+      return action.user;
     default:
       return state;
   }
