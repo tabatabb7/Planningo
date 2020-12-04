@@ -1,27 +1,6 @@
 const router = require("express").Router();
 const { Group, User_Group, User, Grocery, Task, User_Task, Task_Group } = require("../db/models");
 
-//GET groups for a member
-// router.get("/", async (req, res, next) => {
-//   try {
-//     const group = await Group.findAll({
-//       include: [
-//         {
-//           model: User,
-//           where: {
-//             id: req.user.id,
-//           },
-//         },
-//       ],
-//     });
-//     res.json(group);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
-
-
-
 router.get("/", async (req, res, next) => {
   try {
     const group = await req.user.getGroups()
@@ -30,7 +9,6 @@ router.get("/", async (req, res, next) => {
     next(err);
   }
 });
-
 
 
 //GET single group
@@ -198,7 +176,7 @@ router.post("/:groupId/tasks", async (req, res, next) => {
 
     const userGroup = await User_Group.findOne({
       where: {
-        groupId: req.params.groupId
+        groupId: req.body.groupId
       }
     })
 
