@@ -31,7 +31,7 @@ router.post("/", async (req, res, next) => {
   try {
     const grocery = await Grocery.create({
       userId: req.user.id,
-      name: req.body.name
+      name: req.body.name,
     });
     res.json(grocery);
   } catch (err) {
@@ -39,16 +39,19 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-
+//update /api/groceries/:groceryId
 router.put("/:groceryId", async (req, res, next) => {
   try {
-    const grocery = await Grocery.findOne({
-      where: {
-        userId: req.user.id,
+    await Grocery.update(
+      {
+        isBought: true,
       },
-    });
-    await grocery.update(req.body);
-    res.json(grocery);
+      {
+        where: {
+          id: req.params.groceryId,
+        },
+      }
+    );
   } catch (err) {
     next(err);
   }
@@ -58,8 +61,8 @@ router.delete("/:groceryId", async (req, res, next) => {
   try {
     await Grocery.destroy({
       where: {
-        id: req.params.groceryId
-      }
+        id: req.params.groceryId,
+      },
     });
     res.sendStatus(204);
   } catch (err) {
