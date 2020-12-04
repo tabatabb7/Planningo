@@ -5,7 +5,7 @@ import {
   addTaskThunk,
   removeTaskThunk,
 } from "../../store/tasks";
-import "./Tasks.css";
+import "./taskmodal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
@@ -74,7 +74,6 @@ class TaskModal extends Component {
               onClick={(e) => this.onClose(e)}
               className="close-modal-btn"
             >
-              {" "}
               <FontAwesomeIcon icon={faTimes} />
             </button>
           </div>

@@ -18,11 +18,16 @@ Group.belongsToMany(User, { through: "User_Group" });
 //***************************************************************** */
 //Task and Group --- one-to-many with through table
 
-const Task_Group = db.define("Task_Group", {});
+const Task_Group = db.define("Task_Group", {
+  points: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0
+  }
+});
+
 Task.belongsToMany(Group, { through: "Task_Group" });
 Group.belongsToMany(Task, { through: "Task_Group" });
 
-//user and task. We might need through table once we put groups in? not sure
 const User_Task = db.define("User_Task", {});
 
 User.belongsToMany(Task, { through: "User_Task" });
