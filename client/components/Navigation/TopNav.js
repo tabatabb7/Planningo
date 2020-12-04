@@ -14,7 +14,7 @@ const TopNav =({toggleSideNav}) => {
     <div className="topnav-wrapper">
       <div id="left-nav-links">
         <div id="each-top-nav-link-open" onClick={toggleSideNav}>
-          <div className="top-nav-icon">
+          <div className="top-nav-icon-bar">
             <FontAwesomeIcon icon={faBars} />
         </div>
         </div>

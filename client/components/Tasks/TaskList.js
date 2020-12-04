@@ -76,9 +76,9 @@ class TaskList extends React.Component {
       <div className="task-wrapper">
         <h1 className="tasks-title">My Tasks</h1>
         <div id="task-box">
-        <button  onClick={e => {this.showModal(e)}}> Add task </button>
+        <button  onClick={e => {this.showModal(e)}} className="add-task-button"> Add task </button>
         <TaskModal onClose={e => this.showModal(e)} show={this.state.show} />
-        {tasks && tasks.length ? 
+        {tasks && tasks.length ?
         tasks.map((task) => (
           <p key={task.id} className="singletask">
             {task.name}
