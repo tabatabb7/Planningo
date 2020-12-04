@@ -1,5 +1,5 @@
 .topnav-wrapper{
-  background-color: #4bc7df;
+  background-color: #F9C7BB;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -20,7 +20,7 @@
 #right-nav-links{
   display: flex;
   width: 10%;
-  min-width: 50px;
+  min-width: 60px;
   justify-content: space-between;
   padding-right: 2%;
 }
@@ -36,7 +36,7 @@
   display:flex;
   align-items: center;
   justify-content: center;
-  background-color: #00B6D5;
+  background-color: #F2AFA6;
   height: 100%;
   padding-left: 6%;
   padding-right: 6%;
@@ -45,16 +45,15 @@
 .top-nav-icon{
   text-align: center;
   font-size: 20px;
-  color: white;
+  color: #fefde9;
   cursor: pointer;
   padding: 2
 }
 
-#right-nav-links .top-nav-icon:hover{
-  transform: rotate(20deg);
+.top-nav-icon-bar{
+  text-align: center;
+  font-size: 20px;
+  color: #fefde9;
+  cursor: pointer;
+  padding: 2
 }
-
-#each-top-nav-link .top-nav-icon:hover{
-  transform: rotate(-20deg);
-}
-
