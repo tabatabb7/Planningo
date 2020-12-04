@@ -7,6 +7,7 @@ import {
   fetchSingleGroup,
   addGroupTaskThunk,
 } from "../../store/singleGroup";
+import "./grouptasks.css"
 
 class GroupTaskList extends React.Component {
   constructor(props) {
@@ -66,8 +67,8 @@ class GroupTaskList extends React.Component {
 
     return (
       <div className="group-task-wrapper">
-        <h1 className="tool-title">Group Tasks</h1>
-        <div id="task-box">
+        <h1 className="group-tool-title">Group Tasks</h1>
+        <div id="group-task-box">
         <button  onClick={e => {this.showModal(e)}} className="add-group-task-button"> Add task </button>
         <GroupTaskModal groupId={this.props.match.params.groupId} onClose={e => this.showModal(e)} show={this.state.show}/>
         {tasks && tasks.length ? 
@@ -83,26 +84,6 @@ class GroupTaskList extends React.Component {
           </p>
         )) : "You have no tasks"}
         </div>
-        <form id="add-task-form" onSubmit={this.handleSubmit}>
-          <label htmlFor="name">Add Task:</label>
-          <input
-            name="name"
-            type="text"
-            onChange={this.handleChange}
-            value={this.state.name}
-          />
-        </form>
-        <form id="assignee-form" onSubmit={this.handleSubmit}>
-          <label htmlFor="selected">Assigned to:</label>
-          <select value={this.state.selected} onChange={this.handleChange} name="selected">
-            <option value="" disabled>Select</option>
-            {group && group.users ? group.users.map((user) => (
-              <option key={user.id}>{user.firstName} {user.lastName}</option>
-            )) : "There are no users"}
-          </select>
-          <button type="submit">Add</button>
-        </form>
-
       </div>
     );
   }

@@ -32,9 +32,6 @@ class TaskModal extends Component {
     event.preventDefault();
     try {
       await this.props.addTask(this.state);
-      // if(this.state.name===""){
-      //   this.setState
-      // }
       await this.props.fetchTasks();
       this.setState({
         name: "",
@@ -61,6 +58,7 @@ class TaskModal extends Component {
 
   render() {
     let { groups } = this.props.tasks;
+    
     if (!this.props.show) {
       return null;
     }
