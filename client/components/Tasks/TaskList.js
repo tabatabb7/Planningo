@@ -6,8 +6,9 @@ import "./Tasks.css";
 import {
   fetchTasksThunk,
   // addTaskThunk,
-  // removeTaskThunk,
+  removeTaskThunk,
 } from "../../store/tasks";
+
 
 class TaskList extends React.Component {
   constructor(props) {
@@ -55,18 +56,9 @@ class TaskList extends React.Component {
     }
   }
 
-  // async updateTask(studentId) {
-  //   try {
-  //     await this.props.updateStudentThunk(studentId);
-  //     this.props.fetchStudents();
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // }
   showModal(e) {
     this.setState({ show:!this.state.show });
   }
-
 
   render() {
     let { tasks } = this.props.tasks
@@ -74,11 +66,10 @@ class TaskList extends React.Component {
 
     return (
       <div className="task-wrapper">
-        <h1 className="tasks-title">My Tasks</h1>
-        <div id="task-box">
-        <button  onClick={e => {this.showModal(e)}}> Add task </button>
-        <TaskModal onClose={e => this.showModal(e)} show={this.state.show} />
-        {tasks && tasks.length ? 
+        <div id="task-box">My Tasks
+        <button  onClick={e => {this.showModal(e)}} className="add-task-button"> Add task </button>
+        <TaskModal onClose={e => this.showModal(e)} show={this.state.show}/>
+        {tasks && tasks.length ?
         tasks.map((task) => (
           <p key={task.id} className="singletask">
             {task.name}
@@ -91,26 +82,7 @@ class TaskList extends React.Component {
           </p>
         )) : "You have no tasks"}
         </div>
-        {/* <form id="add-task-form" onSubmit={this.handleSubmit}>
-          <label htmlFor="name">Add Task:</label>
-          <input
-            name="name"
-            type="text"
-            onChange={this.handleChange}
-            value={this.state.name}
-          />
-          </form>
-        <form id="group-form" onSubmit={this.handleSubmit}>
-          <label htmlFor="selected">Group:</label>
-          <select value={this.state.selected} onChange={this.handleChange} name="selected">
-            <option value="" disabled>Select</option>
-            {groups && groups.length ? groups.map((group) => (
-              <option key={group.id}>{group.name} </option>
-            )) : "There are no groups"}
-          </select>
-          <button type="submit">Add</button>
-        </form> */}
-      </div>
+          </div>
     );
   }
 }
@@ -122,7 +94,7 @@ const mapState = (state) => ({
 
 const mapDispatch = (dispatch) => ({
   fetchTasks: () => dispatch(fetchTasksThunk()),
-  // deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
+  deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
   // addTask: (task) => dispatch(addTaskThunk(task)),
   // updateTask: (task) => dispatch(updateSingleTask(task))
 });
