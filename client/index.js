@@ -6,7 +6,7 @@ import { Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import history from "./history";
 import store from "./store";
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+// import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -22,4 +22,4 @@ ReactDOM.render(
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
 
-serviceWorkerRegistration.register();
+// serviceWorkerRegistration.register();
