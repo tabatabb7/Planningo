@@ -5,11 +5,9 @@ import {
   addTaskThunk,
   removeTaskThunk,
 } from "../../store/tasks";
-import "./Tasks.css"
+import "./taskmodal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes
-} from "@fortawesome/free-solid-svg-icons";
-
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 class TaskModal extends Component {
   constructor(props) {
@@ -17,6 +15,8 @@ class TaskModal extends Component {
     this.state = {
       name: "",
       selected: "",
+      description: "",
+      error: null
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,12 +32,15 @@ class TaskModal extends Component {
     event.preventDefault();
     try {
       await this.props.addTask(this.state);
+      // if(this.state.name===""){
+      //   this.setState
+      // }
       await this.props.fetchTasks();
       this.setState({
         name: "",
         selected: "",
-      })
-      this.props.onClose()
+      });
+      this.props.onClose();
     } catch (err) {
       console.log("error creating task", err);
     }
@@ -65,45 +68,57 @@ class TaskModal extends Component {
       <div>
         <div>{this.props.children}</div>
         <div className="task-modal-content">
-
-      <div id="top-taskmodal-div">
-      <button onClick={(e) => this.onClose(e)} className="close-modal-btn">      <FontAwesomeIcon icon={faTimes} />
-</button></div>
-
-        <div id="lower-taskmodal-div">
-
-          <h3>Add Task</h3>
-          <form id="add-task-form" onSubmit={this.handleSubmit}>
-            <label htmlFor="name"></label>
-            <input
-              name="name"
-              type="text"
-              placeholder="Task name"
-              onChange={this.handleChange}
-              value={this.state.name}
-            />
-          </form>
-          <form id="group-form" onSubmit={this.handleSubmit}>
-            <label htmlFor="selected"></label>
-            <select
-              value={this.state.selected}
-              onChange={this.handleChange}
-              name="selected"
+          <div id="top-taskmodal-div">
+            <div id="modal-title">ADD A TASK</div>
+            <button
+              onClick={(e) => this.onClose(e)}
+              className="close-modal-btn"
             >
-              <option value="" disabled>
-                Select Group
-              </option>
-              {groups && groups.length
-                ? groups.map((group) => (
-                    <option key={group.id}>{group.name} </option>
-                  ))
-                : "There are no groups"}
-            </select>
-            <button type="submit">
-              Add
+              <FontAwesomeIcon icon={faTimes} />
             </button>
-          </form>
-        </div>
+          </div>
+
+          <div id="lower-taskmodal-div">
+            <form id="add-task-form" onSubmit={this.handleSubmit}>
+              <label htmlFor="name">Task:</label>
+              <input
+                name="name"
+                type="text"
+                className="modal-input"
+                onChange={this.handleChange}
+                value={this.state.name}
+              />
+
+              <label htmlFor="description">Description:</label>
+              <textarea
+                name="description"
+                type="text"
+                rows="4"
+                className="modal-input"
+                onChange={this.handleChange}
+                value={this.state.description}
+              />
+            </form>
+
+            <form id="group-form" onSubmit={this.handleSubmit}>
+              <label htmlFor="selected"></label>
+              <select
+                value={this.state.selected}
+                onChange={this.handleChange}
+                name="selected"
+              >
+                <option value="" disabled>
+                  Select Group
+                </option>
+                {groups && groups.length
+                  ? groups.map((group) => (
+                      <option key={group.id}>{group.name} </option>
+                    ))
+                  : "There are no groups"}
+              </select>
+              <button type="submit" id="modal-submit-button">Add</button>
+            </form>
+          </div>
         </div>
       </div>
     );
