@@ -6,10 +6,16 @@ const Task = db.define("tasks", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  description: {
+    type: Sequelize.STRING,
+  },
   isCompleted: {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
   },
+  imageUrl:{
+    type: Sequelize.TEXT,
+  }
 });
 
 
