@@ -1,5 +1,7 @@
+
 import React from "react";
 import { connect } from "react-redux";
+import GroupTaskModal from "./GroupTaskModal"
 import { removeTaskThunk } from "../../store/tasks";
 import {
   fetchSingleGroup,
@@ -13,7 +15,7 @@ class GroupTaskList extends React.Component {
     this.state = {
       name: "",
       selected: "",
-      showModal: false,
+      show: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -54,7 +56,7 @@ class GroupTaskList extends React.Component {
   }
 
   showModal(e) {
-    this.setState({ showModal: true });
+    this.setState({ show: !this.state.show });
   }
 
 
@@ -66,6 +68,8 @@ class GroupTaskList extends React.Component {
       <div className="group-task-wrapper">
         <h1 className="tool-title">Group Tasks</h1>
         <div id="task-box">
+        <button  onClick={e => {this.showModal(e)}} className="add-group-task-button"> Add task </button>
+        <GroupTaskModal groupId={this.props.match.params.groupId} onClose={e => this.showModal(e)} show={this.state.show}/>
         {tasks && tasks.length ? 
         tasks.map((task) => (
           <p key={task.id} className="groupsingletask">
@@ -118,3 +122,4 @@ const mapDispatch = (dispatch) => ({
 });
 
 export default connect(mapState, mapDispatch)(GroupTaskList);
+
