@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./topnav.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faHome, faBars,
-  faBell,
+  faShoppingBasket,
   faCog
 } from "@fortawesome/free-solid-svg-icons";
 import { faCalendar, faUserCircle } from "@fortawesome/free-regular-svg-icons";
@@ -32,6 +32,14 @@ const TopNav =({toggleSideNav}) => {
             </div>
           </Link>
         </div>
+        <div id="each-top-nav-link">
+          <Link to="/grocery">
+            <div className="top-nav-icon">
+              <FontAwesomeIcon icon={faShoppingBasket} />
+            </div>
+          </Link>
+        </div>
+
       </div>
 
       <div id="right-nav-links">
