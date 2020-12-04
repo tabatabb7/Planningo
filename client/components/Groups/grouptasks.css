@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap");
+
+.group-task-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.group-tool-title {
+  font-family: "Montserrat", sans-serif;
+}
+
+/* .singletask:hover {
+  background-color: wheat;
+} */
+
+#group-task-box {
+  width: 90%;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  background-color: #f5f5d2;
+  border-radius: 15px;
+}
+
+#group-task-box-top {
+  height: 30%;
+  width: 100%;
+  background-color: #fffdd0;
+}

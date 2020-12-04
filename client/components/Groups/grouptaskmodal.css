@@ -1,5 +1,5 @@
 /* modal container */
-.task-modal-content {
+.group-task-modal-content {
   width: 60vw;
   height: 50vh;
   transform: translate(-50%, -50%);
@@ -17,7 +17,7 @@
 }
 
 @media (max-width: 730px) {
-  .task-modal-content {
+  .group-task-modal-content {
     /* width: 85vw;
     height: 82vh; */
     width: 80%;
@@ -29,7 +29,7 @@
   }
 }
 
-#top-taskmodal-div {
+#group-top-taskmodal-div {
   height: 10%;
   max-width: 100%;
   display: flex;
@@ -37,7 +37,7 @@
   align-items: center;
 }
 
-.close-modal-btn {
+.group-close-modal-btn {
   background: transparent;
   border: none;
   cursor: pointer;
@@ -49,7 +49,7 @@
   margin-right: 2%;
 }
 
-#modal-title {
+#group-modal-title {
   position: absolute;
   width: 100%;
   font-family: "Poppins", sans-serif;
@@ -57,7 +57,7 @@
   font-size: 20px;
 }
 
-#lower-taskmodal-div {
+#group-lower-taskmodal-div {
   height: 90%;
   display: flex;
   justify-content: center;
@@ -66,7 +66,7 @@
 }
 
 /* Form */
-#add-task-form {
+#group-add-task-form {
   width: 95%;
   display: flex;
   flex-direction: column;
@@ -74,7 +74,7 @@
   align-items: center;
 }
 
-#add-task-form label {
+#group-add-task-form label {
   font-family: "Poppins", sans-serif;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -82,7 +82,7 @@
   color: white;
 }
 
-.modal-input {
+.group-modal-input {
   width: 70%;
   resize: none;
   min-height: 20%;
@@ -91,7 +91,7 @@
   border: 1px solid #a0c391;
 }
 
-#modal-submit-button {
+#group-modal-submit-button {
   background-color: #e6988e;
   border: none;
   color: white;
@@ -107,7 +107,7 @@
   border-radius: 10px;
 }
 
-#group-form {
+#user-form {
   display: flex;
   flex-direction: column;
   width: 90%;
@@ -116,6 +116,6 @@
   height: 20%;
 }
 
-#group-form select {
+#user-form select {
   width: 50%;
 }
