@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap');
 
 .task-wrapper {
   width: 100%;
@@ -38,6 +39,7 @@
   justify-content: center;
 } */
 
+/* modal container */
 .task-modal-content {
   width: 60vw;
   height: 50vh;
@@ -50,6 +52,12 @@
   z-index: 5;
   border-radius: 4px;
   background-color: #c2deae;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.12),
+  0 2px 2px rgba(0,0,0,0.12),
+  0 4px 4px rgba(0,0,0,0.12),
+  0 8px 8px rgba(0,0,0,0.12),
+  0 16px 16px rgba(0,0,0,0.12);
+
 }
 
 @media (max-width: 730px) {
@@ -57,7 +65,7 @@
     /* width: 85vw;
     height: 82vh; */
     width: 80%;
-    height: 85%;
+    height: 80%;
     transform: translate(-50%, -50%);
     position: absolute;
     z-index: 5;
@@ -68,24 +76,92 @@
 #top-taskmodal-div{
   height: 10%;
   max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .close-modal-btn {
   background: transparent;
-  color: white;
   border: none;
   cursor: pointer;
-  float: right;
-  margin-top: 2%;
-  margin-right: 2%;
+  /* float: right; */
   font-size: 30px;
+  position: absolute;
+  right: 0;
+  color: #fefde9;
+  margin-right: 2%;
+}
+
+#modal-title{
+  position: absolute;
+  width: 100%;
+  font-family: 'Poppins', sans-serif;
+  color: #fefde9;
+  font-size: 20px;
 }
 
 #lower-taskmodal-div{
-  background-color: wheat;
   height: 90%;
   display:flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+
+/* Form */
+#add-task-form{
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#add-task-form label{
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 13px;
+  color: white;
+
+}
+
+.modal-input{
+  width: 70%;
+  resize: none;
+  min-height: 20%;
+  margin-bottom: 1%;
+  border-radius: 5px;
+  border: 1px solid #a0c391;
+}
+
+
+#modal-submit-button{
+  background-color: #e6988e;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 16px;
+  width: 20%;
+  height: 40%;
+}
+
+#group-form{
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  justify-content: space-between;
+  align-items: center;
+  height: 20%;
+}
+
+#group-form select{
+  width: 50%;
 }
