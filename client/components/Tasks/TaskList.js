@@ -5,10 +5,8 @@ import TaskModal from './TaskModal'
 import "./Tasks.css";
 import {
   fetchTasksThunk,
-  // addTaskThunk,
   removeTaskThunk,
 } from "../../store/tasks";
-
 
 class TaskList extends React.Component {
   constructor(props) {
@@ -19,33 +17,12 @@ class TaskList extends React.Component {
       selected: "",
       show: false,
     };
-    // this.handleChange = this.handleChange.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
     this.showModal = this.showModal.bind(this);
   }
   componentDidMount() {
     this.props.fetchTasks();
   }
 
-  // handleChange(event) {
-  //   this.setState({
-  //     [event.target.name]: event.target.value,
-  //   });
-  // }
-
-  // async handleSubmit(event) {
-  //   event.preventDefault();
-  //   try {
-  //     await this.props.addTask(this.state);
-  //     this.setState({
-  //       name: "",
-  //       selected: "",
-  //     });
-  //     await this.props.fetchTasks();
-  //   } catch (err) {
-  //     console.log("error creating task", err);
-  //   }
-  // }
 
   async handleDelete(id) {
     try {
@@ -62,7 +39,6 @@ class TaskList extends React.Component {
 
   render() {
     let { tasks } = this.props.tasks
-    // let { groups } = this.props.tasks
 
     return (
       <div className="task-wrapper">
@@ -95,7 +71,6 @@ const mapState = (state) => ({
 const mapDispatch = (dispatch) => ({
   fetchTasks: () => dispatch(fetchTasksThunk()),
   deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
-  // addTask: (task) => dispatch(addTaskThunk(task)),
   // updateTask: (task) => dispatch(updateSingleTask(task))
 });
 

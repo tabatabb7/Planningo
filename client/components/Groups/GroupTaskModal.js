@@ -4,6 +4,9 @@ import {
   fetchSingleGroup,
   addGroupTaskThunk,
 } from "../../store/singleGroup";
+import "./grouptaskmodal.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 class GroupTaskModal extends Component {
   constructor(props) {
@@ -11,7 +14,9 @@ class GroupTaskModal extends Component {
     this.state = {
       name: "",
       selected: "",
-      groupId: this.props.groupId
+      description: "",
+      groupId: this.props.groupId,
+      error: null
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -35,8 +40,8 @@ class GroupTaskModal extends Component {
         name: "",
         selected: ""
       });
-      await this.props.fetchGroup(this.props.groupId)
-      this.props.onClose()
+      await this.props.fetchGroup(this.props.groupId);
+      this.props.onClose();
     } catch (err) {
       console.log("error creating task", err);
     }
@@ -55,7 +60,7 @@ class GroupTaskModal extends Component {
   };
 
   render() {
-    let group = this.props.group
+    let group = this.props.group;
 
     if (!this.props.show) {
       return null;
@@ -64,18 +69,39 @@ class GroupTaskModal extends Component {
       <div>
         <div>{this.props.children}</div>
         <div className="group-task-modal-content">
-          <h3>Add Task</h3>
-          <form id="add-task-form" onSubmit={this.handleSubmit}>
-            <label htmlFor="name"></label>
-            <input
-              name="name"
-              type="text"
-              placeholder="Task name"
-              onChange={this.handleChange}
-              value={this.state.name}
-            />
-          </form>
-          <form id="group-form" onSubmit={this.handleSubmit}>
+          <div id="group-top-taskmodal-div">
+            <div id="group-modal-title">ADD A TASK</div>
+            <button 
+              onClick={(e) => this.onClose(e)}
+              className="group-close-modal-btn"
+            >
+              <FontAwesomeIcon icon={faTimes} />
+            </button>
+          </div>
+       
+          <div id="group-lower-taskmodal-div">
+            <form id="group-add-task-form" onSubmit={this.handleSubmit}>
+              <label htmlFor="name">Task:</label>
+              <input
+                name="name"
+                type="text"
+                className="group-modal-input"
+                onChange={this.handleChange}
+                value={this.state.name}
+              />
+
+              <label htmlFor="description">Description:</label>
+              <textarea
+                name="description"
+                type="text"
+                rows="4"
+                className="group-modal-input"
+                onChange={this.handleChange}
+                value={this.state.description}
+              />
+            </form>
+
+          <form id="user-form" onSubmit={this.handleSubmit}>
             <label htmlFor="selected"></label>
             <select
               value={this.state.selected}
@@ -85,15 +111,15 @@ class GroupTaskModal extends Component {
               <option value="" disabled>
                 Select User
               </option>
-              {group && group.users ? group.users.map((user) => (
-              <option key={user.id}>{user.firstName} {user.lastName}</option>
-            )) : "There are no users"}
-            </select>
-            <button className="add-group-task-btn" type="submit">
-              Add
-            </button>
-          </form>
-          <button onClick={(e) => this.onClose(e)}>X</button>
+              {group && group.users 
+                ? group.users.map((user) => (
+                    <option key={user.id}>{user.firstName} {user.lastName}</option>
+                  )) 
+                : "There are no users"}
+              </select>
+              <button id="group-modal-submit-button" type="submit">Add</button>
+            </form>
+          </div>
         </div>
       </div>
     );
@@ -101,15 +127,12 @@ class GroupTaskModal extends Component {
 }
 
 const mapState = (state) => ({
-  // tasks: state.tasks,
   userId: state.user.id,
   group: state.singleGroup
 });
 
 const mapDispatch = (dispatch) => ({
   fetchGroup: (groupId) => dispatch(fetchSingleGroup(groupId)),
-  // fetchTasks: (userId) => dispatch(fetchTasksThunk(userId)),
-  // deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
   addGroupTask: (groupId, task) => dispatch(addGroupTaskThunk(groupId, task)),
   updateTask: (task) => dispatch(updateSingleTask(task)),
 });
