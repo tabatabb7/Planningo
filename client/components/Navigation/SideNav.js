@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logout } from "../../store";
 import { Link } from "react-router-dom";
-import "./SideNav.css";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
   faCheck,
@@ -12,6 +11,8 @@ import {
 import {
 faCalendar
 } from '@fortawesome/free-regular-svg-icons';
+import "./sidenav.css";
+
 
 const SideNav = ({ handleClick, user }) => (
   <div className="side-nav-wrapper">
