@@ -6,6 +6,9 @@ import {
   removeTaskThunk,
 } from "../../store/tasks";
 import "./Tasks.css"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes
+} from "@fortawesome/free-solid-svg-icons";
 
 
 class TaskModal extends Component {
@@ -62,6 +65,13 @@ class TaskModal extends Component {
       <div>
         <div>{this.props.children}</div>
         <div className="task-modal-content">
+
+      <div id="top-taskmodal-div">
+      <button onClick={(e) => this.onClose(e)} className="close-modal-btn">      <FontAwesomeIcon icon={faTimes} />
+</button></div>
+
+        <div id="lower-taskmodal-div">
+
           <h3>Add Task</h3>
           <form id="add-task-form" onSubmit={this.handleSubmit}>
             <label htmlFor="name"></label>
@@ -89,11 +99,11 @@ class TaskModal extends Component {
                   ))
                 : "There are no groups"}
             </select>
-            <button className="close-modal-btn" type="submit">
+            <button type="submit">
               Add
             </button>
           </form>
-          <button onClick={(e) => this.onClose(e)}>X</button>
+        </div>
         </div>
       </div>
     );

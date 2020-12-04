@@ -40,14 +40,16 @@
 
 .task-modal-content {
   width: 60vw;
-  height: 70vh;
+  height: 50vh;
   transform: translate(-50%, -50%);
-  align-items: center;
-  justify-content: center;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
   background-color: white;
   position: absolute;
   z-index: 5;
   border-radius: 4px;
+  background-color: #c2deae;
 }
 
 @media (max-width: 730px) {
@@ -57,14 +59,33 @@
     width: 80%;
     height: 85%;
     transform: translate(-50%, -50%);
-    align-items: center;
-    justify-content: center;
-    background-color: white;
     position: absolute;
     z-index: 5;
     border-radius: 4px;
   }
 }
 
+#top-taskmodal-div {
+  height: 10%;
+  max-width: 100%;
+}
+
 .close-modal-btn {
+  background: transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
+  float: right;
+  margin-top: 2%;
+  margin-right: 2%;
+  font-size: 30px;
+}
+
+#lower-taskmodal-div {
+  background-color: wheat;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
