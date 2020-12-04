@@ -17,6 +17,8 @@ import {
   SingleGroup,
   GroupGroceryList,
   GroupTaskList,
+  MyStats,
+  Shopping,
 } from "./components";
 import { me } from "./store";
 
@@ -36,22 +38,30 @@ class Routes extends Component {
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
+
             <Route exact path={["/home", "/"]} component={UserHome} />
+
 
             <Route exact path="/account" component={Account} />
             <Route exact path="/account/settings" component={AccountSettings} />
+            <Route path="/shopping" component={Shopping} />
             <Route path="/grocery" component={GroceryList} />
             <Route path="/calendar" component={AppCalendar} />
             <Route exact path="/tasks" component={TaskList} />
             <Route exact path="/groups" component={GroupList} />
             <Route exact path="/groups/create" component={CreateGroup} />
             <Route exact path="/groups/:groupId" component={SingleGroup} />
-            <Route exact path="/groups/:groupId/tasks" component={GroupTaskList} />
+            <Route
+              exact
+              path="/groups/:groupId/tasks"
+              component={GroupTaskList}
+            />
 
             <Route
               path="/groups/:groupId/grocery"
               component={GroupGroceryList}
             />
+            <Route exact path="/mystats" component={MyStats} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
