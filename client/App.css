@@ -39,6 +39,7 @@
   background-color: #F2AFA6;
   width: 30vw;
   height: 100%;
+  max-width: 300px;
 }
 
 @media (max-width: 730px) {
