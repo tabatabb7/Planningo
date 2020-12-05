@@ -8,8 +8,11 @@
   justify-content: space-between;
   flex-direction: column;
   background-color: white;
-  position: absolute;
+  position: fixed;
   z-index: 5;
+  margin: auto;
+  top: 50%;
+  left: 50%;
   border-radius: 4px;
   background-color: #c2deae;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.12),
@@ -19,13 +22,13 @@
 
 @media (max-width: 730px) {
   .task-modal-content {
-    width: 80%;
-    height: 60%;
+    width: 100%;
+    height: 100%;
     transform: translate(-50%, -50%);
-    position: absolute;
     z-index: 5;
     border-radius: 4px;
   }
+
 }
 
 #top-taskmodal-div {
