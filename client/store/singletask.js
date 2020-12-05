@@ -11,7 +11,7 @@ const getTask = task => ({ type: GET_SINGLE_TASK, task })
 const updateTask = task => ({ type: UPDATE_TASK, task })
 
 // thunk creators
-export const fetchTaskThunk = taskId => async dispatch => {
+export const fetchTaskThunk = (taskId) => async (dispatch) => {
   try {
     const { data: task } = await axios.get(`/api/tasks/${taskId}`)
     dispatch(getTask(task))
@@ -21,7 +21,7 @@ export const fetchTaskThunk = taskId => async dispatch => {
   }
 }
 
-export const updateSingleTask = task => async dispatch => {
+export const updateSingleTask = (task) => async (dispatch) => {
   try {
     const { data: updatedTask } = await axios.put(`/api/tasks/${task.taskId}`, task)
     dispatch(updateTask(updatedTask))
@@ -30,8 +30,6 @@ export const updateSingleTask = task => async dispatch => {
     console.error(error)
   }
 }
-
-
 
 export default function singleTaskReducer(state = initialState, action) {
   switch (action.type) {

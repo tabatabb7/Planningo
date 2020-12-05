@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
   fetchTasksThunk,
-  updateTaskThunk,
+  addTaskThunk,
   removeTaskThunk,
 } from "../../store/tasks";
 import "./taskmodal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
-class TaskModal extends Component {
+class CreateTaskModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,7 +31,7 @@ class TaskModal extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     try {
-      await this.props.updateTask(this.state);
+      await this.props.addTask(this.state);
       await this.props.fetchTasks();
       this.setState({
         name: "",
@@ -59,7 +59,7 @@ class TaskModal extends Component {
   render() {
     let { groups } = this.props.tasks;
     
-    if (!this.props.showTask) {
+    if (!this.props.show) {
       return null;
     }
     return (
@@ -130,7 +130,8 @@ const mapState = (state) => ({
 const mapDispatch = (dispatch) => ({
   fetchTasks: (userId) => dispatch(fetchTasksThunk(userId)),
   deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
-  updateTask: (task) => dispatch(updateTaskThunk(task)),
+  addTask: (task) => dispatch(addTaskThunk(task)),
+  updateTask: (task) => dispatch(updateSingleTask(task)),
 });
 
-export default connect(mapState, mapDispatch)(TaskModal);
+export default connect(mapState, mapDispatch)(CreateTaskModal);

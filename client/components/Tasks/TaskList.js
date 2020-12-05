@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 // import { updateSingleTask } from "../../store/singletask";
+import CreateTaskModal from './CreateTaskModal'
 import TaskModal from './TaskModal'
 import "./Tasks.css";
 import {
@@ -16,6 +17,7 @@ class TaskList extends React.Component {
       name: "",
       selected: "",
       show: false,
+      showTask: false,
     };
     this.showModal = this.showModal.bind(this);
   }
@@ -37,6 +39,10 @@ class TaskList extends React.Component {
     this.setState({ show:!this.state.show });
   }
 
+  showTaskModal(e) {
+    this.setState({ showTask:!this.state.showTask });
+  }
+
   render() {
     let { tasks } = this.props.tasks
 
@@ -44,11 +50,12 @@ class TaskList extends React.Component {
       <div className="task-wrapper">
         <div id="task-box">My Tasks
         <button  onClick={e => {this.showModal(e)}} className="add-task-button"> Add task </button>
-        <TaskModal onClose={e => this.showModal(e)} show={this.state.show}/>
+        <CreateTaskModal onClose={e => this.showModal(e)} show={this.state.show}/>
         {tasks && tasks.length ?
         tasks.map((task) => (
-          <p key={task.id} className="singletask">
-            {task.name}
+          <p key={task.id} className="singletask" >
+            <a onClick={e => this.showTaskModal(e)}>{task.name}</a>
+            <TaskModal onClose={e => this.showTaskModal(e)} showTask={this.state.showTask}/>
             <button
               onClick={() => this.handleDelete(task.id)}
               className="deleteTask"
