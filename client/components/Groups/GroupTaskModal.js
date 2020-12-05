@@ -71,14 +71,14 @@ class GroupTaskModal extends Component {
         <div className="group-task-modal-content">
           <div id="group-top-taskmodal-div">
             <div id="group-modal-title">ADD A TASK</div>
-            <button 
+            <button
               onClick={(e) => this.onClose(e)}
               className="group-close-modal-btn"
             >
               <FontAwesomeIcon icon={faTimes} />
             </button>
           </div>
-       
+
           <div id="group-lower-taskmodal-div">
             <form id="group-add-task-form" onSubmit={this.handleSubmit}>
               <label htmlFor="name">Task:</label>
@@ -111,10 +111,10 @@ class GroupTaskModal extends Component {
               <option value="" disabled>
                 Select User
               </option>
-              {group && group.users 
+              {group && group.users
                 ? group.users.map((user) => (
                     <option key={user.id}>{user.firstName} {user.lastName}</option>
-                  )) 
+                  ))
                 : "There are no users"}
               </select>
               <button id="group-modal-submit-button" type="submit">Add</button>

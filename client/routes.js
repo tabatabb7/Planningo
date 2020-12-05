@@ -19,6 +19,7 @@ import {
   GroupTaskList,
   MyStats,
   Shopping,
+  GroupRewards,
 } from "./components";
 import { me } from "./store";
 
@@ -41,7 +42,6 @@ class Routes extends Component {
 
             <Route exact path={["/home", "/"]} component={UserHome} />
 
-
             <Route exact path="/account" component={Account} />
             <Route exact path="/account/settings" component={AccountSettings} />
             <Route path="/shopping" component={Shopping} />
@@ -51,6 +51,12 @@ class Routes extends Component {
             <Route exact path="/groups" component={GroupList} />
             <Route exact path="/groups/create" component={CreateGroup} />
             <Route exact path="/groups/:groupId" component={SingleGroup} />
+            <Route
+              exact
+              path="/groups/:groupId/rewards"
+              component={GroupRewards}
+            />
+
             <Route
               exact
               path="/groups/:groupId/tasks"

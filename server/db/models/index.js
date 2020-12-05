@@ -9,7 +9,7 @@ const Sequelize = require("sequelize");
 //**********USER AND GROUP --- USER_GROUP THROUGH TABLE ***********
 const User_Group = db.define("User_Group", {
   role: {
-    type: Sequelize.ENUM("owner", "admin", "member"),
+    type: Sequelize.ENUM("admin", "member"),
     defaultValue: "member",
   },
 });

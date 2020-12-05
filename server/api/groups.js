@@ -17,7 +17,7 @@ router.get("/:groupId", async (req, res, next) => {
     const group = await Group.findByPk(req.params.groupId, {
       include: [{
         model: User,
-      }, 
+      },
       {
         model: Task
       }]
@@ -54,7 +54,7 @@ router.post("/", async (req, res, next) => {
     await User_Group.create({
       userId: req.user.id,
       groupId: group.id,
-      role: "owner",
+      role: "admin",
     });
     res.json(group);
   } catch (err) {
@@ -150,7 +150,7 @@ router.get("/:groupId/tasks", async (req, res, next) => {
       const group = await Group.findByPk(req.params.groupId, {
         include: [{
           model: User,
-        }, 
+        },
         {
           model: Task
         }]

@@ -22,6 +22,7 @@ export { default as GroupGroceryList } from "./Grocery/GroupGroceryList";
 export { default as GroupList } from "./Groups/GroupList";
 export { default as CreateGroup } from "./Groups/CreateGroup";
 export { default as SingleGroup } from "./Groups/SingleGroup";
+export { default as GroupRewards } from "./Groups/GroupRewards";
 
 //data vis
 export { default as MyStats } from "./DataVis/MyStats";

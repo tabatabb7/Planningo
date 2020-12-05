@@ -10,7 +10,7 @@ const Group = db.define("group", {
     },
   },
   description: {
-    type: Sequelize.TEXT
+    type: Sequelize.STRING
   },
   imageUrl: {
     type: Sequelize.TEXT,
