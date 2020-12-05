@@ -61,10 +61,12 @@ export const removeGroceryItemThunk = (groceryId) => async (dispatch) => {
 
 export const toggleGroceryItemThunk = (groceryId) => async (dispatch) => {
   try {
+    console.log("before the put request");
     const newToggle = await axios.put(`/api/groceries/${groceryId}`, {
-      isBought: !isBought,
+      isBought: true,
     });
-    dispatch(toggleGroceryItem(groceryId));
+    console.log(newToggle);
+    dispatch(toggleGroceryItem(newToggle));
   } catch (error) {
     console.error("Error toggling grocery item!");
   }
