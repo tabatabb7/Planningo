@@ -38,13 +38,35 @@ class TaskList extends React.Component {
   }
 
   render() {
-    let { tasks } = this.props.tasks
+    let { tasks, groups } = this.props.tasks
 
     return (
       <div className="task-wrapper">
-        <div id="task-box">My Tasks
-        <button  onClick={e => {this.showModal(e)}} className="add-task-button"> Add task </button>
-        <TaskModal onClose={e => this.showModal(e)} show={this.state.show}/>
+           <select
+                name="selected"
+              >
+         <option value="" disabled>
+                  Select Group
+                </option>
+                {groups && groups.length
+                  ? groups.map((group) => (
+                      <option key={group.id}>{group.name} </option>
+                    ))
+                  : "There are no groups"}
+              </select>
+        <div id="task-box">
+        <div className="task-box-header">
+        My Tasks
+        </div>
+
+    <div className="task-box-body">
+
+        <div id="task-box-categories">
+          Category
+        </div>
+
+{/* LIST OF TASKS */}
+          <div id="task-box-list">
         {tasks && tasks.length ?
         tasks.map((task) => (
           <p key={task.id} className="singletask">
@@ -58,6 +80,16 @@ class TaskList extends React.Component {
           </p>
         )) : "You have no tasks"}
         </div>
+          <div id="just-another-layout-div">
+
+          </div>
+        </div>
+        <div id="add-button-div">
+             <button  onClick={e => {this.showModal(e)}} className="add-task-button"> Add task </button>
+        <TaskModal onClose={e => this.showModal(e)} show={this.state.show}/>
+        </div>
+          </div>
+
           </div>
     );
   }
