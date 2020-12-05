@@ -58,8 +58,8 @@ class TaskModal extends Component {
 
   render() {
     let { groups } = this.props.tasks;
-    
-    if (!this.props.showTask) {
+
+    if (!this.props.show) {
       return null;
     }
     return (
@@ -67,7 +67,7 @@ class TaskModal extends Component {
         <div>{this.props.children}</div>
         <div className="task-modal-content">
           <div id="top-taskmodal-div">
-            <div id="modal-title">ADD A TASK</div>
+            <div id="modal-title">NEW TASK</div>
             <button
               onClick={(e) => this.onClose(e)}
               className="close-modal-btn"
