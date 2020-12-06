@@ -44,7 +44,8 @@ class GroupRewards extends React.Component {
 
 const mapState = (state) => ({
   userId: state.user.id,
-  group: state.singleGroup
+  group: state.singleGroup,
+  tasks: state.tasks,
 });
 
 const mapDispatch = (dispatch) => ({

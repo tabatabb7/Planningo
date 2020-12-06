@@ -54,7 +54,9 @@ export default function singleTaskReducer(state = initialState, action) {
     case GET_TASK:
       return { ...state, ...action.task }
     case UPDATE_TASK:
-      return state.task
+      return {...state, ...action.task}
+    case UPDATE_TASK_COMPLETE:
+      return {...state, ...action.task}
     default:
       return state
   }

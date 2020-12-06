@@ -19,6 +19,7 @@ class GroupTaskList extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.showModal = this.showModal.bind(this);
+
   }
 
   componentDidMount() {
@@ -40,10 +41,10 @@ class GroupTaskList extends React.Component {
     }
   }
 
+
   showModal(e) {
     this.setState({ show: !this.state.show });
   }
-
 
   render() {
     let tasks = this.props.group.tasks;
@@ -62,14 +63,13 @@ class GroupTaskList extends React.Component {
             <div id="group-task-box-list">
               {tasks && tasks.length
                 ? tasks.map((task) => (
-                    <p key={task.id} className="group-singletask">
+                    <div key={task.id} className="group-singletask">
                       <button
-                        onClick={async () =>
-                          {await this.props.updateTaskCompletion(task.id, !task.isCompleted);
-                            this.props.fetchGroup(this.props.match.params.groupId);
+                        onClick={async (e) => {e.preventDefault();
+                          await this.props.updateTaskCompletion(task.id, !task.isCompleted);
+                          this.props.fetchGroup(this.props.match.params.groupId);
+                        }}
 
-                          }
-                        }
                         className="group-completeTask"
                       >
                         <div
@@ -92,7 +92,7 @@ class GroupTaskList extends React.Component {
                       >
                         X
                       </button>
-                    </p>
+                    </div>
                   ))
                 : "Your group has no tasks"}
             </div>
@@ -132,7 +132,7 @@ const mapDispatch = (dispatch) => ({
   fetchGroup: (groupId) => dispatch(fetchSingleGroup(groupId)),
   deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
   updateTaskCompletion: (taskId, isCompleted) =>
-    dispatch(updateTaskCompletion(taskId, isCompleted))
+    dispatch(updateTaskCompletion(taskId, isCompleted)),
 });
 
 export default connect(mapState, mapDispatch)(GroupTaskList);
