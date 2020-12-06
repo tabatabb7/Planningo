@@ -10,7 +10,6 @@ import { faCheckCircle} from "@fortawesome/free-regular-svg-icons"
 
 import {
   fetchSingleGroup,
-  addGroupTaskThunk,
 } from "../../store/singleGroup";
 import "./grouptasks.css"
 
@@ -75,19 +74,22 @@ class GroupTaskList extends React.Component {
               {tasks && tasks.length
                 ? tasks.map((task) => (
                     <p key={task.id} className="group-singletask">
+                       <button
+                        onClick={() => this.toggleCompleted(task.id, !task.isCompleted)}
+                        className="group-completeTask"
+                      >
+                                       <div className={task.isCompleted ? "check-circle complete" : "check-circle incomplete"}><FontAwesomeIcon icon={faCheckCircle} /></div>
+                      </button>
                       {task.name}
+
+                      {task.Task_Group.points === 0 ? null : <div>{task.Task_Group.points} POINTS</div>}
                       <button
                         onClick={() => this.handleDelete(task.id)}
                         className="group-deleteTask"
                       >
                         X
                       </button>
-                      <button
-                        onClick={() => this.toggleCompleted(task.id, !task.isCompleted)}
-                        className="group-completeTask"
-                      >
-                                       <div className={task.isCompleted ? "check-circle complete" : "check-circle incomplete"}><FontAwesomeIcon icon={faCheckCircle} /></div>
-                      </button>
+
                     </p>
                   ))
                 : "Your group has no tasks"}
@@ -123,7 +125,6 @@ const mapState = (state) => ({
 const mapDispatch = (dispatch) => ({
   fetchGroup: (groupId) => dispatch(fetchSingleGroup(groupId)),
   deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
-  addGroupTask: (groupId, task) => dispatch(addGroupTaskThunk(groupId, task)),
   updateTaskCompletion: (taskId, isCompleted) => dispatch(updateTaskCompletion(taskId, isCompleted))
 });
 
