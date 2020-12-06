@@ -73,16 +73,6 @@ export const updateUserThunk = (userId, firstName, lastName, email) => {
     }
   };
 };
-// export const updateUserThunk = user => {
-//   return async dispatch => {
-//     try {
-//       const { data } = await axios.put(`/api/users/${user.id}`, user);
-//       dispatch(getUser(data));
-//     } catch (error) {
-//       console.log("error editing user info");
-//     }
-//   };
-// };
 
 export const updatePasswordThunk = (userId, oldPassword, newPassword) => async (
   dispatch

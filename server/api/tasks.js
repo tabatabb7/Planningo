@@ -84,6 +84,18 @@ router.put("/:taskId", async (req, res, next) => {
   }
 });
 
+//PATCH task
+router.patch("/:taskId", async (req, res, next) => {
+  try {
+    const task = await Task.findByPk(req.params.taskId)
+    const {updatedFields} = req.body
+    task.update({...updatedFields})
+    res.sendStatus(204)
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.delete("/:taskId", async (req, res, next) => {
   try {
     await Task.destroy({

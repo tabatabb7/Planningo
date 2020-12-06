@@ -6,9 +6,15 @@ const initialState = {}
 // action constants
 const GET_TASK = 'GET_TASK'
 const UPDATE_TASK = 'UPDATE_TASK'
+const UPDATE_TASK_COMPLETE = 'UPDATE_TASK_COMPLETE'
 
 const getTask = task => ({ type: GET_SINGLE_TASK, task })
 const updateTask = task => ({ type: UPDATE_TASK, task })
+const updateTaskComplete = (taskId, isCompleted) => ({
+  type: UPDATE_TASK_COMPLETE,
+  taskId,
+  isCompleted
+})
 
 // thunk creators
 export const fetchTaskThunk = taskId => async dispatch => {
@@ -31,13 +37,24 @@ export const updateSingleTask = taskId => async dispatch => {
   }
 }
 
+export const updateTaskCompletion = (taskId, isCompleted) => async dispatch => {
+  try {
+ await axios.patch(`/api/tasks/${taskId}`, {
+      updatedFields: { isCompleted },})
+      dispatch(updateTaskComplete(taskId, isCompleted))
+  } catch (error) {
+    console.error('Error updating task!')
+    console.error(error)
+  }
+}
+
 
 export default function singleTaskReducer(state = initialState, action) {
   switch (action.type) {
     case GET_TASK:
       return { ...state, ...action.task }
     case UPDATE_TASK:
-      return { ...state, ...action.task }
+      return state.task
     default:
       return state
   }

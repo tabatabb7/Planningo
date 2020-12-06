@@ -3,7 +3,7 @@ import React from "react";
 import { connect } from "react-redux";
 import GroupTaskModal from "./GroupTaskModal"
 import { removeTaskThunk } from "../../store/tasks";
-import { updateSingleTask} from "../../store/singletask";
+import { updateTaskCompletion} from "../../store/singletask";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 
@@ -18,14 +18,12 @@ class GroupTaskList extends React.Component {
     super(props);
 
     this.state = {
-      name: "",
-      selected: "",
       show: false,
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.toggleCompleted = this.toggleCompleted.bind(this);
     this.showModal = this.showModal.bind(this);
+    this.toggleCompleted = this.toggleCompleted.bind(this);
+
   }
   componentDidMount() {
     this.props.fetchGroup(this.props.match.params.groupId);
@@ -35,33 +33,6 @@ class GroupTaskList extends React.Component {
     this.setState({
       [event.target.name]: event.target.value,
     });
-  }
-
-  async handleSubmit(event) {
-    event.preventDefault();
-    try {
-      await this.props.addGroupTask(this.props.match.params.groupId, this.state);
-      console.log(this.state)
-      this.setState({
-        name: "",
-        selected: ""
-      });
-      await this.props.fetchGroup(this.props.match.params.groupId)
-    } catch (err) {
-      console.log("error creating group task", err);
-    }
-  }
-
-  async toggleCompleted(taskId) {
-    try {
-      const completed = {
-        isCompleted: !this.props.isCompleted
-      }
-      await this.props.updateTask(taskId, completed)
-      await this.props.fetchGroup(this.props.match.params.groupId)
-    } catch (err) {
-      console.error(err);
-    }
   }
 
   async handleDelete(id) {
@@ -77,6 +48,14 @@ class GroupTaskList extends React.Component {
     this.setState({ show: !this.state.show });
   }
 
+  async toggleCompleted(taskId, isCompleted) {
+    try {
+      await this.props.updateTaskCompletion(taskId, isCompleted)
+      this.props.fetchGroup(this.props.match.params.groupId)
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   render() {
     let tasks  = this.props.group.tasks
@@ -103,8 +82,8 @@ class GroupTaskList extends React.Component {
                         X
                       </button>
                       <button
-                        onClick={() => this.toggleCompleted(task.id)}
-                        className="group-deleteTask"
+                        onClick={() => this.toggleCompleted(task.id, !task.isCompleted)}
+                        className="group-completeTask"
                       >
                         Done: {task.isCompleted.toString()}
                       </button>
@@ -144,7 +123,7 @@ const mapDispatch = (dispatch) => ({
   fetchGroup: (groupId) => dispatch(fetchSingleGroup(groupId)),
   deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
   addGroupTask: (groupId, task) => dispatch(addGroupTaskThunk(groupId, task)),
-  updateTask: (taskId) => dispatch(updateSingleTask(taskId))
+  updateTaskCompletion: (taskId, isCompleted) => dispatch(updateTaskCompletion(taskId, isCompleted))
 });
 
 export default connect(mapState, mapDispatch)(GroupTaskList);
