@@ -1,7 +1,6 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { removeTaskThunk } from "../../store/tasks";
 import {
   fetchSingleGroup,
 } from "../../store/singleGroup";
@@ -20,28 +19,36 @@ class GroupRewards extends React.Component {
   }
 
   render() {
-    let tasks  = this.props.group.tasks
-    let group = this.props.group
+    const group = this.props.group;
 
     return (
-      <div className="group-task-wrapper">
-        <h1>Group Rewards</h1>
+      <div className="group-reward-wrapper">
 
+        <h1>Number of Points</h1>
+        {group.users ? (
+          <div id="group-reward-user-wrap">
+            {group.users.map((user) => (
+              <div key={user.id} id="group-reward-user">
+                <img src={user.avatarUrl} className="group-user-icon"/>
+                {user.firstName}: {user.User_Group.points} points
+              </div>
+            ))}
+          </div>
+        ) : (
+          "This group has no members."
+        )}
       </div>
     );
   }
 }
 
 const mapState = (state) => ({
-  tasks: state.tasks,
   userId: state.user.id,
   group: state.singleGroup
 });
 
 const mapDispatch = (dispatch) => ({
   fetchGroup: (groupId) => dispatch(fetchSingleGroup(groupId)),
-  deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
-  addGroupTask: (groupId, task) => dispatch(addGroupTaskThunk(groupId, task)),
 });
 
 export default connect(mapState, mapDispatch)(GroupRewards);

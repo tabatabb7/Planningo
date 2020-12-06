@@ -6,7 +6,7 @@ const { Task, User_Task, Group, User, Task_Group } = require("../db/models");
 //     const tasks = await req.user.getTasks({
 //       in
 //     })
-     
+
 //     res.json(tasks);
 //   } catch (err) {
 //     next(err);
@@ -18,7 +18,7 @@ router.get("/", async (req, res, next) => {
     const user = await User.findByPk(req.user.id, {
       include: [{
         model: Group,
-      }, 
+      },
       {
         model: Task
       }]
@@ -36,7 +36,7 @@ router.get("/:taskId", async (req, res, next) => {
   try {
     const task = await Task.findOne({
       where: {
-        taskId: req.params.taskId
+        id: req.params.taskId
       },
     });
     res.json(task);
@@ -66,7 +66,7 @@ router.post("/", async (req, res, next) => {
       groupId: group.id,
       taskId: task.id,
     });
-    
+
     res.json(task);
   } catch (err) {
     next(err);
@@ -76,12 +76,8 @@ router.post("/", async (req, res, next) => {
 
 router.put("/:taskId", async (req, res, next) => {
   try {
-    const task = await Task.findOne({
-      where: {
-        userId: req.user.id,
-      },
-    });
-    await Task.update(req.body);
+    const task = await Task.findByPk(req.params.taskId)
+    task.update(req.body);
     res.json(task);
   } catch (err) {
     next(err);

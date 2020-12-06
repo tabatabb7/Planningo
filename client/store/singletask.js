@@ -21,16 +21,15 @@ export const fetchTaskThunk = taskId => async dispatch => {
   }
 }
 
-export const updateSingleTask = task => async dispatch => {
+export const updateSingleTask = taskId => async dispatch => {
   try {
-    const { data: updatedTask } = await axios.put(`/api/tasks/${task.taskId}`, task)
+    const { data: updatedTask } = await axios.put(`/api/tasks/${taskId}`, taskId)
     dispatch(updateTask(updatedTask))
   } catch (error) {
     console.error('Error updating task!')
     console.error(error)
   }
 }
-
 
 
 export default function singleTaskReducer(state = initialState, action) {

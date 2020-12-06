@@ -42,16 +42,6 @@ class TaskList extends React.Component {
       <div className="task-wrapper">
         <div id="task-box">
           <div className="task-box-header">My Tasks
-          {/* <select name="selected">
-          <option value="" disabled>
-            Select Group
-          </option>
-          {groups && groups.length
-            ? groups.map((group) => (
-                <option key={group.id}>{group.name} </option>
-              ))
-            : "There are no groups"}
-        </select> */}
         </div>
           <div className="task-box-body">
             <div id="task-box-categories">Category</div>

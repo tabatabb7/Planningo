@@ -35,7 +35,8 @@ class SingleGroup extends React.Component {
 
   render() {
     const group = this.props.group;
-    console.log(this.props.group, "this.props.group from singlegroup render");
+
+
     return (
       <div key={group.id} id="group-info">
         Edit group

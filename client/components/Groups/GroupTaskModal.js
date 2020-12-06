@@ -70,7 +70,7 @@ class GroupTaskModal extends Component {
         <div>{this.props.children}</div>
         <div className="group-task-modal-content">
           <div id="group-top-taskmodal-div">
-            <div id="group-modal-title">ADD A TASK</div>
+            <div id="group-modal-title">NEW TASK</div>
             <button
               onClick={(e) => this.onClose(e)}
               className="group-close-modal-btn"
