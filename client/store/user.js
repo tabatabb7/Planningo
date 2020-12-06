@@ -9,6 +9,7 @@ const REMOVE_USER = "REMOVE_USER";
 const ADD_USER = "ADD_USER";
 const UPDATE_USER = "UPDATE_USER";
 const UPDATE_PASSWORD = "UPDATE_PASSWORD";
+
 /**
  * INITIAL STATE
  */
@@ -59,6 +60,22 @@ export const auth = (email, password, method, firstName, lastName) => async (
 };
 
 export const updateUserThunk = (userId, firstName, lastName, email) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.put(`/api/users/${userId}`, {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+      });
+
+      dispatch(updateUser(data));
+    } catch (error) {
+      console.log("error editing user info");
+    }
+  };
+};
+
+export const updateUserPoints = (userId, firstName, lastName, email) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.put(`/api/users/${userId}`, {

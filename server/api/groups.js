@@ -1,26 +1,35 @@
 const router = require("express").Router();
-const { Group, User_Group, User, Grocery, Task, User_Task, Task_Group } = require("../db/models");
+const {
+  Group,
+  User_Group,
+  User,
+  Grocery,
+  Task,
+  User_Task,
+  Task_Group,
+} = require("../db/models");
 
 router.get("/", async (req, res, next) => {
   try {
-    const group = await req.user.getGroups()
+    const group = await req.user.getGroups();
     res.json(group);
   } catch (err) {
     next(err);
   }
 });
 
-
 //GET single group
 router.get("/:groupId", async (req, res, next) => {
   try {
     const group = await Group.findByPk(req.params.groupId, {
-      include: [{
-        model: User,
-      },
-      {
-        model: Task
-      }]
+      include: [
+        {
+          model: User,
+        },
+        {
+          model: Task,
+        },
+      ],
     });
     res.json(group);
   } catch (err) {
@@ -42,7 +51,6 @@ router.get("/:groupId/grocery", async (req, res, next) => {
     next(error);
   }
 });
-
 
 //POST - create group
 router.post("/", async (req, res, next) => {
@@ -146,40 +154,41 @@ router.delete("/:groupId/grocery/:groceryId", async (req, res, next) => {
 
 // GET /api/groups/:groupId/tasks
 router.get("/:groupId/tasks", async (req, res, next) => {
-    try {
-      const group = await Group.findByPk(req.params.groupId, {
-        include: [{
+  try {
+    const group = await Group.findByPk(req.params.groupId, {
+      include: [
+        {
           model: User,
         },
         {
-          model: Task
-        }]
-      });
-      res.json(group);
-    } catch (err) {
-      next(err);
-    }
-  });
-
+          model: Task,
+        },
+      ],
+    });
+    res.json(group);
+  } catch (err) {
+    next(err);
+  }
+});
 
 // POST /api/groups/:groupId/tasks
 router.post("/:groupId/tasks", async (req, res, next) => {
   try {
-    const selected = req.body.selected
-    const selectedNames = selected.split(' ')
+    const selected = req.body.selected;
+    const selectedNames = selected.split(" ");
 
     const user = await User.findOne({
       where: {
         firstName: selectedNames[0],
-        lastName: selectedNames[1]
-      }
-    })
+        lastName: selectedNames[1],
+      },
+    });
 
     const userGroup = await User_Group.findOne({
       where: {
-        groupId: req.body.groupId
-      }
-    })
+        groupId: req.body.groupId,
+      },
+    });
 
     const task = await Task.create({
       userId: user.id,
@@ -191,9 +200,30 @@ router.post("/:groupId/tasks", async (req, res, next) => {
     });
     await Task_Group.create({
       taskId: task.id,
-      groupId: userGroup.groupId
+      groupId: userGroup.groupId,
     });
     res.json(task);
+  } catch (err) {
+    next(err);
+  }
+});
+
+//PATCH group's users (add points)
+router.patch("/:taskId", async (req, res, next) => {
+  try {
+    const task_group = await Task_Group.findOne({
+      where: {
+        taskId: req.params.taskId,
+      },
+    });
+    const user = await User_Group.findAll({
+      where:{
+        groupId: task_group.groupId
+      }
+    })
+    const { updatedFields } = req.body;
+    user.update({ ...updatedFields });
+    res.sendStatus(204);
   } catch (err) {
     next(err);
   }

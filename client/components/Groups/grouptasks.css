@@ -75,7 +75,7 @@
   border-bottom: 1px solid #F7E1DC;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   flex-shrink: 0;
 }
 

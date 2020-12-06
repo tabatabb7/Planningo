@@ -56,6 +56,7 @@ export const removeTaskThunk = (taskId) => async (dispatch) => {
   }
 };
 
+
 export default function tasksReducer(state = initialState, action) {
   switch (action.type) {
     case GET_TASKS:
