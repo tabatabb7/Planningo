@@ -6,6 +6,7 @@ import { removeTaskThunk } from "../../store/tasks";
 import { updateTaskCompletion} from "../../store/singletask";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle} from "@fortawesome/free-regular-svg-icons"
 
 import {
   fetchSingleGroup,
@@ -85,7 +86,7 @@ class GroupTaskList extends React.Component {
                         onClick={() => this.toggleCompleted(task.id, !task.isCompleted)}
                         className="group-completeTask"
                       >
-                        Done: {task.isCompleted.toString()}
+                                       <div className={task.isCompleted ? "check-circle complete" : "check-circle incomplete"}><FontAwesomeIcon icon={faCheckCircle} /></div>
                       </button>
                     </p>
                   ))

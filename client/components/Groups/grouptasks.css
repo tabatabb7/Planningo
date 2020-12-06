@@ -114,6 +114,18 @@
   background:transparent;
 }
 
+.check-circle{
+
+}
+
+.check-circle.complete{
+  color: blue
+}
+.check-circle.incomplete{
+  color: red
+}
+
+
 /* for mobile devices */
  @media (max-width: 730px) {
   #group-task-box-categories {
