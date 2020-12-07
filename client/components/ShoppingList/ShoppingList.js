@@ -32,9 +32,9 @@ class GroceryList extends React.Component {
       [event.target.name]: event.target.value,
     });
   }
-  handlePurchase(event) {
+  handlePurchase(id) {
     try {
-      this.props.toggleItem(this.props.match.params.groceryId);
+      this.props.toggleItem(id);
     } catch (error) {
       console.log("error toggling purchase state");
     }
@@ -74,7 +74,6 @@ class GroceryList extends React.Component {
 
   render() {
     let { groceries } = this.props;
-    console.log(this.props, "this.props in render of grocerylist");
 
     return (
       <div id="groceries-wrap">
@@ -97,8 +96,7 @@ class GroceryList extends React.Component {
                 <input
                   name="isBought"
                   type="checkbox"
-                  checked={!this.state.isBought}
-                  onChange={this.handlePurchase()}
+                  onClick={this.handlePurchase(grocery.id)}
                 />
                 {grocery.name}
                 <button

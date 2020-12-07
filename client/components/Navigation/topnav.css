@@ -11,18 +11,18 @@
 
 #left-nav-links{
   display:flex;
-  width: 20%;
-  min-width: 150px;
+  width: 40%;
+  max-width: 250px;
   justify-content: space-between;
   height: 100%;
 }
 
 #right-nav-links{
   display: flex;
-  width: 10%;
-  min-width: 60px;
+  width: 15%;
+  max-width: 80px;
   justify-content: space-between;
-  padding-right: 2%;
+  margin-right: 10px;
 }
 
 #each-top-nav-link{
@@ -38,8 +38,11 @@
   justify-content: center;
   background-color: #F2AFA6;
   height: 100%;
-  padding-left: 6%;
-  padding-right: 6%;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 20px;
+  color: #fefde9;
+  cursor: pointer;
 }
 
 .top-nav-icon{
@@ -47,13 +50,4 @@
   font-size: 20px;
   color: #fefde9;
   cursor: pointer;
-  padding: 2
-}
-
-.top-nav-icon-bar{
-  text-align: center;
-  font-size: 20px;
-  color: #fefde9;
-  cursor: pointer;
-  padding: 2
 }

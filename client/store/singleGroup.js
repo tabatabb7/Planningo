@@ -74,7 +74,7 @@ export const deleteFromGroupThunk = (groupId, userId) => {
   };
 };
 
-// add task to group 
+// add task to group
 export const addGroupTaskThunk = (groupId, task) => async (dispatch) => {
   try {
     const { data: newGroupTask } = await axios.post(`/api/groups/${groupId}/tasks`, task);

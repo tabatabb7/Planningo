@@ -2,12 +2,12 @@ import React from "react";
 import { connect } from "react-redux";
 
 import {
-  fetchGroceriesThunk,
-  addGroceryItemThunk,
-  removeGroceryItemThunk,
-} from "../../store/groupGroceries";
+  fetchShopListThunk,
+  addItemThunk,
+  removeItemThunk,
+} from "../../store/groupShoppingList";
 
-class GroupGroceryList extends React.Component {
+class GroupShoppingList extends React.Component {
   constructor(props) {
     super(props);
 
@@ -45,7 +45,7 @@ class GroupGroceryList extends React.Component {
     }
   }
 
-  async handleDelete(groceryId, groupId) {
+  async handleDelete(groceryId) {
     try {
       await this.props.deleteItem(groceryId, this.props.match.params.groupId);
       this.props.fetchItems(this.props.match.params.groupId);
@@ -59,12 +59,12 @@ class GroupGroceryList extends React.Component {
   }
 
   render() {
-    let { groceries } = this.props;
+    let { items } = this.props;
 
     return (
-      <div id="groceries-wrap">
+      <div id="items-wrap">
         <form id="add-grocery-form" onSubmit={this.handleSubmit}>
-          <label htmlFor="name">Add Grocery Item:</label>
+          <label htmlFor="name">Add Shopping List Item:</label>
           <input
             name="name"
             type="text"
@@ -75,11 +75,11 @@ class GroupGroceryList extends React.Component {
         </form>
 
         <h3>My Groceries</h3>
-        {groceries.map((grocery) => (
-          <p key={grocery.id}>
-            {grocery.name}
+        {items.map((item) => (
+          <p key={item.id}>
+            {item.name}
             <button
-              onClick={() => this.handleDelete(grocery.id)}
+              onClick={() => this.handleDelete(item.id)}
               className="delete-item"
             >
               X
@@ -92,16 +92,16 @@ class GroupGroceryList extends React.Component {
 }
 
 const mapState = (state) => ({
-  groceries: state.groceries,
+  items: state.items,
 });
 
 const mapDispatch = (dispatch) => ({
-  fetchItems: (groupId) => dispatch(fetchGroceriesThunk(groupId)),
-  deleteItem: (groceryId, groupId) =>
-    dispatch(removeGroceryItemThunk(groceryId, groupId)),
-  addItem: (grocery, groupId) =>
-    dispatch(addGroceryItemThunk(grocery, groupId)),
+  fetchItems: (groupId) => dispatch(fetchItemsThunk(groupId)),
+  deleteItem: (shoppingId, groupId) =>
+    dispatch(removeItemThunk(shoppingId, groupId)),
+  addItem: (item, groupId) =>
+    dispatch(addItemThunk(item, groupId)),
   // updateItem: (grocery) => dispatch(updateSingleGroceryItem(grocery))
 });
 
-export default connect(mapState, mapDispatch)(GroupGroceryList);
+export default connect(mapState, mapDispatch)(GroupShoppingList);

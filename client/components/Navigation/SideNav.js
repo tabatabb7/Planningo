@@ -3,6 +3,10 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logout } from "../../store";
 import { Link } from "react-router-dom";
+<<<<<<< HEAD
+=======
+import "./sidenav.css";
+>>>>>>> 160f028fd1ff9c45e34877958e43292cbc157afe
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
   faCheck,
