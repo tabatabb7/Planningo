@@ -1,18 +1,6 @@
 const router = require("express").Router();
 const { Task, User_Task, Group, User, Task_Group } = require("../db/models");
 
-// router.get("/", async (req, res, next) => {
-//   try {
-//     const tasks = await req.user.getTasks({
-//       in
-//     })
-
-//     res.json(tasks);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
-
 router.get("/", async (req, res, next) => {
   try {
     const user = await User.findByPk(req.user.id, {

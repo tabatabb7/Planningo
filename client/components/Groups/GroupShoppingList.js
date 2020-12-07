@@ -1,15 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import GroupTaskModal from "./GroupTaskModal";
-import {updateItemBought } from "../../store/singleItem";
-import { removeItemThunk } from "../../store/items";
-
+import { removeTaskThunk } from "../../store/tasks";
+import { updateTaskCompletion} from "../../store/singletask";
 import { fetchSingleGroup } from "../../store/singleGroup";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
-// import "./groupitems.css";
+import "./grouptasks.css";
 
 class GroupShoppingList extends React.Component {
   constructor(props) {
@@ -35,16 +34,16 @@ class GroupShoppingList extends React.Component {
 
   async handleDelete(id) {
     try {
-      await this.props.deleteItem(id);
+      await this.props.deleteTask(id);
       this.props.fetchGroup(this.props.match.params.groupId);
     } catch (err) {
       console.error(err);
     }
   }
 
-  async toggleBought(taskId, isBought) {
+  async toggleCompleted(taskId, isCompleted) {
     try {
-      await this.props.updateTaskCompletion(taskId, !isBought);
+      await this.props.updateTaskCompletion(taskId, !isCompleted);
 
       this.props.fetchGroup(this.props.match.params.groupId);
     } catch (err) {
@@ -58,33 +57,34 @@ class GroupShoppingList extends React.Component {
   }
 
   render() {
-    let items = this.props.group.items;
+    let tasks = this.props.group.tasks;
     let group = this.props.group;
 
     return (
       <div className="group-task-wrapper">
         <div id="group-task-box">
           <div className="group-task-box-header">
-            Shopping List for {group.name}
+            GROUP Tasks -- {group.name}
           </div>
           <div className="group-task-box-body">
+          <div id="group-task-box-assignedto">Assigned To:</div>
 
             <div id="group-task-box-categories">Category</div>
 
-            {/* LIST OF items */}
+            {/* LIST OF TASKS */}
             <div id="group-task-box-list">
-              {items && items.length
-                ? items.map((item) => (
-                    <div key={item.id} className="group-singletask">
+              {tasks && tasks.length
+                ? tasks.map((task) => (
+                    <div key={task.id} className="group-singletask">
                       <button
-                        onClick={() => this.toggleBought(item.id, item.isBought)
+                        onClick={() => this.toggleCompleted(task.id, task.isCompleted)
                         }
 
                         className="group-completeTask"
                       >
                         <div
                           className={
-                            item.isBought
+                            task.isCompleted
                               ? "check-circle complete"
                               : "check-circle incomplete"
                           }
@@ -92,17 +92,19 @@ class GroupShoppingList extends React.Component {
                           <FontAwesomeIcon icon={faCheckCircle} />
                         </div>
                       </button>
-                      {item.name}
+                      {task.name}
+
+                      <div>---worth {task.Task_Group.points} POINTS</div>
 
                       <button
-                        onClick={() => this.handleDelete(item.id)}
+                        onClick={() => this.handleDelete(task.id)}
                         className="group-deleteTask"
                       >
                         X
                       </button>
                     </div>
                   ))
-                : "Your group has no items"}
+                : "Your group has no tasks"}
             </div>
             <div id="group-just-another-layout-div"></div>
           </div>
@@ -116,7 +118,7 @@ class GroupShoppingList extends React.Component {
               <div id="ahhh">
                 <FontAwesomeIcon icon={faPlusSquare} />
               </div>
-              Add Item
+              Add New Task
             </button>
             <GroupTaskModal
               groupId={this.props.match.params.groupId}
@@ -131,16 +133,16 @@ class GroupShoppingList extends React.Component {
 }
 
 const mapState = (state) => ({
-  items: state.items,
+  tasks: state.tasks,
   userId: state.user.id,
   group: state.singleGroup
 });
 
 const mapDispatch = (dispatch) => ({
   fetchGroup: (groupId) => dispatch(fetchSingleGroup(groupId)),
-  deleteItem: (itemId) => dispatch(removeItemThunk(itemId)),
-  updateBought: (itemId, isBought) =>
-    dispatch(updateItemBought(itemId, isBought)),
+  deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
+  updateTaskCompletion: (taskId, isCompleted) =>
+    dispatch(updateTaskCompletion(taskId, isCompleted)),
 });
 
 export default connect(mapState, mapDispatch)(GroupShoppingList);

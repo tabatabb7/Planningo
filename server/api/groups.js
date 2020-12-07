@@ -3,10 +3,11 @@ const {
   Group,
   User_Group,
   User,
-  Grocery,
+  Item,
   Task,
   User_Task,
   Task_Group,
+  Item_Task
 } = require("../db/models");
 
 router.get("/", async (req, res, next) => {
@@ -37,20 +38,6 @@ router.get("/:groupId", async (req, res, next) => {
   }
 });
 
-//GET /api/groups/:groupId/grocery
-router.get("/:groupId/grocery", async (req, res, next) => {
-  try {
-    console.log("is api route working for fetch groceries");
-    const grocery = await Grocery.findAll({
-      where: {
-        groupId: req.params.groupId,
-      },
-    });
-    res.json(grocery);
-  } catch (error) {
-    next(error);
-  }
-});
 
 //POST - create group
 router.post("/", async (req, res, next) => {
@@ -70,19 +57,6 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-//POST /api/groups/:groupId/grocery
-router.post("/:groupId/grocery", async (req, res, next) => {
-  try {
-    console.log("inside the post route for group groceries");
-    const grocery = await Grocery.create({
-      groupId: req.params.groupId,
-      name: req.body.name,
-    });
-    res.json(grocery);
-  } catch (err) {
-    next(err);
-  }
-});
 
 //PUT group
 router.put("/:groupId", async (req, res, next) => {
@@ -137,20 +111,7 @@ router.delete("/:groupId/:userId", async (req, res, next) => {
   }
 });
 
-//DELETE /api/groups/:groupId/grocery/:groceryId
-router.delete("/:groupId/grocery/:groceryId", async (req, res, next) => {
-  try {
-    await Grocery.destroy({
-      where: {
-        groupId: req.params.groupId,
-        id: req.params.groceryId,
-      },
-    });
-    res.sendStatus(204);
-  } catch (error) {
-    next(error);
-  }
-});
+
 
 // GET /api/groups/:groupId/tasks
 router.get("/:groupId/tasks", async (req, res, next) => {
@@ -203,27 +164,6 @@ router.post("/:groupId/tasks", async (req, res, next) => {
       groupId: userGroup.groupId,
     });
     res.json(task);
-  } catch (err) {
-    next(err);
-  }
-});
-
-//PATCH group's users (add points)
-router.patch("/:taskId", async (req, res, next) => {
-  try {
-    const task_group = await Task_Group.findOne({
-      where: {
-        taskId: req.params.taskId,
-      },
-    });
-    const user = await User_Group.findAll({
-      where:{
-        groupId: task_group.groupId
-      }
-    })
-    const { updatedFields } = req.body;
-    user.update({ ...updatedFields });
-    res.sendStatus(204);
   } catch (err) {
     next(err);
   }

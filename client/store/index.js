@@ -5,19 +5,16 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import user from "./user";
 import tasks from "./tasks";
 import singleTask from "./singletask";
-import singleItem from "./singleItem";
 import groups from "./allGroups";
 import singleGroup from "./singleGroup";
-import items from "./items";
+
 
 const reducer = combineReducers({
   user,
   singleTask,
   tasks,
   groups,
-  singleGroup,
-  singleItem,
-  items
+  singleGroup
 });
 
 const middleware = composeWithDevTools(

@@ -3,8 +3,6 @@ const router = require("express").Router();
 router.use("/users", require("./users"));
 router.use("/groups", require("./groups"));
 router.use("/tasks", require("./tasks"));
-router.use("/items", require("./items"));
-
 
 router.use((req, res, next) => {
   const error = new Error("Not Found");

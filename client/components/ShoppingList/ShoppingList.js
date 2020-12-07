@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { updateItemBought } from "../../store/singleItem";
-// import TaskModal from "./TaskModal";
-import { fetchItemsThunk, removeItemThunk } from "../../store/items";
+import { updateTaskCompletion } from "../../store/singletask";
+import ShoppingModal from "./ShoppingModal";
+import "./Tasks.css";
+import { fetchTasksThunk, removeTaskThunk } from "../../store/tasks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
@@ -18,23 +19,23 @@ class ShoppingList extends React.Component {
     this.showModal = this.showModal.bind(this);
   }
   componentDidMount() {
-    this.props.fetchItems();
+    this.props.fetchTasks();
   }
 
   async handleDelete(id) {
     try {
-      await this.props.deleteItem(id);
-      this.props.fetchItems();
+      await this.props.deleteTask(id);
+      this.props.fetchTasks();
     } catch (err) {
       console.error(err);
     }
   }
 
-  async toggleCompleted(itemId, isBought) {
+  async toggleCompleted(taskId, isCompleted) {
     try {
-      await this.props.updateBought(itemId, !isBought);
+      await this.props.updateTaskCompletion(taskId, !isCompleted);
 
-      this.props.fetchItems();
+      this.props.fetchTasks();
     } catch (err) {
       console.error(err);
     }
@@ -45,13 +46,13 @@ class ShoppingList extends React.Component {
   }
 
   render() {
-    let { items, groups } = this.props.items;
+    let { tasks, groups } = this.props.tasks;
 
     return (
       <div className="task-wrapper">
 
         <div id="task-box">
-          <div className="task-box-header">My Shopping List
+          <div className="task-box-header">Shopping List
           {/* <select name="selected">
           <option value="" disabled>
             Select Group
@@ -68,18 +69,18 @@ class ShoppingList extends React.Component {
 
             {/* LIST OF TASKS */}
             <div id="task-box-list">
-              {items && items.length
-                ? items.map((item) => (
-                    <p key={item.id} className="singletask">
+              {tasks && tasks.length
+                ? tasks.map((task) => (
+                    <p key={task.id} className="singletask">
                               <button
-                        onClick={() => this.toggleBought(item.id, item.isBought)
+                        onClick={() => this.toggleCompleted(task.id, task.isCompleted)
                         }
 
                         className="group-completeTask"
                       >
                         <div
                           className={
-                            item.isBought
+                            task.isCompleted
                               ? "check-circle complete"
                               : "check-circle incomplete"
                           }
@@ -87,16 +88,16 @@ class ShoppingList extends React.Component {
                           <FontAwesomeIcon icon={faCheckCircle} />
                         </div>
                       </button>
-                      {item.name}
+                      {task.name}
                       <button
-                        onClick={() => this.handleDelete(item.id)}
+                        onClick={() => this.handleDelete(task.id)}
                         className="deleteTask"
                       >
                         X
                       </button>
                     </p>
                   ))
-                : "You have no items in your shopping list!"}
+                : "You have no tasks"}
             </div>
             <div id="just-another-layout-div"></div>
           </div>
@@ -110,12 +111,12 @@ class ShoppingList extends React.Component {
               <div id="ahhh">
                 <FontAwesomeIcon icon={faPlusSquare} />
               </div>
-              Add Item
+              Add New Task
             </button>
-            {/* <TaskModal
+            <ShoppingModal
               onClose={(e) => this.showModal(e)}
               show={this.state.show}
-            /> */}
+            />
           </div>
         </div>
       </div>
@@ -124,14 +125,14 @@ class ShoppingList extends React.Component {
 }
 
 const mapState = (state) => ({
-  items: state.items,
+  tasks: state.tasks,
   userId: state.user.id,
 });
 
 const mapDispatch = (dispatch) => ({
-  fetchItems: () => dispatch(fetchItemsThunk()),
-  deleteItem: (itemId) => dispatch(removeItemThunk(itemId)),
-  updateBought: (itemId, isBought) =>
-  dispatch(updateItemBought(itemId, isBought)),});
+  fetchTasks: () => dispatch(fetchTasksThunk()),
+  deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
+  updateTaskCompletion: (taskId, isCompleted) =>
+  dispatch(updateTaskCompletion(taskId, isCompleted)),});
 
 export default connect(mapState, mapDispatch)(ShoppingList);
