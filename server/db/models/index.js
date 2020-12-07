@@ -2,10 +2,12 @@ const db = require("../db");
 const User = require("./user");
 const Task = require("./task");
 const Group = require("./group");
-const Shopping = require("./shopping");
+const Item = require("./item");
 const Category = require("./category");
+const SubCategory = require("./subcategory");
 
 const Sequelize = require("sequelize");
+const { StepButton } = require("@material-ui/core");
 
 //ASSOCIATIONS
 //**********USER AND GROUP --- USER_GROUP THROUGH TABLE ***********
@@ -41,13 +43,16 @@ User.belongsToMany(Task, { through: "User_Task" });
 Task.belongsToMany(User, { through: "User_Task" });
 
 //Categories
-Category.hasMany(Task)
-Task.belongsTo(Category)
+Task.hasOne(Category)
+Category.belongsTo(Task)
 
-//Shopping_Task through Table between Shopping and Task
-const Shopping_Task = db.define("Shopping_Task", {});
-Task.belongsToMany(Shopping, { through: "Shopping_Task" });
-Shopping.belongsToMany(Task, { through: "Shopping_Task" });
+Category.hasMany(SubCategory)
+SubCategory.belongsTo(Category)
+
+//Item_Task through Table between shopping list items and Task
+const Item_Task = db.define("Item_Task", {});
+Task.belongsToMany(Item, { through: "Item_Task" });
+Item.belongsToMany(Task, { through: "Item_Task" });
 
 //export modules
 module.exports = {
@@ -55,10 +60,10 @@ module.exports = {
   User,
   Task,
   Group,
-  Shopping,
+  Item,
   User_Group,
   User_Task,
   Task_Group,
   Category,
-  Shopping_Task
+  Item_Task
 };

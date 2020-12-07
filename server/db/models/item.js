@@ -1,16 +1,13 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
 
-const Shopping = db.define("shopping", {
+const Item = db.define("item", {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
     validate:{
       notEmpty: true,
     }
-  },
-  grocery_category: {
-    type: Sequelize.ENUM('dairy', 'meat', 'vegetables', 'grains', 'seafood', 'fruits', 'other')
   },
   isBought: {
     type: Sequelize.BOOLEAN,
@@ -32,4 +29,4 @@ const Shopping = db.define("shopping", {
   }
 });
 
-module.exports = Shopping;
+module.exports = Item;

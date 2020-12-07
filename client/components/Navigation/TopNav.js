@@ -33,7 +33,7 @@ const TopNav =({toggleSideNav}) => {
           </Link>
         </div>
         <div id="each-top-nav-link">
-          <Link to="/grocery">
+          <Link to="/shoppinglist">
             <div className="top-nav-icon">
               <FontAwesomeIcon icon={faShoppingBasket} />
             </div>

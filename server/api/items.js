@@ -1,27 +1,27 @@
 const router = require("express").Router();
-const { Shopping } = require("../db/models");
+const { Item } = require("../db/models");
 
 router.get("/", async (req, res, next) => {
   try {
-    const shopping = await Shopping.findAll({
+    const items = await Item.findAll({
       where: {
         userId: req.user.id,
       },
     });
-    res.json(shopping);
+    res.json(items);
   } catch (err) {
     next(err);
   }
 });
 
-router.get("/:shoppingId", async (req, res, next) => {
+router.get("/:itemId", async (req, res, next) => {
   try {
-    const shopping = await Shopping.findOne({
+    const Item = await Item.findOne({
       where: {
         userId: req.user.id,
       },
     });
-    res.json(shopping);
+    res.json(Item);
   } catch (err) {
     next(err);
   }
@@ -29,26 +29,26 @@ router.get("/:shoppingId", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    const shopping = await Shopping.create({
+    const Item = await Item.create({
       userId: req.user.id,
       name: req.body.name,
     });
-    res.json(shopping);
+    res.json(Item);
   } catch (err) {
     next(err);
   }
 });
 
-//update /api/shoppinglist/:ShoppingId
-router.put("/:shoppingId", async (req, res, next) => {
+//update /api/items/:itemId
+router.put("/:itemId", async (req, res, next) => {
   try {
-    await Shopping.update(
+    await Item.update(
       {
         isBought: true,
       },
       {
         where: {
-          id: req.params.shoppingId,
+          id: req.params.itemId,
         },
       }
     );
@@ -57,11 +57,11 @@ router.put("/:shoppingId", async (req, res, next) => {
   }
 });
 
-router.delete("/:shoppingId", async (req, res, next) => {
+router.delete("/:itemId", async (req, res, next) => {
   try {
-    await Shopping.destroy({
+    await Item.destroy({
       where: {
-        id: req.params.shoppingId,
+        id: req.params.itemId,
       },
     });
     res.sendStatus(204);

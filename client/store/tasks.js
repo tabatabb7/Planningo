@@ -7,7 +7,6 @@ import axios from "axios";
 const GET_TASKS = "GET_TASKS";
 const ADD_TASK = "ADD_TASK";
 const DELETE_TASK = "DELETE_TASK";
-const SET_VISIBILITY_FILTER = "SET_VISIBILITY_FILTER"
 
 /**
  * INITIAL STATE
