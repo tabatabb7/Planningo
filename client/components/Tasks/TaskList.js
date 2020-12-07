@@ -40,9 +40,10 @@ class TaskList extends React.Component {
     this.setState({ show: !this.state.show });
   }
 
-  async showTaskModal(e, taskName) {
 
-    const task = await this.props.fetchTask(taskName)
+  showTaskModal(e, taskName) {
+
+    const task = this.props.fetchTask(taskName)
     // this is coming back as undefined 
     console.log(task)
 

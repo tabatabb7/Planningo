@@ -11,15 +11,16 @@ const getTask = task => ({ type: GET_SINGLE_TASK, task })
 const updateTask = task => ({ type: UPDATE_TASK, task })
 
 // thunk creators
-// export const fetchTaskThunk = (taskId) => async (dispatch) => {
-//   try {
-//     const { data: task } = await axios.get(`/api/tasks/${taskId}`)
-//     dispatch(getTask(task))
-//   } catch (error) {
-//     console.error('Error fetching task!')
-//     console.error(error)
-//   }
-// }
+// this fetch Task Thunk was for the single task page, but now we're doing modals
+export const fetchTaskThunk = (taskId) => async (dispatch) => {
+  try {
+    const { data: task } = await axios.get(`/api/tasks/${taskId}`)
+    dispatch(getTask(task))
+  } catch (error) {
+    console.error('Error fetching task!')
+    console.error(error)
+  }
+}
 
 export const updateTaskThunk = (task) => async (dispatch) => {
   try {
