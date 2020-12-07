@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
 
-const Group = db.define("group", {
+const Category = db.define("category", {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -9,13 +9,13 @@ const Group = db.define("group", {
       notEmpty: true,
     },
   },
-  description: {
+  imageUrl: {
     type: Sequelize.STRING
   },
-  imageUrl: {
-    type: Sequelize.TEXT,
-    defaultValue: "https://picsum.photos/100/100"
+  color: {
+    type: Sequelize.ENUM ("yellow", "blue", "green", "pink", "orange", "red", "gray"),
+    defaultValue: "gray"
   }
 });
 
-module.exports = Group;
+module.exports = Category;

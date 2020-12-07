@@ -10,15 +10,16 @@ import {
   GroupList,
   Account,
   AccountSettings,
-  GroceryList,
+ShoppingList,
   AppCalendar,
   TaskList,
   CreateGroup,
   SingleGroup,
-  GroupGroceryList,
+  GroupShoppingList,
   GroupTaskList,
   MyStats,
   Shopping,
+  GroupRewards,
 } from "./components";
 import { me } from "./store";
 
@@ -41,11 +42,10 @@ class Routes extends Component {
 
             <Route exact path={["/home", "/"]} component={UserHome} />
 
-
             <Route exact path="/account" component={Account} />
             <Route exact path="/account/settings" component={AccountSettings} />
             <Route path="/shopping" component={Shopping} />
-            <Route path="/grocery" component={GroceryList} />
+            <Route path="/shoppinglist" component={ShoppingList} />
             <Route path="/calendar" component={AppCalendar} />
             <Route exact path="/tasks" component={TaskList} />
             <Route exact path="/groups" component={GroupList} />
@@ -53,13 +53,19 @@ class Routes extends Component {
             <Route exact path="/groups/:groupId" component={SingleGroup} />
             <Route
               exact
+              path="/groups/:groupId/rewards"
+              component={GroupRewards}
+            />
+
+            <Route
+              exact
               path="/groups/:groupId/tasks"
               component={GroupTaskList}
             />
 
             <Route
-              path="/groups/:groupId/grocery"
-              component={GroupGroceryList}
+              path="/groups/:groupId/shoppinglist"
+              component={GroupShoppingList}
             />
             <Route exact path="/mystats" component={MyStats} />
           </Switch>
