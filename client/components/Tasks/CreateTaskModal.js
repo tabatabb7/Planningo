@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
   fetchTasksThunk,
-  addTaskThunk,
   removeTaskThunk,
+  addTaskThunk,
 } from "../../store/tasks";
 import "./taskmodal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -31,13 +31,18 @@ class CreateTaskModal extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     try {
-      await this.props.addTask(this.state);
-      await this.props.fetchTasks();
-      this.setState({
-        name: "",
-        selected: "",
-      });
-      this.props.onClose();
+      if (this.state.name == "" || this.state.selected == "") {
+        alert("task name OR group can't be empty!")
+      } else {
+        await this.props.addTask(this.state);
+        await this.props.fetchTasks();
+        this.setState({
+          name: "",
+          selected: "",
+          description: ""
+        });
+        this.props.onClose();
+      }
     } catch (err) {
       console.log("error creating task", err);
     }
@@ -58,7 +63,7 @@ class CreateTaskModal extends Component {
 
   render() {
     let { groups } = this.props.tasks;
-    
+
     if (!this.props.show) {
       return null;
     }
@@ -67,7 +72,7 @@ class CreateTaskModal extends Component {
         <div>{this.props.children}</div>
         <div className="task-modal-content">
           <div id="top-taskmodal-div">
-            <div id="modal-title">ADD A TASK</div>
+            <div id="modal-title">NEW TASK</div>
             <button
               onClick={(e) => this.onClose(e)}
               className="close-modal-btn"
@@ -128,10 +133,9 @@ const mapState = (state) => ({
 });
 
 const mapDispatch = (dispatch) => ({
+  addTask: (task) => dispatch(addTaskThunk(task)),
   fetchTasks: (userId) => dispatch(fetchTasksThunk(userId)),
   deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
-  addTask: (task) => dispatch(addTaskThunk(task)),
-  updateTask: (task) => dispatch(updateSingleTask(task)),
 });
 
 export default connect(mapState, mapDispatch)(CreateTaskModal);

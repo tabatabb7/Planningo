@@ -1,26 +1,34 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { updateTaskThunk } from "../../store/singletask"
 import {
+  fetchTaskThunk,
   fetchTasksThunk,
-  updateTaskThunk,
   removeTaskThunk,
 } from "../../store/tasks";
 import "./taskmodal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
-class TaskModal extends Component {
+class UpdateTaskModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
       name: "",
       selected: "",
       description: "",
-      error: null
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  // componentDidMount () {
+  //   this.setState({
+  //     taskId: this.props.task.id
+  //     // note: it's preferable to only set the warning message here rather than hard-code it
+  //     // as a prop so that we avoid "flashing" it when the component initially renders
+  //   })
+  // }
 
   handleChange(event) {
     this.setState({
@@ -31,13 +39,21 @@ class TaskModal extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     try {
-      await this.props.updateTask(this.state);
-      await this.props.fetchTasks();
-      this.setState({
-        name: "",
-        selected: "",
-      });
-      this.props.onClose();
+      if (this.state.name == "") {
+        alert("task name can't be empty!")
+      } else {
+      //   await this.setState({taskId: this.props.taskId})
+        await this.props.updateTask(this.props.task.id, this.state);
+        this.setState({
+          name: "",
+          selected: "",
+          description: "",
+          taskId: null
+        });
+        alert(`Your task was updated! Redirecting you to your tasks page..`)
+        await this.props.fetchTasks();
+        this.props.onClose();
+      }
     } catch (err) {
       console.log("error creating task", err);
     }
@@ -59,15 +75,15 @@ class TaskModal extends Component {
   render() {
     let { groups } = this.props.tasks;
 
-    if (!this.props.show) {
-      return null;
-    }
+    if (!this.props.showTask) {
+        return null;
+      }
     return (
       <div>
         <div>{this.props.children}</div>
         <div className="task-modal-content">
           <div id="top-taskmodal-div">
-            <div id="modal-title">NEW TASK</div>
+            <div id="modal-title">YOUR TASK</div>
             <button
               onClick={(e) => this.onClose(e)}
               className="close-modal-btn"
@@ -114,7 +130,7 @@ class TaskModal extends Component {
                     ))
                   : "There are no groups"}
               </select>
-              <button type="submit" id="modal-submit-button">Add</button>
+              <button type="submit" id="modal-submit-button">Update</button>
             </form>
           </div>
         </div>
@@ -133,4 +149,4 @@ const mapDispatch = (dispatch) => ({
   updateTask: (task) => dispatch(updateTaskThunk(task)),
 });
 
-export default connect(mapState, mapDispatch)(TaskModal);
+export default connect(mapState, mapDispatch)(UpdateTaskModal);

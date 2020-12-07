@@ -24,7 +24,6 @@ router.get("/", async (req, res, next) => {
       }]
     });
     res.json(user);
-    console.log(user)
   } catch (err) {
     next(err);
   }
@@ -57,10 +56,12 @@ router.post("/", async (req, res, next) => {
     const task = await Task.create({
       userId: req.user.id,
       name: req.body.name,
+      description: req.body.description
     });
     await User_Task.create({
       userId: req.user.id,
       taskId: task.id,
+
     });
     await Task_Group.create({
       groupId: group.id,
@@ -74,14 +75,14 @@ router.post("/", async (req, res, next) => {
 });
 
 
-router.put("/:taskId", async (req, res, next) => {
+router.put("/", async (req, res, next) => {
   try {
     const task = await Task.findOne({
       where: {
-        userId: req.user.id,
+        id: req.body.taskId,
       },
     });
-    await Task.update(req.body);
+    await task.update(req.body);
     res.json(task);
   } catch (err) {
     next(err);

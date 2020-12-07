@@ -1,8 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 // import { updateSingleTask } from "../../store/singletask";
-import TaskModal from "./TaskModal";
+import CreateTaskModal from "./CreateTaskModal";
+import UpdateTaskModal from "./UpdateTaskModal";
 import "./Tasks.css";
+import { fetchTaskThunk } from "../../store/tasks";
 import { fetchTasksThunk, removeTaskThunk } from "../../store/tasks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
@@ -10,15 +12,17 @@ import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 class TaskList extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       name: "",
       selected: "",
       show: false,
       showTask: false,
+      taskId: ""
     };
     this.showModal = this.showModal.bind(this);
+    this.showTaskModal = this.showTaskModal.bind(this);
   }
+
   componentDidMount() {
     this.props.fetchTasks();
   }
@@ -36,12 +40,19 @@ class TaskList extends React.Component {
     this.setState({ show: !this.state.show });
   }
 
-  showTaskModal(e) {
-    this.setState({ showTask:!this.state.showTask });
+  async showTaskModal(e, taskName) {
+
+    const task = await this.props.fetchTask(taskName)
+    // this is coming back as undefined 
+    console.log(task)
+
+    const taskId = task[0].id
+
+    this.setState({ taskId: taskId, showTask:!this.state.showTask });
   }
 
   render() {
-    let { tasks, groups } = this.props.tasks;
+    let { tasks, groups } = this.props.userTasks;
 
     return (
       <div className="task-wrapper">
@@ -65,15 +76,17 @@ class TaskList extends React.Component {
             <div id="task-box-list">
               {tasks && tasks.length
                 ? tasks.map((task) => (
-                    <p key={task.id} className="singletask">
-                      {task.name}
+                    <div key={task.id} className="singletask">
+                      <a onClick={e => this.showTaskModal(e, task.name)}> {task.name}</a>
+                  
+                      <UpdateTaskModal task={this.state.taskId} onClose={e => this.showTaskModal(e)} showTask={this.state.showTask}/>
                       <button
                         onClick={() => this.handleDelete(task.id)}
                         className="deleteTask"
                       >
                         X
                       </button>
-                    </p>
+                    </div>
                   ))
                 : "You have no tasks"}
             </div>
@@ -91,7 +104,7 @@ class TaskList extends React.Component {
               </div>
               Add New Task
             </button>
-            <TaskModal
+            <CreateTaskModal
               onClose={(e) => this.showModal(e)}
               show={this.state.show}
             />
@@ -103,11 +116,12 @@ class TaskList extends React.Component {
 }
 
 const mapState = (state) => ({
-  tasks: state.tasks,
+  userTasks: state.tasks,
   userId: state.user.id,
 });
 
 const mapDispatch = (dispatch) => ({
+  fetchTask: (taskName) => dispatch(fetchTaskThunk(taskName)),
   fetchTasks: () => dispatch(fetchTasksThunk()),
   deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
   // updateTask: (task) => dispatch(updateSingleTask(task))
