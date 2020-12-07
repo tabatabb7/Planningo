@@ -3,10 +3,10 @@ import axios from "axios";
 /**
  * ACTION TYPES
  */
-const GET_TASK = "GET_TASK";
 const GET_TASKS = "GET_TASKS";
 const ADD_TASK = "ADD_TASK";
 const DELETE_TASK = "DELETE_TASK";
+const UPDATE_TASK = 'UPDATE_TASK'
 
 /**
  * INITIAL STATE
@@ -18,29 +18,15 @@ const initialState = {};
  * ACTION CREATORS
  */
 
-const getTask = (task) => ({ type: GET_TASK, task });
 const getTasks = (tasks) => ({ type: GET_TASKS, tasks });
 const addTask = (task) => ({ type: ADD_TASK, task });
 const deleteTask = (taskId) => ({ type: DELETE_TASK, taskId });
+const updateTask = task => ({ type: UPDATE_TASK, task })
 
 
 /**
  * THUNK CREATORS
  */
-
-export const fetchTaskThunk = (taskName) => async (dispatch) => {
-  try {
-    const { data: users } = await axios.get(`/api/tasks`);
-    // console.log(users)
-    const tasks = users.tasks
-    console.log(tasks)
-    const task = tasks.filter((task) => task.name === taskName)
-
-    dispatch(getTask(task));
-  } catch (error) {
-    console.log("error fetching tasks");
-  }
-};
 
 export const fetchTasksThunk = () => async (dispatch) => {
   try {
@@ -53,7 +39,7 @@ export const fetchTasksThunk = () => async (dispatch) => {
 
 export const addTaskThunk = (task) => async (dispatch) => {
   try {
-    console.log(task)
+    // console.log(task)
     const { data: newTask } = await axios.post("/api/tasks", task);
     dispatch(addTask(newTask));
   } catch (error) {
@@ -72,18 +58,29 @@ export const removeTaskThunk = (taskId) => async (dispatch) => {
   }
 };
 
+export const updateTaskThunk = (task) => async (dispatch) => {
+  try {
+    const { data: updatedTask } = await axios.put(`/api/tasks/`, task)
+    dispatch(updateTask(updatedTask))
+  } catch (error) {
+    console.error('Error updating task!')
+    console.error(error)
+  }
+}
+
 export default function tasksReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_TASK:
-      // this is the array of task objects 
-      console.log('TASKS ARRAY' , action.task)
-      return action.task
     case GET_TASKS:
       return action.tasks
     case ADD_TASK:
       return {...state, ...action.task};
     case DELETE_TASK:
       return {...state}
+    case UPDATE_TASK:
+      return {...state, tasks: state.tasks.map((task) => {
+        if (task.id === action.task.id) return action.task
+        else return task
+      })}
     default:
       return state;
   }

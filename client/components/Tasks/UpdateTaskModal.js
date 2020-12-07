@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { updateTaskThunk } from "../../store/singletask"
+import { updateTaskThunk } from "../../store/tasks"
 import {
-  fetchTaskThunk,
   fetchTasksThunk,
-  removeTaskThunk,
 } from "../../store/tasks";
 import "./taskmodal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,21 +12,14 @@ class UpdateTaskModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
-      selected: "",
-      description: "",
+      name: this.props.task.name,
+      selected: this.props.task.selected,
+      description: this.props.task.description,
+      taskId: this.props.taskId
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
-  // componentDidMount () {
-  //   this.setState({
-  //     taskId: this.props.task.id
-  //     // note: it's preferable to only set the warning message here rather than hard-code it
-  //     // as a prop so that we avoid "flashing" it when the component initially renders
-  //   })
-  // }
 
   handleChange(event) {
     this.setState({
@@ -39,32 +30,22 @@ class UpdateTaskModal extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     try {
+      console.log(this.state.taskId)
       if (this.state.name == "") {
         alert("task name can't be empty!")
       } else {
-      //   await this.setState({taskId: this.props.taskId})
-        await this.props.updateTask(this.props.task.id, this.state);
+        await this.props.updateTask(this.state);
         this.setState({
           name: "",
           selected: "",
           description: "",
-          taskId: null
         });
         alert(`Your task was updated! Redirecting you to your tasks page..`)
-        await this.props.fetchTasks();
+        // await this.props.fetchTasks();
         this.props.onClose();
       }
     } catch (err) {
       console.log("error creating task", err);
-    }
-  }
-
-  async handleDelete(id) {
-    try {
-      await this.props.deleteTask(id);
-      this.props.fetchTasks();
-    } catch (err) {
-      console.error(err);
     }
   }
 
@@ -75,9 +56,9 @@ class UpdateTaskModal extends Component {
   render() {
     let { groups } = this.props.tasks;
 
-    if (!this.props.showTask) {
+    if (!this.props.showTask || !this.props.selectedTask) {
         return null;
-      }
+    }
     return (
       <div>
         <div>{this.props.children}</div>
@@ -145,7 +126,6 @@ const mapState = (state) => ({
 
 const mapDispatch = (dispatch) => ({
   fetchTasks: (userId) => dispatch(fetchTasksThunk(userId)),
-  deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
   updateTask: (task) => dispatch(updateTaskThunk(task)),
 });
 

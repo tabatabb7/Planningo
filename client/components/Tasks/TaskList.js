@@ -1,10 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-// import { updateSingleTask } from "../../store/singletask";
 import CreateTaskModal from "./CreateTaskModal";
 import UpdateTaskModal from "./UpdateTaskModal";
 import "./Tasks.css";
-import { fetchTaskThunk } from "../../store/tasks";
 import { fetchTasksThunk, removeTaskThunk } from "../../store/tasks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
@@ -13,11 +11,8 @@ class TaskList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
-      selected: "",
       show: false,
       showTask: false,
-      taskId: ""
     };
     this.showModal = this.showModal.bind(this);
     this.showTaskModal = this.showTaskModal.bind(this);
@@ -41,34 +36,18 @@ class TaskList extends React.Component {
   }
 
 
-  showTaskModal(e, taskName) {
-
-    const task = this.props.fetchTask(taskName)
-    // this is coming back as undefined 
-    console.log(task)
-
-    const taskId = task[0].id
-
-    this.setState({ taskId: taskId, showTask:!this.state.showTask });
+  showTaskModal(e, taskId) {
+    this.setState({ taskId, showTask:!this.state.showTask });
   }
 
+
   render() {
-    let { tasks, groups } = this.props.userTasks;
+    let { tasks } = this.props.userTasks;
 
     return (
       <div className="task-wrapper">
         <div id="task-box">
           <div className="task-box-header">My Tasks
-          {/* <select name="selected">
-          <option value="" disabled>
-            Select Group
-          </option>
-          {groups && groups.length
-            ? groups.map((group) => (
-                <option key={group.id}>{group.name} </option>
-              ))
-            : "There are no groups"}
-        </select> */}
         </div>
           <div className="task-box-body">
             <div id="task-box-categories">Category</div>
@@ -78,9 +57,9 @@ class TaskList extends React.Component {
               {tasks && tasks.length
                 ? tasks.map((task) => (
                     <div key={task.id} className="singletask">
-                      <a onClick={e => this.showTaskModal(e, task.name)}> {task.name}</a>
+                      <a onClick={e => this.showTaskModal(e, task.id)}> {task.name}</a>
                   
-                      <UpdateTaskModal task={this.state.taskId} onClose={e => this.showTaskModal(e)} showTask={this.state.showTask}/>
+                      <UpdateTaskModal selectedTask={task.id === this.state.taskId} task={task} onClose={e => this.showTaskModal(e)} showTask={this.state.showTask}/>
                       <button
                         onClick={() => this.handleDelete(task.id)}
                         className="deleteTask"
@@ -122,10 +101,8 @@ const mapState = (state) => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  fetchTask: (taskName) => dispatch(fetchTaskThunk(taskName)),
   fetchTasks: () => dispatch(fetchTasksThunk()),
   deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
-  // updateTask: (task) => dispatch(updateSingleTask(task))
 });
 
 export default connect(mapState, mapDispatch)(TaskList);

@@ -11,16 +11,20 @@ const getTask = task => ({ type: GET_SINGLE_TASK, task })
 const updateTask = task => ({ type: UPDATE_TASK, task })
 
 // thunk creators
-// this fetch Task Thunk was for the single task page, but now we're doing modals
 export const fetchTaskThunk = (taskId) => async (dispatch) => {
   try {
-    const { data: task } = await axios.get(`/api/tasks/${taskId}`)
-    dispatch(getTask(task))
+    const { data: users } = await axios.get(`/api/tasks`);
+    // console.log(users)
+    const tasks = users.tasks
+    console.log('TASKS FROM THUNK!', tasks)
+    const task = tasks.filter((task) => task.id === taskId)
+    console.log('SINGLE TASK NEEDED', task)
+
+    dispatch(getTask(task));
   } catch (error) {
-    console.error('Error fetching task!')
-    console.error(error)
+    console.log("error fetching task");
   }
-}
+};
 
 export const updateTaskThunk = (task) => async (dispatch) => {
   try {
@@ -35,7 +39,7 @@ export const updateTaskThunk = (task) => async (dispatch) => {
 export default function singleTaskReducer(state = initialState, action) {
   switch (action.type) {
     case GET_TASK:
-      return { ...state, ...action.task }
+      return action.task
     case UPDATE_TASK:
       return { ...state, ...action.task }
     default:
