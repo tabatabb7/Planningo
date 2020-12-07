@@ -7,6 +7,7 @@ import axios from "axios";
 const GET_TASKS = "GET_TASKS";
 const ADD_TASK = "ADD_TASK";
 const DELETE_TASK = "DELETE_TASK";
+const SET_VISIBILITY_FILTER = "SET_VISIBILITY_FILTER"
 
 /**
  * INITIAL STATE
@@ -20,7 +21,6 @@ const initialState = {};
 const getTasks = (tasks) => ({ type: GET_TASKS, tasks });
 const addTask = (task) => ({ type: ADD_TASK, task });
 const deleteTask = (taskId) => ({ type: DELETE_TASK, taskId });
-
 
 /**
  * THUNK CREATORS

@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import GroupTaskModal from "./GroupTaskModal";
 import { removeTaskThunk } from "../../store/tasks";
 import { updateTaskCompletion} from "../../store/singletask";
+import { fetchSingleGroup } from "../../store/singleGroup";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
-
-import { fetchSingleGroup } from "../../store/singleGroup";
 import "./grouptasks.css";
 
 class GroupTaskList extends React.Component {
@@ -35,7 +35,17 @@ class GroupTaskList extends React.Component {
   async handleDelete(id) {
     try {
       await this.props.deleteTask(id);
-      await this.props.fetchGroup(this.props.match.params.groupId);
+      this.props.fetchGroup(this.props.match.params.groupId);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  async toggleCompleted(taskId, isCompleted) {
+    try {
+      await this.props.updateTaskCompletion(taskId, !isCompleted);
+
+      this.props.fetchGroup(this.props.match.params.groupId);
     } catch (err) {
       console.error(err);
     }
@@ -57,6 +67,8 @@ class GroupTaskList extends React.Component {
             GROUP Tasks -- {group.name}
           </div>
           <div className="group-task-box-body">
+          <div id="group-task-box-assignedto">Assigned To:</div>
+
             <div id="group-task-box-categories">Category</div>
 
             {/* LIST OF TASKS */}
@@ -65,10 +77,8 @@ class GroupTaskList extends React.Component {
                 ? tasks.map((task) => (
                     <div key={task.id} className="group-singletask">
                       <button
-                        onClick={async (e) => {e.preventDefault();
-                          await this.props.updateTaskCompletion(task.id, !task.isCompleted);
-                          this.props.fetchGroup(this.props.match.params.groupId);
-                        }}
+                        onClick={() => this.toggleCompleted(task.id, task.isCompleted)
+                        }
 
                         className="group-completeTask"
                       >
@@ -125,7 +135,7 @@ class GroupTaskList extends React.Component {
 const mapState = (state) => ({
   tasks: state.tasks,
   userId: state.user.id,
-  group: state.singleGroup,
+  group: state.singleGroup
 });
 
 const mapDispatch = (dispatch) => ({

@@ -1,27 +1,27 @@
 const router = require("express").Router();
-const { Grocery } = require("../db/models");
+const { Shopping } = require("../db/models");
 
 router.get("/", async (req, res, next) => {
   try {
-    const groceries = await Grocery.findAll({
+    const shopping = await Shopping.findAll({
       where: {
         userId: req.user.id,
       },
     });
-    res.json(groceries);
+    res.json(shopping);
   } catch (err) {
     next(err);
   }
 });
 
-router.get("/:groceryId", async (req, res, next) => {
+router.get("/:shoppingId", async (req, res, next) => {
   try {
-    const grocery = await Grocery.findOne({
+    const shopping = await Shopping.findOne({
       where: {
         userId: req.user.id,
       },
     });
-    res.json(grocery);
+    res.json(shopping);
   } catch (err) {
     next(err);
   }
@@ -29,26 +29,26 @@ router.get("/:groceryId", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    const grocery = await Grocery.create({
+    const shopping = await Shopping.create({
       userId: req.user.id,
       name: req.body.name,
     });
-    res.json(grocery);
+    res.json(shopping);
   } catch (err) {
     next(err);
   }
 });
 
-//update /api/groceries/:groceryId
-router.put("/:groceryId", async (req, res, next) => {
+//update /api/shoppinglist/:ShoppingId
+router.put("/:shoppingId", async (req, res, next) => {
   try {
-    await Grocery.update(
+    await Shopping.update(
       {
         isBought: true,
       },
       {
         where: {
-          id: req.params.groceryId,
+          id: req.params.shoppingId,
         },
       }
     );
@@ -57,11 +57,11 @@ router.put("/:groceryId", async (req, res, next) => {
   }
 });
 
-router.delete("/:groceryId", async (req, res, next) => {
+router.delete("/:shoppingId", async (req, res, next) => {
   try {
-    await Grocery.destroy({
+    await Shopping.destroy({
       where: {
-        id: req.params.groceryId,
+        id: req.params.shoppingId,
       },
     });
     res.sendStatus(204);

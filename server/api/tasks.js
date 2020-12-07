@@ -96,6 +96,7 @@ router.patch("/:taskId", async (req, res, next) => {
   }
 });
 
+
 router.delete("/:taskId", async (req, res, next) => {
   try {
     await Task.destroy({
