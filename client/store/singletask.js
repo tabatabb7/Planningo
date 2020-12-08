@@ -20,9 +20,8 @@ const updateTaskComplete = (taskId, isCompleted) => ({
 export const fetchTaskThunk = (taskId) => async (dispatch) => {
   try {
     const { data: users } = await axios.get(`/api/tasks`);
-    // console.log(users)
+
     const tasks = users.tasks
-    console.log('TASKS FROM THUNK!', tasks)
     const task = tasks.filter((task) => task.id === taskId)
     console.log('SINGLE TASK NEEDED', task)
 

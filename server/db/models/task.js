@@ -15,7 +15,10 @@ const Task = db.define("tasks", {
   },
   imageUrl:{
     type: Sequelize.TEXT,
-  }
+  },
+  points: {
+    type: Sequelize.INTEGER,
+  },
 });
 
 

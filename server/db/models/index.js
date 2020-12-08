@@ -4,6 +4,7 @@ const Task = require("./task");
 const Group = require("./group");
 const Shopping = require("./shopping");
 const Category = require("./category");
+const Point = require("./point");
 
 const Sequelize = require("sequelize");
 
@@ -50,6 +51,16 @@ Task.belongsTo(Shopping)
 Group.hasMany(Category)
 Category.belongsTo(Group)
 
+// //Points
+Task.hasOne(Point)
+Point.belongsTo(Task)
+
+Point.belongsTo(User)
+User.hasMany(Point)
+
+Point.belongsTo(Group)
+Group.hasMany(Point)
+
 //export modules
 module.exports = {
   db,
@@ -61,4 +72,5 @@ module.exports = {
   User_Task,
   Task_Group,
   Category,
+  Point
 };
