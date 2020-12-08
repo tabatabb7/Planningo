@@ -72,13 +72,7 @@ class SingleGroup extends React.Component {
               <div key={user.id}>
                 <img src={user.avatarUrl} />
                 {(() => {
-                  if (user.User_Group.role === "owner") {
-                    return (
-                      <h3>
-                        {user.firstName} {user.lastName} 🌟{" "}
-                      </h3>
-                    );
-                  } else if (user.User_Group.role === "admin") {
+                  if (user.User_Group.role === "admin") {
                     return (
                       <h3>
                         {user.firstName} {user.lastName} 🏅

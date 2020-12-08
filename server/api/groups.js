@@ -54,8 +54,11 @@ router.post("/", async (req, res, next) => {
       role: "admin",
     });
     await Category.bulkCreate([
-      {name: "Home", color: "yellow", groupId: group.id},
-
+      {name: "Home", color: "#FFBF00", groupId: group.id, imageUrl: "/client/assets/icons/041-family.png"},
+      {name: "Work", color: "#FF7F50", groupId: group.id, imageUrl: "/client/assets/icons/002-folders.png"},
+      {name: "Finance", color: "#DE3163", groupId: group.id, imageUrl: "/client/assets/icons/026-business and finance.png"},
+      {name: "School", color: "#CCCCFF", groupId: group.id, imageUrl: "/client/assets/icons/003-book.png"},
+      {name: "Family", color: "#40E0D0", groupId: group.id, imageUrl: "/client/assets/icons/012-avatar.png"}
     ])
     res.json(group);
   } catch (err) {
