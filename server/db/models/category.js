@@ -10,7 +10,8 @@ const Category = db.define("category", {
     },
   },
   imageUrl: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    defaultValue: 'https://picsum.photos/100/100'
   },
   color: {
     type: Sequelize.ENUM ("yellow", "blue", "green", "pink", "orange", "red", "gray"),
@@ -18,4 +19,6 @@ const Category = db.define("category", {
   }
 });
 
+
 module.exports = Category;
+

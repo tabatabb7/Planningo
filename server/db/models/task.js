@@ -15,6 +15,10 @@ const Task = db.define("tasks", {
   },
   imageUrl:{
     type: Sequelize.TEXT,
+  },
+  isShopping: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
   }
 });
 

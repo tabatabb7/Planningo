@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
-  fetchSingleGroup,
-  addGroupTaskThunk,
+  fetchSingleGroupShopping,
+  addGroupItemThunk,
 } from "../../store/singleGroup";
 import "./grouptaskmodal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -81,7 +81,7 @@ class GroupShoppingModal extends Component {
 
           <div id="group-lower-taskmodal-div">
             <form id="group-add-task-form" onSubmit={this.handleSubmit}>
-              <label htmlFor="name">Task:</label>
+              <label htmlFor="name">Name:</label>
               <input
                 name="name"
                 type="text"
@@ -99,24 +99,6 @@ class GroupShoppingModal extends Component {
                 onChange={this.handleChange}
                 value={this.state.description}
               />
-            </form>
-
-          <form id="user-form" onSubmit={this.handleSubmit}>
-            <label htmlFor="selected"></label>
-            <select
-              value={this.state.selected}
-              onChange={this.handleChange}
-              name="selected"
-            >
-              <option value="" disabled>
-                Select User
-              </option>
-              {group && group.users
-                ? group.users.map((user) => (
-                    <option key={user.id}>{user.firstName} {user.lastName}</option>
-                  ))
-                : "There are no users"}
-              </select>
               <button id="group-modal-submit-button" type="submit">Add</button>
             </form>
           </div>
@@ -132,8 +114,8 @@ const mapState = (state) => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  fetchGroup: (groupId) => dispatch(fetchSingleGroup(groupId)),
-  addGroupTask: (groupId, task) => dispatch(addGroupTaskThunk(groupId, task)),
+  fetchGroup: (groupId) => dispatch(fetchSingleGroupShopping(groupId)),
+  addGroupTask: (groupId, task) => dispatch(addGroupItemThunk(groupId, task)),
   updateTask: (task) => dispatch(updateSingleTask(task)),
 });
 

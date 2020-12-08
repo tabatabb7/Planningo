@@ -3,11 +3,10 @@ const {
   Group,
   User_Group,
   User,
-  Item,
   Task,
   User_Task,
   Task_Group,
-  Item_Task
+  Category
 } = require("../db/models");
 
 router.get("/", async (req, res, next) => {
@@ -30,6 +29,9 @@ router.get("/:groupId", async (req, res, next) => {
         {
           model: Task,
         },
+        {
+          model: Category,
+        }
       ],
     });
     res.json(group);
@@ -51,6 +53,10 @@ router.post("/", async (req, res, next) => {
       groupId: group.id,
       role: "admin",
     });
+    await Category.bulkCreate([
+      {name: "Home", color: "yellow", groupId: group.id},
+
+    ])
     res.json(group);
   } catch (err) {
     next(err);
@@ -123,6 +129,38 @@ router.get("/:groupId/tasks", async (req, res, next) => {
         },
         {
           model: Task,
+          where: {
+            isShopping: false
+          },
+          required: false,
+          include: {
+            model: Category
+          }
+        },
+      ],
+    });
+    res.json(group);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get("/:groupId/shopping", async (req, res, next) => {
+  try {
+    const group = await Group.findByPk(req.params.groupId, {
+      include: [
+        {
+          model: User,
+        },
+        {
+          model: Task,
+          where: {
+            isShopping: true
+          },
+          required: false,
+          include: {
+            model: Category
+          }
         },
       ],
     });
@@ -154,10 +192,32 @@ router.post("/:groupId/tasks", async (req, res, next) => {
     const task = await Task.create({
       userId: user.id,
       name: req.body.name,
+      isShopping: false,
     });
     await User_Task.create({
       userId: user.id,
       taskId: task.id,
+    });
+    await Task_Group.create({
+      taskId: task.id,
+      groupId: userGroup.groupId,
+    });
+    res.json(task);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post("/:groupId/shopping", async (req, res, next) => {
+  try {
+    const userGroup = await User_Group.findOne({
+      where: {
+        groupId: req.body.groupId,
+      },
+    });
+    const task = await Task.create({
+      name: req.body.name,
+      isShopping: true
     });
     await Task_Group.create({
       taskId: task.id,

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import GroupTaskModal from "./GroupTaskModal";
 import { removeTaskThunk } from "../../store/tasks";
 import { updateTaskCompletion} from "../../store/singletask";
-import { fetchSingleGroup } from "../../store/singleGroup";
+import { fetchSingleGroupTasks } from "../../store/singleGroup";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
@@ -139,7 +139,7 @@ const mapState = (state) => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  fetchGroup: (groupId) => dispatch(fetchSingleGroup(groupId)),
+  fetchGroup: (groupId) => dispatch(fetchSingleGroupTasks(groupId)),
   deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
   updateTaskCompletion: (taskId, isCompleted) =>
     dispatch(updateTaskCompletion(taskId, isCompleted)),

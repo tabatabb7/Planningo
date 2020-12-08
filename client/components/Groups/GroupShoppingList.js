@@ -1,10 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import GroupTaskModal from "./GroupTaskModal";
+import GroupShoppingModal from "./GroupShoppingModal";
 import { removeTaskThunk } from "../../store/tasks";
 import { updateTaskCompletion} from "../../store/singletask";
-import { fetchSingleGroup } from "../../store/singleGroup";
-
+import { fetchSingleGroupShopping } from "../../store/singleGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
@@ -64,11 +63,9 @@ class GroupShoppingList extends React.Component {
       <div className="group-task-wrapper">
         <div id="group-task-box">
           <div className="group-task-box-header">
-            GROUP Tasks -- {group.name}
+            Shopping List - {group.name}
           </div>
           <div className="group-task-box-body">
-          <div id="group-task-box-assignedto">Assigned To:</div>
-
             <div id="group-task-box-categories">Category</div>
 
             {/* LIST OF TASKS */}
@@ -93,9 +90,6 @@ class GroupShoppingList extends React.Component {
                         </div>
                       </button>
                       {task.name}
-
-                      <div>---worth {task.Task_Group.points} POINTS</div>
-
                       <button
                         onClick={() => this.handleDelete(task.id)}
                         className="group-deleteTask"
@@ -104,7 +98,7 @@ class GroupShoppingList extends React.Component {
                       </button>
                     </div>
                   ))
-                : "Your group has no tasks"}
+                : "This shopping list has no items!"}
             </div>
             <div id="group-just-another-layout-div"></div>
           </div>
@@ -118,9 +112,9 @@ class GroupShoppingList extends React.Component {
               <div id="ahhh">
                 <FontAwesomeIcon icon={faPlusSquare} />
               </div>
-              Add New Task
+              Add Item
             </button>
-            <GroupTaskModal
+            <GroupShoppingModal
               groupId={this.props.match.params.groupId}
               onClose={(e) => this.showModal(e)}
               show={this.state.show}
@@ -139,7 +133,7 @@ const mapState = (state) => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  fetchGroup: (groupId) => dispatch(fetchSingleGroup(groupId)),
+  fetchGroup: (groupId) => dispatch(fetchSingleGroupShopping(groupId)),
   deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
   updateTaskCompletion: (taskId, isCompleted) =>
     dispatch(updateTaskCompletion(taskId, isCompleted)),
