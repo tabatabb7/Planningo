@@ -22,7 +22,7 @@ const initialState = {};
 const getTasks = (tasks) => ({ type: GET_TASKS, tasks });
 const addTask = (task) => ({ type: ADD_TASK, task });
 const deleteTask = (taskId) => ({ type: DELETE_TASK, taskId });
-const getShoppingItems = (tasks) => ({ type: GET_SHOPPING_ITEMS }, tasks);
+const getShoppingItems = (tasks) => ({ type: GET_SHOPPING_ITEMS, tasks});
 const addShoppingItem = (task) => ({ type: ADD_SHOPPING_ITEM, task });
 
 

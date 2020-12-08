@@ -5,9 +5,6 @@ const Shopping = db.define("shopping", {
   quantity: {
     type: Sequelize.INTEGER,
     defaultValue: 1
-  },
-  price: {
-    type: Sequelize.FLOAT
   }
 });
 

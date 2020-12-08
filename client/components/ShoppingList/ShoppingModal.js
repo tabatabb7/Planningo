@@ -31,22 +31,22 @@ class ShoppingModal extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     try {
-      await this.props.addTask(this.state);
-      await this.props.fetchTasks();
+      await this.props.addItem(this.state);
+      await this.props.fetchItems();
       this.setState({
         name: "",
         selected: "",
       });
       this.props.onClose();
     } catch (err) {
-      console.log("error creating task", err);
+      console.log("error creating item", err);
     }
   }
 
   async handleDelete(id) {
     try {
-      await this.props.deleteTask(id);
-      this.props.fetchTasks();
+      await this.props.deleteItem(id);
+      this.props.fetchItems();
     } catch (err) {
       console.error(err);
     }
@@ -67,7 +67,7 @@ class ShoppingModal extends Component {
         <div>{this.props.children}</div>
         <div className="task-modal-content">
           <div id="top-taskmodal-div">
-            <div id="modal-title">NEW TASK</div>
+            <div id="modal-title">NEW ITEM</div>
             <button
               onClick={(e) => this.onClose(e)}
               className="close-modal-btn"
@@ -78,7 +78,7 @@ class ShoppingModal extends Component {
 
           <div id="lower-taskmodal-div">
             <form id="add-task-form" onSubmit={this.handleSubmit}>
-              <label htmlFor="name">Task:</label>
+              <label htmlFor="name">Item:</label>
               <input
                 name="name"
                 type="text"
@@ -128,10 +128,9 @@ const mapState = (state) => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  fetchTasks: (userId) => dispatch(fetchShoppingItemsThunk(userId)),
-  deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
-  addTask: (task) => dispatch(addShoppingItemThunk(task)),
-  updateTask: (task) => dispatch(updateSingleTask(task)),
+  fetchItems: (userId) => dispatch(fetchShoppingItemsThunk(userId)),
+  deleteItem: (taskId) => dispatch(removeTaskThunk(taskId)),
+  addItem: (task) => dispatch(addShoppingItemThunk(task)),
 });
 
 export default connect(mapState, mapDispatch)(ShoppingModal);

@@ -111,7 +111,7 @@ class ShoppingList extends React.Component {
               <div id="ahhh">
                 <FontAwesomeIcon icon={faPlusSquare} />
               </div>
-              Add New Task
+              Add Item
             </button>
             <ShoppingModal
               onClose={(e) => this.showModal(e)}
