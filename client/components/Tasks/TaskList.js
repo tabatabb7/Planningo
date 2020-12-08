@@ -1,11 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
+
 import CreateTaskModal from "./CreateTaskModal";
 import UpdateTaskModal from "./UpdateTaskModal";
+
+import { updateTaskCompletion } from "../../store/singletask";
+import TaskModal from "./TaskModal";
+
 import "./Tasks.css";
 import { fetchTasksThunk, removeTaskThunk } from "../../store/tasks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
+
 
 class TaskList extends React.Component {
   constructor(props) {
@@ -31,6 +38,16 @@ class TaskList extends React.Component {
     }
   }
 
+  async toggleCompleted(taskId, isCompleted) {
+    try {
+      await this.props.updateTaskCompletion(taskId, !isCompleted);
+
+      this.props.fetchTasks();
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   showModal(e) {
     this.setState({ show: !this.state.show });
   }
@@ -46,6 +63,7 @@ class TaskList extends React.Component {
 
     return (
       <div className="task-wrapper">
+
         <div id="task-box">
           <div className="task-box-header">My Tasks
         </div>
@@ -56,10 +74,30 @@ class TaskList extends React.Component {
             <div id="task-box-list">
               {tasks && tasks.length
                 ? tasks.map((task) => (
+
                     <div key={task.id} className="singletask">
                       <a onClick={e => this.showTaskModal(e, task.id)}> {task.name}</a>
                   
                       <UpdateTaskModal selectedTask={task.id === this.state.taskId} task={task} onClose={e => this.showTaskModal(e)} showTask={this.state.showTask}/>
+                    
+                        <p key={task.id} className="singletask">
+                              <button
+                        onClick={() => this.toggleCompleted(task.id, task.isCompleted)
+                        }
+
+                        className="group-completeTask"
+                      >
+                        <div
+                          className={
+                            task.isCompleted
+                              ? "check-circle complete"
+                              : "check-circle incomplete"
+                          }
+                        >
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </div>
+                      </button>
+                      {task.name}
                       <button
                         onClick={() => this.handleDelete(task.id)}
                         className="deleteTask"
@@ -103,6 +141,9 @@ const mapState = (state) => ({
 const mapDispatch = (dispatch) => ({
   fetchTasks: () => dispatch(fetchTasksThunk()),
   deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
+  updateTaskCompletion: (taskId, isCompleted) =>
+  dispatch(updateTaskCompletion(taskId, isCompleted)),
 });
+
 
 export default connect(mapState, mapDispatch)(TaskList);

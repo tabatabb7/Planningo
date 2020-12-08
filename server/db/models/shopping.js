@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
 
-const Grocery = db.define("grocery", {
+const Shopping = db.define("shopping", {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -9,7 +9,7 @@ const Grocery = db.define("grocery", {
       notEmpty: true,
     }
   },
-  category: {
+  grocery_category: {
     type: Sequelize.ENUM('dairy', 'meat', 'vegetables', 'grains', 'seafood', 'fruits', 'other')
   },
   isBought: {
@@ -26,7 +26,10 @@ const Grocery = db.define("grocery", {
   //for uploading photos
   imageUrl: {
     type: Sequelize.TEXT
+  },
+  price: {
+    type: Sequelize.FLOAT
   }
 });
 
-module.exports = Grocery;
+module.exports = Shopping;

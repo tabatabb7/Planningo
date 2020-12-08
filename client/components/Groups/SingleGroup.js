@@ -35,7 +35,8 @@ class SingleGroup extends React.Component {
 
   render() {
     const group = this.props.group;
-    console.log(this.props.group, "this.props.group from singlegroup render");
+
+
     return (
       <div key={group.id} id="group-info">
         Edit group
@@ -53,13 +54,17 @@ class SingleGroup extends React.Component {
         <h1 className="tool-title">Group: {group.name}</h1>
         <img src={group.imageUrl}></img>
         <h3>Description: {group.description}</h3>
-        <Link to={`/groups/${this.props.group.id}/tasks`}>
+        <ul>
+        <li><Link to={`/groups/${this.props.group.id}/tasks`}>
           Group Tasks
-        </Link>
-        <Link to={`/groups/${this.props.group.id}/grocery`}>
-          Group Groceries
-        </Link>
-        <br></br>
+        </Link></li>
+        <li> <Link to={`/groups/${this.props.group.id}/grocery`}>
+          Shopping
+        </Link></li>
+        <li><Link to={`/groups/${this.props.group.id}/rewards`}>
+          Rewards
+        </Link></li>
+        </ul>
         Users:
         {group.users ? (
           <div>
