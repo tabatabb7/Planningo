@@ -17,15 +17,20 @@ const updateTaskComplete = (taskId, isCompleted) => ({
 })
 
 // thunk creators
-export const fetchTaskThunk = taskId => async dispatch => {
+export const fetchTaskThunk = (taskId) => async (dispatch) => {
   try {
-    const { data: task } = await axios.get(`/api/tasks/${taskId}`)
-    dispatch(getTask(task))
+    const { data: users } = await axios.get(`/api/tasks`);
+    // console.log(users)
+    const tasks = users.tasks
+    console.log('TASKS FROM THUNK!', tasks)
+    const task = tasks.filter((task) => task.id === taskId)
+    console.log('SINGLE TASK NEEDED', task)
+
+    dispatch(getTask(task));
   } catch (error) {
-    console.error('Error fetching task!')
-    console.error(error)
+    console.log("error fetching task");
   }
-}
+};
 
 export const updateSingleTask = taskId => async dispatch => {
   try {
@@ -36,6 +41,7 @@ export const updateSingleTask = taskId => async dispatch => {
     console.error(error)
   }
 }
+
 
 export const updateTaskCompletion = (taskId, isCompleted) => async dispatch => {
   try {
@@ -48,11 +54,10 @@ export const updateTaskCompletion = (taskId, isCompleted) => async dispatch => {
   }
 }
 
-
 export default function singleTaskReducer(state = initialState, action) {
   switch (action.type) {
     case GET_TASK:
-      return { ...state, ...action.task }
+      return action.task
     case UPDATE_TASK:
       return {...state, ...action.task}
     case UPDATE_TASK_COMPLETE:

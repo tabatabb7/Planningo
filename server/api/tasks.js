@@ -1,4 +1,5 @@
 const router = require("express").Router();
+
 const {
   Task,
   User_Task,
@@ -60,6 +61,7 @@ router.get("/shopping", async (req, res, next) => {
   }
 });
 
+
 router.get("/:taskId", async (req, res, next) => {
   try {
     const task = await Task.findOne({
@@ -81,15 +83,20 @@ router.post("/", async (req, res, next) => {
         name: req.body.selected,
       },
     });
+    
     const task = await Task.create({
       userId: req.user.id,
       name: req.body.name,
+      description: req.body.description
       shoppingId: null,
+
     });
+    
     await User_Task.create({
       userId: req.user.id,
       taskId: task.id,
     });
+    
     await Task_Group.create({
       groupId: group.id,
       taskId: task.id,
@@ -130,7 +137,7 @@ router.post("/shopping", async (req, res, next) => {
   }
 });
 
-router.put("/:taskId", async (req, res, next) => {
+router.put("/", async (req, res, next) => {
   try {
     const task = await Task.findByPk(req.params.taskId);
     task.update(req.body);
