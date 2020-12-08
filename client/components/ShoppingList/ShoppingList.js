@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { updateTaskCompletion } from "../../store/singletask";
 import ShoppingModal from "./ShoppingModal";
 import "./Tasks.css";
-import { fetchTasksThunk, removeTaskThunk } from "../../store/tasks";
+import { fetchShoppingItemsThunk, removeTaskThunk } from "../../store/tasks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
@@ -19,13 +19,13 @@ class ShoppingList extends React.Component {
     this.showModal = this.showModal.bind(this);
   }
   componentDidMount() {
-    this.props.fetchTasks();
+    this.props.fetchItems();
   }
 
   async handleDelete(id) {
     try {
-      await this.props.deleteTask(id);
-      this.props.fetchTasks();
+      await this.props.deleteItem(id);
+      this.props.fetchItems();
     } catch (err) {
       console.error(err);
     }
@@ -35,7 +35,7 @@ class ShoppingList extends React.Component {
     try {
       await this.props.updateTaskCompletion(taskId, !isCompleted);
 
-      this.props.fetchTasks();
+      this.props.fetchItems();
     } catch (err) {
       console.error(err);
     }
@@ -130,8 +130,8 @@ const mapState = (state) => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  fetchTasks: () => dispatch(fetchTasksThunk()),
-  deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
+  fetchItems: () => dispatch(fetchShoppingItemsThunk()),
+  deleteItem: (taskId) => dispatch(removeTaskThunk(taskId)),
   updateTaskCompletion: (taskId, isCompleted) =>
   dispatch(updateTaskCompletion(taskId, isCompleted)),});
 

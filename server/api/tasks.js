@@ -3,27 +3,6 @@ const { Task, User_Task, Group, User, Task_Group, Shopping } = require("../db/mo
 const Op = require('sequelize').Op;
 
 
-// router.get("/", async (req, res, next) => {
-//   try {
-//     const task = await User_Task.findAll({
-//       where: {
-//         userId: req.user.id
-//       }
-//     })
-//     await Task.findAll({
-//       where: {
-//         shoppingId: null
-//       },
-//       include: [{
-//         model: Group
-//       }]
-//     })
-//     res.json(task);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
-
 router.get("/", async (req, res, next) => {
   try {
     const user = await User.findByPk(req.user.id, {
@@ -119,11 +98,12 @@ router.post("/shopping", async (req, res, next) => {
         name: req.body.selected
       }
     })
-    const shopping = await Task.create({
+    const shopping = await Shopping.create(req.body)
+    const task = await Task.create({
       userId: req.user.id,
       name: req.body.name,
+      shoppingId: shopping.id
     });
-    await Shopping.create(req.body)
     await User_Task.create({
       userId: req.user.id,
       taskId: task.id,

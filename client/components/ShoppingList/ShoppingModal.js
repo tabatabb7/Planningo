@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
-  fetchTasksThunk,
-  addTaskThunk,
+  fetchShoppingItemsThunk,
+  addShoppingItemThunk,
   removeTaskThunk,
 } from "../../store/tasks";
 import "./taskmodal.css";
@@ -128,9 +128,9 @@ const mapState = (state) => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  fetchTasks: (userId) => dispatch(fetchTasksThunk(userId)),
+  fetchTasks: (userId) => dispatch(fetchShoppingItemsThunk(userId)),
   deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
-  addTask: (task) => dispatch(addTaskThunk(task)),
+  addTask: (task) => dispatch(addShoppingItemThunk(task)),
   updateTask: (task) => dispatch(updateSingleTask(task)),
 });
 
