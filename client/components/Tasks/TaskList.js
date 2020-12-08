@@ -5,7 +5,6 @@ import CreateTaskModal from "./CreateTaskModal";
 import UpdateTaskModal from "./UpdateTaskModal";
 
 import { updateTaskCompletion } from "../../store/singletask";
-import TaskModal from "./TaskModal";
 
 import "./Tasks.css";
 import { fetchTasksThunk, removeTaskThunk } from "../../store/tasks";
@@ -80,7 +79,7 @@ class TaskList extends React.Component {
                   
                       <UpdateTaskModal selectedTask={task.id === this.state.taskId} task={task} onClose={e => this.showTaskModal(e)} showTask={this.state.showTask}/>
                     
-                        <p key={task.id} className="singletask">
+                
                               <button
                         onClick={() => this.toggleCompleted(task.id, task.isCompleted)
                         }
@@ -97,7 +96,6 @@ class TaskList extends React.Component {
                           <FontAwesomeIcon icon={faCheckCircle} />
                         </div>
                       </button>
-                      {task.name}
                       <button
                         onClick={() => this.handleDelete(task.id)}
                         className="deleteTask"
