@@ -58,7 +58,7 @@ class SingleGroup extends React.Component {
         <li><Link to={`/groups/${this.props.group.id}/tasks`}>
           Group Tasks
         </Link></li>
-        <li> <Link to={`/groups/${this.props.group.id}/grocery`}>
+        <li> <Link to={`/groups/${this.props.group.id}/shoppinglist`}>
           Shopping
         </Link></li>
         <li><Link to={`/groups/${this.props.group.id}/rewards`}>

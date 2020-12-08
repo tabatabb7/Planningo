@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
-  fetchTasksThunk,
+  fetchShoppingItemsThunk,
+  addShoppingItemThunk,
   removeTaskThunk,
-  addTaskThunk,
 } from "../../store/tasks";
 import "./taskmodal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
-class CreateTaskModal extends Component {
+class ShoppingModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,27 +31,22 @@ class CreateTaskModal extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     try {
-      if (this.state.name == "" || this.state.selected == "") {
-        alert("task name OR group can't be empty!")
-      } else {
-        await this.props.addTask(this.state);
-        await this.props.fetchTasks();
-        this.setState({
-          name: "",
-          selected: "",
-          description: ""
-        });
-        this.props.onClose();
-      }
+      await this.props.addItem(this.state);
+      await this.props.fetchItems();
+      this.setState({
+        name: "",
+        selected: "",
+      });
+      this.props.onClose();
     } catch (err) {
-      console.log("error creating task", err);
+      console.log("error creating item", err);
     }
   }
 
   async handleDelete(id) {
     try {
-      await this.props.deleteTask(id);
-      this.props.fetchTasks();
+      await this.props.deleteItem(id);
+      this.props.fetchItems();
     } catch (err) {
       console.error(err);
     }
@@ -72,7 +67,7 @@ class CreateTaskModal extends Component {
         <div>{this.props.children}</div>
         <div className="task-modal-content">
           <div id="top-taskmodal-div">
-            <div id="modal-title">NEW TASK</div>
+            <div id="modal-title">NEW ITEM</div>
             <button
               onClick={(e) => this.onClose(e)}
               className="close-modal-btn"
@@ -83,7 +78,7 @@ class CreateTaskModal extends Component {
 
           <div id="lower-taskmodal-div">
             <form id="add-task-form" onSubmit={this.handleSubmit}>
-              <label htmlFor="name">Task:</label>
+              <label htmlFor="name">Item:</label>
               <input
                 name="name"
                 type="text"
@@ -133,9 +128,9 @@ const mapState = (state) => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  addTask: (task) => dispatch(addTaskThunk(task)),
-  fetchTasks: (userId) => dispatch(fetchTasksThunk(userId)),
-  deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
+  fetchItems: (userId) => dispatch(fetchShoppingItemsThunk(userId)),
+  deleteItem: (taskId) => dispatch(removeTaskThunk(taskId)),
+  addItem: (task) => dispatch(addShoppingItemThunk(task)),
 });
 
-export default connect(mapState, mapDispatch)(CreateTaskModal);
+export default connect(mapState, mapDispatch)(ShoppingModal);

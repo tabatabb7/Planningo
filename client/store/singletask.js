@@ -19,21 +19,23 @@ const updateTaskComplete = (taskId, isCompleted) => ({
 // thunk creators
 export const fetchTaskThunk = (taskId) => async (dispatch) => {
   try {
-    const { data: task } = await axios.get(`/api/tasks/${taskId}`)
-    dispatch(getTask(task))
-  } catch (error) {
-    console.error('Error fetching task!')
-    console.error(error)
-  }
-}
+    const { data: users } = await axios.get(`/api/tasks`);
+    // console.log(users)
+    const tasks = users.tasks
+    console.log('TASKS FROM THUNK!', tasks)
+    const task = tasks.filter((task) => task.id === taskId)
+    console.log('SINGLE TASK NEEDED', task)
 
-<<<<<<< HEAD
-export const updateSingleTask = (task) => async (dispatch) => {
-=======
+    dispatch(getTask(task));
+  } catch (error) {
+    console.log("error fetching task");
+  }
+};
+
+
 export const updateSingleTask = taskId => async dispatch => {
->>>>>>> ad01dfcb02b15faac34eef6da0f4d28d753f4374
   try {
-    const { data: updatedTask } = await axios.put(`/api/tasks/${taskId}`, taskId)
+    const { data: updatedTask } = await axios.put(`/api/tasks/${taskId}`)
     dispatch(updateTask(updatedTask))
   } catch (error) {
     console.error('Error updating task!')
@@ -41,8 +43,6 @@ export const updateSingleTask = taskId => async dispatch => {
   }
 }
 
-<<<<<<< HEAD
-=======
 export const updateTaskCompletion = (taskId, isCompleted) => async dispatch => {
   try {
  await axios.patch(`/api/tasks/${taskId}`, {
@@ -55,11 +55,10 @@ export const updateTaskCompletion = (taskId, isCompleted) => async dispatch => {
 }
 
 
->>>>>>> ad01dfcb02b15faac34eef6da0f4d28d753f4374
 export default function singleTaskReducer(state = initialState, action) {
   switch (action.type) {
     case GET_TASK:
-      return { ...state, ...action.task }
+      return action.task
     case UPDATE_TASK:
       return {...state, ...action.task}
     case UPDATE_TASK_COMPLETE:
