@@ -88,6 +88,7 @@ router.post("/", async (req, res, next) => {
       userId: req.user.id,
       name: req.body.name,
       description: req.body.description,
+      points: req.body.points,
       shoppingId: null,
     });
     

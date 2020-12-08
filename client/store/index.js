@@ -7,6 +7,7 @@ import tasks from "./tasks";
 import singleTask from "./singletask";
 import groups from "./allGroups";
 import singleGroup from "./singleGroup";
+import points from "./point";
 
 
 const reducer = combineReducers({
@@ -14,7 +15,8 @@ const reducer = combineReducers({
   singleTask,
   tasks,
   groups,
-  singleGroup
+  singleGroup,
+  points
 });
 
 const middleware = composeWithDevTools(
