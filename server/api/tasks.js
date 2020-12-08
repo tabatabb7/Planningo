@@ -87,9 +87,8 @@ router.post("/", async (req, res, next) => {
     const task = await Task.create({
       userId: req.user.id,
       name: req.body.name,
-      description: req.body.description
+      description: req.body.description,
       shoppingId: null,
-
     });
     
     await User_Task.create({
