@@ -1,31 +1,41 @@
 import React from "react";
 import { connect } from "react-redux";
-import { updateTaskCompletion } from "../../store/singletask";
-import ShoppingModal from "./ShoppingModal";
-import "./Tasks.css";
-import { fetchShoppingItemsThunk, removeTaskThunk } from "../../store/tasks";
+import GroupTaskModal from "./GroupTaskModal";
+import { removeTaskThunk } from "../../store/tasks";
+import { updateTaskCompletion} from "../../store/singletask";
+import { fetchSingleGroup } from "../../store/singleGroup";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
+import "./grouptasks.css";
 
-
-class ShoppingList extends React.Component {
+class GroupShoppingList extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       show: false,
     };
+    this.handleChange = this.handleChange.bind(this);
     this.showModal = this.showModal.bind(this);
+
   }
+
   componentDidMount() {
-    this.props.fetchItems();
+    this.props.fetchGroup(this.props.match.params.groupId);
+  }
+
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
   }
 
   async handleDelete(id) {
     try {
-      await this.props.deleteItem(id);
-      this.props.fetchItems();
+      await this.props.deleteTask(id);
+      this.props.fetchGroup(this.props.match.params.groupId);
     } catch (err) {
       console.error(err);
     }
@@ -35,44 +45,38 @@ class ShoppingList extends React.Component {
     try {
       await this.props.updateTaskCompletion(taskId, !isCompleted);
 
-      this.props.fetchItems();
+      this.props.fetchGroup(this.props.match.params.groupId);
     } catch (err) {
       console.error(err);
     }
   }
+
 
   showModal(e) {
     this.setState({ show: !this.state.show });
   }
 
   render() {
-    let { tasks, groups } = this.props.tasks;
+    let tasks = this.props.group.tasks;
+    let group = this.props.group;
 
     return (
-      <div className="task-wrapper">
+      <div className="group-task-wrapper">
+        <div id="group-task-box">
+          <div className="group-task-box-header">
+            GROUP Tasks -- {group.name}
+          </div>
+          <div className="group-task-box-body">
+          <div id="group-task-box-assignedto">Assigned To:</div>
 
-        <div id="task-box">
-          <div className="task-box-header">Shopping List
-          {/* <select name="selected">
-          <option value="" disabled>
-            Select Group
-          </option>
-          {groups && groups.length
-            ? groups.map((group) => (
-                <option key={group.id}>{group.name} </option>
-              ))
-            : "There are no groups"}
-        </select> */}
-        </div>
-          <div className="task-box-body">
-            <div id="task-box-categories">Category</div>
+            <div id="group-task-box-categories">Category</div>
 
             {/* LIST OF TASKS */}
-            <div id="task-box-list">
+            <div id="group-task-box-list">
               {tasks && tasks.length
                 ? tasks.map((task) => (
-                    <p key={task.id} className="singletask">
-                              <button
+                    <div key={task.id} className="group-singletask">
+                      <button
                         onClick={() => this.toggleCompleted(task.id, task.isCompleted)
                         }
 
@@ -89,31 +93,35 @@ class ShoppingList extends React.Component {
                         </div>
                       </button>
                       {task.name}
+
+                      <div>---worth {task.Task_Group.points} POINTS</div>
+
                       <button
                         onClick={() => this.handleDelete(task.id)}
-                        className="deleteTask"
+                        className="group-deleteTask"
                       >
                         X
                       </button>
-                    </p>
+                    </div>
                   ))
-                : "You have no tasks"}
+                : "Your group has no tasks"}
             </div>
-            <div id="just-another-layout-div"></div>
+            <div id="group-just-another-layout-div"></div>
           </div>
-          <div id="add-button-div">
+          <div id="group-add-button-div">
             <button
               onClick={(e) => {
                 this.showModal(e);
               }}
-              className="add-task-button"
+              className="group-add-task-button"
             >
               <div id="ahhh">
                 <FontAwesomeIcon icon={faPlusSquare} />
               </div>
-              Add Item
+              Add New Task
             </button>
-            <ShoppingModal
+            <GroupTaskModal
+              groupId={this.props.match.params.groupId}
               onClose={(e) => this.showModal(e)}
               show={this.state.show}
             />
@@ -127,12 +135,14 @@ class ShoppingList extends React.Component {
 const mapState = (state) => ({
   tasks: state.tasks,
   userId: state.user.id,
+  group: state.singleGroup
 });
 
 const mapDispatch = (dispatch) => ({
-  fetchItems: () => dispatch(fetchShoppingItemsThunk()),
-  deleteItem: (taskId) => dispatch(removeTaskThunk(taskId)),
+  fetchGroup: (groupId) => dispatch(fetchSingleGroup(groupId)),
+  deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
   updateTaskCompletion: (taskId, isCompleted) =>
-  dispatch(updateTaskCompletion(taskId, isCompleted)),});
+    dispatch(updateTaskCompletion(taskId, isCompleted)),
+});
 
-export default connect(mapState, mapDispatch)(ShoppingList);
+export default connect(mapState, mapDispatch)(GroupShoppingList);
