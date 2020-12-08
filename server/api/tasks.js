@@ -1,18 +1,6 @@
 const router = require("express").Router();
 const { Task, User_Task, Group, User, Task_Group } = require("../db/models");
 
-// router.get("/", async (req, res, next) => {
-//   try {
-//     const tasks = await req.user.getTasks({
-//       in
-//     })
-
-//     res.json(tasks);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
-
 router.get("/", async (req, res, next) => {
   try {
     const user = await User.findByPk(req.user.id, {
@@ -32,20 +20,6 @@ router.get("/", async (req, res, next) => {
 
 
 
-router.get("/:taskId", async (req, res, next) => {
-  try {
-    const task = await Task.findOne({
-      where: {
-        id: req.params.taskId
-      },
-    });
-    res.json(task);
-  } catch (err) {
-    next(err);
-  }
-});
-
-
 router.post("/", async (req, res, next) => {
   try {
     console.log(req.user)
@@ -57,10 +31,12 @@ router.post("/", async (req, res, next) => {
     const task = await Task.create({
       userId: req.user.id,
       name: req.body.name,
+      description: req.body.description
     });
     await User_Task.create({
       userId: req.user.id,
       taskId: task.id,
+
     });
     await Task_Group.create({
       groupId: group.id,
@@ -74,10 +50,14 @@ router.post("/", async (req, res, next) => {
 });
 
 
-router.put("/:taskId", async (req, res, next) => {
+router.put("/", async (req, res, next) => {
   try {
-    const task = await Task.findByPk(req.params.taskId)
-    task.update(req.body);
+    const task = await Task.findOne({
+      where: {
+        id: req.body.taskId,
+      },
+    });
+    await task.update(req.body);
     res.json(task);
   } catch (err) {
     next(err);

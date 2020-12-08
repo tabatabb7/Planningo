@@ -1,7 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
+
+import CreateTaskModal from "./CreateTaskModal";
+import UpdateTaskModal from "./UpdateTaskModal";
+
 import { updateTaskCompletion } from "../../store/singletask";
 import TaskModal from "./TaskModal";
+
 import "./Tasks.css";
 import { fetchTasksThunk, removeTaskThunk } from "../../store/tasks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,12 +17,14 @@ import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 class TaskList extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       show: false,
+      showTask: false,
     };
     this.showModal = this.showModal.bind(this);
+    this.showTaskModal = this.showTaskModal.bind(this);
   }
+
   componentDidMount() {
     this.props.fetchTasks();
   }
@@ -45,24 +52,20 @@ class TaskList extends React.Component {
     this.setState({ show: !this.state.show });
   }
 
+
+  showTaskModal(e, taskId) {
+    this.setState({ taskId, showTask:!this.state.showTask });
+  }
+
+
   render() {
-    let { tasks, groups } = this.props.tasks;
+    let { tasks } = this.props.userTasks;
 
     return (
       <div className="task-wrapper">
 
         <div id="task-box">
           <div className="task-box-header">My Tasks
-          {/* <select name="selected">
-          <option value="" disabled>
-            Select Group
-          </option>
-          {groups && groups.length
-            ? groups.map((group) => (
-                <option key={group.id}>{group.name} </option>
-              ))
-            : "There are no groups"}
-        </select> */}
         </div>
           <div className="task-box-body">
             <div id="task-box-categories">Category</div>
@@ -71,7 +74,13 @@ class TaskList extends React.Component {
             <div id="task-box-list">
               {tasks && tasks.length
                 ? tasks.map((task) => (
-                    <p key={task.id} className="singletask">
+
+                    <div key={task.id} className="singletask">
+                      <a onClick={e => this.showTaskModal(e, task.id)}> {task.name}</a>
+                  
+                      <UpdateTaskModal selectedTask={task.id === this.state.taskId} task={task} onClose={e => this.showTaskModal(e)} showTask={this.state.showTask}/>
+                    
+                        <p key={task.id} className="singletask">
                               <button
                         onClick={() => this.toggleCompleted(task.id, task.isCompleted)
                         }
@@ -95,7 +104,7 @@ class TaskList extends React.Component {
                       >
                         X
                       </button>
-                    </p>
+                    </div>
                   ))
                 : "You have no tasks"}
             </div>
@@ -113,7 +122,7 @@ class TaskList extends React.Component {
               </div>
               Add New Task
             </button>
-            <TaskModal
+            <CreateTaskModal
               onClose={(e) => this.showModal(e)}
               show={this.state.show}
             />
@@ -125,7 +134,7 @@ class TaskList extends React.Component {
 }
 
 const mapState = (state) => ({
-  tasks: state.tasks,
+  userTasks: state.tasks,
   userId: state.user.id,
 });
 
@@ -133,6 +142,8 @@ const mapDispatch = (dispatch) => ({
   fetchTasks: () => dispatch(fetchTasksThunk()),
   deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
   updateTaskCompletion: (taskId, isCompleted) =>
-  dispatch(updateTaskCompletion(taskId, isCompleted)),});
+  dispatch(updateTaskCompletion(taskId, isCompleted)),
+});
+
 
 export default connect(mapState, mapDispatch)(TaskList);
