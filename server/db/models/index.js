@@ -2,9 +2,8 @@ const db = require("../db");
 const User = require("./user");
 const Task = require("./task");
 const Group = require("./group");
-const Item = require("./item");
+const Shopping = require("./shopping");
 const Category = require("./category");
-const SubCategory = require("./subcategory");
 
 const Sequelize = require("sequelize");
 
@@ -45,16 +44,11 @@ Task.belongsToMany(User, { through: "User_Task" });
 Task.hasOne(Category)
 Category.belongsTo(Task)
 
-Category.hasMany(SubCategory)
-SubCategory.belongsTo(Category)
+Shopping.hasOne(Task)
+Task.belongsTo(Shopping)
 
-//Item_Task through Table between shopping list items and Task
-// const Item_Task = db.define("Item_Task", {});
-// Task.belongsToMany(Item, { through: "Item_Task" });
-// Item.belongsToMany(Task, { through: "Item_Task" });
-Task.hasOne(Item)
-Item.belongsTo(Task)
-
+Group.hasMany(Category)
+Category.belongsTo(Group)
 
 //export modules
 module.exports = {
@@ -62,7 +56,7 @@ module.exports = {
   User,
   Task,
   Group,
-  Item,
+  Shopping,
   User_Group,
   User_Task,
   Task_Group,

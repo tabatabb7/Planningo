@@ -1,5 +1,28 @@
 const router = require("express").Router();
-const { Task, User_Task, Group, User, Task_Group } = require("../db/models");
+const { Task, User_Task, Group, User, Task_Group, Shopping } = require("../db/models");
+const Op = require('sequelize').Op;
+
+
+// router.get("/", async (req, res, next) => {
+//   try {
+//     const task = await User_Task.findAll({
+//       where: {
+//         userId: req.user.id
+//       }
+//     })
+//     await Task.findAll({
+//       where: {
+//         shoppingId: null
+//       },
+//       include: [{
+//         model: Group
+//       }]
+//     })
+//     res.json(task);
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 
 router.get("/", async (req, res, next) => {
   try {
@@ -8,7 +31,10 @@ router.get("/", async (req, res, next) => {
         model: Group,
       },
       {
-        model: Task
+        model: Task,
+        where: {
+                  shoppingId: null
+                },
       }]
     });
     res.json(user);
@@ -18,6 +44,28 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+//GET Shopping list items
+router.get("/shopping", async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.user.id, {
+      include: [{
+        model: Group,
+      },
+      {
+        model: Task,
+        where: {
+          shoppingId: {
+            [Op.not]: null
+          }
+        }
+      }]
+    });
+    res.json(user);
+    console.log(user)
+  } catch (err) {
+    next(err);
+  }
+});
 
 
 router.get("/:taskId", async (req, res, next) => {
@@ -45,6 +93,7 @@ router.post("/", async (req, res, next) => {
     const task = await Task.create({
       userId: req.user.id,
       name: req.body.name,
+      shoppingId: null
     });
     await User_Task.create({
       userId: req.user.id,
@@ -56,6 +105,35 @@ router.post("/", async (req, res, next) => {
     });
 
     res.json(task);
+  } catch (err) {
+    next(err);
+  }
+});
+
+
+router.post("/shopping", async (req, res, next) => {
+  try {
+    console.log(req.user)
+    const group = await Group.findOne({
+      where: {
+        name: req.body.selected
+      }
+    })
+    const shopping = await Task.create({
+      userId: req.user.id,
+      name: req.body.name,
+    });
+    await Shopping.create(req.body)
+    await User_Task.create({
+      userId: req.user.id,
+      taskId: task.id,
+    });
+    await Task_Group.create({
+      groupId: group.id,
+      taskId: task.id,
+    });
+
+    res.json(shopping);
   } catch (err) {
     next(err);
   }
