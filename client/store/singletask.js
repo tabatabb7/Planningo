@@ -34,7 +34,7 @@ export const fetchTaskThunk = (taskId) => async (dispatch) => {
 
 export const updateSingleTask = taskId => async dispatch => {
   try {
-    const { data: updatedTask } = await axios.put(`/api/tasks/${taskId}`, taskId)
+    const { data: updatedTask } = await axios.put(`/api/tasks/${taskId}`)
     dispatch(updateTask(updatedTask))
   } catch (error) {
     console.error('Error updating task!')

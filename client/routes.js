@@ -18,7 +18,6 @@ ShoppingList,
   GroupShoppingList,
   GroupTaskList,
   MyStats,
-  Shopping,
   GroupRewards,
 } from "./components";
 import { me } from "./store";
@@ -44,11 +43,11 @@ class Routes extends Component {
 
             <Route exact path="/account" component={Account} />
             <Route exact path="/account/settings" component={AccountSettings} />
-            <Route path="/shopping" component={Shopping} />
-            <Route path="/shoppinglist" component={ShoppingList} />
             <Route path="/calendar" component={AppCalendar} />
             <Route exact path="/tasks" component={TaskList} />
             <Route exact path="/groups" component={GroupList} />
+            <Route path="/shoppinglist" component={ShoppingList} />
+            <Route exact path="/:groupId/shoppinglist" component={GroupShoppingList} />
             <Route exact path="/groups/create" component={CreateGroup} />
             <Route exact path="/groups/:groupId" component={SingleGroup} />
             <Route
