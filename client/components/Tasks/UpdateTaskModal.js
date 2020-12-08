@@ -1,22 +1,21 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { updateTaskThunk } from "../../store/tasks"
 import {
   fetchTasksThunk,
-  addTaskThunk,
-  removeTaskThunk,
 } from "../../store/tasks";
 import "./taskmodal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
-class TaskModal extends Component {
+class UpdateTaskModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
-      selected: "",
-      description: "",
-      error: null
+      name: this.props.task.name,
+      selected: this.props.task.selected,
+      description: this.props.task.description,
+      taskId: this.props.taskId
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -31,24 +30,22 @@ class TaskModal extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     try {
-      await this.props.addTask(this.state);
-      await this.props.fetchTasks();
-      this.setState({
-        name: "",
-        selected: "",
-      });
-      this.props.onClose();
+      console.log(this.state.taskId)
+      if (this.state.name == "") {
+        alert("task name can't be empty!")
+      } else {
+        await this.props.updateTask(this.state);
+        this.setState({
+          name: "",
+          selected: "",
+          description: "",
+        });
+        alert(`Your task was updated! Redirecting you to your tasks page..`)
+        // await this.props.fetchTasks();
+        this.props.onClose();
+      }
     } catch (err) {
       console.log("error creating task", err);
-    }
-  }
-
-  async handleDelete(id) {
-    try {
-      await this.props.deleteTask(id);
-      this.props.fetchTasks();
-    } catch (err) {
-      console.error(err);
     }
   }
 
@@ -59,15 +56,15 @@ class TaskModal extends Component {
   render() {
     let { groups } = this.props.tasks;
 
-    if (!this.props.show) {
-      return null;
+    if (!this.props.showTask || !this.props.selectedTask) {
+        return null;
     }
     return (
       <div>
         <div>{this.props.children}</div>
         <div className="task-modal-content">
           <div id="top-taskmodal-div">
-            <div id="modal-title">NEW TASK</div>
+            <div id="modal-title">YOUR TASK</div>
             <button
               onClick={(e) => this.onClose(e)}
               className="close-modal-btn"
@@ -114,7 +111,7 @@ class TaskModal extends Component {
                     ))
                   : "There are no groups"}
               </select>
-              <button type="submit" id="modal-submit-button">Add</button>
+              <button type="submit" id="modal-submit-button">Update</button>
             </form>
           </div>
         </div>
@@ -129,9 +126,7 @@ const mapState = (state) => ({
 
 const mapDispatch = (dispatch) => ({
   fetchTasks: (userId) => dispatch(fetchTasksThunk(userId)),
-  deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
-  addTask: (task) => dispatch(addTaskThunk(task)),
-  updateTask: (task) => dispatch(updateSingleTask(task)),
+  updateTask: (task) => dispatch(updateTaskThunk(task)),
 });
 
-export default connect(mapState, mapDispatch)(TaskModal);
+export default connect(mapState, mapDispatch)(UpdateTaskModal);
