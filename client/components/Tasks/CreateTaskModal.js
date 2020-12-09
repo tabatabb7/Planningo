@@ -16,6 +16,7 @@ class CreateTaskModal extends Component {
       name: "",
       selected: "",
       description: "",
+      points: 0,
       error: null
     };
     this.handleChange = this.handleChange.bind(this);
@@ -39,7 +40,8 @@ class CreateTaskModal extends Component {
         this.setState({
           name: "",
           selected: "",
-          description: ""
+          description: "",
+          points: 0
         });
         this.props.onClose();
       }
@@ -100,6 +102,14 @@ class CreateTaskModal extends Component {
                 className="modal-input"
                 onChange={this.handleChange}
                 value={this.state.description}
+              />
+              <label htmlFor="points">Points:</label>
+              <textarea
+                name="points"
+                type="text"
+                className="modal-input"
+                onChange={this.handleChange}
+                value={this.state.points}
               />
             </form>
 

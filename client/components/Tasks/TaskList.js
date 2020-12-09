@@ -5,6 +5,7 @@ import CreateTaskModal from "./CreateTaskModal";
 import UpdateTaskModal from "./UpdateTaskModal";
 
 import { updateTaskCompletion } from "../../store/singletask";
+import { postCompletedPointsThunk, removeCompletedPointsThunk } from "../../store/point"
 
 import "./Tasks.css";
 import { fetchTasksThunk, removeTaskThunk } from "../../store/tasks";
@@ -39,8 +40,13 @@ class TaskList extends React.Component {
 
   async toggleCompleted(taskId, isCompleted) {
     try {
-      await this.props.updateTaskCompletion(taskId, !isCompleted);
-
+      if (isCompleted === false) {
+        await this.props.updateTaskCompletion(taskId, !isCompleted);
+        await this.props.postAwardedPoints(taskId);
+      } else {
+        await this.props.updateTaskCompletion(taskId, !isCompleted);
+        await this.props.removePoints(taskId)
+      }
       this.props.fetchTasks();
     } catch (err) {
       console.error(err);
@@ -141,6 +147,8 @@ const mapDispatch = (dispatch) => ({
   deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
   updateTaskCompletion: (taskId, isCompleted) =>
   dispatch(updateTaskCompletion(taskId, isCompleted)),
+  postAwardedPoints: (taskId) => dispatch(postCompletedPointsThunk(taskId)),
+  removePoints: (taskId) => dispatch(removeCompletedPointsThunk(taskId))
 });
 
 
