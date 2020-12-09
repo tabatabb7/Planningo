@@ -28,20 +28,22 @@ router.get("/", isAdmin, async (req, res, next) => {
     const users = await User.findAll({
       attributes: ["id", "firstName", "lastName", "email", "isAdmin"],
       include: {
-        model: Group
-      }
+        model: Group,
+      },
     });
     res.json(users);
   } catch (err) {
     next(err);
   }
 });
-//, {
-//   attributes: ["firstName", "lastName", "email", "password"],
-// });
+
 router.get("/:userId", isAdmin, async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.userId);
+    const user = await User.findByPk(req.params.userId, {
+      include: {
+        model: Group,
+      },
+    });
     res.json(user);
   } catch (err) {
     next(err);

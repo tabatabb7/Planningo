@@ -16,7 +16,7 @@ class SideNav extends React.Component {
       <div className="side-nav-wrapper">
         {isLoggedIn ? (
           <div id="rightlink">
-            <img src={user.avatarUrl} id="user-icon" style={{backgroundColor: user.color}}></img>
+            <img src={user.avatarUrl} id="user-icon"></img>
             {user.firstName}
             <React.Fragment>
               <h3 className="tool-title">My Groups</h3>

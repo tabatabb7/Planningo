@@ -20,15 +20,16 @@ class App extends React.Component {
   render() {
     return (
       <div className="app-wrap">
+      {this.props.isLoggedIn ? (
         <div id="topnav">
           <TopNav
             toggleSideNav={this.toggleSideNav}
             sideNavOpen={this.state.sideNavOpen}
           />
-        </div>
+        </div> ) : null }
         <div id="sitebody">
           <div
-            className={`sidenav ${this.state.sideNavOpen ? "open" : "closed"}`}
+            className={`sidenav ${this.state.sideNavOpen && this.props.isLoggedIn ? "open" : "closed"}`}
           >
             <SideNav />
           </div>

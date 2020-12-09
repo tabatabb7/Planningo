@@ -42,7 +42,7 @@ class UserHome extends React.Component {
 }
 const mapState = (state) => {
   return {
-    firstName: state.user.firstName,
+    firstName: state.user.firstName
   };
 };
 
@@ -50,5 +50,5 @@ const mapState = (state) => {
 export default connect(mapState)(UserHome);
 
 UserHome.propTypes = {
-  firstName: PropTypes.string,
+  firstName: PropTypes.string
 };

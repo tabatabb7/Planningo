@@ -9,7 +9,7 @@ import { faCheck, faHome, faBars,
 import { faCalendar, faUserCircle } from "@fortawesome/free-regular-svg-icons";
 
 
-const TopNav =({toggleSideNav}) => {
+const TopNav =({toggleSideNav, isLoggedIn}) => {
   return (
     <div className="topnav-wrapper">
       <div id="left-nav-links">

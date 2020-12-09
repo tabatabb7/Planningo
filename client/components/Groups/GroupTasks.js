@@ -71,6 +71,9 @@ class GroupTaskList extends React.Component {
 
             <div id="group-task-box-categories">
               <h3 id="category-title">Category</h3>
+              <div className="each-category-wrap">
+              All
+                 </div>
             {categories ?
              categories.map((category)=>(
                <div key={category.id} className="each-category-wrap">
@@ -138,7 +141,7 @@ class GroupTaskList extends React.Component {
             />
           </div>
         </div>
-      </div>
+        </div>
     );
   }
 }

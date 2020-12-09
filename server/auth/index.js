@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const Group = require("../db/models/group");
 const User = require("../db/models/user");
 module.exports = router;
 
@@ -43,13 +42,8 @@ router.post("/logout", (req, res) => {
   res.redirect("/");
 });
 
-router.get("/me", async (req, res) => {
-  const user = await User.findByPk(req.user.id, {
-    include: {
-      model: Group
-    }
-  })
-  res.json(user);
+router.get("/me", (req, res) => {
+  res.json(req.user);
 });
 
 router.use("/google", require("./google"));

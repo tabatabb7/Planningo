@@ -29,19 +29,19 @@ class Routes extends Component {
   }
 
   render() {
-    const { isLoggedIn } = this.props;
+    const { isLoggedIn, hasGroups } = this.props;
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route exact path="/welcome" component={HomePage}/>
 
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
 
             <Route exact path={["/home", "/"]} component={UserHome} />
-
             <Route exact path="/account" component={Account} />
             <Route exact path="/account/settings" component={AccountSettings} />
             <Route path="/calendar" component={AppCalendar} />
@@ -71,7 +71,7 @@ class Routes extends Component {
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
-        <Route component={Login} />
+        <Route component={HomePage} />
       </Switch>
     );
   }
@@ -97,5 +97,5 @@ export default withRouter(connect(mapState, mapDispatch)(Routes));
 
 Routes.propTypes = {
   loadInitialData: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired
 };

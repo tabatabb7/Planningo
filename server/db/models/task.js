@@ -19,7 +19,7 @@ const Task = db.define("tasks", {
   isShopping: {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
-  }
+  },
   points: {
     type: Sequelize.INTEGER,
   },

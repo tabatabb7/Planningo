@@ -30,10 +30,6 @@ const User = db.define("user", {
     type: Sequelize.TEXT,
     defaultValue: "/assets/icons/users/002-girl.png",
   },
-  color: {
-    type: Sequelize.STRING,
-    defaultValue: "#EAEACF"
-  },
   //for protecting api routes
   isAdmin:{
     type: Sequelize.BOOLEAN,

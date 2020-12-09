@@ -226,23 +226,6 @@ router.post("/:groupId/tasks", async (req, res, next) => {
 });
 
 
-router.post("/:groupId/shopping", async (req, res, next) => {
-  try {
-    const userGroup = await User_Group.findOne({
-      where: {
-        groupId: req.body.groupId,
-      },
-    });
-    const task = await Task.create({
-      name: req.body.name,
-      isShopping: true
-    });
-    await Task_Group.create({
-      taskId: task.id,
-      groupId: userGroup.groupId,
-    });
-    res.json(task);
-
 //GET api/groups/:groupId/rewards
 router.get("/:groupId/rewards", async (req, res, next) => {
   try {
@@ -261,5 +244,6 @@ router.get("/:groupId/rewards", async (req, res, next) => {
     next(err);
   }
 });
+
 
 module.exports = router;
