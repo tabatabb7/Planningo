@@ -35,7 +35,7 @@ export const me = () => async (dispatch) => {
   }
 };
 
-export const auth = (email, password, method, firstName, lastName) => async (
+export const auth = (email, password, method, firstName, lastName, avatarUrl) => async (
   dispatch
 ) => {
   let res;
@@ -46,6 +46,7 @@ export const auth = (email, password, method, firstName, lastName) => async (
       name,
       firstName,
       lastName,
+      avatarUrl
     });
     history.push("/home");
   } catch (authError) {

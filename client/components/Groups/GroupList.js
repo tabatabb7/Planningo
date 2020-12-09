@@ -9,13 +9,6 @@ import {
   removeGroupThunk,
 } from "../../store/allGroups";
 
-/*
-TODOS:
-1. Don't allow user to enter empty group
-2. Make add/edit modals
-3. Cross out completed groups
-4. Button to filter out completed groups
-*/
 
 class GroupList extends React.Component {
   constructor(props) {

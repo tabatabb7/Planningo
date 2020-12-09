@@ -29,7 +29,6 @@ router.get("/", async (req, res, next) => {
       ],
     });
     res.json(user);
-    console.log(user);
   } catch (err) {
     next(err);
   }
@@ -53,7 +52,6 @@ router.get("/shopping", async (req, res, next) => {
       ],
     });
     res.json(user);
-    console.log(user);
   } catch (err) {
     next(err);
   }
@@ -75,7 +73,6 @@ router.get("/:taskId", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    console.log(req.user);
     const group = await Group.findOne({
       where: {
         name: req.body.selected,
@@ -103,7 +100,6 @@ router.post("/", async (req, res, next) => {
 
 router.post("/shopping", async (req, res, next) => {
   try {
-    console.log(req.user);
     const group = await Group.findOne({
       where: {
         name: req.body.selected,

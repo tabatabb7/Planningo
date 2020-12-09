@@ -7,123 +7,194 @@ import { Link } from "react-router-dom";
 import "./authform.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faKey, faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEnvelope,
+  faKey,
+  faUserCircle,
+} from "@fortawesome/free-solid-svg-icons";
 
-const AuthForm = (props) => {
-  const { name, displayName, handleSubmit, error } = props;
+class AuthForm extends React.Component {
+  constructor(props) {
+    super(props);
 
-  return (
-    <div className="forms">
-          <div className="form-container">
+    this.state = {
+      selected: "/assets/icons/users/001-girl.png",
+    };
+  }
 
-      <div className="form-info">
-        <form onSubmit={handleSubmit} name={name}>
-          <h1 id="authtitle">{displayName}</h1>
-          {displayName != "Login" ? (
-            <div>
+  render() {
+    const { name, displayName, handleSubmit, error } = this.props;
+    const array = [
+      "001-girl",
+      "002-girl",
+      "003-man",
+      "004-boy",
+      "005-boy",
+      "006-boy",
+      "007-woman",
+      "008-businessman",
+      "009-businessman",
+      "013-woman",
+      "014-grandfather",
+      "015-man",
+      "016-hipster",
+      "017-man",
+      "018-man",
+      "019-man",
+      "020-delivery man",
+      "021-man",
+      "022-man",
+      "023-man",
+      "024-man",
+      "025-woman",
+      "026-woman",
+      "027-grandmother",
+      "028-girl",
+      "029-girl",
+      "030-woman",
+      "031-rockstar",
+      "032-businesswoman",
+      "033-woman",
+      "034-woman",
+      "035-woman",
+      "036-woman",
+    ];
+    const images = array.map((image) => {
+      return (
+        <img
+          key={image}
+          src={`/assets/icons/users/${image}.png`}
+          className={
+            this.state.selected === `/assets/icons/users/${image}.png`
+              ? "pick-avatar selected"
+              : "pick-avatar"
+          }
+          onClick={() => {
+            this.setState({ selected: `/assets/icons/users/${image}.png` });
+          }}
+          value={image}
+        />
+      );
+    });
+
+    return (
+      <div className="forms">
+        <div className="form-container">
+          <div className="form-info">
+            <form onSubmit={handleSubmit} name={name}>
+              <h1 id="authtitle">{displayName}</h1>
+              {displayName != "Login" ? (
+                <div>
+                  <div className="form-input">
+                    <label htmlFor="firstName">
+                      <small className="form-names">
+                        <div className="form-icon">
+                          <FontAwesomeIcon icon={faUserCircle} />
+                        </div>
+                      </small>
+                    </label>
+                    <input
+                      className="info-input"
+                      name="firstName"
+                      type="text"
+                      placeholder="First name"
+                      required
+                    />
+                  </div>
+
+                  <div className="form-input">
+                    <label htmlFor="lastName">
+                      <small className="form-names">
+                        <div className="form-icon">
+                          <FontAwesomeIcon icon={faUserCircle} />
+                        </div>
+                      </small>
+                    </label>
+                    <input
+                      className="info-input"
+                      name="lastName"
+                      type="text"
+                      placeholder="Last name"
+                      required
+                    />
+                  </div>
+                </div>
+              ) : null}
               <div className="form-input">
-                <label htmlFor="firstName">
+                <label htmlFor="email">
                   <small className="form-names">
                     <div className="form-icon">
-                      <FontAwesomeIcon icon={faUserCircle} />
+                      <FontAwesomeIcon icon={faEnvelope} />
                     </div>
                   </small>
                 </label>
                 <input
                   className="info-input"
-                  name="firstName"
+                  name="email"
+                  placeholder="Email address"
                   type="text"
-                  placeholder="First name"
                   required
                 />
               </div>
-
               <div className="form-input">
-                <label htmlFor="lastName">
-                  <small className="form-names"><div className="form-icon">
-                      <FontAwesomeIcon icon={faUserCircle} />
-                    </div></small>
+                <label htmlFor="password">
+                  <small className="form-names">
+                    <div className="form-icon">
+                      <FontAwesomeIcon icon={faKey} />
+                    </div>
+                  </small>
                 </label>
                 <input
                   className="info-input"
-                  name="lastName"
-                  type="text"
-                  placeholder="Last name"
+                  name="password"
+                  type="password"
+                  placeholder="Password"
                   required
                 />
               </div>
-            </div>
-          ) : null}
 
-          <div className="form-input">
-            <label htmlFor="email">
-              <small className="form-names">     <div className="form-icon">
-                      <FontAwesomeIcon icon={faEnvelope} />
-                    </div></small>
-            </label>
-            <input
-              className="info-input"
-              name="email"
-              placeholder="Email address"
-              type="text"
-              required
-            />
-          </div>
+              {displayName != "Login" ? (
+                <div className="image-pick">
+                  <label htmlFor="avatarUrl">Choose Icon</label>
+                  <div id="image-picker-box">{images}</div>
+                  <input
+                    name="avatarUrl"
+                    className="hide-url"
+                    value={this.state.selected}
+                    readOnly={true}
+                  />
+                </div>
+              ) : null}
 
-          <div className="form-input">
-            <label htmlFor="password">
-              <small className="form-names"><div className="form-icon">
-                      <FontAwesomeIcon icon={faKey} />
-                    </div></small>
-            </label>
-            <input
-              className="info-input"
-              name="password"
-              type="password"
-              placeholder="Password"
-              required
-            />
+              <div id="button-wrap">
+                <button className="form-button" type="submit">
+                  {displayName}
+                </button>
+              </div>
+            </form>
+            <h4>
+              {error && error.response && <div> {error.response.data} </div>}
+            </h4>
           </div>
-          {/*
-          {displayName != "Login" ? (
-            <div className="form-input">
-              <label htmlFor="confirmPassword">
-                <small className="form-names">Confirm Password</small>
-              </label>
-              <input
-                className="info-input"
-                name="confirmPassword"
-                type="password"
-                required
-              />
+          <div id="auth-link-container">
+            <a href="/auth/google">{displayName} with Google</a>
+            <div id="login-or-signup">
+              {displayName === "Login" ? (
+                <div>
+                  No account? <Link to="/signup">Sign Up</Link>
+                </div>
+              ) : (
+                <div>
+                  Have an account? <Link to="/login">Login</Link>
+                </div>
+              )}
             </div>
-          ) : null} */}
-          <div id="button-wrap">
-            <button className="form-button" type="submit">
-              {displayName}
-            </button>
           </div>
-        </form>
-        <h4>{error && error.response && <div> {error.response.data} </div>}</h4>
+        </div>
       </div>
-      <div id="auth-link-container">
-      <a href="/auth/google">{displayName} with Google</a>
-      <div id="login-or-signup">
-        {displayName === "Login" ? (
-          <div>
-            No account? <Link to="/signup">Sign Up</Link>
-          </div>
-        ) : (
-          <div>
-            Have an account? <Link to="/login">Login</Link>
-          </div>
-        )}
-      </div>
-      </div>
-      </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 const mapLogin = (state) => {
   return {
@@ -156,7 +227,10 @@ const mapDispatch = (dispatch) => {
         const password = evt.target.password.value;
         const firstName = evt.target.firstName.value;
         const lastName = evt.target.lastName.value;
-        dispatch(auth(email, password, formName, firstName, lastName));
+        const avatarUrl = evt.target.avatarUrl.value;
+        dispatch(
+          auth(email, password, formName, firstName, lastName, avatarUrl)
+        );
       }
     },
   };

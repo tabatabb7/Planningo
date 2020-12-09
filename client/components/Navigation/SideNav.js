@@ -1,85 +1,80 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logout } from "../../store";
 import { Link } from "react-router-dom";
-import "./sidenav.css";
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {
-  faCheck,
-  faUserFriends
-} from '@fortawesome/free-solid-svg-icons';
-import {
-faCalendar
-} from '@fortawesome/free-regular-svg-icons';
-import "./sidenav.css";
+import PropTypes from "prop-types";
+import { logout } from "../../store";
+import "./sidenav.css"
+import { fetchGroupsThunk } from "../../store/allGroups";
 
+class SideNav extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  // componentDidMount() {
+  //   this.props.fetchGroups(this.props.userId);
+  // }
 
-const SideNav = ({ handleClick, user }) => (
-  <div className="side-nav-wrapper">
+  render() {
+    let { groups, handleClick, isLoggedIn, user } = this.props;
+    return (
+      <div className="side-nav-wrapper">
+        {isLoggedIn ? (
+          <div id="rightlink">
+            <img src={user.avatarUrl} id="user-icon"></img>
+            {user.firstName}
+            <React.Fragment>
+              <h3 className="tool-title">My Groups</h3>
+              {!groups.length ? (
+                "You are not a part of any groups."
+              ) : (
+                <div id="group-box">
+                  {groups.map((group) => (
+                    <div key={group.id} className="singlegroup">
+                      <Link to={`/groups/${group.id}`}>
+                        <img src={group.imageUrl}></img>
+                        {group.name}
+                      </Link>
+                    </div>
+                  ))}
+                  <Link to={"/groups"}>Group Settings</Link>
+                </div>
+              )}
+              <a href="#" onClick={handleClick}>
+                <p>logout</p>
+              </a>
+            </React.Fragment>
+          </div>
+        ) : (
+          <div id="rightlink">
+            <React.Fragment>
+              <Link to="/login">
+                <div className="icon"></div>
+                <p>sign in/</p>
+                <p>register</p>
+              </Link>
+            </React.Fragment>
+          </div>
+        )}
+      </div>
+    );
+  }
+}
 
-<div id="userprof">
-    <img src={user.avatarUrl} id="user-icon"></img>
-      {user.firstName} {user.lastName}
-    <div id="homebutton-wrap">
-      <Link to="/home">
-        <button id="homebutton">Home</button>
-      </Link>
-    </div>
-    </div>
+const mapState = (state) => ({
+  groups: state.groups,
+  userId: state.user.id,
+  user: state.user,
+  isLoggedIn: !!state.user.id,
+});
 
-<div id="link-acc-wrap">
-    <div id="nav-links">
-      <div id="each-nav-link">
-      <Link to="/groups">
-      <div className="icon">
-      <FontAwesomeIcon icon={faUserFriends} />
-       </div>Groups</Link>
-       </div>
-
-       <div id="each-nav-link">
-      <Link to="/calendar">
-      <div className="icon">
-      <FontAwesomeIcon icon={faCalendar} />
-       </div>Calendar</Link>
-       </div>
-
-       <div id="each-nav-link">
-      <Link to="/tasks">
-      <div className="icon">
-      <FontAwesomeIcon icon={faCheck} />
-       </div>Tasks</Link>
-       </div>
-
-    </div>
-
-    <div id="nav-account-links">
-      <Link to="/account">My account</Link>
-      <a href="#" onClick={handleClick}>
-        Sign out
-      </a>
-    </div>
-    </div>
-  </div>
-);
-
-const mapState = (state) => {
-  return {
-    user: state.user,
-  };
-};
-
-const mapDispatch = (dispatch) => {
-  return {
-    handleClick() {
-      dispatch(logout());
-    },
-  };
-};
+const mapDispatch = (dispatch) => ({
+  fetchGroups: (userId) => dispatch(fetchGroupsThunk(userId)),
+  handleClick: () => dispatch(logout()),
+});
 
 export default connect(mapState, mapDispatch)(SideNav);
 
 SideNav.propTypes = {
-  user: PropTypes.object.isRequired,
   handleClick: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
 };
