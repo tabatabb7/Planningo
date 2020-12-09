@@ -70,13 +70,16 @@ class GroupShoppingList extends React.Component {
             <div id="group-task-box-categories">Category
 
 
-
             {categories ?
              categories.map((category)=>(
-               <div key={category.id}>
+               <div key={category.id} className="each-category-wrap">
+              <div id="category-icon-wrap"  style={{backgroundColor: category.color}}>
+                 <img src={category.imageUrl} className="category-icon"></img>
+                 </div>
                  {category.name}
                  </div>
-             )): 'no'}</div>
+             )): 'null'}
+</div>
 
 
             {/* LIST OF TASKS */}

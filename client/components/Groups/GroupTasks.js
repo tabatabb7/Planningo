@@ -68,7 +68,7 @@ class GroupTaskList extends React.Component {
             Tasks -- {group.name}
           </div>
           <div className="group-task-box-body">
-          <div id="group-task-box-assignedto">Assigned To:</div>
+
             <div id="group-task-box-categories">Category
             {categories ?
              categories.map((category)=>(
