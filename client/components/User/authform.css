@@ -67,6 +67,7 @@
   width: 80px;
   height: auto;
   cursor: pointer;
+  border-radius: 50%;
 }
 
 .pick-avatar.selected {
