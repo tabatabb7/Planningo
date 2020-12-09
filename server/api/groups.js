@@ -6,7 +6,9 @@ const {
   Task,
   User_Task,
   Task_Group,
-  Category
+  Category,
+  Point,
+
 } = require("../db/models");
 
 router.get("/", async (req, res, next) => {
@@ -223,6 +225,7 @@ router.post("/:groupId/tasks", async (req, res, next) => {
   }
 });
 
+
 router.post("/:groupId/shopping", async (req, res, next) => {
   try {
     const userGroup = await User_Group.findOne({
@@ -239,6 +242,21 @@ router.post("/:groupId/shopping", async (req, res, next) => {
       groupId: userGroup.groupId,
     });
     res.json(task);
+
+//GET api/groups/:groupId/rewards
+router.get("/:groupId/rewards", async (req, res, next) => {
+  try {
+    const groupPoints = await Point.findAll({
+      where: {
+        groupId: req.params.groupId
+      },
+      include: [
+        {
+          model: User
+        }
+      ]
+    })
+    res.send(groupPoints)
   } catch (err) {
     next(err);
   }

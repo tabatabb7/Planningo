@@ -20,6 +20,9 @@ const Task = db.define("tasks", {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
   }
+  points: {
+    type: Sequelize.INTEGER,
+  },
 });
 
 
