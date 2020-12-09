@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { User } = require("../db/models");
+const Group = require("../db/models/group");
 
 function isAdmin(req, res, next) {
   if (req.user && req.user.isAdmin) {
@@ -26,6 +27,9 @@ router.get("/", isAdmin, async (req, res, next) => {
   try {
     const users = await User.findAll({
       attributes: ["id", "firstName", "lastName", "email", "isAdmin"],
+      include: {
+        model: Group
+      }
     });
     res.json(users);
   } catch (err) {

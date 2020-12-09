@@ -28,8 +28,11 @@ const User = db.define("user", {
   },
   avatarUrl: {
     type: Sequelize.TEXT,
-    defaultValue: "https://picsum.photos/100/100",
-
+    defaultValue: "/assets/icons/users/002-girl.png",
+  },
+  color: {
+    type: Sequelize.STRING,
+    defaultValue: "#EAEACF"
   },
   //for protecting api routes
   isAdmin:{

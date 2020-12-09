@@ -4,27 +4,24 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { logout } from "../../store";
 import "./sidenav.css"
-import { fetchGroupsThunk } from "../../store/allGroups";
 
 class SideNav extends React.Component {
   constructor(props) {
     super(props);
   }
-  // componentDidMount() {
-  //   this.props.fetchGroups(this.props.userId);
-  // }
+
 
   render() {
-    let { groups, handleClick, isLoggedIn, user } = this.props;
+    let { handleClick, isLoggedIn, user, groups } = this.props;
     return (
       <div className="side-nav-wrapper">
         {isLoggedIn ? (
           <div id="rightlink">
-            <img src={user.avatarUrl} id="user-icon"></img>
+            <img src={user.avatarUrl} id="user-icon" style={{backgroundColor: user.color}}></img>
             {user.firstName}
             <React.Fragment>
               <h3 className="tool-title">My Groups</h3>
-              {!groups.length ? (
+              {!groups ? (
                 "You are not a part of any groups."
               ) : (
                 <div id="group-box">
@@ -61,14 +58,12 @@ class SideNav extends React.Component {
 }
 
 const mapState = (state) => ({
-  groups: state.groups,
-  userId: state.user.id,
   user: state.user,
+  groups: state.user.groups,
   isLoggedIn: !!state.user.id,
 });
 
 const mapDispatch = (dispatch) => ({
-  fetchGroups: (userId) => dispatch(fetchGroupsThunk(userId)),
   handleClick: () => dispatch(logout()),
 });
 
