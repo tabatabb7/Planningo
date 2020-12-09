@@ -54,6 +54,12 @@
   height: 40px;
   width: 200px;
 }
+#chooser-title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 150px;
+}
 
 .image-pick{
   display: flex;

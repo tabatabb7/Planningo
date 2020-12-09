@@ -11,6 +11,8 @@ import {
   faEnvelope,
   faKey,
   faUserCircle,
+  faArrowLeft,
+  faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
 
 class AuthForm extends React.Component {
@@ -155,7 +157,17 @@ class AuthForm extends React.Component {
 
               {displayName != "Login" ? (
                 <div className="image-pick">
-                  <label htmlFor="avatarUrl">Choose Icon</label>
+                  <label htmlFor="avatarUrl">
+                    <div id="chooser-title">
+                      <div className="form-icon">
+                        <FontAwesomeIcon icon={faArrowLeft} />
+                      </div>
+                      Choose Icon
+                      <div className="form-icon">
+                        <FontAwesomeIcon icon={faArrowRight} />
+                      </div>
+                    </div>
+                  </label>
                   <div id="image-picker-box">{images}</div>
                   <input
                     name="avatarUrl"
