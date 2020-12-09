@@ -2,7 +2,6 @@ const db = require("../db");
 const User = require("./user");
 const Task = require("./task");
 const Group = require("./group");
-const Shopping = require("./shopping");
 const Category = require("./category");
 const Point = require("./point");
 
@@ -42,11 +41,8 @@ User.belongsToMany(Task, { through: "User_Task" });
 Task.belongsToMany(User, { through: "User_Task" });
 
 //Categories
-Task.hasOne(Category)
-Category.belongsTo(Task)
-
-Shopping.hasOne(Task)
-Task.belongsTo(Shopping)
+Category.hasMany(Task),
+Task.belongsTo(Category)
 
 Group.hasMany(Category)
 Category.belongsTo(Group)
@@ -67,7 +63,6 @@ module.exports = {
   User,
   Task,
   Group,
-  Shopping,
   User_Group,
   User_Task,
   Task_Group,

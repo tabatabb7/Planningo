@@ -35,7 +35,7 @@ export const me = () => async (dispatch) => {
   }
 };
 
-export const auth = (email, password, method, firstName, lastName) => async (
+export const auth = (email, password, method, firstName, lastName, avatarUrl) => async (
   dispatch
 ) => {
   let res;
@@ -46,6 +46,7 @@ export const auth = (email, password, method, firstName, lastName) => async (
       name,
       firstName,
       lastName,
+      avatarUrl
     });
     history.push("/home");
   } catch (authError) {
@@ -59,13 +60,14 @@ export const auth = (email, password, method, firstName, lastName) => async (
   }
 };
 
-export const updateUserThunk = (userId, firstName, lastName, email) => {
+export const updateUserThunk = (userId, firstName, lastName, email, avatarUrl) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.put(`/api/users/${userId}`, {
         firstName: firstName,
         lastName: lastName,
         email: email,
+        avatarUrl
       });
 
       dispatch(updateUser(data));

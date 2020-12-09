@@ -30,6 +30,30 @@ export const fetchSingleGroup = (groupId) => {
   };
 };
 
+export const fetchSingleGroupTasks = (groupId) => {
+  return async (dispatch) => {
+    try {
+      const { data: group } = await axios.get(`/api/groups/${groupId}/tasks`);
+      dispatch(setSingleGroup(group));
+    } catch (err) {
+      console.error("There was a problem fetching this group!");
+      console.error(err);
+    }
+  };
+};
+
+export const fetchSingleGroupShopping = (groupId) => {
+  return async (dispatch) => {
+    try {
+      const { data: group } = await axios.get(`/api/groups/${groupId}/shopping`);
+      dispatch(setSingleGroup(group));
+    } catch (err) {
+      console.error("There was a problem fetching this group!");
+      console.error(err);
+    }
+  };
+};
+
 //update group info
 export const updateGroupThunk = (group) => {
   return async (dispatch) => {
@@ -84,6 +108,17 @@ export const addGroupTaskThunk = (groupId, task) => async (dispatch) => {
     console.error(error);
   }
 };
+
+export const addGroupItemThunk = (groupId, task) => async (dispatch) => {
+  try {
+    const { data: newGroupTask } = await axios.post(`/api/groups/${groupId}/shopping`, task);
+    dispatch(addGroupTask(newGroupTask));
+  } catch (error) {
+    console.error("Error adding shopping item!");
+    console.error(error);
+  }
+};
+
 
 //INITIAL STATE
 const initialState = {};

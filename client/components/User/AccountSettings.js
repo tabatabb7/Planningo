@@ -20,8 +20,8 @@ class AccountSettings extends Component {
   toggleFormStatus() {
     this.setState({ formStatus: !this.state.formStatus });
   }
-  handleSubmit(userId, firstName, lastName, email) {
-    this.props.updateUser(userId, firstName, lastName, email);
+  handleSubmit(userId, firstName, lastName, email, avatarUrl) {
+    this.props.updateUser(userId, firstName, lastName, email, avatarUrl);
   }
   handlePassword(userId, oldPassword, newPassword) {
     this.props.updatePassword(userId, oldPassword, newPassword);
@@ -39,6 +39,14 @@ class AccountSettings extends Component {
             <div>
               <button onClick={this.toggleFormStatus}>Cancel Edit</button>
               <form id="edit-profile-form">
+              <label htmlFor="name"> Icon: </label>
+                <input
+                  name="avatarUrl"
+                  id="avatarUrl"
+                  type="text"
+                  placeholder={user.avatarUrl}
+                  defaultValue={user.avatarUrl}
+                />
                 <label htmlFor="name"> Name: </label>
                 <input
                   name="firstName"

@@ -97,7 +97,7 @@ class ShoppingList extends React.Component {
                       </button>
                     </p>
                   ))
-                : "You have no tasks"}
+                : "You have no items in your shopping list!"}
             </div>
             <div id="just-another-layout-div"></div>
           </div>

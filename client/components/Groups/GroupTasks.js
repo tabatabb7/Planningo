@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import GroupTaskModal from "./GroupTaskModal";
 import { removeTaskThunk } from "../../store/tasks";
 import { updateTaskCompletion} from "../../store/singletask";
-import { fetchSingleGroup } from "../../store/singleGroup";
+import { fetchSingleGroupTasks } from "../../store/singleGroup";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
@@ -59,18 +59,29 @@ class GroupTaskList extends React.Component {
   render() {
     let tasks = this.props.group.tasks;
     let group = this.props.group;
+    let categories = this.props.group.categories;
 
     return (
       <div className="group-task-wrapper">
         <div id="group-task-box">
           <div className="group-task-box-header">
-            GROUP Tasks -- {group.name}
+            Tasks -- {group.name}
           </div>
           <div className="group-task-box-body">
-          <div id="group-task-box-assignedto">Assigned To:</div>
 
-            <div id="group-task-box-categories">Category</div>
+            <div id="group-task-box-categories">
+              <h3 id="category-title">Category</h3>
+            {categories ?
+             categories.map((category)=>(
+               <div key={category.id} className="each-category-wrap">
+              <div id="category-icon-wrap"  style={{backgroundColor: category.color}}>
+                 <img src={category.imageUrl} className="category-icon"></img>
+                 </div>
+                 {category.name}
+                 </div>
+             )): 'null'}
 
+            </div>
             {/* LIST OF TASKS */}
             <div id="group-task-box-list">
               {tasks && tasks.length
@@ -133,13 +144,13 @@ class GroupTaskList extends React.Component {
 }
 
 const mapState = (state) => ({
-  tasks: state.tasks,
+  // tasks: state.tasks,
   userId: state.user.id,
-  group: state.singleGroup
+  group: state.singleGroup,
 });
 
 const mapDispatch = (dispatch) => ({
-  fetchGroup: (groupId) => dispatch(fetchSingleGroup(groupId)),
+  fetchGroup: (groupId) => dispatch(fetchSingleGroupTasks(groupId)),
   deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
   updateTaskCompletion: (taskId, isCompleted) =>
     dispatch(updateTaskCompletion(taskId, isCompleted)),
