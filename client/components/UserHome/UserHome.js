@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 import "./UserHome.css";
 import moment from "moment";
 
+
 class UserHome extends React.Component {
   constructor(props) {
     super(props);
-
   }
 
   render() {
@@ -45,6 +45,7 @@ const mapState = (state) => {
     firstName: state.user.firstName,
   };
 };
+
 
 export default connect(mapState)(UserHome);
 

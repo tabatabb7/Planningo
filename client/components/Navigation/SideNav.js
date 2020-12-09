@@ -10,7 +10,6 @@ class SideNav extends React.Component {
     super(props);
   }
 
-
   render() {
     let { handleClick, isLoggedIn, user, groups } = this.props;
     return (
