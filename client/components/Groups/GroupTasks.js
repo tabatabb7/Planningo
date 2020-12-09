@@ -59,18 +59,28 @@ class GroupTaskList extends React.Component {
   render() {
     let tasks = this.props.group.tasks;
     let group = this.props.group;
+    let categories = this.props.group.categories;
 
     return (
       <div className="group-task-wrapper">
         <div id="group-task-box">
           <div className="group-task-box-header">
-            GROUP Tasks -- {group.name}
+            Tasks -- {group.name}
           </div>
           <div className="group-task-box-body">
           <div id="group-task-box-assignedto">Assigned To:</div>
+            <div id="group-task-box-categories">Category
+            {categories ?
+             categories.map((category)=>(
+               <div key={category.id} className="each-category-wrap">
+              <div id="category-icon-wrap"  style={{backgroundColor: category.color}}>
+                 <img src={category.imageUrl} className="category-icon"></img>
+                 </div>
+                 {category.name}
+                 </div>
+             )): 'null'}
 
-            <div id="group-task-box-categories">Category</div>
-
+            </div>
             {/* LIST OF TASKS */}
             <div id="group-task-box-list">
               {tasks && tasks.length
@@ -133,9 +143,9 @@ class GroupTaskList extends React.Component {
 }
 
 const mapState = (state) => ({
-  tasks: state.tasks,
+  // tasks: state.tasks,
   userId: state.user.id,
-  group: state.singleGroup
+  group: state.singleGroup,
 });
 
 const mapDispatch = (dispatch) => ({

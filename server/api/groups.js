@@ -53,12 +53,16 @@ router.post("/", async (req, res, next) => {
       groupId: group.id,
       role: "admin",
     });
+
     await Category.bulkCreate([
-      {name: "Home", color: "#FFBF00", groupId: group.id, imageUrl: "/client/assets/icons/041-family.png"},
-      {name: "Work", color: "#FF7F50", groupId: group.id, imageUrl: "/client/assets/icons/002-folders.png"},
-      {name: "Finance", color: "#DE3163", groupId: group.id, imageUrl: "/client/assets/icons/026-business and finance.png"},
-      {name: "School", color: "#CCCCFF", groupId: group.id, imageUrl: "/client/assets/icons/003-book.png"},
-      {name: "Family", color: "#40E0D0", groupId: group.id, imageUrl: "/client/assets/icons/012-avatar.png"}
+      {name: "Home", color: "#FFBF00", groupId: group.id, isShopping: false, imageUrl: "/assets/icons/misc/041-family.png"},
+      {name: "Work", color: "#FF7F50", groupId: group.id, isShopping: false,imageUrl: "/assets/icons/misc/002-folders.png"},
+      {name: "Finance", color: "#DE3163", groupId: group.id, isShopping: false,imageUrl: "/assets/icons/misc/026-business and finance.png"},
+      {name: "School", color: "#CCCCFF", groupId: group.id, isShopping: false,imageUrl: "/assets/icons/misc/003-book.png"},
+      {name: "Family", color: "#40E0D0", groupId: group.id, isShopping: false,imageUrl: "/assets/icons/misc/012-avatar.png"},
+
+      {name: "Grocery", color: "#FFBF00", groupId: group.id, isShopping: true, imageUrl: "/assets/icons/misc/004-commerceshop.png"},
+      {name: "Home", color: "#FF7F50", groupId: group.id, isShopping: true ,imageUrl: "/assets/icons/misc/003-sofa.png"}
     ])
     res.json(group);
   } catch (err) {
@@ -136,10 +140,14 @@ router.get("/:groupId/tasks", async (req, res, next) => {
             isShopping: false
           },
           required: false,
-          include: {
-            model: Category
-          }
         },
+        {
+            model: Category,
+            where: {
+              isShopping: false,
+            },
+          required: false,
+        }
       ],
     });
     res.json(group);
@@ -160,11 +168,15 @@ router.get("/:groupId/shopping", async (req, res, next) => {
           where: {
             isShopping: true
           },
-          required: false,
-          include: {
-            model: Category
-          }
+          required: false
         },
+        {
+          model: Category,
+          where: {
+            isShopping: true,
+          },
+          required: false,
+        }
       ],
     });
     res.json(group);

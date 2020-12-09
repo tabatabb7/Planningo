@@ -56,6 +56,25 @@
   font-size: 12px;
 }
 
+.each-category-wrap{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+#category-icon-wrap{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: cover;
+overflow: hidden;
+}
+.category-icon{
+  width: 80%;
+  height: 80%;
+}
+
 /* list of tasks */
 #group-task-box-list{
   display: flex;

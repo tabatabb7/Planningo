@@ -19,7 +19,7 @@ const SideNav = ({ handleClick, user }) => (
   <div className="side-nav-wrapper">
 
 <div id="userprof">
-    <img src={user.avatarUrl} id="usericon"></img>
+    <img src={user.avatarUrl} id="user-icon"></img>
       {user.firstName} {user.lastName}
     <div id="homebutton-wrap">
       <Link to="/home">

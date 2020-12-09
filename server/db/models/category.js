@@ -16,6 +16,10 @@ const Category = db.define("category", {
   color: {
     type: Sequelize.ENUM ("#FFBF00", "#FF7F50", "#DE3163", "#9FE2BF", "#40E0D0", "#6495ED", "#CCCCFF"),
     allowNull: false
+  },
+  isShopping: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
   }
 });
 

@@ -58,6 +58,7 @@ class GroupShoppingList extends React.Component {
   render() {
     let tasks = this.props.group.tasks;
     let group = this.props.group;
+    let categories = this.props.group.categories;
 
     return (
       <div className="group-task-wrapper">
@@ -66,7 +67,17 @@ class GroupShoppingList extends React.Component {
             Shopping List - {group.name}
           </div>
           <div className="group-task-box-body">
-            <div id="group-task-box-categories">Category</div>
+            <div id="group-task-box-categories">Category
+
+
+
+            {categories ?
+             categories.map((category)=>(
+               <div key={category.id}>
+                 {category.name}
+                 </div>
+             )): 'no'}</div>
+
 
             {/* LIST OF TASKS */}
             <div id="group-task-box-list">
