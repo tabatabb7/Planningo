@@ -69,7 +69,6 @@ class GroupShoppingList extends React.Component {
           <div className="group-task-box-body">
             <div id="group-task-box-categories">Category
 
-
             {categories ?
              categories.map((category)=>(
                <div key={category.id} className="each-category-wrap">
