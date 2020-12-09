@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  /* filter: grayscale(100%); */
 }
 
 #group-task-box {
@@ -173,6 +174,10 @@
   .group-task-box-header {
     height: 8%;
     max-height: 40px;
+  }
+  #category-icon-wrap {
+    width: 50px;
+    height: 50px;
   }
   #group-add-button-div {
     height: 8%;
