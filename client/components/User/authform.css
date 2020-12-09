@@ -61,20 +61,23 @@
   justify-content: center;
   flex-direction: column;
   color: #ff7290;
-
+  margin-top: 15px;
 }
 .pick-avatar {
   width: 80px;
   height: auto;
   cursor: pointer;
   border-radius: 50%;
+  background-color: #EAEACF;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .pick-avatar.selected {
   width: 80px;
   height: auto;
   cursor: pointer;
-  background-color: pink;
+  background-color: #FF511E;
 }
 
 #image-picker-box {

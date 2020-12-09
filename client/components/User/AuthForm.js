@@ -18,7 +18,7 @@ class AuthForm extends React.Component {
     super(props);
 
     this.state = {
-      selected: "/assets/icons/users/001-girl.png",
+      selected: "/assets/icons/users/002-girl.png",
     };
   }
 
