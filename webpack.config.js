@@ -1,3 +1,5 @@
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 module.exports = {
   mode: "development",
   entry: [
@@ -11,6 +13,9 @@ module.exports = {
   resolve: {
     extensions: [".js", ".jsx"]
   },
+  plugins: [
+    new BundleAnalyzerPlugin(),
+  ],
   devtool: "source-map",
   watchOptions: {
     ignored: /node_modules/
