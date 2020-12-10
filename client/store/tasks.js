@@ -9,6 +9,7 @@ const DELETE_TASK = "DELETE_TASK";
 const GET_SHOPPING_ITEMS = "GET_SHOPPING_ITEMS";
 const ADD_SHOPPING_ITEM = 'ADD_SHOPPING_ITEM'
 const UPDATE_TASK = 'UPDATE_TASK'
+const UPDATE_GROUP_TASK = 'UPDATE_GROUP_TASK'
 
 /**
  * INITIAL STATE
@@ -26,6 +27,7 @@ const deleteTask = (taskId) => ({ type: DELETE_TASK, taskId });
 const getShoppingItems = (tasks) => ({ type: GET_SHOPPING_ITEMS, tasks});
 const addShoppingItem = (task) => ({ type: ADD_SHOPPING_ITEM, task });
 const updateTask = task => ({ type: UPDATE_TASK, task })
+const updateGroupTask = task => ({ type: UPDATE_GROUP_TASK, task })
 
 
 /**
@@ -91,6 +93,17 @@ export const updateTaskThunk = (task) => async (dispatch) => {
   }
 }
 
+export const updateGroupTaskThunk = (task) => async (dispatch) => {
+  try {
+    const { data: updatedGroupTask } = await axios.put(`/api/groups/:groupId/tasks/`, task)
+    console.log('UPDATED GROUP TASK', updatedGroupTask)
+    dispatch(updateGroupTask(updatedGroupTask))
+  } catch (error) {
+    console.error('Error updating group task!')
+    console.error(error)
+  }
+}
+
 
 export default function tasksReducer(state = initialState, action) {
   switch (action.type) {
@@ -104,12 +117,14 @@ export default function tasksReducer(state = initialState, action) {
         return { ...state, ...action.task };
     case DELETE_TASK:
       return { ...state };
-      return {...state}
     case UPDATE_TASK:
       return {...state, tasks: state.tasks.map((task) => {
         if (task.id === action.task.id) return action.task
         else return task
       })}
+    case UPDATE_GROUP_TASK:
+      console.log('STATE TASKS!!!!--->', state)
+      return {...state, ...action.task}
     default:
       return state;
   }

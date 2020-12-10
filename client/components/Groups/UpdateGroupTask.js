@@ -1,30 +1,21 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-  fetchSingleGroup,
-  addGroupTaskThunk,
-} from "../../store/singleGroup";
-import "./grouptaskmodal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { updateGroupTaskThunk } from "../../store/tasks";
 
-class GroupTaskModal extends Component {
+class UpdateGroupTaskModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
-      selected: "",
-      description: "",
-      points: 0,
-      groupId: this.props.groupId,
-      error: null
+      name: this.props.task.name,
+      selected: this.props.task.selected,
+      description: this.props.task.description,
+      points: this.props.task.points,
+      taskId: this.props.task.id,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.fetchGroup(this.props.groupId);
   }
 
   handleChange(event) {
@@ -36,25 +27,21 @@ class GroupTaskModal extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     try {
-      await this.props.addGroupTask(this.props.groupId, this.state);
-      this.setState({
-        name: "",
-        selected: "",
-        description: "",
-        points: 0
-      });
-      await this.props.fetchGroup(this.props.groupId);
-      this.props.onClose();
+      if (this.state.name == "") {
+        alert("Task name can't be empty!")
+      } else {
+        await this.props.updateGroupTask(this.state);
+        this.setState({
+          name: "",
+          selected: "",
+          description: "",
+        });
+        alert(`Task was updated! Redirecting you to the tasks page.`)
+        // await this.props.fetchTasks();
+        this.props.onClose();
+      }
     } catch (err) {
       console.log("error creating task", err);
-    }
-  }
-
-  async handleDelete(id) {
-    try {
-      await this.props.deleteTask(id);
-    } catch (err) {
-      console.error(err);
     }
   }
 
@@ -65,7 +52,7 @@ class GroupTaskModal extends Component {
   render() {
     let group = this.props.group;
 
-    if (!this.props.show) {
+    if (!this.props.showTask || !this.props.selectedTask) {
       return null;
     }
     return (
@@ -73,7 +60,7 @@ class GroupTaskModal extends Component {
         <div>{this.props.children}</div>
         <div className="group-task-modal-content">
           <div id="group-top-taskmodal-div">
-            <div id="group-modal-title">NEW TASK</div>
+            <div id="group-modal-title">UPDATE TASK</div>
             <button
               onClick={(e) => this.onClose(e)}
               className="group-close-modal-btn"
@@ -128,7 +115,7 @@ class GroupTaskModal extends Component {
                   ))
                 : "There are no users"}
               </select>
-              <button id="group-modal-submit-button" type="submit">Add</button>
+              <button id="group-modal-submit-button" type="submit">Update</button>
             </form>
           </div>
         </div>
@@ -143,9 +130,8 @@ const mapState = (state) => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  fetchGroup: (groupId) => dispatch(fetchSingleGroup(groupId)),
-  addGroupTask: (groupId, task) => dispatch(addGroupTaskThunk(groupId, task)),
-  updateTask: (task) => dispatch(updateSingleTask(task)),
+  // fetchTasks: (userId) => dispatch(fetchTasksThunk(userId)),
+  updateGroupTask: (task) => dispatch(updateGroupTaskThunk(task)),
 });
 
-export default connect(mapState, mapDispatch)(GroupTaskModal);
+export default connect(mapState, mapDispatch)(UpdateGroupTaskModal);

@@ -1,10 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import GroupTaskModal from "./GroupTaskModal";
+import UpdateGroupTaskModal from "./UpdateGroupTask";
 import { removeTaskThunk } from "../../store/tasks";
 import { updateTaskCompletion} from "../../store/singletask";
 import { fetchSingleGroupTasks } from "../../store/singleGroup";
-
+import { postCompletedPointsThunk, removeCompletedPointsThunk } from "../../store/point"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
@@ -19,6 +20,7 @@ class GroupTaskList extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.showModal = this.showModal.bind(this);
+    this.showTaskModal = this.showTaskModal.bind(this);
 
   }
 
@@ -43,17 +45,25 @@ class GroupTaskList extends React.Component {
 
   async toggleCompleted(taskId, isCompleted) {
     try {
-      await this.props.updateTaskCompletion(taskId, !isCompleted);
-
+      if (isCompleted === false) {
+        await this.props.updateTaskCompletion(taskId, !isCompleted);
+        await this.props.postAwardedPoints(taskId);
+      } else {
+        await this.props.updateTaskCompletion(taskId, !isCompleted);
+        await this.props.removePoints(taskId)
+      }
       this.props.fetchGroup(this.props.match.params.groupId);
     } catch (err) {
       console.error(err);
     }
   }
 
-
   showModal(e) {
     this.setState({ show: !this.state.show });
+  }
+
+  showTaskModal(e, taskId) {
+    this.setState({ taskId, showTask: !this.state.showTask });
   }
 
   render() {
@@ -87,6 +97,11 @@ class GroupTaskList extends React.Component {
               {tasks && tasks.length
                 ? tasks.map((task) => (
                     <div key={task.id} className="group-singletask">
+                  
+                      <a onClick={e => this.showTaskModal(e, task.id)}> {task.name}</a>
+                  
+                      <UpdateGroupTaskModal selectedTask={task.id === this.state.taskId} task={task} onClose={e => this.showTaskModal(e)} showTask={this.state.showTask}/>
+
                       <button
                         onClick={() => this.toggleCompleted(task.id, task.isCompleted)
                         }
@@ -103,7 +118,6 @@ class GroupTaskList extends React.Component {
                           <FontAwesomeIcon icon={faCheckCircle} />
                         </div>
                       </button>
-                      {task.name}
 
                       <div>---worth {task.Task_Group.points} POINTS</div>
 
@@ -154,6 +168,8 @@ const mapDispatch = (dispatch) => ({
   deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
   updateTaskCompletion: (taskId, isCompleted) =>
     dispatch(updateTaskCompletion(taskId, isCompleted)),
+  postAwardedPoints: (taskId) => dispatch(postCompletedPointsThunk(taskId)),
+  removePoints: (taskId) => dispatch(removeCompletedPointsThunk(taskId)),
 });
 
 export default connect(mapState, mapDispatch)(GroupTaskList);

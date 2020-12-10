@@ -8,6 +8,7 @@ import { updateTaskCompletion } from "../../store/singletask";
 import { postCompletedPointsThunk, removeCompletedPointsThunk } from "../../store/point"
 
 import "./Tasks.css";
+import { fetchGroupsThunk } from "../../store/allGroups";
 import { fetchTasksThunk, removeTaskThunk } from "../../store/tasks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
@@ -27,6 +28,7 @@ class TaskList extends React.Component {
 
   componentDidMount() {
     this.props.fetchTasks();
+    this.props.fetchGroups()
   }
 
   async handleDelete(id) {
@@ -140,6 +142,7 @@ class TaskList extends React.Component {
 const mapState = (state) => ({
   userTasks: state.tasks,
   userId: state.user.id,
+  groups: state.groups
 });
 
 const mapDispatch = (dispatch) => ({
@@ -148,7 +151,8 @@ const mapDispatch = (dispatch) => ({
   updateTaskCompletion: (taskId, isCompleted) =>
   dispatch(updateTaskCompletion(taskId, isCompleted)),
   postAwardedPoints: (taskId) => dispatch(postCompletedPointsThunk(taskId)),
-  removePoints: (taskId) => dispatch(removeCompletedPointsThunk(taskId))
+  removePoints: (taskId) => dispatch(removeCompletedPointsThunk(taskId)),
+  fetchGroups: () => dispatch(fetchGroupsThunk())
 });
 
 
