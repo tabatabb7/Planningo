@@ -14,14 +14,6 @@ module.exports = {
   resolve: {
     extensions: [".js", ".jsx"]
   },
-  plugins: [
-    new BundleAnalyzerPlugin(),
-    new CompressionWebpackPlugin({
-      filename: "[path].gz[query]",
-      algorithm: "gzip",
-      test: /\.(js|css)$/,
-    }),
-  ],
   devtool: "source-map",
   watchOptions: {
     ignored: /node_modules/
