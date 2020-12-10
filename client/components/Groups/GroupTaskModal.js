@@ -15,6 +15,7 @@ class GroupTaskModal extends Component {
       name: "",
       selected: "",
       description: "",
+      points: 0,
       groupId: this.props.groupId,
       error: null
     };
@@ -38,7 +39,9 @@ class GroupTaskModal extends Component {
       await this.props.addGroupTask(this.props.groupId, this.state);
       this.setState({
         name: "",
-        selected: ""
+        selected: "",
+        description: "",
+        points: 0
       });
       await this.props.fetchGroup(this.props.groupId);
       this.props.onClose();
@@ -98,6 +101,14 @@ class GroupTaskModal extends Component {
                 className="group-modal-input"
                 onChange={this.handleChange}
                 value={this.state.description}
+              />
+              <label htmlFor="points">Points:</label>
+              <textarea
+                name="points"
+                type="text"
+                className="modal-input"
+                onChange={this.handleChange}
+                value={this.state.points}
               />
             </form>
 
