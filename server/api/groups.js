@@ -219,7 +219,7 @@ router.get("/:groupId/shopping", async (req, res, next) => {
         {
           model: Category,
           where: {
-            isShopping: true,
+            isShopping: false,
           },
           required: false,
         },
@@ -230,6 +230,7 @@ router.get("/:groupId/shopping", async (req, res, next) => {
     next(err);
   }
 });
+
 
 // POST /api/groups/:groupId/tasks
 router.post("/:groupId/tasks", async (req, res, next) => {
@@ -270,6 +271,19 @@ router.post("/:groupId/tasks", async (req, res, next) => {
   }
 });
 
+
+// POST /api/groups/:groupId/tasks
+router.put("/:groupId/tasks", async (req, res, next) => {
+  try {
+    const task = await Task.findByPk(req.body.taskId);
+    task.update(req.body);
+    res.json(task);
+    // console.log(task)
+  } catch (err) {
+    next(err);
+  }
+});
+
 // router.post("/:groupId/shopping", async (req, res, next) => {
 //   try {
 //     const userGroup = await User_Group.findOne({
@@ -291,7 +305,56 @@ router.post("/:groupId/tasks", async (req, res, next) => {
 //   }
 // })
 
+router.get("/:groupId/shopping", async (req, res, next) => {
+  try {
+    const group = await Group.findByPk(req.params.groupId, {
+      include: [
+        {
+          model: User,
+        },
+        {
+          model: Task,
+          where: {
+            isShopping: true,
+          },
+          required: false,
+        },
+        {
+          model: Category,
+          where: {
+            isShopping: true,
+          },
+          required: false,
+        },
+      ],
+    });
+    res.json(group);
+  } catch (err) {
+    next(err);
+  }
+});
+
+
 //GET api/groups/:groupId/rewards
+router.get("/:groupId/rewards", async (req, res, next) => {
+  try {
+    const group = await Point.findOne({
+      where: {
+        groupId: req.params.groupId,
+      },
+      include: [
+        {
+          model: User,
+        },
+      ],
+    });
+    res.send(groupPoints);
+  } catch (err) {
+    next(err);
+  }
+});
+
+//GET /api/groups/:groupId/rewards
 router.get("/:groupId/rewards", async (req, res, next) => {
   try {
     const group = await Point.findOne({
@@ -306,7 +369,7 @@ router.get("/:groupId/rewards", async (req, res, next) => {
     })
     res.json(group)
   } catch (err) {
-    next (err)
+    next (err) 
   }
 })
 
