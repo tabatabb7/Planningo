@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { updateGroupTaskThunk } from "../../store/tasks";
+import { updateGroupTaskThunk, fetchTasksThunk } from "../../store/tasks";
+import { fetchSingleGroupTasks } from "../../store/singleGroup";
 
 class UpdateGroupTaskModal extends Component {
   constructor(props) {
@@ -37,7 +38,7 @@ class UpdateGroupTaskModal extends Component {
           description: "",
         });
         alert(`Task was updated! Redirecting you to the tasks page.`)
-        // await this.props.fetchTasks();
+        await this.props.fetchGroup(this.props.group.id);
         this.props.onClose();
       }
     } catch (err) {
@@ -130,7 +131,7 @@ const mapState = (state) => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  // fetchTasks: (userId) => dispatch(fetchTasksThunk(userId)),
+  fetchGroup: (groupId) => dispatch(fetchSingleGroupTasks(groupId)),
   updateGroupTask: (task) => dispatch(updateGroupTaskThunk(task)),
 });
 

@@ -278,7 +278,7 @@ router.put("/:groupId/tasks", async (req, res, next) => {
     const task = await Task.findByPk(req.body.taskId);
     task.update(req.body);
     res.json(task);
-    // console.log(task)
+    console.log(task)
   } catch (err) {
     next(err);
   }
@@ -335,29 +335,10 @@ router.get("/:groupId/shopping", async (req, res, next) => {
 });
 
 
-//GET api/groups/:groupId/rewards
-router.get("/:groupId/rewards", async (req, res, next) => {
-  try {
-    const group = await Point.findOne({
-      where: {
-        groupId: req.params.groupId,
-      },
-      include: [
-        {
-          model: User,
-        },
-      ],
-    });
-    res.send(groupPoints);
-  } catch (err) {
-    next(err);
-  }
-});
-
 //GET /api/groups/:groupId/rewards
 router.get("/:groupId/rewards", async (req, res, next) => {
   try {
-    const group = await Point.findOne({
+    const groupPoints = await Point.findAll({
       where: {
         groupId: req.params.groupId
       },
@@ -367,7 +348,8 @@ router.get("/:groupId/rewards", async (req, res, next) => {
         },
       ]
     })
-    res.json(group)
+    console.log('GROUP POINTS!!!!!', groupPoints)
+    res.json(groupPoints)
   } catch (err) {
     next (err) 
   }
