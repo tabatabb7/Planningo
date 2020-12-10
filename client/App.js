@@ -1,5 +1,5 @@
 import React from "react";
-import { TopNav, SideNav } from "./components";
+import {TopNav, SideNav} from "./components";
 import Routes from "./routes";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
