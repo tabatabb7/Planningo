@@ -2,21 +2,28 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./topnav.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faHome, faBars,
+import {
+  faCheck,
+  faHome,
+  faBars,
   faShoppingBasket,
-  faCog
+  faCog,
+  faTimes,
 } from "@fortawesome/free-solid-svg-icons";
-import { faCalendar, faUserCircle } from "@fortawesome/free-regular-svg-icons";
+import { faCalendar } from "@fortawesome/free-regular-svg-icons";
 
-
-const TopNav =({toggleSideNav, isLoggedIn}) => {
+const TopNav = ({ toggleSideNav, sideNavOpen }) => {
   return (
     <div className="topnav-wrapper">
       <div id="left-nav-links">
         <div id="each-top-nav-link-open" onClick={toggleSideNav}>
           <div className="top-nav-icon-bar">
-            <FontAwesomeIcon icon={faBars} />
-        </div>
+            {sideNavOpen ? (
+              <FontAwesomeIcon icon={faTimes} />
+            ) : (
+              <FontAwesomeIcon icon={faBars} />
+            )}
+          </div>
         </div>
         <div id="each-top-nav-link">
           <Link to="/home">
@@ -39,11 +46,10 @@ const TopNav =({toggleSideNav, isLoggedIn}) => {
             </div>
           </Link>
         </div>
-
       </div>
 
       <div id="right-nav-links">
-      <div id="each-top-nav-link">
+        <div id="each-top-nav-link">
           <Link to="/calendar">
             <div className="top-nav-icon">
               <FontAwesomeIcon icon={faCalendar} />
@@ -61,7 +67,6 @@ const TopNav =({toggleSideNav, isLoggedIn}) => {
       </div>
     </div>
   );
-}
-
+};
 
 export default TopNav;
