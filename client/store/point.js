@@ -10,9 +10,9 @@ const fetchUserPoints = (points) => ({
   type: GET_USER_POINTS,
   points,
 });
-const fetchGroupPoints = (points) => ({
+const fetchGroupPoints = (group) => ({
   type: GET_GROUP_POINTS,
-  points,
+  group,
 });
 const fetchUserGroupPoints = (points) => ({
   type: GET_USERGROUP_POINTS,
@@ -31,32 +31,28 @@ const deletePoints = (pointEntry) => ({
 export const fetchUserPointsThunk = (userId) => {
   return async (dispatch) => {
     try {
-      console.log(userId, "userId inside thunks");
-      const { data: userPoints } = await axios.get(
-        `/api/points/${userId}`,
-        userId
-      );
-      console.log(userPoints, "userPoints inside thunk");
+      const { data: userPoints } = await axios.get(`/api/points/${userId}`);
       dispatch(fetchUserPoints(userPoints));
     } catch (error) {
       console.error("there was an error fetching your points");
     }
   };
 };
+
 //GET api/groups/:groupId/rewards
 export const fetchGroupPointsThunk = (groupId) => {
   return async (dispatch) => {
     try {
-      const groupPoints = await axios.get(
-        `/api/groups/${groupId}/rewards`,
-        groupId
-      );
-      dispatch(fetchGroupPoints(groupPoints));
+      const { data: group } = await axios.get(
+        `/api/groups/${groupId}/rewards`);
+      console.log('GROUP OBJ W DATA"', group)
+      dispatch(fetchGroupPoints(group));
     } catch (error) {
       console.error("there was an error fetching group points!");
     }
   };
 };
+
 //GET api/groups/:groupId/:userId/rewards
 export const fetchUserGroupPointsThunk = (userId, groupId) => {
   return async (dispatch) => {
@@ -75,9 +71,7 @@ export const postCompletedPointsThunk = (taskId) => {
   console.log("INSIDE POINTS COMPLETE THUNK!");
   return async (dispatch) => {
     try {
-      console.log("TASKID!!!! --->", taskId);
       const { data: pointEntry } = await axios.post(`/api/points/`, taskId);
-      console.log("NEW POINT INSTANCE INSIDE THUNK--->", pointEntry);
       dispatch(addCompletedPoints(pointEntry));
     } catch (err) {
       console.error("There was a problem adding points!");
@@ -90,9 +84,7 @@ export const removeCompletedPointsThunk = (taskId) => {
   console.log("INSIDE POINTS COMPLETE THUNK!");
   return async (dispatch) => {
     try {
-      console.log("TASKID!!!! --->", taskId);
       const { data: pointEntry } = await axios.delete(`/api/points/${taskId}`);
-      console.log("NEW POINT INSTANCE INSIDE THUNK--->", pointEntry);
       dispatch(deletePoints(pointEntry));
     } catch (err) {
       console.error("There was a problem deleting points!");
@@ -104,20 +96,15 @@ export const removeCompletedPointsThunk = (taskId) => {
 const initialState = {};
 
 export default function pointsReducer(state = initialState, action) {
-  console.log(action.points, "action.points inside the reducer");
-
   switch (action.type) {
     case ADD_COMPLETED_POINTS:
       return action.pointEntry;
     case DELETE_POINTS:
       return action.pointEntry;
     case GET_USER_POINTS:
-      const allPoints = action.points.reduce((accum, point) => {
-        return accum + point.value;
-      }, 0);
-      return allPoints;
+      return action.points
     case GET_GROUP_POINTS:
-      return action.points;
+      return action.group;
     case GET_USERGROUP_POINTS:
       return action.points;
     default:

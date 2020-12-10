@@ -12,7 +12,14 @@ const {
 
 router.get("/", async (req, res, next) => {
   try {
-    const group = await req.user.getGroups();
+    const group = await req.user.getGroups({
+      include: [
+        {
+          model: Category
+        } 
+      ]
+    })
+    console.log(group)
     res.json(group);
   } catch (err) {
     next(err);
@@ -246,6 +253,7 @@ router.post("/:groupId/tasks", async (req, res, next) => {
     const task = await Task.create({
       userId: user.id,
       name: req.body.name,
+      points: req.body.points,
       isShopping: false,
     });
     await User_Task.create({
@@ -301,6 +309,25 @@ router.get("/:groupId/rewards", async (req, res, next) => {
     next(err);
   }
 });
+
+//GET /api/groups/:groupId/rewards
+router.get("/:groupId/rewards", async (req, res, next) => {
+  try {
+    const group = await Point.findOne({
+      where: {
+        groupId: req.params.groupId
+      },
+      include: [
+        {
+          model: User
+        },
+      ]
+    })
+    res.json(group)
+  } catch (err) {
+    next (err) 
+  }
+})
 
 //GET api/groups/:groupId/:userId/rewards
 router.get("/:groupId/:userId/rewards", async (req, res, next) => {

@@ -5,14 +5,11 @@ const Op = require("sequelize").Op;
 // GET api/points
 router.get("/:userId", async (req, res, next) => {
   try {
-    console.log(req.params.userId, "req.params.userId inside api route");
-    console.log(req.user.id, "req.user.id inside api routes");
     const points = await Point.findAll({
       where: {
         userId: req.params.userId,
       },
     });
-    console.log(points, "points inside apir outes");
     res.send(points);
   } catch (err) {
     next(err);

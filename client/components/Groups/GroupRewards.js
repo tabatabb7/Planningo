@@ -20,28 +20,24 @@ class GroupRewards extends React.Component {
   componentDidMount() {
     this.props.fetchGroup(this.props.match.params.groupId);
     this.props.fetchUserPoints(this.props.userId);
-    // this.props.fetchGroupPoints(this.props.match.params.groupId);
+    this.props.fetchGroupPoints(this.props.match.params.groupId);
     // this.props.fetchUserGroupPoints(
     //   this.props.userId,
     //   this.props.match.params.groupId
     // );
   }
 
+  pointCalc (points, userId) {
+    return points.filter((user) => user.userId === userId)
+      .reduce((accum, point) => {
+        return accum + point.value;
+        }, 0)
+  } 
+
   render() {
     const group = this.props.group;
     const points = this.props.points;
-    console.log(
-      this.props.points,
-      "this.props.points in render of grouprewards"
-    );
-    console.log(this.state, "this.state in render of grouprewards");
-    points
-      ? console.log(points, "this.props.points ternary")
-      : console.log("didnt get this.props");
-
-    // const userPoints = points.reduce((accum, point) => {
-    //   return accum + point.value;
-    // }, 0);
+    console.log('THIS.PROPS POINTS!!!!', this.props.points)
 
     return (
       <div className="group-reward-wrapper">
@@ -52,7 +48,7 @@ class GroupRewards extends React.Component {
             {group.users.map((user) => (
               <div key={user.id} id="group-reward-user">
                 <img src={user.avatarUrl} className="group-user-icon" />
-                {user.firstName}: {userPoints ? userPoints : 0} points
+                {user.firstName}: {points.length > 0 ? this.pointCalc(points, user.id) : 0} points
               </div>
             ))}
           </div>
@@ -63,6 +59,7 @@ class GroupRewards extends React.Component {
     );
   }
 }
+
 
 const mapState = (state) => ({
   userId: state.user.id,
