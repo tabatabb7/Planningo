@@ -10,6 +10,7 @@ class SideNav extends React.Component {
   constructor(props) {
     super(props);
   }
+
   componentDidMount() {
     this.props.fetchGroups(this.props.user.id);
   }
@@ -24,44 +25,49 @@ class SideNav extends React.Component {
   }
 
   render() {
-    let { groups, user, handleClick } = this.props;
+    let { groups, user, handleClick, toggleSideNav } = this.props;
     return (
       <div className="side-nav-wrapper">
         <div id="nav-user-wrap">
           <div id="user-nav">
-          <img src={user.avatarUrl} id="user-icon"></img>
-          {user.firstName}
+            <Link to="/account" onClick={toggleSideNav}>
+              <img src={user.avatarUrl} id="user-icon"></img>{" "}
+            </Link>
+            {user.firstName}
           </div>
-        <h4 className="nav-tool-title">My Groups</h4>
-        {!groups.length ? (
-          "You are not a part of any groups."
-        ) : (
-          <div id="nav-group">
-            {groups.map((group) => (
-              <div
-                key={group.id}
-                id="each-nav-group"
-                style={{ backgroundColor: group.color }}
-              >
-                <Link to={`/groups/${group.id}`}>
-                  <img src={group.imageUrl} className="nav-group-icon"></img>
-                  <div id="nav-group-name">{group.name}</div>
-                </Link>
-              </div>
-            ))}
-          </div>
-        )}
-                </div>
 
-              <div className="nav-user-links-wrap">
-        <div className="nav-user-links a">
-          <Link to="/groups">Group Settings</Link>
+          <h4 className="nav-tool-title">My Groups</h4>
+          {!groups.length ? (
+            "You are not a part of any groups."
+          ) : (
+            <div id="nav-group">
+              {groups.map((group) => (
+                <div
+                  key={group.id}
+                  id="each-nav-group"
+                  style={{ backgroundColor: group.color }}
+                >
+                  <Link to={`/groups/${group.id}`} onClick={toggleSideNav}>
+                    <img src={group.imageUrl} className="nav-group-icon"></img>
+                    <div id="nav-group-name">{group.name}</div>
+                  </Link>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
-        <div className="nav-user-links b">
-          <a href="#" onClick={handleClick}>
-            logout
-          </a>
-        </div>
+
+        <div className="nav-user-links-wrap">
+          <div className="nav-user-links a">
+            <Link to="/groups" onClick={toggleSideNav}>
+              Group Settings
+            </Link>
+          </div>
+          <div className="nav-user-links b">
+            <a href="#" onClick={handleClick}>
+              logout
+            </a>
+          </div>
         </div>
       </div>
     );
@@ -82,5 +88,4 @@ export default connect(mapState, mapDispatch)(SideNav);
 
 SideNav.propTypes = {
   handleClick: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
 };

@@ -31,9 +31,7 @@ const setGroupUsers = (groups) => ({ type: GET_GROUP_USERS, groups})
 
 export const fetchGroupsThunk = () => async (dispatch) => {
   try {
-    console.log("inside thunks");
     const { data: groups } = await axios.get(`/api/groups`);
-    console.log(groups, "groups inside thunks");
     dispatch(getGroups(groups));
   } catch (error) {
     console.log("error fetching groups");

@@ -47,6 +47,8 @@ class GroupRewards extends React.Component {
     const points = this.props.points;
     console.log("THIS.PROPS POINTS!!!!", this.props.points);
     console.log("this.props inside grouprewards redner", this.props);
+    console.log("GROUP USERS!!!!!-->", group.users);
+    console.log("POINTS!!!!--->", points);
 
     return (
       <div className="group-reward-wrapper">
@@ -64,7 +66,7 @@ class GroupRewards extends React.Component {
             <h1>Group Stats</h1>
             <VictoryChart domainPadding={10} theme={VictoryTheme.material}>
               <VictoryAxis
-                tickValues={this.props.points.map((user) => user.userId)}
+                tickValues={this.props.points.map((user) => user.firstName)}
               />
               <VictoryAxis dependentAxis tickFormat={(x) => `${x / 1}`} />
               <VictoryBar data={this.props.points} x={"userId"} y={"value"} />

@@ -104,7 +104,7 @@ class GroupTaskList extends React.Component {
                   
                       <a onClick={e => this.showTaskModal(e, task.id)}> {task.name}</a>
                   
-                      <UpdateGroupTaskModal selectedTask={task.id === this.state.taskId} task={task} onClose={e => this.showTaskModal(e)} showTask={this.state.showTask}/>
+                      <UpdateGroupTaskModal selectedTask={task.id === this.state.taskId} task={task} onClose={e => this.showTaskModal(e)} showTask={this.state.showTask} groupId={this.props.match.params.groupId}/>
 
                       <button
                         onClick={() => this.toggleCompleted(task.id, task.isCompleted)

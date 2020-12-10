@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import "./UserHome.css";
-import moment from "moment";
+// import moment from "moment";
 
 
 class UserHome extends React.Component {
@@ -13,12 +13,12 @@ class UserHome extends React.Component {
 
   render() {
     const { firstName } = this.props;
-    const now = new Date();
-    const currHour = moment().format("HH");
+    // const now = new Date();
+    // const currHour = moment().format("HH");
 
     return (
       <div className="userhome-wrapper">
-        {moment(now).format("h:mm a")}
+        {/* {moment(now).format("h:mm a")}
         <div id="home-top">
           <div id="user-greet">
             {(() => {
@@ -33,10 +33,11 @@ class UserHome extends React.Component {
               } else {
                 return <h3>Hello, {firstName}.</h3>;
               }
-            })()}
+            })()} */}
+            hello world
           </div>
-        </div>
-      </div>
+      //   </div>
+      // </div>
     );
   }
 }
