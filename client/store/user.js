@@ -60,6 +60,17 @@ export const auth = (email, password, method, firstName, lastName, avatarUrl) =>
   }
 };
 
+export const fetchUserThunk = (userId) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(`/api/users/${userId}`);
+      dispatch(getUser(data));
+    } catch (error) {
+      console.log("error editing user info");
+    }
+  };
+};
+
 export const updateUserThunk = (userId, firstName, lastName, email, avatarUrl) => {
   return async (dispatch) => {
     try {

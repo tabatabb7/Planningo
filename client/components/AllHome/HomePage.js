@@ -1,15 +1,32 @@
 import React from "react";
 import "./HomePage.css";
+import { Link } from "react-router-dom";
 
 export const HomePage = () => {
   return (
-    <div className="homepage-wrap">
-        <h1>Welcome to our app</h1>
-        <li>How to install our app - Android - iOS</li>
-        <li>About Us</li>
-        <li>FAQs</li>
-        <li>Getting Started</li>
+    <div
+      className="homepage-wrap"
+      style={{
+        backgroundImage:
+          "url(" + "/assets/backgrounds/coworker-bg.png" + ")",
+      }}
+    >
+      <div id="site-home-header">
+        <div id="header-wrap-home">
+       <div id="navtitle">Planningo</div>
+
+       <div id="links-home">
+          <Link to="/login">
+           Login / Sign Up
+          </Link>
+          </div>
+          </div>
       </div>
+
+      <div id="site-home-content">
+        <div>What is this app?</div>
+      </div>
+    </div>
   );
 };
 
