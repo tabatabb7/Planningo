@@ -4,6 +4,8 @@ import Routes from "./routes";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import "./App.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 class App extends React.Component {
   constructor(props) {
@@ -20,21 +22,33 @@ class App extends React.Component {
   render() {
     return (
       <div className="app-wrap">
-      {this.props.isLoggedIn ? (
-        <div id="topnav">
-          <TopNav
-            toggleSideNav={this.toggleSideNav}
-            sideNavOpen={this.state.sideNavOpen}
-          />
-        </div> ) : null }
+        {this.props.isLoggedIn ? (
+          <div id="topnav">
+            <TopNav
+              toggleSideNav={this.toggleSideNav}
+              sideNavOpen={this.state.sideNavOpen}
+            />
+          </div>
+        ) : null}
+
         <div id="sitebody">
           <div
-            className={`sidenav ${this.state.sideNavOpen && this.props.isLoggedIn ? "open" : "closed"}`}
+            className={`sidenav ${
+              this.state.sideNavOpen && this.props.isLoggedIn
+                ? "open"
+                : "closed"
+            }`}
           >
-            <SideNav />
+                    <div id="open-close" onClick={this.toggleSideNav}>
+          <FontAwesomeIcon icon={faTimes} />
+        </div>
+            <SideNav
+              toggleSideNav={this.toggleSideNav}
+              sideNavOpen={this.state.sideNavOpen}
+            />
           </div>
           <div id="app-content-wrap">
-          <Routes />
+            <Routes />
           </div>
         </div>
       </div>

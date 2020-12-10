@@ -28,10 +28,10 @@ class SideNav extends React.Component {
     return (
       <div className="side-nav-wrapper">
         <div id="nav-user-wrap">
+          <div id="user-nav">
           <img src={user.avatarUrl} id="user-icon"></img>
           {user.firstName}
-        </div>
-
+          </div>
         <h4 className="nav-tool-title">My Groups</h4>
         {!groups.length ? (
           "You are not a part of any groups."
@@ -51,6 +51,8 @@ class SideNav extends React.Component {
             ))}
           </div>
         )}
+                </div>
+
               <div className="nav-user-links-wrap">
         <div className="nav-user-links a">
           <Link to="/groups">Group Settings</Link>
