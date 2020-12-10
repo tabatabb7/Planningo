@@ -44,10 +44,11 @@
 
 @media (max-width: 730px) {
   .sidenav.open{
-    min-width: 100vw;
+    width: 100vw;
     height: 100%;
     position: fixed;
     z-index: 10;
     overflow: hidden;
   }
+
 }

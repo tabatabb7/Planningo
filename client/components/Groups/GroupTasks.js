@@ -78,6 +78,7 @@ class GroupTaskList extends React.Component {
               <div className="each-category-wrap">
               All
                  </div>
+
             {categories ?
              categories.map((category)=>(
                <div key={category.id} className="each-category-wrap">

@@ -8,7 +8,7 @@ export const HomePage = () => {
       className="homepage-wrap"
       style={{
         backgroundImage:
-          "url(" + "/assets/backgrounds/book-blankets-bg.png" + ")",
+          "url(" + "/assets/backgrounds/coworker-bg.png" + ")",
       }}
     >
       <div id="site-home-header">

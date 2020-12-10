@@ -11,7 +11,7 @@ import {
   GroupList,
   Account,
   AccountSettings,
-ShoppingList,
+  ShoppingList,
   AppCalendar,
   TaskList,
   CreateGroup,
@@ -29,14 +29,13 @@ class Routes extends Component {
   }
 
   render() {
-    const { isLoggedIn, hasGroups } = this.props;
+    const { isLoggedIn } = this.props;
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route exact path="/welcome" component={HomePage}/>
-
+        <Route exact path="/welcome" component={HomePage} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
@@ -48,7 +47,11 @@ class Routes extends Component {
             <Route exact path="/tasks" component={TaskList} />
             <Route exact path="/groups" component={GroupList} />
             <Route path="/shoppinglist" component={ShoppingList} />
-            <Route exact path="/:groupId/shoppinglist" component={GroupShoppingList} />
+            <Route
+              exact
+              path="/:groupId/shoppinglist"
+              component={GroupShoppingList}
+            />
             <Route exact path="/groups/create" component={CreateGroup} />
             <Route exact path="/groups/:groupId" component={SingleGroup} />
             <Route
@@ -97,5 +100,5 @@ export default withRouter(connect(mapState, mapDispatch)(Routes));
 
 Routes.propTypes = {
   loadInitialData: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
+  isLoggedIn: PropTypes.bool.isRequired,
 };
