@@ -1,9 +1,6 @@
-<<<<<<< Updated upstream
-=======
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 
->>>>>>> Stashed changes
 module.exports = {
   mode: "development",
   entry: [
@@ -17,8 +14,6 @@ module.exports = {
   resolve: {
     extensions: [".js", ".jsx"]
   },
-<<<<<<< Updated upstream
-=======
   plugins: [
     new BundleAnalyzerPlugin(),
     new CompressionWebpackPlugin({
@@ -27,7 +22,6 @@ module.exports = {
       test: /\.(js|css)$/,
     }),
   ],
->>>>>>> Stashed changes
   devtool: "source-map",
   watchOptions: {
     ignored: /node_modules/
