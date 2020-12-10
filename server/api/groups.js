@@ -16,7 +16,7 @@ router.get("/", async (req, res, next) => {
       include: [
         {
           model: Category
-        } 
+        }
       ]
     })
     console.log(group)
@@ -202,6 +202,35 @@ router.get("/:groupId/tasks", async (req, res, next) => {
   }
 });
 
+router.get("/:groupId/shopping", async (req, res, next) => {
+  try {
+    const group = await Group.findByPk(req.params.groupId, {
+      include: [
+        {
+          model: User,
+        },
+        {
+          model: Task,
+          where: {
+            isShopping: true,
+          },
+          required: false,
+        },
+        {
+          model: Category,
+          where: {
+            isShopping: false,
+          },
+          required: false,
+        },
+      ],
+    });
+    res.json(group);
+  } catch (err) {
+    next(err);
+  }
+});
+
 
 // POST /api/groups/:groupId/tasks
 router.post("/:groupId/tasks", async (req, res, next) => {
@@ -241,6 +270,7 @@ router.post("/:groupId/tasks", async (req, res, next) => {
     next(err);
   }
 });
+
 
 // POST /api/groups/:groupId/tasks
 router.put("/:groupId/tasks", async (req, res, next) => {
@@ -304,10 +334,11 @@ router.get("/:groupId/shopping", async (req, res, next) => {
   }
 });
 
+
 //GET api/groups/:groupId/rewards
 router.get("/:groupId/rewards", async (req, res, next) => {
   try {
-    const groupPoints = await Point.findAll({
+    const group = await Point.findOne({
       where: {
         groupId: req.params.groupId,
       },
@@ -361,5 +392,6 @@ router.get("/:groupId/:userId/rewards", async (req, res, next) => {
     next(err);
   }
 });
+
 
 module.exports = router;

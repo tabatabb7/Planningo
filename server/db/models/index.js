@@ -14,6 +14,10 @@ const User_Group = db.define("User_Group", {
     type: Sequelize.ENUM("admin", "member"),
     defaultValue: "member",
   },
+  color: {
+    type: Sequelize.STRING,
+    defaultValue: "#EAEACF"
+  },
   points: {
     type: Sequelize.INTEGER,
     defaultValue: 0

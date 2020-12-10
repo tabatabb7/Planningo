@@ -58,7 +58,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 150px;
+  width: 170px;
 }
 
 .image-pick{
@@ -125,7 +125,7 @@
 }
 
 .form-button:hover {
-  background-color: #0e0e0e;
+  background-color: #D63F5F;
 }
 
 .forms a {
@@ -139,6 +139,7 @@
 .form-icon {
   color: #ff7290;
   margin-right: 10px;
+  margin-left: 10px;
 }
 
 #auth-link-container {

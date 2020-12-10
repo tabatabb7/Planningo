@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch } from "react-router-dom";
 import PropTypes from "prop-types";
+
 import {
   UserHome,
   HomePage,
@@ -10,7 +11,7 @@ import {
   GroupList,
   Account,
   AccountSettings,
-ShoppingList,
+  ShoppingList,
   AppCalendar,
   TaskList,
   CreateGroup,
@@ -34,20 +35,23 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-
+        <Route exact path="/welcome" component={HomePage} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
 
             <Route exact path={["/home", "/"]} component={UserHome} />
-
             <Route exact path="/account" component={Account} />
             <Route exact path="/account/settings" component={AccountSettings} />
             <Route path="/calendar" component={AppCalendar} />
             <Route exact path="/tasks" component={TaskList} />
             <Route exact path="/groups" component={GroupList} />
             <Route path="/shoppinglist" component={ShoppingList} />
-            <Route exact path="/:groupId/shoppinglist" component={GroupShoppingList} />
+            <Route
+              exact
+              path="/:groupId/shoppinglist"
+              component={GroupShoppingList}
+            />
             <Route exact path="/groups/create" component={CreateGroup} />
             <Route exact path="/groups/:groupId" component={SingleGroup} />
             <Route
@@ -70,7 +74,7 @@ class Routes extends Component {
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
-        <Route component={Login} />
+        <Route component={HomePage} />
       </Switch>
     );
   }
