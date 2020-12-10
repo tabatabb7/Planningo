@@ -15,7 +15,7 @@ class UpdateTaskModal extends Component {
       name: this.props.task.name,
       selected: this.props.task.selected,
       description: this.props.task.description,
-      taskId: this.props.taskId
+      taskId: this.props.task.id
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -30,7 +30,7 @@ class UpdateTaskModal extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     try {
-      console.log(this.state.taskId)
+      console.log(this.props)
       if (this.state.name == "") {
         alert("task name can't be empty!")
       } else {
@@ -41,7 +41,6 @@ class UpdateTaskModal extends Component {
           description: "",
         });
         alert(`Your task was updated! Redirecting you to your tasks page..`)
-        // await this.props.fetchTasks();
         this.props.onClose();
       }
     } catch (err) {

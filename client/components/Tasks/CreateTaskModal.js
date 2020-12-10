@@ -81,7 +81,7 @@ class CreateTaskModal extends Component {
 
 
    const listCategories = this.props.groups.map((group) => group.categories)
-   console.log('LIST CATEGORIES', listCategories)
+  //  console.log('LIST CATEGORIES', listCategories)
    const dupCategories = listCategories.flat()
    let categories = []
    dupCategories.forEach((cat) => {
@@ -89,7 +89,7 @@ class CreateTaskModal extends Component {
        categories.push(cat)
      }
    })
-   console.log("CATEGORIES!!!!!--->", categories)
+  //  console.log("CATEGORIES!!!!!--->", categories)
 
     if (!this.props.show) {
       return null;

@@ -31,13 +31,14 @@ class GroupRewards extends React.Component {
     return points.filter((user) => user.userId === userId)
       .reduce((accum, point) => {
         return accum + point.value;
-        }, 0)
+      }, 0)
   } 
 
   render() {
     const group = this.props.group;
     const points = this.props.points;
-    console.log('THIS.PROPS POINTS!!!!', this.props.points)
+    console.log('GROUP USERS!!!!!-->', group.users)
+    console.log("POINTS!!!!--->", points)
 
     return (
       <div className="group-reward-wrapper">
