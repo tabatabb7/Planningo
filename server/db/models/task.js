@@ -13,7 +13,7 @@ const Task = db.define("tasks", {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
   },
-  imageUrl:{
+  imageUrl: {
     type: Sequelize.TEXT,
   },
   isShopping: {
@@ -25,5 +25,4 @@ const Task = db.define("tasks", {
   },
 });
 
-
-module.exports = Task
+module.exports = Task;

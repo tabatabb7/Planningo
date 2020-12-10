@@ -8,6 +8,10 @@ import {
 import "./taskmodal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowLeft,
+  faArrowRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 class CreateTaskModal extends Component {
   constructor(props) {
@@ -17,6 +21,7 @@ class CreateTaskModal extends Component {
       selected: "",
       description: "",
       points: 0,
+      selected: "",
       error: null
     };
     this.handleChange = this.handleChange.bind(this);
@@ -66,9 +71,15 @@ class CreateTaskModal extends Component {
   render() {
     let { groups } = this.props.tasks;
 
+   const listCategories = this.props.groups.map((group) => group.categories)
+   const categories = listCategories[0]
+   console.log('THIS PROPTS GROUP!!!', this.props.groups)
+   console.log(categories)
+
     if (!this.props.show) {
       return null;
     }
+
     return (
       <div>
         <div>{this.props.children}</div>
@@ -113,6 +124,19 @@ class CreateTaskModal extends Component {
               />
             </form>
 
+            <div id="task-box-categories">
+              <h3 id="cat-title">Category</h3>
+            {categories ?
+             categories.map((category)=>(
+               <div key={category.id} className="each-cat-wrap">
+                <div id="cat-icon-wrap"  style={{backgroundColor: category.color}}>
+                 <img src={category.imageUrl} className="cat-icon"></img>
+                 </div>
+                 {category.name}
+                 </div>
+                )): 'null'}
+             </div>
+
             <form id="group-form" onSubmit={this.handleSubmit}>
               <label htmlFor="selected"></label>
               <select
@@ -140,6 +164,7 @@ class CreateTaskModal extends Component {
 
 const mapState = (state) => ({
   tasks: state.tasks,
+  groups: state.groups
 });
 
 const mapDispatch = (dispatch) => ({
