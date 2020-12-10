@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { updateGroupThunk, fetchSingleGroup } from "../../store/singleGroup";
 import { Link } from "react-router-dom";
 import { addToGroupThunk, deleteFromGroupThunk } from "../../store/singleGroup";
+import "./singlegroup.css"
 
 class SingleGroup extends React.Component {
   constructor(props) {
@@ -70,7 +71,7 @@ class SingleGroup extends React.Component {
           <div>
             {group.users.map((user) => (
               <div key={user.id}>
-                <img src={user.avatarUrl} />
+                <img src={user.avatarUrl} className="user-avatar"/>
                 {(() => {
                   if (user.User_Group.role === "admin") {
                     return (

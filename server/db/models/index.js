@@ -14,14 +14,14 @@ const User_Group = db.define("User_Group", {
     type: Sequelize.ENUM("admin", "member"),
     defaultValue: "member",
   },
-  points: {
-    type: Sequelize.INTEGER,
-    defaultValue: 0
-  },
   color: {
     type: Sequelize.STRING,
     defaultValue: "#EAEACF"
   },
+  points: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0
+  }
 });
 User.belongsToMany(Group, { through: "User_Group" });
 Group.belongsToMany(User, { through: "User_Group" });

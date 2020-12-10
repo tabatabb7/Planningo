@@ -1,68 +1,78 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
 import { logout } from "../../store";
-import "./sidenav.css"
+import PropTypes from "prop-types";
+import { fetchGroupsThunk } from "../../store/allGroups";
+import "./sidenav.css";
 
 class SideNav extends React.Component {
   constructor(props) {
     super(props);
   }
+  componentDidMount() {
+    this.props.fetchGroups(this.props.user.id);
+  }
+
+  async handleDelete(id) {
+    try {
+      await this.props.deleteGroup(id);
+      this.props.fetchGroups();
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   render() {
-    let { handleClick, isLoggedIn, user, groups } = this.props;
+    let { groups, user, handleClick } = this.props;
     return (
       <div className="side-nav-wrapper">
-        {isLoggedIn ? (
-          <div id="rightlink">
-            <img src={user.avatarUrl} id="user-icon"></img>
-            {user.firstName}
-            <React.Fragment>
-              <h3 className="tool-title">My Groups</h3>
-              {!groups ? (
-                "You are not a part of any groups."
-              ) : (
-                <div id="group-box">
-                  {groups.map((group) => (
-                    <div key={group.id} className="singlegroup">
-                      <Link to={`/groups/${group.id}`}>
-                        <img src={group.imageUrl}></img>
-                        {group.name}
-                      </Link>
-                    </div>
-                  ))}
-                  <Link to={"/groups"}>Group Settings</Link>
-                </div>
-              )}
-              <a href="#" onClick={handleClick}>
-                <p>logout</p>
-              </a>
-            </React.Fragment>
-          </div>
+        <div id="nav-user-wrap">
+          <img src={user.avatarUrl} id="user-icon"></img>
+          {user.firstName}
+        </div>
+
+        <h4 className="nav-tool-title">My Groups</h4>
+        {!groups.length ? (
+          "You are not a part of any groups."
         ) : (
-          <div id="rightlink">
-            <React.Fragment>
-              <Link to="/login">
-                <div className="icon"></div>
-                <p>sign in/</p>
-                <p>register</p>
-              </Link>
-            </React.Fragment>
+          <div id="nav-group">
+            {groups.map((group) => (
+              <div
+                key={group.id}
+                id="each-nav-group"
+                style={{ backgroundColor: group.color }}
+              >
+                <Link to={`/groups/${group.id}`}>
+                  <img src={group.imageUrl} className="nav-group-icon"></img>
+                  <div id="nav-group-name">{group.name}</div>
+                </Link>
+              </div>
+            ))}
           </div>
         )}
+              <div className="nav-user-links-wrap">
+        <div className="nav-user-links a">
+          <Link to="/groups">Group Settings</Link>
+        </div>
+        <div className="nav-user-links b">
+          <a href="#" onClick={handleClick}>
+            logout
+          </a>
+        </div>
+        </div>
       </div>
     );
   }
 }
 
 const mapState = (state) => ({
+  groups: state.groups,
   user: state.user,
-  groups: state.user.groups,
-  isLoggedIn: !!state.user.id,
 });
 
 const mapDispatch = (dispatch) => ({
+  fetchGroups: (userId) => dispatch(fetchGroupsThunk(userId)),
   handleClick: () => dispatch(logout()),
 });
 
