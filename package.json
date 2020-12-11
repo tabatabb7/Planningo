@@ -15,6 +15,7 @@
     "postinstall": "touch secrets.js",
     "seed": "node seed/seed.js",
     "start": "node server",
+    "start-dev": "react-scripts build && nodemon server",
     "start-server": "nodemon server -e html,js,scss --ignore public --ignore client",
     "test": "mocha ./tests --recursive --exit --watch"
   },
