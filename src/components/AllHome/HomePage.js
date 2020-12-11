@@ -6,9 +6,9 @@ export const HomePage = () => {
   return (
     <div
       className="homepage-wrap"
-      style={{
-        backgroundImage: "url(" + "/assets/backgrounds/coworker-bg.png" + ")",
-      }}
+      // style={{
+      //   backgroundImage: "url(" + "/assets/backgrounds/coworker-bg.png" + ")",
+      // }}
     >
       <div id="site-home-header">
         <div id="header-wrap-home">
@@ -21,12 +21,12 @@ export const HomePage = () => {
       </div>
 
       <div id="site-home-content">
-        <img
+        {/* <img
           src={"/assets/arabica-1055.png"}
           id="bunnyphone"
           height="245"
           width="245"
-        ></img>
+        ></img> */}
         <div id="site-home-verbs">Organize * Share * Manage * Track</div>
         <p className="site-home-intro">
           Create, add, and edit custom groups to help sort important tasks and

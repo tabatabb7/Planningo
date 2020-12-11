@@ -21,7 +21,7 @@ class AuthForm extends React.Component {
     super(props);
 
     this.state = {
-      selected: "/assets/icons/users/002-girl.png",
+      selected: "/assets/icons/users/002-girl.jpg",
     };
   }
 
@@ -66,14 +66,14 @@ class AuthForm extends React.Component {
       return (
         <img
           key={image}
-          src={`/assets/icons/users/${image}.png`}
+          src={`/assets/icons/users/${image}.jpg`}
           className={
-            this.state.selected === `/assets/icons/users/${image}.png`
+            this.state.selected === `/assets/icons/users/${image}.jpg`
               ? "pick-avatar selected"
               : "pick-avatar"
           }
           onClick={() => {
-            this.setState({ selected: `/assets/icons/users/${image}.png` });
+            this.setState({ selected: `/assets/icons/users/${image}.jpg` });
           }}
           value={image}
         />

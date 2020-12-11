@@ -10,10 +10,13 @@
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <script>
       var host = "https://taskpwa.herokuapp.com/";
-      if ((host == window.location.host) && (window.location.protocol != "https:")){
-      window.location.protocol = "https";
+      if (
+        host == window.location.host &&
+        window.location.protocol != "https:"
+      ) {
+        window.location.protocol = "https";
       }
-      </script>
+    </script>
 
     <style>
       * {
@@ -38,22 +41,16 @@
     </style>
 
     <title>Task PWA</title>
-    <link crossorigin rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link crossorigin rel="preload" href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap"></noscript>
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"></noscript>
-    <link crossorigin rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap"></noscript>
 
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link media="print" onload="this.onload=null;this.removeAttribute('media');" href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Open+Sans&family=Poppins:wght@400;800&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Open+Sans&family=Poppins:wght@400;800&family=Roboto:wght@400;700&display=swap">
+  </noscript>
 
   </head>
   <body>
-    <!-- <script
-      type="module"
-      src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate"
-    ></script>
-    <pwa-update offlineToastDuration="0" swpath="pwabuilder-sw.js"></pwa-update>-->
-
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="app"></div>
   </body>
