@@ -28,7 +28,7 @@ const User = db.define("user", {
   },
   avatarUrl: {
     type: Sequelize.TEXT,
-    defaultValue: "/assets/icons/users/002-girl.png",
+    defaultValue: "/assets/icons/users/002-girl.jpg",
   },
   //for protecting api routes
   isAdmin: {
