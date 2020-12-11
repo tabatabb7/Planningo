@@ -11,9 +11,9 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 const socketio = require("socket.io");
 const bodyParser = require("body-parser");
-const cors = require("cors");
 
 module.exports = app;
+
 
 /**
  * In your development environment, you can keep all of your
@@ -48,8 +48,6 @@ const createApp = () => {
   // compression middleware
   app.use(compression());
 
-  app.use(cors());
-
   // using bodyParser to parse JSON bodies into JS objects
   app.use(bodyParser.json());
 
@@ -71,7 +69,7 @@ const createApp = () => {
   app.use("/api", require("./api"));
 
   // static file-serving middleware
-  app.use(express.static(path.join(__dirname, "..", "build")));
+  app.use(express.static(path.join(__dirname, "..", "public")));
 
   // any remaining requests with an extension (.js, .css, etc.) send 404
   app.use((req, res, next) => {
@@ -86,7 +84,7 @@ const createApp = () => {
 
   // sends index.html
   app.use("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "..", "build/index.html"));
+    res.sendFile(path.join(__dirname, "..", "public/index.html"));
   });
 
   // error handling endware
@@ -109,6 +107,7 @@ const startListening = () => {
 };
 
 const syncDb = () => db.sync();
+
 
 async function bootApp() {
   await sessionStore.sync();
