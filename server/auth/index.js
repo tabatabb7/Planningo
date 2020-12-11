@@ -5,7 +5,7 @@ module.exports = router;
 //login
 router.post("/login", async (req, res, next) => {
   try {
-    const user = await User.findOne({ where: { email: req.body.email }});
+    const user = await User.findOne({ where: { email: req.body.email } });
     if (!user) {
       console.log("No such user found:", req.body.email);
       res.status(401).send("Wrong username and/or password");
@@ -20,21 +20,20 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
-router.post('/signup', async (req, res, next) => {
+router.post("/signup", async (req, res, next) => {
   try {
-    const user = await User.create(req.body)
-    req.login(user, err => (err ? next(err) : res.json(user)))
+    const user = await User.create(req.body);
+    req.login(user, (err) => (err ? next(err) : res.json(user)));
   } catch (err) {
-    if (err.name === 'SequelizeUniqueConstraintError') {
-      res.status(401).send('This email already exists.')
-    } else if (err.name === 'SequelizeValidationError'){
-      res.status(401).send('Please enter a valid e-mail address.')
-    }
-    else {
-      next(err)
+    if (err.name === "SequelizeUniqueConstraintError") {
+      res.status(401).send("This email already exists.");
+    } else if (err.name === "SequelizeValidationError") {
+      res.status(401).send("Please enter a valid e-mail address.");
+    } else {
+      next(err);
     }
   }
-})
+});
 
 router.post("/logout", (req, res) => {
   req.logout();

@@ -24,6 +24,11 @@
   align-items: center;
   flex-direction: column;
   overflow-y: auto;
+  font-family: "Roboto", sans-serif;
+  font-size: medium;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-weight: bold;
 }
 
 #site-home-header {
@@ -42,12 +47,11 @@
   box-shadow: 0 4px 4px -4px rgba(0, 0, 0, 0.2);
 }
 
-#header-wrap-home{
+#header-wrap-home {
   width: 90%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-
 }
 
 #links-home {
@@ -59,7 +63,6 @@
   /* width: 20%; */
 }
 
-
 #navtitle {
   font-family: "Nanum Pen Script", cursive;
   font-size: 30px;
@@ -69,4 +72,9 @@
 #links-home a {
   color: #3b301b;
   text-decoration: none;
+}
+
+#bunnyphone {
+  display: block;
+  margin-left: auto;
 }

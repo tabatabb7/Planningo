@@ -15,11 +15,11 @@ router.get("/", async (req, res, next) => {
     const group = await req.user.getGroups({
       include: [
         {
-          model: Category
-        }
-      ]
-    })
-    console.log(group)
+          model: Category,
+        },
+      ],
+    });
+    console.log(group);
     res.json(group);
   } catch (err) {
     next(err);
@@ -231,7 +231,6 @@ router.get("/:groupId/shopping", async (req, res, next) => {
   }
 });
 
-
 // POST /api/groups/:groupId/tasks
 router.post("/:groupId/tasks", async (req, res, next) => {
   try {
@@ -271,14 +270,13 @@ router.post("/:groupId/tasks", async (req, res, next) => {
   }
 });
 
-
 // POST /api/groups/:groupId/tasks
 router.put("/:groupId/tasks", async (req, res, next) => {
   try {
     const task = await Task.findByPk(req.body.taskId);
     task.update(req.body);
     res.json(task);
-    console.log(task)
+    console.log(task);
   } catch (err) {
     next(err);
   }
@@ -334,26 +332,25 @@ router.get("/:groupId/shopping", async (req, res, next) => {
   }
 });
 
-
 //GET /api/groups/:groupId/rewards
 router.get("/:groupId/rewards", async (req, res, next) => {
   try {
     const groupPoints = await Point.findAll({
       where: {
-        groupId: req.params.groupId
+        groupId: req.params.groupId,
       },
       include: [
         {
-          model: User
+          model: User,
         },
-      ]
-    })
-    console.log('GROUP POINTS!!!!!', groupPoints)
-    res.json(groupPoints)
+      ],
+    });
+    console.log("GROUP POINTS!!!!!", groupPoints);
+    res.json(groupPoints);
   } catch (err) {
-    next (err) 
+    next(err);
   }
-})
+});
 
 //GET api/groups/:groupId/:userId/rewards
 router.get("/:groupId/:userId/rewards", async (req, res, next) => {
@@ -374,6 +371,5 @@ router.get("/:groupId/:userId/rewards", async (req, res, next) => {
     next(err);
   }
 });
-
 
 module.exports = router;

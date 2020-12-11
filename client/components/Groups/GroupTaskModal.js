@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-  fetchSingleGroup,
-  addGroupTaskThunk,
-} from "../../store/singleGroup";
+import { fetchSingleGroup, addGroupTaskThunk } from "../../store/singleGroup";
 import "./grouptaskmodal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -17,7 +14,7 @@ class GroupTaskModal extends Component {
       description: "",
       points: 0,
       groupId: this.props.groupId,
-      error: null
+      error: null,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -41,7 +38,7 @@ class GroupTaskModal extends Component {
         name: "",
         selected: "",
         description: "",
-        points: 0
+        points: 0,
       });
       await this.props.fetchGroup(this.props.groupId);
       this.props.onClose();
@@ -112,23 +109,27 @@ class GroupTaskModal extends Component {
               />
             </form>
 
-          <form id="user-form" onSubmit={this.handleSubmit}>
-            <label htmlFor="selected"></label>
-            <select
-              value={this.state.selected}
-              onChange={this.handleChange}
-              name="selected"
-            >
-              <option value="" disabled>
-                Select User
-              </option>
-              {group && group.users
-                ? group.users.map((user) => (
-                    <option key={user.id}>{user.firstName} {user.lastName}</option>
-                  ))
-                : "There are no users"}
+            <form id="user-form" onSubmit={this.handleSubmit}>
+              <label htmlFor="selected"></label>
+              <select
+                value={this.state.selected}
+                onChange={this.handleChange}
+                name="selected"
+              >
+                <option value="" disabled>
+                  Select User
+                </option>
+                {group && group.users
+                  ? group.users.map((user) => (
+                      <option key={user.id}>
+                        {user.firstName} {user.lastName}
+                      </option>
+                    ))
+                  : "There are no users"}
               </select>
-              <button id="group-modal-submit-button" type="submit">Add</button>
+              <button id="group-modal-submit-button" type="submit">
+                Add
+              </button>
             </form>
           </div>
         </div>
@@ -139,7 +140,7 @@ class GroupTaskModal extends Component {
 
 const mapState = (state) => ({
   userId: state.user.id,
-  group: state.singleGroup
+  group: state.singleGroup,
 });
 
 const mapDispatch = (dispatch) => ({

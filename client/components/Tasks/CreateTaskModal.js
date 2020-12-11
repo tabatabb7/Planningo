@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Categories from "./Categories"
+import Categories from "./Categories";
 import {
   fetchTasksThunk,
   removeTaskThunk,
@@ -20,7 +20,7 @@ class CreateTaskModal extends Component {
       points: 0,
       selected: "",
       // chosenGroup: [],
-      error: null
+      error: null,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -36,7 +36,7 @@ class CreateTaskModal extends Component {
     event.preventDefault();
     try {
       if (this.state.name == "" || this.state.selected == "") {
-        alert("task name OR group can't be empty!")
+        alert("task name OR group can't be empty!");
       } else {
         await this.props.addTask(this.state);
         await this.props.fetchTasks();
@@ -44,7 +44,7 @@ class CreateTaskModal extends Component {
           name: "",
           selected: "",
           description: "",
-          points: 0
+          points: 0,
         });
         this.props.onClose();
       }
@@ -73,23 +73,21 @@ class CreateTaskModal extends Component {
   //   this.setState({chosenGroup: chosenGroup})
   // }
 
-
   render() {
     const { groups } = this.props.tasks;
     // const chosenGroup = this.props.groups.filter((group) => group.name === this.state.selected)
     // console.log("Chosen!!!!!", chosenGroup)
 
-
-   const listCategories = this.props.groups.map((group) => group.categories)
-  //  console.log('LIST CATEGORIES', listCategories)
-   const dupCategories = listCategories.flat()
-   let categories = []
-   dupCategories.forEach((cat) => {
-     if(!categories.includes(cat.name && !cat.groupId)) {
-       categories.push(cat)
-     }
-   })
-  //  console.log("CATEGORIES!!!!!--->", categories)
+    const listCategories = this.props.groups.map((group) => group.categories);
+    //  console.log('LIST CATEGORIES', listCategories)
+    const dupCategories = listCategories.flat();
+    let categories = [];
+    dupCategories.forEach((cat) => {
+      if (!categories.includes(cat.name && !cat.groupId)) {
+        categories.push(cat);
+      }
+    });
+    //  console.log("CATEGORIES!!!!!--->", categories)
 
     if (!this.props.show) {
       return null;
@@ -139,22 +137,24 @@ class CreateTaskModal extends Component {
               />
             </form>
 
-
             <div id="task-box-categories">
               <h3 id="cat-title">Category</h3>
-                {categories ?
-                  categories.map((category)=>(
+              {categories
+                ? categories.map((category) => (
                     <div key={category.id} className="each-cat-wrap">
-                    <div id="cat-icon-wrap"  style={{backgroundColor: category.color}}>
-                    <img src={category.imageUrl} className="cat-icon"></img>
-                    </div>
+                      <div
+                        id="cat-icon-wrap"
+                        style={{ backgroundColor: category.color }}
+                      >
+                        <img src={category.imageUrl} className="cat-icon"></img>
+                      </div>
                       {category.name}
-                 </div>
-                  )): 'null'
-                }
-             </div> 
+                    </div>
+                  ))
+                : "null"}
+            </div>
 
-             {/* <div id="task-box-category">
+            {/* <div id="task-box-category">
               <h3 id="cat-title">Category</h3>
           {this.state.chosenGroup & this.state.chosenGroup.length > 0 ? 
           <Categories chosenGroup={this.state.chosenGroup}/> :
@@ -178,7 +178,9 @@ class CreateTaskModal extends Component {
                     ))
                   : "There are no groups"}
               </select>
-              <button type="submit" id="modal-submit-button">Add</button>
+              <button type="submit" id="modal-submit-button">
+                Add
+              </button>
             </form>
           </div>
         </div>
@@ -189,7 +191,7 @@ class CreateTaskModal extends Component {
 
 const mapState = (state) => ({
   tasks: state.tasks,
-  groups: state.groups
+  groups: state.groups,
 });
 
 const mapDispatch = (dispatch) => ({

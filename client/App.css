@@ -12,7 +12,7 @@
   top: 0;
   width: 100vw;
   min-height: 40px;
-    box-shadow: 0 4px 4px -4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 4px -4px rgba(0, 0, 0, 0.2);
   z-index: 200;
 }
 
@@ -47,7 +47,7 @@
   box-shadow: 4px 0 5px -2px rgba(0, 0, 0, 0.1);
 }
 
-#open-close{
+#open-close {
   display: none;
 }
 
@@ -57,11 +57,11 @@
     display: block;
     position: fixed;
     z-index: 999;
-   color: white;
-   font-size: 25px;
-   margin-left: 2%;
-   margin-top: 2%;
-   cursor: pointer;
+    color: white;
+    font-size: 25px;
+    margin-left: 2%;
+    margin-top: 2%;
+    cursor: pointer;
   }
 
   .sidenav.open {

@@ -14,7 +14,6 @@ const bodyParser = require("body-parser");
 
 module.exports = app;
 
-
 /**
  * In your development environment, you can keep all of your
  * app's secret API keys in a file called `secrets.js`, in your project
@@ -107,7 +106,6 @@ const startListening = () => {
 };
 
 const syncDb = () => db.sync();
-
 
 async function bootApp() {
   await sessionStore.sync();

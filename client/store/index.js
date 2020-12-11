@@ -9,14 +9,13 @@ import groups from "./allGroups";
 import singleGroup from "./singleGroup";
 import points from "./point";
 
-
 const reducer = combineReducers({
   user,
   singleTask,
   tasks,
   groups,
   singleGroup,
-  points
+  points,
 });
 
 const middleware = composeWithDevTools(

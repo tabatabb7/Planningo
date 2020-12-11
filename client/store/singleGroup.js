@@ -13,8 +13,7 @@ export const setSingleGroup = (group) => {
   };
 };
 
-const addGroupTask = (task) => ({type: ADD_GROUP_TASK, task})
-
+const addGroupTask = (task) => ({ type: ADD_GROUP_TASK, task });
 
 //THUNK CREATORS
 
@@ -45,7 +44,9 @@ export const fetchSingleGroupTasks = (groupId) => {
 export const fetchSingleGroupShopping = (groupId) => {
   return async (dispatch) => {
     try {
-      const { data: group } = await axios.get(`/api/groups/${groupId}/shopping`);
+      const { data: group } = await axios.get(
+        `/api/groups/${groupId}/shopping`
+      );
       dispatch(setSingleGroup(group));
     } catch (err) {
       console.error("There was a problem fetching this group!");
@@ -70,11 +71,9 @@ export const updateGroupThunk = (group) => {
 export const addToGroupThunk = (groupId, userId) => {
   return async (dispatch) => {
     try {
-      const { data: newUser } = await axios.post(
-        `/api/groups/${groupId}`, {
-          userId
-        }
-      );
+      const { data: newUser } = await axios.post(`/api/groups/${groupId}`, {
+        userId,
+      });
       dispatch(setSingleGroup(newUser));
     } catch (err) {
       console.log(err);
@@ -87,8 +86,9 @@ export const deleteFromGroupThunk = (groupId, userId) => {
   return async (dispatch) => {
     try {
       const { data: deletedUser } = await axios.delete(
-        `/api/groups/${groupId}`, {
-          userId
+        `/api/groups/${groupId}`,
+        {
+          userId,
         }
       );
       dispatch(setSingleGroup(deletedUser));
@@ -101,7 +101,10 @@ export const deleteFromGroupThunk = (groupId, userId) => {
 // add task to group
 export const addGroupTaskThunk = (groupId, task) => async (dispatch) => {
   try {
-    const { data: newGroupTask } = await axios.post(`/api/groups/${groupId}/tasks`, task);
+    const { data: newGroupTask } = await axios.post(
+      `/api/groups/${groupId}/tasks`,
+      task
+    );
     dispatch(addGroupTask(newGroupTask));
   } catch (error) {
     console.error("Error adding task!");
@@ -111,14 +114,16 @@ export const addGroupTaskThunk = (groupId, task) => async (dispatch) => {
 
 export const addGroupItemThunk = (groupId, task) => async (dispatch) => {
   try {
-    const { data: newGroupTask } = await axios.post(`/api/groups/${groupId}/shopping`, task);
+    const { data: newGroupTask } = await axios.post(
+      `/api/groups/${groupId}/shopping`,
+      task
+    );
     dispatch(addGroupTask(newGroupTask));
   } catch (error) {
     console.error("Error adding shopping item!");
     console.error(error);
   }
 };
-
 
 //INITIAL STATE
 const initialState = {};
@@ -130,7 +135,7 @@ const singleGroupReducer = (state = initialState, action) => {
     case SET_SINGLE_GROUP:
       return action.group;
     case ADD_GROUP_TASK:
-      return {...state, ...action.task}
+      return { ...state, ...action.task };
     default:
       return state;
   }

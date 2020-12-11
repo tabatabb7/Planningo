@@ -10,7 +10,7 @@ const User = db.define("user", {
     validate: {
       notEmpty: true,
       isEmail: true,
-    }
+    },
   },
   firstName: {
     type: Sequelize.STRING,
@@ -31,7 +31,7 @@ const User = db.define("user", {
     defaultValue: "/assets/icons/users/002-girl.png",
   },
   //for protecting api routes
-  isAdmin:{
+  isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
   },

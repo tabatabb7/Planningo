@@ -163,7 +163,7 @@ class AuthForm extends React.Component {
                         <FontAwesomeIcon icon={faArrowLeft} />
                       </div>
                       Choose Icon
-                       <div className="form-icon">
+                      <div className="form-icon">
                         <FontAwesomeIcon icon={faArrowRight} />
                       </div>
                     </div>

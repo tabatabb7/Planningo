@@ -35,9 +35,14 @@ export const me = () => async (dispatch) => {
   }
 };
 
-export const auth = (email, password, method, firstName, lastName, avatarUrl) => async (
-  dispatch
-) => {
+export const auth = (
+  email,
+  password,
+  method,
+  firstName,
+  lastName,
+  avatarUrl
+) => async (dispatch) => {
   let res;
   try {
     res = await axios.post(`/auth/${method}`, {
@@ -46,7 +51,7 @@ export const auth = (email, password, method, firstName, lastName, avatarUrl) =>
       name,
       firstName,
       lastName,
-      avatarUrl
+      avatarUrl,
     });
     history.push("/home");
   } catch (authError) {
@@ -71,14 +76,20 @@ export const fetchUserThunk = (userId) => {
   };
 };
 
-export const updateUserThunk = (userId, firstName, lastName, email, avatarUrl) => {
+export const updateUserThunk = (
+  userId,
+  firstName,
+  lastName,
+  email,
+  avatarUrl
+) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.put(`/api/users/${userId}`, {
         firstName: firstName,
         lastName: lastName,
         email: email,
-        avatarUrl
+        avatarUrl,
       });
 
       dispatch(updateUser(data));

@@ -5,7 +5,6 @@
 // const localizer = momentLocalizer(moment);
 // import 'react-big-calendar/lib/css/react-big-calendar.css';
 
-
 // class AppCalendar extends React.Component {
 //   constructor() {
 //     super();
