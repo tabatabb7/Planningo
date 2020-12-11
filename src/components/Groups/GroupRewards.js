@@ -19,7 +19,7 @@ class GroupRewards extends React.Component {
     };
   }
   async componentDidMount() {
-    this.props.fetchGroup(this.props.match.params.groupId);
+    await this.props.fetchGroup(this.props.match.params.groupId);
     // this.props.fetchUserPoints(this.props.userId);
     await this.props.fetchGroupPoints(this.props.match.params.groupId);
     // this.props.fetchUserGroupPoints(
@@ -39,12 +39,12 @@ class GroupRewards extends React.Component {
   render() {
     const group = this.props.group;
     const points = this.props.points;
-
+    console.log("is it updated");
     return (
       <div className="group-reward-wrapper">
         <h1>Number of Points</h1>
-        {points ? (
-          group.users ? (
+        {points && points.length > 0 ? (
+          group.users && group.users.length > 0 ? (
             <div id="group-reward-user-wrap">
               {group.users.map((user) => (
                 <div key={user.id} id="group-reward-user">
@@ -54,20 +54,21 @@ class GroupRewards extends React.Component {
                   points
                 </div>
               ))}
-
-              <h3>Group Stats</h3>
-              <VictoryChart domainPadding={20} theme={VictoryTheme.material}>
-                <VictoryAxis
-                  tickValues={this.props.points.map((user) => user.firstName)}
-                />
-                <VictoryAxis dependentAxis tickFormat={(x) => `${x / 1}`} />
-                <VictoryBar
-                  data={this.props.points}
-                  x={"firstName"}
-                  y={"value"}
-                  style={{ data: { fill: "#ff7290" } }}
-                />
-              </VictoryChart>
+              <div>
+                <h3>Group Stats</h3>
+                <VictoryChart domainPadding={20} theme={VictoryTheme.material}>
+                  <VictoryAxis
+                    tickValues={this.props.points.map((user) => user.firstName)}
+                  />
+                  <VictoryAxis dependentAxis tickFormat={(x) => `${x / 1}`} />
+                  <VictoryBar
+                    data={this.props.points}
+                    x={"firstName"}
+                    y={"value"}
+                    style={{ data: { fill: "#ff7290" } }}
+                  />
+                </VictoryChart>
+              </div>
             </div>
           ) : (
             "This group has no members."
