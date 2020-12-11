@@ -73,24 +73,14 @@ class TaskList extends React.Component {
         <div id="task-box">
           <div className="task-box-header">My Tasks</div>
           <div className="task-box-body">
-            <div id="task-box-categories">Category</div>
+            <div id="task-box-categories">div</div>
 
             {/* LIST OF TASKS */}
             <div id="task-box-list">
               {tasks && tasks.length
                 ? tasks.map((task) => (
                     <div key={task.id} className="singletask">
-                      <a onClick={(e) => this.showTaskModal(e, task.id)}>
-                        {" "}
-                        {task.name}
-                      </a>
 
-                      <UpdateTaskModal
-                        selectedTask={task.id === this.state.taskId}
-                        task={task}
-                        onClose={(e) => this.showTaskModal(e)}
-                        showTask={this.state.showTask}
-                      />
 
                       <button
                         onClick={() =>
@@ -108,6 +98,17 @@ class TaskList extends React.Component {
                           <FontAwesomeIcon icon={faCheckCircle} />
                         </div>
                       </button>
+
+                      <a onClick={(e) => this.showTaskModal(e, task.id)}>
+                        {task.name}
+                      </a>
+
+                      <UpdateTaskModal
+                        selectedTask={task.id === this.state.taskId}
+                        task={task}
+                        onClose={(e) => this.showTaskModal(e)}
+                        showTask={this.state.showTask}
+                      />
                       <button
                         onClick={() => this.handleDelete(task.id)}
                         className="deleteTask"

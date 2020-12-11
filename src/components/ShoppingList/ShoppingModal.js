@@ -5,7 +5,7 @@ import {
   addShoppingItemThunk,
   removeTaskThunk,
 } from "../../store/tasks";
-import "./taskmodal.css";
+// import "./taskmodal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 

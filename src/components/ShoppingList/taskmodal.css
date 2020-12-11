@@ -1,5 +1,4 @@
-/* modal container */
-.task-modal-content {
+/* .task-modal-content {
   width: 60vw;
   height: 50vh;
   max-width: 600px;
@@ -65,7 +64,6 @@
   flex-direction: column;
 }
 
-/* Form */
 #add-task-form {
   width: 95%;
   display: flex;
@@ -82,14 +80,6 @@
   color: white;
 }
 
-.modal-input {
-  width: 70%;
-  resize: none;
-  min-height: 20%;
-  margin-bottom: 1%;
-  border-radius: 5px;
-  border: 1px solid #a0c391;
-}
 
 #modal-submit-button {
   background-color: #e6988e;
@@ -119,4 +109,4 @@
 
 #group-form select {
   width: 50%;
-}
+} */
