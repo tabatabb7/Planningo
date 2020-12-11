@@ -11,6 +11,7 @@
     "deploy": "script/deploy",
     "heroku-token": "script/encrypt-heroku-auth-token.js",
     "prettify": "prettier --write \"**/*.{js,jsx,json,css,scss,md}\"",
+      "eject": "react-scripts eject",
     "postinstall": "touch secrets.js",
     "seed": "node seed/seed.js",
     "start": "node server",
