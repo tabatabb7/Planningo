@@ -2,24 +2,59 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="manifest" href="/manifest.json" />
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta name="description" content="Progressive Web App" />
+    <meta name="description" content="Our PWA" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <script>
+      var host = "https://taskpwa.herokuapp.com/";
+      if ((host == window.location.host) && (window.location.protocol != "https:")){
+      window.location.protocol = "https";
+      }
+      </script>
+
+    <style>
+      * {
+        margin: 0px;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #fefde9;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      input,
+      textarea {
+        font-family: "Roboto", sans-serif;
+      }
+    </style>
+
     <title>Task PWA</title>
-    <script defer src="/bundle.js"></script>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link crossorigin rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link crossorigin rel="preload" href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap"></noscript>
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"></noscript>
+    <link crossorigin rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap"></noscript>
+
+
   </head>
   <body>
     <!-- <script
       type="module"
       src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate"
     ></script>
-    <pwa-update offlineToastDuration="0" swpath="pwabuilder-sw.js"></pwa-update>
-    <noscript>You need to enable JavaScript to run this app.</noscript> -->
+    <pwa-update offlineToastDuration="0" swpath="pwabuilder-sw.js"></pwa-update>-->
+
+    <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="app"></div>
   </body>
 </html>

@@ -11,6 +11,7 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 const socketio = require("socket.io");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 module.exports = app;
 
@@ -47,6 +48,8 @@ const createApp = () => {
   // compression middleware
   app.use(compression());
 
+  app.use(cors());
+
   // using bodyParser to parse JSON bodies into JS objects
   app.use(bodyParser.json());
 
@@ -68,7 +71,7 @@ const createApp = () => {
   app.use("/api", require("./api"));
 
   // static file-serving middleware
-  app.use(express.static(path.join(__dirname, "..", "public")));
+  app.use(express.static(path.join(__dirname, "..", "build")));
 
   // any remaining requests with an extension (.js, .css, etc.) send 404
   app.use((req, res, next) => {
@@ -83,7 +86,7 @@ const createApp = () => {
 
   // sends index.html
   app.use("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "..", "public/index.html"));
+    res.sendFile(path.join(__dirname, "..", "build/index.html"));
   });
 
   // error handling endware
