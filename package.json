@@ -7,7 +7,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "build-client": "webpack -p",
+    "build-client": "webpack",
     "build-client-watch": "webpack -w",
     "heroku-postbuild": "webpack -p",
     "deploy": "script/deploy",
@@ -104,5 +104,17 @@
     "webpack": "^4.36.1",
     "webpack-bundle-analyzer": "^4.2.0",
     "webpack-cli": "^3.1.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
