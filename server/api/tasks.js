@@ -129,7 +129,7 @@ router.post("/shopping", async (req, res, next) => {
 
 router.put("/", async (req, res, next) => {
   try {
-    const task = await Task.findByPk(req.params.taskId);
+    const task = await Task.findByPk(req.body.taskId);
     task.update(req.body);
     res.json(task);
   } catch (err) {

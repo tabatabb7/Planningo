@@ -10,9 +10,9 @@ const fetchUserPoints = (points) => ({
   type: GET_USER_POINTS,
   points,
 });
-const fetchGroupPoints = (group) => ({
+const fetchGroupPoints = (groupPoints) => ({
   type: GET_GROUP_POINTS,
-  group,
+  groupPoints,
 });
 const fetchUserGroupPoints = (points) => ({
   type: GET_USERGROUP_POINTS,
@@ -43,9 +43,11 @@ export const fetchUserPointsThunk = (userId) => {
 export const fetchGroupPointsThunk = (groupId) => {
   return async (dispatch) => {
     try {
-      const { data: group } = await axios.get(`/api/groups/${groupId}/rewards`);
-      console.log('GROUP OBJ W DATA"', group);
-      dispatch(fetchGroupPoints(group));
+      const { data: groupPoints } = await axios.get(
+        `/api/groups/${groupId}/rewards`
+      );
+      console.log('GROUP OBJ W DATA"', groupPoints);
+      dispatch(fetchGroupPoints(groupPoints));
     } catch (error) {
       console.error("there was an error fetching group points!");
     }
@@ -67,7 +69,7 @@ export const fetchUserGroupPointsThunk = (userId, groupId) => {
 };
 
 export const postCompletedPointsThunk = (taskId) => {
-  console.log("INSIDE POINTS COMPLETE THUNK!");
+  // console.log("INSIDE POINTS COMPLETE THUNK!");
   return async (dispatch) => {
     try {
       const { data: pointEntry } = await axios.post(`/api/points/`, taskId);
@@ -103,7 +105,7 @@ export default function pointsReducer(state = initialState, action) {
     case GET_USER_POINTS:
       return action.points;
     case GET_GROUP_POINTS:
-      return action.group;
+      return action.groupPoints;
     case GET_USERGROUP_POINTS:
       return action.points;
     default:

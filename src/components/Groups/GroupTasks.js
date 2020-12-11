@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import GroupTaskModal from "./GroupTaskModal";
+import UpdateGroupTaskModal from "./UpdateGroupTask";
 import { removeTaskThunk } from "../../store/tasks";
 import { updateTaskCompletion } from "../../store/singletask";
 import { fetchSingleGroupTasks } from "../../store/singleGroup";
@@ -22,6 +23,7 @@ class GroupTaskList extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.showModal = this.showModal.bind(this);
+    this.showTaskModal = this.showTaskModal.bind(this);
   }
 
   componentDidMount() {
@@ -62,6 +64,10 @@ class GroupTaskList extends React.Component {
     this.setState({ show: !this.state.show });
   }
 
+  showTaskModal(e, taskId) {
+    this.setState({ taskId, showTask: !this.state.showTask });
+  }
+
   render() {
     let tasks = this.props.group.tasks;
     let group = this.props.group;
@@ -98,6 +104,19 @@ class GroupTaskList extends React.Component {
               {tasks && tasks.length
                 ? tasks.map((task) => (
                     <div key={task.id} className="group-singletask">
+                      <a onClick={(e) => this.showTaskModal(e, task.id)}>
+                        {" "}
+                        {task.name}
+                      </a>
+
+                      <UpdateGroupTaskModal
+                        selectedTask={task.id === this.state.taskId}
+                        task={task}
+                        onClose={(e) => this.showTaskModal(e)}
+                        showTask={this.state.showTask}
+                        groupId={this.props.match.params.groupId}
+                      />
+
                       <button
                         onClick={() =>
                           this.toggleCompleted(task.id, task.isCompleted)
@@ -114,7 +133,6 @@ class GroupTaskList extends React.Component {
                           <FontAwesomeIcon icon={faCheckCircle} />
                         </div>
                       </button>
-                      {task.name}
 
                       <div>---worth {task.Task_Group.points} POINTS</div>
 

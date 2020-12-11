@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import Categories from "./Categories";
 import {
   fetchTasksThunk,
   removeTaskThunk,
@@ -8,7 +9,6 @@ import {
 import "./taskmodal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 class CreateTaskModal extends Component {
   constructor(props) {
@@ -65,13 +65,28 @@ class CreateTaskModal extends Component {
     this.props.onClose && this.props.onClose(e);
   };
 
+  // cats() {
+  //   const chosenGroup = this.props.groups.filter((group) => group.name === this.state.selected)
+  //   console.log("Chosen!!!!!", chosenGroup)
+
+  //   this.setState({chosenGroup: chosenGroup})
+  // }
+
   render() {
-    let { groups } = this.props.tasks;
+    const { groups } = this.props.tasks;
+    // const chosenGroup = this.props.groups.filter((group) => group.name === this.state.selected)
+    // console.log("Chosen!!!!!", chosenGroup)
 
     const listCategories = this.props.groups.map((group) => group.categories);
-    const categories = listCategories[0];
-    console.log("THIS PROPTS GROUP!!!", this.props.groups);
-    console.log(categories);
+    //  console.log('LIST CATEGORIES', listCategories)
+    const dupCategories = listCategories.flat();
+    let categories = [];
+    dupCategories.forEach((cat) => {
+      if (!categories.includes(cat.name && !cat.groupId)) {
+        categories.push(cat);
+      }
+    });
+    //  console.log("CATEGORIES!!!!!--->", categories)
 
     if (!this.props.show) {
       return null;
@@ -138,11 +153,19 @@ class CreateTaskModal extends Component {
                 : "null"}
             </div>
 
+            {/* <div id="task-box-category">
+              <h3 id="cat-title">Category</h3>
+          {this.state.chosenGroup & this.state.chosenGroup.length > 0 ?
+          <Categories chosenGroup={this.state.chosenGroup}/> :
+           'null'}
+            </div> */}
+
             <form id="group-form" onSubmit={this.handleSubmit}>
               <label htmlFor="selected"></label>
               <select
                 value={this.state.selected}
                 onChange={this.handleChange}
+                // onClick={this.cats}
                 name="selected"
               >
                 <option value="" disabled>

@@ -6,6 +6,9 @@ const Point = db.define("points", {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
+  firstName: {
+    type: Sequelize.STRING,
+  },
 });
 
 module.exports = Point;

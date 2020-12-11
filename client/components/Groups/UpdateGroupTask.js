@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { updateTaskThunk } from "../../store/tasks";
-import { fetchTasksThunk } from "../../store/tasks";
-import "./taskmodal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { updateGroupTaskThunk, fetchTasksThunk } from "../../store/tasks";
+import { fetchSingleGroupTasks } from "../../store/singleGroup";
 
-class UpdateTaskModal extends Component {
+class UpdateGroupTaskModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
       name: this.props.task.name,
       selected: this.props.task.selected,
       description: this.props.task.description,
+      points: this.props.task.points,
       taskId: this.props.task.id,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -29,15 +29,16 @@ class UpdateTaskModal extends Component {
     event.preventDefault();
     try {
       if (this.state.name == "") {
-        alert("task name can't be empty!");
+        alert("Task name can't be empty!");
       } else {
-        await this.props.updateTask(this.state);
+        await this.props.updateGroupTask(this.state);
         this.setState({
           name: "",
           selected: "",
           description: "",
         });
-        alert(`Your task was updated! Redirecting you to your tasks page..`);
+        alert(`Task was updated! Redirecting you to the tasks page.`);
+        await this.props.fetchGroup(this.props.group.id);
         this.props.onClose();
       }
     } catch (err) {
@@ -50,7 +51,7 @@ class UpdateTaskModal extends Component {
   };
 
   render() {
-    let { groups } = this.props.tasks;
+    let group = this.props.group;
 
     if (!this.props.showTask || !this.props.selectedTask) {
       return null;
@@ -58,24 +59,24 @@ class UpdateTaskModal extends Component {
     return (
       <div>
         <div>{this.props.children}</div>
-        <div className="task-modal-content">
-          <div id="top-taskmodal-div">
-            <div id="modal-title">YOUR TASK</div>
+        <div className="group-task-modal-content">
+          <div id="group-top-taskmodal-div">
+            <div id="group-modal-title">UPDATE TASK</div>
             <button
               onClick={(e) => this.onClose(e)}
-              className="close-modal-btn"
+              className="group-close-modal-btn"
             >
               <FontAwesomeIcon icon={faTimes} />
             </button>
           </div>
 
-          <div id="lower-taskmodal-div">
-            <form id="add-task-form" onSubmit={this.handleSubmit}>
+          <div id="group-lower-taskmodal-div">
+            <form id="group-add-task-form" onSubmit={this.handleSubmit}>
               <label htmlFor="name">Task:</label>
               <input
                 name="name"
                 type="text"
-                className="modal-input"
+                className="group-modal-input"
                 onChange={this.handleChange}
                 value={this.state.name}
               />
@@ -85,13 +86,21 @@ class UpdateTaskModal extends Component {
                 name="description"
                 type="text"
                 rows="4"
-                className="modal-input"
+                className="group-modal-input"
                 onChange={this.handleChange}
                 value={this.state.description}
               />
+              <label htmlFor="points">Points:</label>
+              <textarea
+                name="points"
+                type="text"
+                className="modal-input"
+                onChange={this.handleChange}
+                value={this.state.points}
+              />
             </form>
 
-            <form id="group-form" onSubmit={this.handleSubmit}>
+            <form id="user-form" onSubmit={this.handleSubmit}>
               <label htmlFor="selected"></label>
               <select
                 value={this.state.selected}
@@ -99,15 +108,17 @@ class UpdateTaskModal extends Component {
                 name="selected"
               >
                 <option value="" disabled>
-                  Select Group
+                  Select User
                 </option>
-                {groups && groups.length
-                  ? groups.map((group) => (
-                      <option key={group.id}>{group.name} </option>
+                {group && group.users
+                  ? group.users.map((user) => (
+                      <option key={user.id}>
+                        {user.firstName} {user.lastName}
+                      </option>
                     ))
-                  : "There are no groups"}
+                  : "There are no users"}
               </select>
-              <button type="submit" id="modal-submit-button">
+              <button id="group-modal-submit-button" type="submit">
                 Update
               </button>
             </form>
@@ -119,12 +130,13 @@ class UpdateTaskModal extends Component {
 }
 
 const mapState = (state) => ({
-  tasks: state.tasks,
+  userId: state.user.id,
+  group: state.singleGroup,
 });
 
 const mapDispatch = (dispatch) => ({
-  fetchTasks: (userId) => dispatch(fetchTasksThunk(userId)),
-  updateTask: (task) => dispatch(updateTaskThunk(task)),
+  fetchGroup: (groupId) => dispatch(fetchSingleGroupTasks(groupId)),
+  updateGroupTask: (task) => dispatch(updateGroupTaskThunk(task)),
 });
 
-export default connect(mapState, mapDispatch)(UpdateTaskModal);
+export default connect(mapState, mapDispatch)(UpdateGroupTaskModal);

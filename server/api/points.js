@@ -48,6 +48,7 @@ router.post("/", async (req, res, next) => {
         taskId: taskId,
         userId: user.id,
         groupId: groupTask.groupId,
+        firstName: user.firstName,
       },
     });
 

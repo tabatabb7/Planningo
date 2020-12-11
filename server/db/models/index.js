@@ -60,6 +60,8 @@ User.hasMany(Point);
 Point.belongsTo(Group);
 Group.hasMany(Point);
 
+Point.belongsTo(Category);
+
 //export modules
 module.exports = {
   db,

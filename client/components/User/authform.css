@@ -47,7 +47,49 @@ color: #0E0E0E
   height: 40px;
   width: 200px;
 }
+#chooser-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 170px;
+}
 
+.image-pick {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #ff7290;
+  margin-top: 15px;
+}
+.pick-avatar {
+  width: 80px;
+  height: auto;
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: #eaeacf;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.pick-avatar.selected {
+  width: 80px;
+  height: auto;
+  cursor: pointer;
+  background-color: #ff511e;
+}
+
+#image-picker-box {
+  overflow-x: auto;
+  max-width: 300px;
+  display: flex;
+  height: 30%;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
 
 ::placeholder{
   color: #EF889E;
@@ -75,8 +117,8 @@ color: #0E0E0E
   width: 140px;
 }
 
-.form-button:hover{
-  background-color:#0E0E0E;
+.form-button:hover {
+  background-color: #d63f5f;
 }
 
 .forms a{
