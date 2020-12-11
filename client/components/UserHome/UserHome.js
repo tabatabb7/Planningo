@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import "./UserHome.css";
 // import moment from "moment";
 
-
 class UserHome extends React.Component {
   constructor(props) {
     super(props);
@@ -34,8 +33,8 @@ class UserHome extends React.Component {
                 return <h3>Hello, {firstName}.</h3>;
               }
             })()} */}
-            hello world
-          </div>
+        hello world
+      </div>
       //   </div>
       // </div>
     );
@@ -43,13 +42,12 @@ class UserHome extends React.Component {
 }
 const mapState = (state) => {
   return {
-    firstName: state.user.firstName
+    firstName: state.user.firstName,
   };
 };
-
 
 export default connect(mapState)(UserHome);
 
 UserHome.propTypes = {
-  firstName: PropTypes.string
+  firstName: PropTypes.string,
 };

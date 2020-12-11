@@ -44,8 +44,9 @@ export const fetchGroupPointsThunk = (groupId) => {
   return async (dispatch) => {
     try {
       const { data: groupPoints } = await axios.get(
-        `/api/groups/${groupId}/rewards`);
-      console.log('GROUP OBJ W DATA"', groupPoints)
+        `/api/groups/${groupId}/rewards`
+      );
+      console.log('GROUP OBJ W DATA"', groupPoints);
       dispatch(fetchGroupPoints(groupPoints));
     } catch (error) {
       console.error("there was an error fetching group points!");
@@ -102,9 +103,9 @@ export default function pointsReducer(state = initialState, action) {
     case DELETE_POINTS:
       return action.pointEntry;
     case GET_USER_POINTS:
-      return action.points
+      return action.points;
     case GET_GROUP_POINTS:
-      return action.groupPoints
+      return action.groupPoints;
     case GET_USERGROUP_POINTS:
       return action.points;
     default:

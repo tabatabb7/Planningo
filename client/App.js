@@ -39,9 +39,9 @@ class App extends React.Component {
                 : "closed"
             }`}
           >
-                    <div id="open-close" onClick={this.toggleSideNav}>
-          <FontAwesomeIcon icon={faTimes} />
-        </div>
+            <div id="open-close" onClick={this.toggleSideNav}>
+              <FontAwesomeIcon icon={faTimes} />
+            </div>
             <SideNav
               toggleSideNav={this.toggleSideNav}
               sideNavOpen={this.state.sideNavOpen}

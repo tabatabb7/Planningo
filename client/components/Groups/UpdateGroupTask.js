@@ -29,7 +29,7 @@ class UpdateGroupTaskModal extends Component {
     event.preventDefault();
     try {
       if (this.state.name == "") {
-        alert("Task name can't be empty!")
+        alert("Task name can't be empty!");
       } else {
         await this.props.updateGroupTask(this.state);
         this.setState({
@@ -37,7 +37,7 @@ class UpdateGroupTaskModal extends Component {
           selected: "",
           description: "",
         });
-        alert(`Task was updated! Redirecting you to the tasks page.`)
+        alert(`Task was updated! Redirecting you to the tasks page.`);
         await this.props.fetchGroup(this.props.group.id);
         this.props.onClose();
       }
@@ -100,23 +100,27 @@ class UpdateGroupTaskModal extends Component {
               />
             </form>
 
-          <form id="user-form" onSubmit={this.handleSubmit}>
-            <label htmlFor="selected"></label>
-            <select
-              value={this.state.selected}
-              onChange={this.handleChange}
-              name="selected"
-            >
-              <option value="" disabled>
-                Select User
-              </option>
-              {group && group.users
-                ? group.users.map((user) => (
-                    <option key={user.id}>{user.firstName} {user.lastName}</option>
-                  ))
-                : "There are no users"}
+            <form id="user-form" onSubmit={this.handleSubmit}>
+              <label htmlFor="selected"></label>
+              <select
+                value={this.state.selected}
+                onChange={this.handleChange}
+                name="selected"
+              >
+                <option value="" disabled>
+                  Select User
+                </option>
+                {group && group.users
+                  ? group.users.map((user) => (
+                      <option key={user.id}>
+                        {user.firstName} {user.lastName}
+                      </option>
+                    ))
+                  : "There are no users"}
               </select>
-              <button id="group-modal-submit-button" type="submit">Update</button>
+              <button id="group-modal-submit-button" type="submit">
+                Update
+              </button>
             </form>
           </div>
         </div>
@@ -127,7 +131,7 @@ class UpdateGroupTaskModal extends Component {
 
 const mapState = (state) => ({
   userId: state.user.id,
-  group: state.singleGroup
+  group: state.singleGroup,
 });
 
 const mapDispatch = (dispatch) => ({

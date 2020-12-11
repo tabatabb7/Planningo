@@ -1,8 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import {Redirect} from 'react-router-dom';
+import { Redirect } from "react-router-dom";
 import { addGroupThunk } from "../../store/allGroups";
-
 
 class CreateGroup extends React.Component {
   constructor() {
@@ -29,49 +28,51 @@ class CreateGroup extends React.Component {
     event.preventDefault();
     try {
       await this.props.addGroup(this.state);
-      if(this.state.name === ""){
-        alert("group name can't be empty!")
+      if (this.state.name === "") {
+        alert("group name can't be empty!");
       }
       this.setState({
-        redirectTo: '/groups'
+        redirectTo: "/groups",
       });
-      alert(`Your group "${this.state.name}" was created! Redirecting you to your groups page..`)
+      alert(
+        `Your group "${this.state.name}" was created! Redirecting you to your groups page..`
+      );
     } catch (err) {
       console.log("error creating group", err);
     }
   }
 
   render() {
-      if (this.state.redirectTo) {
-        return <Redirect to={{pathname: this.state.redirectTo}} />;
-      } else {
-        return(
-      <div className="group-wrapper">
-        <h1>Create Group</h1>
+    if (this.state.redirectTo) {
+      return <Redirect to={{ pathname: this.state.redirectTo }} />;
+    } else {
+      return (
+        <div className="group-wrapper">
+          <h1>Create Group</h1>
 
-        <form id="add-group-form" onSubmit={this.handleSubmit}>
-          <label htmlFor="name">Name:</label>
-          <input
-            name="name"
-            type="text"
-            placeholder="Your new group's name"
-            onChange={this.handleChange}
-            value={this.state.name}
-          />
-          <label htmlFor="name">Description:</label>
-          <input
-            name="description"
-            type="textarea"
-            placeholder="Write a description"
-            onChange={this.handleChange}
-            value={this.state.description}
-          />
-          <button type="submit">Add</button>
-        </form>
-      </div>
-    );
+          <form id="add-group-form" onSubmit={this.handleSubmit}>
+            <label htmlFor="name">Name:</label>
+            <input
+              name="name"
+              type="text"
+              placeholder="Your new group's name"
+              onChange={this.handleChange}
+              value={this.state.name}
+            />
+            <label htmlFor="name">Description:</label>
+            <input
+              name="description"
+              type="textarea"
+              placeholder="Write a description"
+              onChange={this.handleChange}
+              value={this.state.description}
+            />
+            <button type="submit">Add</button>
+          </form>
+        </div>
+      );
+    }
   }
-}
 }
 
 const mapDispatch = (dispatch) => ({

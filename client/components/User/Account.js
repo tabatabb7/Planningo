@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 /**
  * COMPONENT
  */
-export const Account = props => {
+export const Account = (props) => {
   const { email } = props;
 
   return (
@@ -22,9 +22,9 @@ export const Account = props => {
 /**
  * CONTAINER
  */
-const mapState = state => {
+const mapState = (state) => {
   return {
-    email: state.user.email
+    email: state.user.email,
   };
 };
 
@@ -34,5 +34,5 @@ export default connect(mapState)(Account);
  * PROP TYPES
  */
 Account.propTypes = {
-  email: PropTypes.string
+  email: PropTypes.string,
 };

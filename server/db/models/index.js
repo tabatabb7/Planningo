@@ -16,7 +16,7 @@ const User_Group = db.define("User_Group", {
   },
   color: {
     type: Sequelize.STRING,
-    defaultValue: "#EAEACF"
+    defaultValue: "#EAEACF",
   },
   points: {
     type: Sequelize.INTEGER,

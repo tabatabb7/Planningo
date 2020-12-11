@@ -54,14 +54,14 @@
   height: 40px;
   width: 200px;
 }
-#chooser-title{
+#chooser-title {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 170px;
 }
 
-.image-pick{
+.image-pick {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -74,7 +74,7 @@
   height: auto;
   cursor: pointer;
   border-radius: 50%;
-  background-color: #EAEACF;
+  background-color: #eaeacf;
   margin-left: 10px;
   margin-right: 10px;
 }
@@ -83,7 +83,7 @@
   width: 80px;
   height: auto;
   cursor: pointer;
-  background-color: #FF511E;
+  background-color: #ff511e;
 }
 
 #image-picker-box {
@@ -125,7 +125,7 @@
 }
 
 .form-button:hover {
-  background-color: #D63F5F;
+  background-color: #d63f5f;
 }
 
 .forms a {

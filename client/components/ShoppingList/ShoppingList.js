@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 
-
 class ShoppingList extends React.Component {
   constructor(props) {
     super(props);
@@ -50,10 +49,10 @@ class ShoppingList extends React.Component {
 
     return (
       <div className="task-wrapper">
-
         <div id="task-box">
-          <div className="task-box-header">Shopping List
-          {/* <select name="selected">
+          <div className="task-box-header">
+            Shopping List
+            {/* <select name="selected">
           <option value="" disabled>
             Select Group
           </option>
@@ -63,7 +62,7 @@ class ShoppingList extends React.Component {
               ))
             : "There are no groups"}
         </select> */}
-        </div>
+          </div>
           <div className="task-box-body">
             <div id="task-box-categories">Category</div>
 
@@ -72,10 +71,10 @@ class ShoppingList extends React.Component {
               {tasks && tasks.length
                 ? tasks.map((task) => (
                     <p key={task.id} className="singletask">
-                              <button
-                        onClick={() => this.toggleCompleted(task.id, task.isCompleted)
+                      <button
+                        onClick={() =>
+                          this.toggleCompleted(task.id, task.isCompleted)
                         }
-
                         className="group-completeTask"
                       >
                         <div
@@ -133,6 +132,7 @@ const mapDispatch = (dispatch) => ({
   fetchItems: () => dispatch(fetchShoppingItemsThunk()),
   deleteItem: (taskId) => dispatch(removeTaskThunk(taskId)),
   updateTaskCompletion: (taskId, isCompleted) =>
-  dispatch(updateTaskCompletion(taskId, isCompleted)),});
+    dispatch(updateTaskCompletion(taskId, isCompleted)),
+});
 
 export default connect(mapState, mapDispatch)(ShoppingList);

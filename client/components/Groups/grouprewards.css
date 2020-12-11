@@ -1,4 +1,4 @@
-.group-reward-wrapper{
+.group-reward-wrapper {
   height: 90%;
   width: 90%;
   background-color: white;
@@ -7,14 +7,14 @@
   align-items: center;
 }
 
-.group-user-icon{
+.group-user-icon {
   border-radius: 50%;
   position: relative;
   width: 80px;
   height: auto;
 }
 
-#group-reward-user{
+#group-reward-user {
   display: flex;
   flex-direction: column;
   align-items: center;

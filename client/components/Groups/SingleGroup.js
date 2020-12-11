@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { updateGroupThunk, fetchSingleGroup } from "../../store/singleGroup";
 import { Link } from "react-router-dom";
 import { addToGroupThunk, deleteFromGroupThunk } from "../../store/singleGroup";
-import "./singlegroup.css"
+import "./singlegroup.css";
 
 class SingleGroup extends React.Component {
   constructor(props) {
@@ -37,7 +37,6 @@ class SingleGroup extends React.Component {
   render() {
     const group = this.props.group;
 
-
     return (
       <div key={group.id} id="group-info">
         Edit group
@@ -56,22 +55,25 @@ class SingleGroup extends React.Component {
         <img src={group.imageUrl}></img>
         <h3>Description: {group.description}</h3>
         <ul>
-        <li><Link to={`/groups/${this.props.group.id}/tasks`}>
-          Group Tasks
-        </Link></li>
-        <li> <Link to={`/groups/${this.props.group.id}/shoppinglist`}>
-          Shopping
-        </Link></li>
-        <li><Link to={`/groups/${this.props.group.id}/rewards`}>
-          Rewards
-        </Link></li>
+          <li>
+            <Link to={`/groups/${this.props.group.id}/tasks`}>Group Tasks</Link>
+          </li>
+          <li>
+            {" "}
+            <Link to={`/groups/${this.props.group.id}/shoppinglist`}>
+              Shopping
+            </Link>
+          </li>
+          <li>
+            <Link to={`/groups/${this.props.group.id}/rewards`}>Rewards</Link>
+          </li>
         </ul>
         Users:
         {group.users ? (
           <div>
             {group.users.map((user) => (
               <div key={user.id}>
-                <img src={user.avatarUrl} className="user-avatar"/>
+                <img src={user.avatarUrl} className="user-avatar" />
                 {(() => {
                   if (user.User_Group.role === "admin") {
                     return (

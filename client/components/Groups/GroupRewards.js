@@ -9,12 +9,6 @@ import {
 import "./grouprewards.css";
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from "victory";
 
-const data = [
-  { userId: 23, points: 80 },
-  { userId: 2, points: 90 },
-  { userId: 3, points: 110 },
-];
-
 class GroupRewards extends React.Component {
   constructor(props) {
     super(props);
@@ -24,10 +18,10 @@ class GroupRewards extends React.Component {
       points: "",
     };
   }
-  componentDidMount() {
+  async componentDidMount() {
     this.props.fetchGroup(this.props.match.params.groupId);
-    this.props.fetchUserPoints(this.props.userId);
-    this.props.fetchGroupPoints(this.props.match.params.groupId);
+    // this.props.fetchUserPoints(this.props.userId);
+    await this.props.fetchGroupPoints(this.props.match.params.groupId);
     // this.props.fetchUserGroupPoints(
     //   this.props.userId,
     //   this.props.match.params.groupId
@@ -64,12 +58,17 @@ class GroupRewards extends React.Component {
               </div>
             ))}
             <h1>Group Stats</h1>
-            <VictoryChart domainPadding={10} theme={VictoryTheme.material}>
+            <VictoryChart domainPadding={20} theme={VictoryTheme.material}>
               <VictoryAxis
                 tickValues={this.props.points.map((user) => user.firstName)}
               />
               <VictoryAxis dependentAxis tickFormat={(x) => `${x / 1}`} />
-              <VictoryBar data={this.props.points} x={"userId"} y={"value"} />
+              <VictoryBar
+                data={this.props.points}
+                x={"firstName"}
+                y={"value"}
+                style={{ data: { fill: "#ff7290" } }}
+              />
             </VictoryChart>
           </div>
         ) : (
