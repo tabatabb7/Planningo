@@ -51,6 +51,7 @@ router.get("/:userId", isAdmin, async (req, res, next) => {
 });
 
 router.put("/:userId", isAdmin, async (req, res, next) => {
+  console.log(req.body.avatarUrl, "avatarUrl in put route");
   try {
     if (req.body.password) {
       try {
@@ -75,6 +76,7 @@ router.put("/:userId", isAdmin, async (req, res, next) => {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
+        avatarUrl: req.body.avatarUrl,
       },
       {
         where: {

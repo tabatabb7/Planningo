@@ -83,13 +83,14 @@ export const updateUserThunk = (
   email,
   avatarUrl
 ) => {
+  console.log(avatarUrl, "avatarurl in thunk");
   return async (dispatch) => {
     try {
       const { data } = await axios.put(`/api/users/${userId}`, {
         firstName: firstName,
         lastName: lastName,
         email: email,
-        avatarUrl,
+        avatarUrl: avatarUrl,
       });
 
       dispatch(updateUser(data));

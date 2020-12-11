@@ -14,7 +14,7 @@
     "postinstall": "touch secrets.js",
     "seed": "node seed/seed.js",
     "start": "node server",
-    "start-dev": "react-scripts build && nodemon server",
+    "start-dev": "react-scripts build && npm run start-server",
     "start-server": "nodemon server -e html,js,scss --ignore public --ignore client",
     "test": "mocha ./tests --recursive --exit --watch"
   },
@@ -57,6 +57,7 @@
     "react-redux": "^7.0.1",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.0.0",
+    "react-script": "^2.0.5",
     "react-scripts": "^4.0.1",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",

@@ -21,6 +21,7 @@ class AccountSettings extends Component {
     this.setState({ formStatus: !this.state.formStatus });
   }
   handleSubmit(userId, firstName, lastName, email, avatarUrl) {
+    console.log(avatarUrl, "avatarUrl in handlesubmit");
     this.props.updateUser(userId, firstName, lastName, email, avatarUrl);
   }
   handlePassword(userId, oldPassword, newPassword) {
@@ -79,7 +80,8 @@ class AccountSettings extends Component {
                       user.id,
                       document.getElementById("firstName").value,
                       document.getElementById("lastName").value,
-                      document.getElementById("email").value
+                      document.getElementById("email").value,
+                      document.getElementById("avatarUrl").value
                     );
                   }}
                 >
@@ -144,8 +146,8 @@ const mapDispatch = (dispatch) => {
     loadInitialData() {
       dispatch(me());
     },
-    updateUser(userId, firstName, lastName, email) {
-      dispatch(updateUserThunk(userId, firstName, lastName, email));
+    updateUser(userId, firstName, lastName, email, avatarUrl) {
+      dispatch(updateUserThunk(userId, firstName, lastName, email, avatarUrl));
     },
     updatePassword(userId, oldPassword, newPassword) {
       dispatch(updatePasswordThunk(userId, oldPassword, newPassword));

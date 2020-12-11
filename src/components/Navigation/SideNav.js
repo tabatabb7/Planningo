@@ -25,7 +25,7 @@ class SideNav extends React.Component {
   }
 
   render() {
-    let { groups, user, handleClick, toggleSideNav  } = this.props;
+    let { groups, user, handleClick, toggleSideNav } = this.props;
     return (
       <div className="side-nav-wrapper">
         <div id="nav-user-wrap">
@@ -37,7 +37,7 @@ class SideNav extends React.Component {
           </div>
 
           <h4 className="nav-tool-title">My Groups</h4>
-          {!groups.length ? (
+          {groups.length > 0 ? (
             "You are not a part of any groups."
           ) : (
             <div id="nav-group">
