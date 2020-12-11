@@ -2,8 +2,8 @@ const db = require("../db");
 const User = require("./user");
 const Task = require("./task");
 const Group = require("./group");
-const Shopping = require("./shopping");
 const Category = require("./category");
+const Point = require("./point");
 
 const Sequelize = require("sequelize");
 
@@ -14,10 +14,14 @@ const User_Group = db.define("User_Group", {
     type: Sequelize.ENUM("admin", "member"),
     defaultValue: "member",
   },
+  color: {
+    type: Sequelize.STRING,
+    defaultValue: "#EAEACF",
+  },
   points: {
     type: Sequelize.INTEGER,
-    defaultValue: 0
-  }
+    defaultValue: 0,
+  },
 });
 User.belongsToMany(Group, { through: "User_Group" });
 Group.belongsToMany(User, { through: "User_Group" });
@@ -28,8 +32,8 @@ Group.belongsToMany(User, { through: "User_Group" });
 const Task_Group = db.define("Task_Group", {
   points: {
     type: Sequelize.INTEGER,
-    defaultValue: 0
-  }
+    defaultValue: 0,
+  },
 });
 
 Task.belongsToMany(Group, { through: "Task_Group" });
@@ -41,14 +45,20 @@ User.belongsToMany(Task, { through: "User_Task" });
 Task.belongsToMany(User, { through: "User_Task" });
 
 //Categories
-Task.hasOne(Category)
-Category.belongsTo(Task)
+Category.hasMany(Task), Task.belongsTo(Category);
 
-Shopping.hasOne(Task)
-Task.belongsTo(Shopping)
+Group.hasMany(Category);
+Category.belongsTo(Group);
 
-Group.hasMany(Category)
-Category.belongsTo(Group)
+// //Points
+Task.hasOne(Point);
+Point.belongsTo(Task);
+
+Point.belongsTo(User);
+User.hasMany(Point);
+
+Point.belongsTo(Group);
+Group.hasMany(Point);
 
 //export modules
 module.exports = {
@@ -56,9 +66,9 @@ module.exports = {
   User,
   Task,
   Group,
-  Shopping,
   User_Group,
   User_Task,
   Task_Group,
   Category,
+  Point,
 };

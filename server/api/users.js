@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { User } = require("../db/models");
+const Group = require("../db/models/group");
 
 function isAdmin(req, res, next) {
   if (req.user && req.user.isAdmin) {
@@ -11,7 +12,6 @@ function isAdmin(req, res, next) {
 
 router.post("/", async (req, res, next) => {
   try {
-    console.log("server received post signup request");
     const user = await User.create(req.body);
     req.login(user, (err) => (err ? next(err) : res.json(user)));
   } catch (err) {
@@ -27,19 +27,23 @@ router.get("/", isAdmin, async (req, res, next) => {
   try {
     const users = await User.findAll({
       attributes: ["id", "firstName", "lastName", "email", "isAdmin"],
+      include: {
+        model: Group,
+      },
     });
     res.json(users);
   } catch (err) {
     next(err);
   }
 });
-//, {
-//   attributes: ["firstName", "lastName", "email", "password"],
-// });
+
 router.get("/:userId", isAdmin, async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.userId);
-    console.log(user, "user data from get route");
+    const user = await User.findByPk(req.params.userId, {
+      include: {
+        model: Group,
+      },
+    });
     res.json(user);
   } catch (err) {
     next(err);
@@ -47,7 +51,6 @@ router.get("/:userId", isAdmin, async (req, res, next) => {
 });
 
 router.put("/:userId", isAdmin, async (req, res, next) => {
-  console.log("inside put route");
   try {
     if (req.body.password) {
       try {

@@ -6,9 +6,8 @@ const {
   Group,
   User,
   Task_Group,
-  Shopping,
+  Category,
 } = require("../db/models");
-const Op = require("sequelize").Op;
 
 router.get("/", async (req, res, next) => {
   try {
@@ -20,16 +19,16 @@ router.get("/", async (req, res, next) => {
         {
           model: Task,
           where: {
-            shoppingId: {
-              [Op.is]: null,
-            },
+            isShopping: false,
           },
           required: false,
+          include: {
+            model: Category,
+          },
         },
       ],
     });
     res.json(user);
-    console.log(user);
   } catch (err) {
     next(err);
   }
@@ -46,21 +45,17 @@ router.get("/shopping", async (req, res, next) => {
         {
           model: Task,
           where: {
-            shoppingId: {
-              [Op.not]: null,
-            },
+            isShopping: true,
           },
           required: false,
         },
       ],
     });
     res.json(user);
-    console.log(user);
   } catch (err) {
     next(err);
   }
 });
-
 
 router.get("/:taskId", async (req, res, next) => {
   try {
@@ -77,25 +72,23 @@ router.get("/:taskId", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    console.log(req.user);
     const group = await Group.findOne({
       where: {
         name: req.body.selected,
       },
     });
-    
     const task = await Task.create({
       userId: req.user.id,
       name: req.body.name,
       description: req.body.description,
+      points: req.body.points,
       shoppingId: null,
     });
-    
+
     await User_Task.create({
       userId: req.user.id,
       taskId: task.id,
     });
-    
     await Task_Group.create({
       groupId: group.id,
       taskId: task.id,
@@ -109,17 +102,15 @@ router.post("/", async (req, res, next) => {
 
 router.post("/shopping", async (req, res, next) => {
   try {
-    console.log(req.user);
     const group = await Group.findOne({
       where: {
         name: req.body.selected,
       },
     });
-    const shopping = await Shopping.create(req.body);
     const task = await Task.create({
       userId: req.user.id,
       name: req.body.name,
-      shoppingId: shopping.id,
+      isShopping: true,
     });
     await User_Task.create({
       userId: req.user.id,
@@ -130,7 +121,7 @@ router.post("/shopping", async (req, res, next) => {
       taskId: task.id,
     });
 
-    res.json(shopping);
+    res.json(task);
   } catch (err) {
     next(err);
   }

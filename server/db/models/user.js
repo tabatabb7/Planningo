@@ -10,7 +10,7 @@ const User = db.define("user", {
     validate: {
       notEmpty: true,
       isEmail: true,
-    }
+    },
   },
   firstName: {
     type: Sequelize.STRING,
@@ -28,11 +28,10 @@ const User = db.define("user", {
   },
   avatarUrl: {
     type: Sequelize.TEXT,
-    defaultValue: "https://picsum.photos/100/100",
-
+    defaultValue: "/assets/icons/users/002-girl.png",
   },
   //for protecting api routes
-  isAdmin:{
+  isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
   },

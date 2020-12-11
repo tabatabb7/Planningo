@@ -13,10 +13,16 @@ const Task = db.define("tasks", {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
   },
-  imageUrl:{
+  imageUrl: {
     type: Sequelize.TEXT,
-  }
+  },
+  isShopping: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+  },
+  points: {
+    type: Sequelize.INTEGER,
+  },
 });
 
-
-module.exports = Task
+module.exports = Task;

@@ -10,12 +10,16 @@ const Group = db.define("group", {
     },
   },
   description: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   imageUrl: {
     type: Sequelize.TEXT,
-    defaultValue: "https://picsum.photos/100/100"
-  }
+    defaultValue: "https://picsum.photos/100/100",
+  },
+  color: {
+    type: Sequelize.STRING,
+    defaultValue: "#9FE2BF",
+  },
 });
 
 module.exports = Group;
