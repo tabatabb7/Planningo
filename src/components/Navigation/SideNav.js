@@ -31,7 +31,7 @@ class SideNav extends React.Component {
         <div id="nav-user-wrap">
           <div id="user-nav">
             <Link to="/account" onClick={toggleSideNav}>
-              <img src={user.avatarUrl} id="user-icon"></img>{" "}
+              <img data-src={user.avatarUrl} id="user-icon" class="lazyload"></img>{" "}
             </Link>
             {user.firstName}
           </div>

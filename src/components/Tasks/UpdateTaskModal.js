@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { updateTaskThunk } from "../../store/tasks"
-import {
-  fetchTasksThunk,
-} from "../../store/tasks";
+import { updateTaskThunk } from "../../store/tasks";
+import { fetchTasksThunk } from "../../store/tasks";
 import "./taskmodal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -15,7 +13,7 @@ class UpdateTaskModal extends Component {
       name: this.props.task.name,
       selected: this.props.task.selected,
       description: this.props.task.description,
-      taskId: this.props.taskId
+      taskId: this.props.taskId,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -30,9 +28,9 @@ class UpdateTaskModal extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     try {
-      console.log(this.state.taskId)
+      console.log(this.state.taskId);
       if (this.state.name == "") {
-        alert("task name can't be empty!")
+        alert("task name can't be empty!");
       } else {
         await this.props.updateTask(this.state);
         this.setState({
@@ -40,7 +38,7 @@ class UpdateTaskModal extends Component {
           selected: "",
           description: "",
         });
-        alert(`Your task was updated! Redirecting you to your tasks page..`)
+        alert(`Your task was updated! Redirecting you to your tasks page..`);
         // await this.props.fetchTasks();
         this.props.onClose();
       }
@@ -57,7 +55,7 @@ class UpdateTaskModal extends Component {
     let { groups } = this.props.tasks;
 
     if (!this.props.showTask || !this.props.selectedTask) {
-        return null;
+      return null;
     }
     return (
       <div>
@@ -111,7 +109,9 @@ class UpdateTaskModal extends Component {
                     ))
                   : "There are no groups"}
               </select>
-              <button type="submit" id="modal-submit-button">Update</button>
+              <button type="submit" id="modal-submit-button">
+                Update
+              </button>
             </form>
           </div>
         </div>

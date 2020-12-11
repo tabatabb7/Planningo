@@ -6,6 +6,7 @@ import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "./authform.css";
 
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelope,
@@ -163,7 +164,7 @@ class AuthForm extends React.Component {
                         <FontAwesomeIcon icon={faArrowLeft} />
                       </div>
                       Choose Icon
-                       <div className="form-icon">
+                      <div className="form-icon">
                         <FontAwesomeIcon icon={faArrowRight} />
                       </div>
                     </div>

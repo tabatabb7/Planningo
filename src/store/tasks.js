@@ -7,8 +7,8 @@ const GET_TASKS = "GET_TASKS";
 const ADD_TASK = "ADD_TASK";
 const DELETE_TASK = "DELETE_TASK";
 const GET_SHOPPING_ITEMS = "GET_SHOPPING_ITEMS";
-const ADD_SHOPPING_ITEM = 'ADD_SHOPPING_ITEM'
-const UPDATE_TASK = 'UPDATE_TASK'
+const ADD_SHOPPING_ITEM = "ADD_SHOPPING_ITEM";
+const UPDATE_TASK = "UPDATE_TASK";
 
 /**
  * INITIAL STATE
@@ -23,10 +23,9 @@ const initialState = {};
 const getTasks = (tasks) => ({ type: GET_TASKS, tasks });
 const addTask = (task) => ({ type: ADD_TASK, task });
 const deleteTask = (taskId) => ({ type: DELETE_TASK, taskId });
-const getShoppingItems = (tasks) => ({ type: GET_SHOPPING_ITEMS, tasks});
+const getShoppingItems = (tasks) => ({ type: GET_SHOPPING_ITEMS, tasks });
 const addShoppingItem = (task) => ({ type: ADD_SHOPPING_ITEM, task });
-const updateTask = task => ({ type: UPDATE_TASK, task })
-
+const updateTask = (task) => ({ type: UPDATE_TASK, task });
 
 /**
  * THUNK CREATORS
@@ -80,17 +79,15 @@ export const addShoppingItemThunk = (task) => async (dispatch) => {
   }
 };
 
-
 export const updateTaskThunk = (task) => async (dispatch) => {
   try {
-    const { data: updatedTask } = await axios.put(`/api/tasks/`, task)
-    dispatch(updateTask(updatedTask))
+    const { data: updatedTask } = await axios.put(`/api/tasks/`, task);
+    dispatch(updateTask(updatedTask));
   } catch (error) {
-    console.error('Error updating task!')
-    console.error(error)
+    console.error("Error updating task!");
+    console.error(error);
   }
-}
-
+};
 
 export default function tasksReducer(state = initialState, action) {
   switch (action.type) {
@@ -101,15 +98,18 @@ export default function tasksReducer(state = initialState, action) {
     case ADD_TASK:
       return { ...state, ...action.task };
     case ADD_SHOPPING_ITEM:
-        return { ...state, ...action.task };
+      return { ...state, ...action.task };
     case DELETE_TASK:
       return { ...state };
-      return {...state}
+      return { ...state };
     case UPDATE_TASK:
-      return {...state, tasks: state.tasks.map((task) => {
-        if (task.id === action.task.id) return action.task
-        else return task
-      })}
+      return {
+        ...state,
+        tasks: state.tasks.map((task) => {
+          if (task.id === action.task.id) return action.task;
+          else return task;
+        }),
+      };
     default:
       return state;
   }

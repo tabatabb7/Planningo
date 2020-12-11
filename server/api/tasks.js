@@ -6,7 +6,7 @@ const {
   Group,
   User,
   Task_Group,
-  Category
+  Category,
 } = require("../db/models");
 
 router.get("/", async (req, res, next) => {
@@ -19,12 +19,12 @@ router.get("/", async (req, res, next) => {
         {
           model: Task,
           where: {
-            isShopping: false
+            isShopping: false,
           },
           required: false,
           include: {
-            model: Category
-          }
+            model: Category,
+          },
         },
       ],
     });
@@ -45,7 +45,7 @@ router.get("/shopping", async (req, res, next) => {
         {
           model: Task,
           where: {
-            isShopping: true
+            isShopping: true,
           },
           required: false,
         },
@@ -56,7 +56,6 @@ router.get("/shopping", async (req, res, next) => {
     next(err);
   }
 });
-
 
 router.get("/:taskId", async (req, res, next) => {
   try {
@@ -85,7 +84,7 @@ router.post("/", async (req, res, next) => {
       points: req.body.points,
       shoppingId: null,
     });
-    
+
     await User_Task.create({
       userId: req.user.id,
       taskId: task.id,

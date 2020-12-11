@@ -1,20 +1,22 @@
 const { blue, cyan, green, red } = require("chalk");
 const { User, Group, User_Group } = require("../server/db/models");
-const seedUsers = require('./users.json')
-const seedGroups = require('./groups.json')
-const seedUserGroups = require('./usergroups.json')
-const db = require("../server/db")
+const seedUsers = require("./users.json");
+const seedGroups = require("./groups.json");
+const seedUserGroups = require("./usergroups.json");
+const db = require("../server/db");
 
 const seed = async () => {
   try {
-  console.log(cyan('📡 Connecting to the database...'));
-   await db.sync({ force: true });
-//connect to the database
-await Promise.all(seedUsers.map((user) => User.create(user)));
-await Promise.all(seedGroups.map((group) => Group.create(group)));
-await Promise.all(seedUserGroups.map((userGroup) => User_Group.create(userGroup)));
+    console.log(cyan("📡 Connecting to the database..."));
+    await db.sync({ force: true });
+    //connect to the database
+    await Promise.all(seedUsers.map((user) => User.create(user)));
+    await Promise.all(seedGroups.map((group) => Group.create(group)));
+    await Promise.all(
+      seedUserGroups.map((userGroup) => User_Group.create(userGroup))
+    );
 
-  console.log(blue('🌱 Seeding the database...'));
+    console.log(blue("🌱 Seeding the database..."));
     // seed your database here!
   } catch (err) {
     console.log(red(err));
@@ -31,7 +33,7 @@ if (require.main === module) {
       console.log(green("Seeding success!"));
       db.close();
     })
-    .catch(err => {
+    .catch((err) => {
       console.error(red("Oh noes! Something went wrong!"));
       console.error(err);
       db.close();

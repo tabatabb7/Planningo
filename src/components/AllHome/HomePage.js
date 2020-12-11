@@ -7,20 +7,17 @@ export const HomePage = () => {
     <div
       className="homepage-wrap"
       style={{
-        backgroundImage:
-          "url(" + "/assets/backgrounds/coworker-bg.png" + ")",
+        backgroundImage: "url(" + "/assets/backgrounds/coworker-bg.png" + ")",
       }}
     >
       <div id="site-home-header">
         <div id="header-wrap-home">
-       <div id="navtitle">Planningo</div>
+          <div id="navtitle">Planningo</div>
 
-       <div id="links-home">
-          <Link to="/login">
-           Login / Sign Up
-          </Link>
+          <div id="links-home">
+            <Link to="/login">Login / Sign Up</Link>
           </div>
-          </div>
+        </div>
       </div>
 
       <div id="site-home-content">

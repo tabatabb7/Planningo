@@ -2,9 +2,12 @@ import React from "react";
 import { connect } from "react-redux";
 import GroupTaskModal from "./GroupTaskModal";
 import { removeTaskThunk } from "../../store/tasks";
-import { updateTaskCompletion} from "../../store/singletask";
+import { updateTaskCompletion } from "../../store/singletask";
 import { fetchSingleGroupTasks } from "../../store/singleGroup";
-import { postCompletedPointsThunk, removeCompletedPointsThunk } from "../../store/point"
+import {
+  postCompletedPointsThunk,
+  removeCompletedPointsThunk,
+} from "../../store/point";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
@@ -19,7 +22,6 @@ class GroupTaskList extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.showModal = this.showModal.bind(this);
-
   }
 
   componentDidMount() {
@@ -48,7 +50,7 @@ class GroupTaskList extends React.Component {
         await this.props.postAwardedPoints(taskId);
       } else {
         await this.props.updateTaskCompletion(taskId, !isCompleted);
-        await this.props.removePoints(taskId)
+        await this.props.removePoints(taskId);
       }
       this.props.fetchGroup(this.props.match.params.groupId);
     } catch (err) {
@@ -68,27 +70,28 @@ class GroupTaskList extends React.Component {
     return (
       <div className="group-task-wrapper">
         <div id="group-task-box">
-          <div className="group-task-box-header">
-            Tasks -- {group.name}
-          </div>
+          <div className="group-task-box-header">Tasks -- {group.name}</div>
           <div className="group-task-box-body">
-
             <div id="group-task-box-categories">
               <h3 id="category-title">Category</h3>
-              <div className="each-category-wrap">
-              All
-                 </div>
+              <div className="each-category-wrap">All</div>
 
-            {categories ?
-             categories.map((category)=>(
-               <div key={category.id} className="each-category-wrap">
-              <div id="category-icon-wrap"  style={{backgroundColor: category.color}}>
-                 <img src={category.imageUrl} className="category-icon"></img>
-                 </div>
-                 {category.name}
-                 </div>
-             )): 'null'}
-
+              {categories
+                ? categories.map((category) => (
+                    <div key={category.id} className="each-category-wrap">
+                      <div
+                        id="category-icon-wrap"
+                        style={{ backgroundColor: category.color }}
+                      >
+                        <img
+                          src={category.imageUrl}
+                          className="category-icon"
+                        ></img>
+                      </div>
+                      {category.name}
+                    </div>
+                  ))
+                : "null"}
             </div>
             {/* LIST OF TASKS */}
             <div id="group-task-box-list">
@@ -96,9 +99,9 @@ class GroupTaskList extends React.Component {
                 ? tasks.map((task) => (
                     <div key={task.id} className="group-singletask">
                       <button
-                        onClick={() => this.toggleCompleted(task.id, task.isCompleted)
+                        onClick={() =>
+                          this.toggleCompleted(task.id, task.isCompleted)
                         }
-
                         className="group-completeTask"
                       >
                         <div
@@ -146,7 +149,7 @@ class GroupTaskList extends React.Component {
             />
           </div>
         </div>
-        </div>
+      </div>
     );
   }
 }

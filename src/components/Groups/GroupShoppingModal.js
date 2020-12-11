@@ -16,7 +16,7 @@ class GroupShoppingModal extends Component {
       selected: "",
       description: "",
       groupId: this.props.groupId,
-      error: null
+      error: null,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -38,7 +38,7 @@ class GroupShoppingModal extends Component {
       await this.props.addGroupTask(this.props.groupId, this.state);
       this.setState({
         name: "",
-        selected: ""
+        selected: "",
       });
       await this.props.fetchGroup(this.props.groupId);
       this.props.onClose();
@@ -99,7 +99,9 @@ class GroupShoppingModal extends Component {
                 onChange={this.handleChange}
                 value={this.state.description}
               />
-              <button id="group-modal-submit-button" type="submit">Add</button>
+              <button id="group-modal-submit-button" type="submit">
+                Add
+              </button>
             </form>
           </div>
         </div>
@@ -110,7 +112,7 @@ class GroupShoppingModal extends Component {
 
 const mapState = (state) => ({
   userId: state.user.id,
-  group: state.singleGroup
+  group: state.singleGroup,
 });
 
 const mapDispatch = (dispatch) => ({

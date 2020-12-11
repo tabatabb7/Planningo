@@ -7,8 +7,7 @@ import axios from "axios";
 const GET_GROUPS = "GET_GROUPS";
 const ADD_GROUP = "ADD_GROUP";
 const DELETE_GROUP = "DELETE_GROUP";
-const GET_GROUP_USERS = "GET_GROUP_USERS"
-
+const GET_GROUP_USERS = "GET_GROUP_USERS";
 
 /**
  * INITIAL STATE
@@ -22,8 +21,7 @@ const initialState = [];
 const getGroups = (groups) => ({ type: GET_GROUPS, groups });
 const addGroup = (group) => ({ type: ADD_GROUP, group });
 const deleteGroup = (groupId) => ({ type: DELETE_GROUP, groupId });
-const setGroupUsers = (groups) => ({ type: GET_GROUP_USERS, groups})
-
+const setGroupUsers = (groups) => ({ type: GET_GROUP_USERS, groups });
 
 /**
  * THUNK CREATORS
@@ -41,7 +39,9 @@ export const fetchGroupsThunk = () => async (dispatch) => {
 export const fetchGroupUsersThunk = (groupId) => {
   return async (dispatch) => {
     try {
-      const { data: groups } = await axios.get(`/api/groups/${groupId}/tasks/add`);
+      const { data: groups } = await axios.get(
+        `/api/groups/${groupId}/tasks/add`
+      );
       dispatch(setGroupUsers(groups));
     } catch (err) {
       console.error("There was a problem fetching this group!");
@@ -79,7 +79,7 @@ export default function groupsReducer(state = initialState, action) {
     case DELETE_GROUP:
       return [...state];
     case GET_GROUP_USERS:
-      return action.groups
+      return action.groups;
     default:
       return state;
   }

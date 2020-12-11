@@ -14,7 +14,6 @@ const bodyParser = require("body-parser");
 
 module.exports = app;
 
-
 /**
  * In your development environment, you can keep all of your
  * app's secret API keys in a file called `secrets.js`, in your project
@@ -69,7 +68,7 @@ const createApp = () => {
   app.use("/api", require("./api"));
 
   // static file-serving middleware
-  app.use(express.static(path.join(__dirname, "..", "public")));
+  app.use(express.static(path.join(__dirname, "..", "build")));
 
   // any remaining requests with an extension (.js, .css, etc.) send 404
   app.use((req, res, next) => {
@@ -107,7 +106,6 @@ const startListening = () => {
 };
 
 const syncDb = () => db.sync();
-
 
 async function bootApp() {
   await sessionStore.sync();

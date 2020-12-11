@@ -5,10 +5,7 @@ const Point = db.define("points", {
   value: {
     type: Sequelize.INTEGER,
     allowNull: false,
-  }
+  },
 });
 
-
-module.exports = Point
-
-
+module.exports = Point;

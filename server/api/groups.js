@@ -15,11 +15,11 @@ router.get("/", async (req, res, next) => {
     const group = await req.user.getGroups({
       include: [
         {
-          model: Category
-        }
-      ]
-    })
-    console.log(group)
+          model: Category,
+        },
+      ],
+    });
+    console.log(group);
     res.json(group);
   } catch (err) {
     next(err);
@@ -296,19 +296,19 @@ router.get("/:groupId/rewards", async (req, res, next) => {
   try {
     const group = await Point.findOne({
       where: {
-        groupId: req.params.groupId
+        groupId: req.params.groupId,
       },
       include: [
         {
-          model: User
+          model: User,
         },
-      ]
-    })
-    res.json(group)
+      ],
+    });
+    res.json(group);
   } catch (err) {
-    next (err)
+    next(err);
   }
-})
+});
 
 //GET api/groups/:groupId/:userId/rewards
 router.get("/:groupId/:userId/rewards", async (req, res, next) => {
@@ -329,6 +329,5 @@ router.get("/:groupId/:userId/rewards", async (req, res, next) => {
     next(err);
   }
 });
-
 
 module.exports = router;

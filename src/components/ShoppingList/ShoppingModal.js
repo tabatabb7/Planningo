@@ -16,7 +16,7 @@ class ShoppingModal extends Component {
       name: "",
       selected: "",
       description: "",
-      error: null
+      error: null,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -114,7 +114,9 @@ class ShoppingModal extends Component {
                     ))
                   : "There are no groups"}
               </select>
-              <button type="submit" id="modal-submit-button">Add</button>
+              <button type="submit" id="modal-submit-button">
+                Add
+              </button>
             </form>
           </div>
         </div>

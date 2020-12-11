@@ -27,17 +27,18 @@ class GroupRewards extends React.Component {
     // );
   }
 
-  pointCalc (points, userId) {
-    return points.filter((user) => user.userId === userId)
+  pointCalc(points, userId) {
+    return points
+      .filter((user) => user.userId === userId)
       .reduce((accum, point) => {
         return accum + point.value;
-        }, 0)
-  } 
+      }, 0);
+  }
 
   render() {
     const group = this.props.group;
     const points = this.props.points;
-    console.log('THIS.PROPS POINTS!!!!', this.props.points)
+    console.log("THIS.PROPS POINTS!!!!", this.props.points);
 
     return (
       <div className="group-reward-wrapper">
@@ -48,7 +49,8 @@ class GroupRewards extends React.Component {
             {group.users.map((user) => (
               <div key={user.id} id="group-reward-user">
                 <img src={user.avatarUrl} className="group-user-icon" />
-                {user.firstName}: {points.length > 0 ? this.pointCalc(points, user.id) : 0} points
+                {user.firstName}:{" "}
+                {points.length > 0 ? this.pointCalc(points, user.id) : 0} points
               </div>
             ))}
           </div>
@@ -59,7 +61,6 @@ class GroupRewards extends React.Component {
     );
   }
 }
-
 
 const mapState = (state) => ({
   userId: state.user.id,

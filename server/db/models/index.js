@@ -16,12 +16,12 @@ const User_Group = db.define("User_Group", {
   },
   color: {
     type: Sequelize.STRING,
-    defaultValue: "#EAEACF"
+    defaultValue: "#EAEACF",
   },
   points: {
     type: Sequelize.INTEGER,
-    defaultValue: 0
-  }
+    defaultValue: 0,
+  },
 });
 User.belongsToMany(Group, { through: "User_Group" });
 Group.belongsToMany(User, { through: "User_Group" });
@@ -32,8 +32,8 @@ Group.belongsToMany(User, { through: "User_Group" });
 const Task_Group = db.define("Task_Group", {
   points: {
     type: Sequelize.INTEGER,
-    defaultValue: 0
-  }
+    defaultValue: 0,
+  },
 });
 
 Task.belongsToMany(Group, { through: "Task_Group" });
@@ -45,21 +45,20 @@ User.belongsToMany(Task, { through: "User_Task" });
 Task.belongsToMany(User, { through: "User_Task" });
 
 //Categories
-Category.hasMany(Task),
-Task.belongsTo(Category)
+Category.hasMany(Task), Task.belongsTo(Category);
 
-Group.hasMany(Category)
-Category.belongsTo(Group)
+Group.hasMany(Category);
+Category.belongsTo(Group);
 
 // //Points
-Task.hasOne(Point)
-Point.belongsTo(Task)
+Task.hasOne(Point);
+Point.belongsTo(Task);
 
-Point.belongsTo(User)
-User.hasMany(Point)
+Point.belongsTo(User);
+User.hasMany(Point);
 
-Point.belongsTo(Group)
-Group.hasMany(Point)
+Point.belongsTo(Group);
+Group.hasMany(Point);
 
 //export modules
 module.exports = {
@@ -71,5 +70,5 @@ module.exports = {
   User_Task,
   Task_Group,
   Category,
-  Point
+  Point,
 };
