@@ -1,7 +1,8 @@
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const isDev = process.env.NODE_ENV === 'development';
 
 module.exports = {
-  mode: "development",
+  mode: isDev ? 'development' : 'production',
   entry: [
     "@babel/polyfill", // enables async-await
     "./client/index.js"
@@ -16,7 +17,6 @@ module.exports = {
   plugins: [
     new BundleAnalyzerPlugin(),
   ],
-  devtool: "source-map",
   watchOptions: {
     ignored: /node_modules/
   },
