@@ -1,36 +1,40 @@
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const isDev = process.env.NODE_ENV === 'development';
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
+
+const isDev = process.env.NODE_ENV === "development";
 
 module.exports = {
-  mode: isDev ? 'development' : 'production',
+  mode: isDev ? "development" : "production",
   entry: [
     "@babel/polyfill", // enables async-await
-    "./client/index.js"
+    "./client/index.js",
   ],
+  devtool: isDev === "development" ? "source-map" : false,
   output: {
-    path: __dirname,
-    filename: "./public/bundle.js"
+    path: __dirname + "/public",
+    publicPath: "/",
+    filename: "bundle.js",
   },
   resolve: {
-    extensions: [".js", ".jsx"]
+    extensions: [".js", ".jsx"],
+  },
+  watchOptions: {
+    ignored: /node_modules/,
   },
   plugins: [
     new BundleAnalyzerPlugin(),
   ],
-  watchOptions: {
-    ignored: /node_modules/
-  },
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loader: "babel-loader"
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"]
-      }
-    ]
-  }
+        use: ["style-loader", "css-loader"],
+      },
+    ],
+  },
 };

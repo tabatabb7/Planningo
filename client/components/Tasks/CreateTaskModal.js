@@ -129,7 +129,7 @@ class CreateTaskModal extends Component {
               )}
 
               <button type="submit" id="modal-submit-button">
-                Update
+                Add
               </button>
             </form>
           </div>
