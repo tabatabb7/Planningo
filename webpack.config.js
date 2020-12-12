@@ -21,7 +21,6 @@ module.exports = {
     ignored: /node_modules/,
   },
   plugins: [
-    new BundleAnalyzerPlugin(),
     new CompressionPlugin({
       algorithm: "gzip",
       test: /\.(js|css|html)$/,
