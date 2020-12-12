@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React from "react";
 import { connect } from "react-redux";
 
 import CreateTaskModal from "./CreateTaskModal";
@@ -17,7 +17,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 
-class TaskList extends React {
+class TaskList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

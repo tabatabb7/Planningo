@@ -1,5 +1,6 @@
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
+const CompressionPlugin = require("compression-webpack-plugin");
 
 const isDev = process.env.NODE_ENV === "development";
 
@@ -9,11 +10,9 @@ module.exports = {
     "@babel/polyfill", // enables async-await
     "./client/index.js",
   ],
-  devtool: isDev === "development" ? "source-map" : false,
   output: {
-    path: __dirname + "/public",
-    publicPath: "/",
-    filename: "bundle.js",
+    path: __dirname,
+    filename: './public/bundle.js',
   },
   resolve: {
     extensions: [".js", ".jsx"],
@@ -23,6 +22,12 @@ module.exports = {
   },
   plugins: [
     new BundleAnalyzerPlugin(),
+    new CompressionPlugin({
+      algorithm: "gzip",
+      test: /\.(js|css|html)$/,
+      threshold: 10240,
+      minRatio: 0.8,
+    })
   ],
   module: {
     rules: [
