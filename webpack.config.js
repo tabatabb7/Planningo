@@ -1,7 +1,3 @@
-const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
-  .BundleAnalyzerPlugin;
-const CompressionPlugin = require("compression-webpack-plugin");
-
 const isDev = process.env.NODE_ENV === "development";
 
 module.exports = {
@@ -20,14 +16,6 @@ module.exports = {
   watchOptions: {
     ignored: /node_modules/,
   },
-  plugins: [
-    new CompressionPlugin({
-      algorithm: "gzip",
-      test: /\.(js|css|html)$/,
-      threshold: 10240,
-      minRatio: 0.8,
-    })
-  ],
   module: {
     rules: [
       {
