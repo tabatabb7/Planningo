@@ -54,7 +54,6 @@ router.put("/:userId", isAdmin, async (req, res, next) => {
   try {
     if (req.body.password) {
       try {
-        console.log("inside password check");
         await User.update(
           {
             password: req.body.password,

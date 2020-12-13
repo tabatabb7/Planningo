@@ -27,7 +27,6 @@ class UpdateTaskModal extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    try {
       if (this.state.name == "") {
         alert("task name can't be empty!");
       } else {
@@ -37,12 +36,8 @@ class UpdateTaskModal extends Component {
           selected: "",
           description: "",
         });
-        alert(`Your task was updated! Redirecting you to your tasks page..`);
         this.props.onClose();
       }
-    } catch (err) {
-      console.log("error creating task", err);
-    }
   }
 
   onClose = (e) => {
@@ -60,7 +55,7 @@ class UpdateTaskModal extends Component {
         <div>{this.props.children}</div>
         <div className="task-modal-content">
           <div id="top-taskmodal-div">
-            <div id="modal-title">YOUR TASK</div>
+            <div id="modal-title">{this.props.task.name}</div>
             <button
               onClick={(e) => this.onClose(e)}
               className="close-modal-btn"

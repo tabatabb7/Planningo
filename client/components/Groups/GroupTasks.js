@@ -98,7 +98,7 @@ class GroupTaskList extends React.Component {
                       {category.name}
                     </div>
                   ))
-                : "null"}
+                : null}
             </div>
             {/* LIST OF TASKS */}
             <div id="group-task-box-list">
@@ -106,7 +106,7 @@ class GroupTaskList extends React.Component {
                 ? tasks.map((task) => (
                     <div key={task.id} className="group-singletask">
                       <a onClick={(e) => this.showTaskModal(e, task.id)}>
-                        {" "}
+
                         {task.name}
                       </a>
 
