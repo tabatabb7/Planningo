@@ -38,7 +38,7 @@ class SideNav extends React.Component {
 
           <h4 className="nav-tool-title">My Groups</h4>
           {!groups.length ? (
-            "You are not a part of any groups."
+            <Link to={'/groups/create'}>You are not a part of any groups. Create a group to start.</Link>
           ) : (
             <div id="nav-group">
               {groups.map((group) => (

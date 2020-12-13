@@ -4,6 +4,8 @@ import { fetchSingleGroup, addGroupTaskThunk } from "../../store/singleGroup";
 import "./grouptaskmodal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import DatePicker from '../Calendar/Datepicker'
+
 
 class GroupTaskModal extends Component {
   constructor(props) {
@@ -127,6 +129,7 @@ class GroupTaskModal extends Component {
                     ))
                   : "There are no users"}
               </select>
+              <DatePicker/>
               <button id="group-modal-submit-button" type="submit">
                 Add
               </button>

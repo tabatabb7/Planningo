@@ -19,7 +19,6 @@ router.get("/", async (req, res, next) => {
         },
       ],
     });
-    console.log(group);
     res.json(group);
   } catch (err) {
     next(err);
@@ -145,10 +144,16 @@ router.delete("/:groupId", async (req, res, next) => {
 //POST USER to group
 router.post("/:groupId", async (req, res, next) => {
   try {
+
+    const user = await User.findOne({
+      where: {
+        email: req.body.email
+      }
+    })
     const newUser = await User_Group.findOrCreate({
       where: {
         groupId: req.params.groupId,
-        userId: req.body.userId,
+        userId: user.id,
       },
     });
     res.json(newUser);
@@ -163,7 +168,7 @@ router.delete("/:groupId/:userId", async (req, res, next) => {
     await User_Group.destroy({
       where: {
         groupId: req.params.groupId,
-        userId: req.params.userId,
+        userId: req.params.userId
       },
     });
     res.sendStatus(204);
@@ -276,32 +281,10 @@ router.put("/:groupId/tasks", async (req, res, next) => {
     const task = await Task.findByPk(req.body.taskId);
     task.update(req.body);
     res.json(task);
-    console.log(task);
   } catch (err) {
     next(err);
   }
 });
-
-// router.post("/:groupId/shopping", async (req, res, next) => {
-//   try {
-//     const userGroup = await User_Group.findOne({
-//       where: {
-//         groupId: req.body.groupId,
-//       },
-//     });
-//     const task = await Task.create({
-//       name: req.body.name,
-//       isShopping: true
-//     });
-//     await Task_Group.create({
-//       taskId: task.id,
-//       groupId: userGroup.groupId,
-//     });
-//     res.json(task);
-//   }catch(error){
-//     next(error)
-//   }
-// })
 
 router.get("/:groupId/shopping", async (req, res, next) => {
   try {
@@ -345,7 +328,6 @@ router.get("/:groupId/rewards", async (req, res, next) => {
         },
       ],
     });
-    console.log("GROUP POINTS!!!!!", groupPoints);
     res.json(groupPoints);
   } catch (err) {
     next(err);
