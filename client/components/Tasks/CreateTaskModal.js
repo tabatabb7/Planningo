@@ -5,7 +5,7 @@ import "./taskmodal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { fetchGroupsThunk } from "../../store/allGroups";
-
+import  Select  from 'react-select';
 
 class CreateTaskModal extends Component {
   constructor(props) {
@@ -24,12 +24,12 @@ class CreateTaskModal extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-async componentDidMount(){
-  await this.props.fetchGroups()
-  this.setState({
-    groupId: this.props.groups.length ? this.props.groups[0].id : ""
-  })
-}
+  async componentDidMount() {
+    await this.props.fetchGroups();
+    this.setState({
+      groupId: this.props.groups.length ? this.props.groups[0].id : "",
+    });
+  }
 
   handleChange(event) {
     this.setState({
@@ -59,18 +59,30 @@ async componentDidMount(){
     this.props.onClose && this.props.onClose(e);
   };
 
+
   render() {
     let categories = this.state.group.categories;
-    let mapcats;
-    {categories
-      ? mapcats=categories.map((category) => {
-        return {
-          key: category.id,
-          text: category.name,
-          value: category.id
-      }
-      })
-      : mapcats=null}
+    // let mapcats;
+    // {
+    //   categories
+    //     ? (mapcats = categories.map((category) => {
+    //         return {
+    //           key: category.id,
+    //           label: <div style={{backgroundColor: category.color}}><img src={category.imageUrl}  className="select-cat-icon"/>  {category.name} </div>,
+    //           value: category.id,
+    //         };
+    //       }))
+    //     : (mapcats = null);
+    // }
+
+
+    // const taskStyles = {
+    //   option: (provided, state) => ({
+    //     ...provided,
+    //     padding: 0,
+    //   })
+    // }
+
     if (!this.props.show) {
       return null;
     }
@@ -147,8 +159,15 @@ async componentDidMount(){
                 </div>
                 <div id="modal-category-wrap">
 
-
                   <label htmlFor="categoryId">Category:</label>
+
+                  {/* <Select
+                    onChange={(e) =>
+                      this.setState({ categoryId: e.target.value || null })
+                    }
+                    options={mapcats}
+                    styles={taskStyles}
+                  /> */}
                   <select
                     onChange={(e) =>
                       this.setState({ categoryId: e.target.value || null })
@@ -160,7 +179,7 @@ async componentDidMount(){
                     <option value="">None</option>
                     {categories
                       ? categories.map((category) => (
-                          <option key={category.id} value={category.id} style={{color: category.color }}>
+                          <option key={category.id} value={category.id}>
                             {category.name}
                           </option>
                         ))
@@ -168,16 +187,6 @@ async componentDidMount(){
                   </select>
                 </div>
               </div>
-              {/*
-              <Dropdown
-                options= {categories.map((category) => {
-                return {
-                    key: category.id,
-                    text: category.name,
-                    value: category.id,
-                  }
-                })}
-              /> */}
 
               <button type="submit" id="modal-submit-button">
                 Add

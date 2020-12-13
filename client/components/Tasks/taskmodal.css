@@ -194,3 +194,10 @@
   width: 20%;
   max-width: 100px;
 }
+
+
+.select-cat-icon {
+  width: 25px;
+  height: auto;
+  background: transparent;
+}

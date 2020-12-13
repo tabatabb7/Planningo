@@ -66,35 +66,35 @@ router.post("/", async (req, res, next) => {
         color: "#FFBF00",
         groupId: group.id,
         isShopping: false,
-        imageUrl: "/assets/icons/misc/041-family.jpg",
+        imageUrl: "/assets/icons/misc/041-family.png",
       },
       {
         name: "Work",
         color: "#FF7F50",
         groupId: group.id,
         isShopping: false,
-        imageUrl: "/assets/icons/misc/002-folders.jpg",
+        imageUrl: "/assets/icons/misc/002-folders.png",
       },
       {
         name: "Finance",
         color: "#DE3163",
         groupId: group.id,
         isShopping: false,
-        imageUrl: "/assets/icons/misc/026-business and finance.jpg",
+        imageUrl: "/assets/icons/misc/026-business and finance.png",
       },
       {
         name: "School",
         color: "#CCCCFF",
         groupId: group.id,
         isShopping: false,
-        imageUrl: "/assets/icons/misc/003-book.jpg",
+        imageUrl: "/assets/icons/misc/003-book.png",
       },
       {
         name: "Family",
         color: "#40E0D0",
         groupId: group.id,
         isShopping: false,
-        imageUrl: "/assets/icons/misc/012-avatar.jpg",
+        imageUrl: "/assets/icons/misc/012-avatar.png",
       },
 
       {
@@ -102,7 +102,7 @@ router.post("/", async (req, res, next) => {
         color: "#FFBF00",
         groupId: group.id,
         isShopping: true,
-        imageUrl: "/assets/icons/misc/004-commerceshop.jpg",
+        imageUrl: "/assets/icons/misc/004-commerceshop.png",
       }
     ]);
     res.json(group);
