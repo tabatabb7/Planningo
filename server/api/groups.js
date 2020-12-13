@@ -104,14 +104,7 @@ router.post("/", async (req, res, next) => {
         groupId: group.id,
         isShopping: true,
         imageUrl: "/assets/icons/misc/004-commerceshop.jpg",
-      },
-      {
-        name: "Home",
-        color: "#FF7F50",
-        groupId: group.id,
-        isShopping: true,
-        imageUrl: "/assets/icons/misc/003-sofa.jpg",
-      },
+      }
     ]);
     res.json(group);
   } catch (err) {
@@ -282,27 +275,6 @@ router.put("/:groupId/tasks", async (req, res, next) => {
   }
 });
 
-// router.post("/:groupId/shopping", async (req, res, next) => {
-//   try {
-//     const userGroup = await User_Group.findOne({
-//       where: {
-//         groupId: req.body.groupId,
-//       },
-//     });
-//     const task = await Task.create({
-//       name: req.body.name,
-//       isShopping: true
-//     });
-//     await Task_Group.create({
-//       taskId: task.id,
-//       groupId: userGroup.groupId,
-//     });
-//     res.json(task);
-//   }catch(error){
-//     next(error)
-//   }
-// })
-
 router.get("/:groupId/shopping", async (req, res, next) => {
   try {
     const group = await Group.findByPk(req.params.groupId, {
@@ -345,7 +317,6 @@ router.get("/:groupId/rewards", async (req, res, next) => {
         },
       ],
     });
-    console.log("GROUP POINTS!!!!!", groupPoints);
     res.json(groupPoints);
   } catch (err) {
     next(err);

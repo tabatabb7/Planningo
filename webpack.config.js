@@ -16,6 +16,7 @@ module.exports = {
   watchOptions: {
     ignored: /node_modules/,
   },
+  devtool: isDev?  'source-map' : false,
   module: {
     rules: [
       {

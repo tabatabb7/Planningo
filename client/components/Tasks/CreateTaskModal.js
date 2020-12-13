@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Categories from "./Categories";
+import { Dropdown } from "semantic-ui-react";
+
 import {
   fetchTasksThunk,
   removeTaskThunk,
@@ -15,8 +16,10 @@ class CreateTaskModal extends Component {
     super(props);
     this.state = {
       name: "",
-      selected: "",
+      group: "",
+      groupId: "",
       description: "",
+      selected: "",
       points: 0,
       error: null,
     };
@@ -24,30 +27,26 @@ class CreateTaskModal extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
+  handleChange(e) {
     this.setState({
-      [event.target.name]: event.target.value,
+      selected: e.target.value,
     });
   }
 
   async handleSubmit(event) {
     event.preventDefault();
-    try {
-      if (this.state.name == "" || this.state.selected == "") {
-        alert("task name OR group can't be empty!");
-      } else {
-        await this.props.addTask(this.state);
-        await this.props.fetchTasks();
-        this.setState({
-          name: "",
-          selected: "",
-          description: "",
-          points: 0,
-        });
-        this.props.onClose();
-      }
-    } catch (err) {
-      console.log("error creating task", err);
+    if (this.state.name == "" || this.state.selected == "") {
+      alert("task name OR group can't be empty!");
+    } else {
+      await this.props.addTask(this.state);
+      await this.props.fetchTasks();
+      this.setState({
+        name: "",
+        selected: "",
+        description: "",
+        points: 0,
+      });
+      this.props.onClose();
     }
   }
 
@@ -65,7 +64,8 @@ class CreateTaskModal extends Component {
   };
 
   render() {
-    const { groups } = this.props.tasks;
+    let categories = this.state.group.categories;
+
     if (!this.props.show) {
       return null;
     }
@@ -113,20 +113,51 @@ class CreateTaskModal extends Component {
               />
 
               <label htmlFor="group">Group:</label>
-              {!groups.length ? (
+              {!this.props.groups.length ? (
                 "You are not a part of any groups."
               ) : (
                 <div id="select-group">
-                  {groups.map((group) => (
-                    <div key={group.id} className="each-select-group" onClick={() => {
-                      this.setState({ selected: group.id });
-                    }}>
-                        <img src={group.imageUrl} className="choose-group-image"></img>
-                        {group.name}
+                  {this.props.groups.map((group) => (
+                    <div
+                      key={group.id}
+                      className="each-select-group"
+                      onClick={() => {
+                        this.setState({ group: group, groupId: group.id });
+                      }}
+                    >
+                      <img
+                        src={group.imageUrl}
+                        className="choose-group-image"
+                      ></img>
+                      {group.name}
                     </div>
                   ))}
                 </div>
               )}
+
+              <select defaultValue="" onChange={this.handleChange}>
+                {categories ? (
+                  categories.map((category) => (
+                    <option key={category.id} value={category.id}>
+                      {category.name}
+                    </option>
+                  ))
+                ) : (
+                  <option disabled={true} value="">
+                    No Categories
+                  </option>
+                )}
+              </select>
+              {/*
+              <Dropdown
+                options= {categories.map((category) => {
+                return {
+                    key: category.id,
+                    text: category.name,
+                    value: category.id,
+                  }
+                })}
+              /> */}
 
               <button type="submit" id="modal-submit-button">
                 Add
@@ -147,7 +178,6 @@ const mapState = (state) => ({
 const mapDispatch = (dispatch) => ({
   addTask: (task) => dispatch(addTaskThunk(task)),
   fetchTasks: (userId) => dispatch(fetchTasksThunk(userId)),
-  deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
 });
 
 export default connect(mapState, mapDispatch)(CreateTaskModal);

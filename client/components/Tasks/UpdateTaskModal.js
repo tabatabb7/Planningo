@@ -37,7 +37,6 @@ class UpdateTaskModal extends Component {
           selected: "",
           description: "",
         });
-        alert(`Your task was updated! Redirecting you to your tasks page..`);
         this.props.onClose();
       }
     } catch (err) {

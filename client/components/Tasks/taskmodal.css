@@ -115,12 +115,13 @@
   max-height: 50px;
 }
 
+/* Group selection */
 #select-group {
   display: flex;
   background-color: oldlace;
-  width: 80%;
+  width: 70%;
   height: 30%;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   overflow-y: none;
   overflow-x: auto;
