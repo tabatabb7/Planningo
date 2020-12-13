@@ -72,17 +72,15 @@ router.get("/:taskId", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    const group = await Group.findOne({
-      where: {
-        name: req.body.selected,
-      },
-    });
+    const group = await Group.findByPk(
+        req.body.groupId)
     const task = await Task.create({
       userId: req.user.id,
       name: req.body.name,
       description: req.body.description,
       points: req.body.points,
       shoppingId: null,
+      categoryId: req.body.categoryId
     });
 
     await User_Task.create({
@@ -104,7 +102,7 @@ router.post("/shopping", async (req, res, next) => {
   try {
     const group = await Group.findOne({
       where: {
-        name: req.body.selected,
+        groupId: req.body.groupId,
       },
     });
     const task = await Task.create({

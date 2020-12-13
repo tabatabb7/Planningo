@@ -2,11 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Dropdown } from "semantic-ui-react";
 
-import {
-  fetchTasksThunk,
-  removeTaskThunk,
-  addTaskThunk,
-} from "../../store/tasks";
+import { fetchTasksThunk, addTaskThunk } from "../../store/tasks";
 import "./taskmodal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -19,7 +15,7 @@ class CreateTaskModal extends Component {
       group: "",
       groupId: "",
       description: "",
-      selected: "",
+      categoryId: "",
       points: 0,
       error: null,
     };
@@ -27,35 +23,26 @@ class CreateTaskModal extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(e) {
+  handleChange(event) {
     this.setState({
-      selected: e.target.value,
+      [event.target.name]: event.target.value,
     });
   }
 
   async handleSubmit(event) {
     event.preventDefault();
-    if (this.state.name == "" || this.state.selected == "") {
+    if (this.state.name == "" || this.state.groupId == "") {
       alert("task name OR group can't be empty!");
     } else {
       await this.props.addTask(this.state);
       await this.props.fetchTasks();
       this.setState({
         name: "",
-        selected: "",
+        categoryId: "",
         description: "",
         points: 0,
       });
       this.props.onClose();
-    }
-  }
-
-  async handleDelete(id) {
-    try {
-      await this.props.deleteTask(id);
-      this.props.fetchTasks();
-    } catch (err) {
-      console.error(err);
     }
   }
 
@@ -112,7 +99,8 @@ class CreateTaskModal extends Component {
                 value={this.state.points}
               />
 
-              <label htmlFor="group">Group:</label>
+              <div id="group-category-wrap">
+              <label htmlFor="groupId">Group:</label>
               {!this.props.groups.length ? (
                 "You are not a part of any groups."
               ) : (
@@ -135,7 +123,15 @@ class CreateTaskModal extends Component {
                 </div>
               )}
 
-              <select defaultValue="" onChange={this.handleChange}>
+              <label htmlFor="categoryId">Category:</label>
+              <select
+                onChange={this.handleChange}
+                value={this.state.categoryId}
+                name="categoryId"
+              >
+                <option value="">
+                    None
+                  </option>
                 {categories ? (
                   categories.map((category) => (
                     <option key={category.id} value={category.id}>
@@ -143,11 +139,11 @@ class CreateTaskModal extends Component {
                     </option>
                   ))
                 ) : (
-                  <option disabled={true} value="">
-                    No Categories
-                  </option>
+                  null
                 )}
               </select>
+              </div>
+
               {/*
               <Dropdown
                 options= {categories.map((category) => {

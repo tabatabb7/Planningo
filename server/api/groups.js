@@ -19,7 +19,6 @@ router.get("/", async (req, res, next) => {
         },
       ],
     });
-    console.log(group);
     res.json(group);
   } catch (err) {
     next(err);
@@ -269,7 +268,6 @@ router.put("/:groupId/tasks", async (req, res, next) => {
     const task = await Task.findByPk(req.body.taskId);
     task.update(req.body);
     res.json(task);
-    console.log(task);
   } catch (err) {
     next(err);
   }
