@@ -1,5 +1,4 @@
-/* modal container */
-.group-task-modal-content {
+/* .group-task-modal-content {
   width: 60vw;
   height: 50vh;
   max-width: 600px;
@@ -65,7 +64,6 @@
   flex-direction: column;
 }
 
-/* Form */
 #group-add-task-form {
   width: 95%;
   display: flex;
@@ -119,4 +117,4 @@
 
 #user-form select {
   width: 50%;
-}
+} */
