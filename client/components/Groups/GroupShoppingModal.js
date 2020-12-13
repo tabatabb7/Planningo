@@ -68,24 +68,24 @@ class GroupShoppingModal extends Component {
     return (
       <div>
         <div>{this.props.children}</div>
-        <div className="group-task-modal-content">
-          <div id="group-top-taskmodal-div">
-            <div id="group-modal-title">NEW ITEM</div>
+        <div className="task-modal-content">
+          <div id="top-taskmodal-div">
+            <div id="modal-title">NEW ITEM</div>
             <button
               onClick={(e) => this.onClose(e)}
-              className="group-close-modal-btn"
+              className="close-modal-btn"
             >
               <FontAwesomeIcon icon={faTimes} />
             </button>
           </div>
 
-          <div id="group-lower-taskmodal-div">
-            <form id="group-add-task-form" onSubmit={this.handleSubmit}>
+          <div id="lower-taskmodal-div">
+            <form id="add-task-form" onSubmit={this.handleSubmit}>
               <label htmlFor="name">Name:</label>
               <input
                 name="name"
                 type="text"
-                className="group-modal-input"
+                className="modal-input"
                 onChange={this.handleChange}
                 value={this.state.name}
               />
@@ -95,11 +95,11 @@ class GroupShoppingModal extends Component {
                 name="description"
                 type="text"
                 rows="4"
-                className="group-modal-input"
+                className="modal-input"
                 onChange={this.handleChange}
                 value={this.state.description}
               />
-              <button id="group-modal-submit-button" type="submit">
+              <button id="modal-submit-button" type="submit">
                 Add
               </button>
             </form>

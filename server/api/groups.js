@@ -19,7 +19,6 @@ router.get("/", async (req, res, next) => {
         },
       ],
     });
-    console.log(group);
     res.json(group);
   } catch (err) {
     next(err);
@@ -67,35 +66,35 @@ router.post("/", async (req, res, next) => {
         color: "#FFBF00",
         groupId: group.id,
         isShopping: false,
-        imageUrl: "/assets/icons/misc/041-family.jpg",
+        imageUrl: "/assets/icons/misc/041-family.png",
       },
       {
         name: "Work",
         color: "#FF7F50",
         groupId: group.id,
         isShopping: false,
-        imageUrl: "/assets/icons/misc/002-folders.jpg",
+        imageUrl: "/assets/icons/misc/002-folders.png",
       },
       {
         name: "Finance",
         color: "#DE3163",
         groupId: group.id,
         isShopping: false,
-        imageUrl: "/assets/icons/misc/026-business and finance.jpg",
+        imageUrl: "/assets/icons/misc/026-business and finance.png",
       },
       {
         name: "School",
         color: "#CCCCFF",
         groupId: group.id,
         isShopping: false,
-        imageUrl: "/assets/icons/misc/003-book.jpg",
+        imageUrl: "/assets/icons/misc/003-book.png",
       },
       {
         name: "Family",
         color: "#40E0D0",
         groupId: group.id,
         isShopping: false,
-        imageUrl: "/assets/icons/misc/012-avatar.jpg",
+        imageUrl: "/assets/icons/misc/012-avatar.png",
       },
 
       {
@@ -103,15 +102,8 @@ router.post("/", async (req, res, next) => {
         color: "#FFBF00",
         groupId: group.id,
         isShopping: true,
-        imageUrl: "/assets/icons/misc/004-commerceshop.jpg",
-      },
-      {
-        name: "Home",
-        color: "#FF7F50",
-        groupId: group.id,
-        isShopping: true,
-        imageUrl: "/assets/icons/misc/003-sofa.jpg",
-      },
+        imageUrl: "/assets/icons/misc/004-commerceshop.png",
+      }
     ]);
     res.json(group);
   } catch (err) {
@@ -276,32 +268,10 @@ router.put("/:groupId/tasks", async (req, res, next) => {
     const task = await Task.findByPk(req.body.taskId);
     task.update(req.body);
     res.json(task);
-    console.log(task);
   } catch (err) {
     next(err);
   }
 });
-
-// router.post("/:groupId/shopping", async (req, res, next) => {
-//   try {
-//     const userGroup = await User_Group.findOne({
-//       where: {
-//         groupId: req.body.groupId,
-//       },
-//     });
-//     const task = await Task.create({
-//       name: req.body.name,
-//       isShopping: true
-//     });
-//     await Task_Group.create({
-//       taskId: task.id,
-//       groupId: userGroup.groupId,
-//     });
-//     res.json(task);
-//   }catch(error){
-//     next(error)
-//   }
-// })
 
 router.get("/:groupId/shopping", async (req, res, next) => {
   try {
@@ -345,7 +315,6 @@ router.get("/:groupId/rewards", async (req, res, next) => {
         },
       ],
     });
-    console.log("GROUP POINTS!!!!!", groupPoints);
     res.json(groupPoints);
   } catch (err) {
     next(err);
