@@ -71,6 +71,7 @@ class GroupTaskList extends React.Component {
   render() {
     let tasks = this.props.group.tasks;
     let group = this.props.group;
+    // console.log("GROUP!!!!!-->", group)
     let categories = this.props.group.categories;
 
     return (
@@ -134,7 +135,7 @@ class GroupTaskList extends React.Component {
                         </div>
                       </button>
 
-                      <div>---worth {task.Task_Group.points} POINTS</div>
+                      <div>---worth {task.points} POINTS</div>
 
                       <button
                         onClick={() => this.handleDelete(task.id)}

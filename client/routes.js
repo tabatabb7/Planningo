@@ -12,7 +12,7 @@ import {
   Account,
   AccountSettings,
   ShoppingList,
-  // AppCalendar,
+  AppCalendar,
   TaskList,
   CreateGroup,
   SingleGroup,
@@ -43,7 +43,7 @@ class Routes extends Component {
             <Route exact path={["/home", "/"]} component={UserHome} />
             <Route exact path="/account" component={Account} />
             <Route exact path="/account/settings" component={AccountSettings} />
-            {/* <Route path="/calendar" component={AppCalendar} /> */}
+            <Route path="/calendar" component={AppCalendar} />
             <Route exact path="/tasks" component={TaskList} />
             <Route exact path="/groups" component={GroupList} />
             <Route path="/shoppinglist" component={ShoppingList} />
