@@ -4,7 +4,7 @@ import {
   fetchSingleGroupShopping,
   addGroupItemThunk,
 } from "../../store/singleGroup";
-import "./grouptaskmodal.css";
+import "../Tasks/taskmodal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
