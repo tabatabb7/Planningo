@@ -48,7 +48,9 @@ class CreateGroup extends React.Component {
     } else {
       return (
         <div className="group-wrapper">
-          <h1>Create Group</h1>
+          <h3>Create your first group and add members! 
+            If you would like to use Planningo as a personal task manager, 
+            you can create a group for just yourself.</h3>
 
           <form id="add-group-form" onSubmit={this.handleSubmit}>
             <label htmlFor="name">Name:</label>

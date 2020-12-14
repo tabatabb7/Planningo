@@ -1,13 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchSingleGroup, addGroupTaskThunk } from "../../store/singleGroup";
-import "./grouptaskmodal.css";
+import "../tasks/taskmodal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import DatePicker from "../Calendar/Datepicker";
 
 class GroupTaskModal extends Component {
   constructor(props) {
     super(props);
+    let path = window.location.pathname;
+    console.log(path, "path inside constructor");
+    let part = path.split("/").pop();
+    console.log(part, "part inside constructor");
     this.state = {
       name: "",
       selected: "",
@@ -15,6 +20,8 @@ class GroupTaskModal extends Component {
       points: 0,
       groupId: this.props.groupId,
       error: null,
+      categoryId: null,
+      modaltype: part,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,6 +40,15 @@ class GroupTaskModal extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     try {
+      {
+        if (this.state.modaltype === "tasks") {
+          await this.props.addGroupTask(this.props.groupId);
+          await this.props.fetchGroup(this.props.groupId);
+        } else {
+          // await this.props.addItem(this.state);
+          // await this.props.fetchItems();
+        }
+      }
       await this.props.addGroupTask(this.props.groupId, this.state);
       this.setState({
         name: "",
@@ -61,31 +77,35 @@ class GroupTaskModal extends Component {
 
   render() {
     let group = this.props.group;
+    let categories = this.props.group.categories;
 
+    console.log(this.props, "thisprops in render of grouptaskmodal");
     if (!this.props.show) {
       return null;
     }
     return (
       <div>
         <div>{this.props.children}</div>
-        <div className="group-task-modal-content">
-          <div id="group-top-taskmodal-div">
-            <div id="group-modal-title">NEW TASK</div>
+        <div className="task-modal-content">
+          <div id="top-taskmodal-div">
+            <div id="modal-title">
+              NEW {this.state.modaltype === "tasks" ? "TASK" : "ITEM"}
+            </div>
             <button
               onClick={(e) => this.onClose(e)}
-              className="group-close-modal-btn"
+              className="close-modal-btn"
             >
               <FontAwesomeIcon icon={faTimes} />
             </button>
           </div>
 
-          <div id="group-lower-taskmodal-div">
-            <form id="group-add-task-form" onSubmit={this.handleSubmit}>
+          <div id="lower-taskmodal-div">
+            <form id="add-task-form" onSubmit={this.handleSubmit}>
               <label htmlFor="name">Task:</label>
               <input
                 name="name"
                 type="text"
-                className="group-modal-input"
+                className="modal-input"
                 onChange={this.handleChange}
                 value={this.state.name}
               />
@@ -95,7 +115,7 @@ class GroupTaskModal extends Component {
                 name="description"
                 type="text"
                 rows="4"
-                className="group-modal-input"
+                className="modal-input"
                 onChange={this.handleChange}
                 value={this.state.description}
               />
@@ -127,9 +147,40 @@ class GroupTaskModal extends Component {
                     ))
                   : "There are no users"}
               </select>
-              <button id="group-modal-submit-button" type="submit">
+              <DatePicker />
+              <button id="modal-submit-button" type="submit">
                 Add
               </button>
+
+              <div id="modal-category-wrap">
+                <label htmlFor="categoryId">Category:</label>
+
+                <select
+                  onChange={(e) =>
+                    this.setState({ categoryId: e.target.value || null })
+                  }
+                  value={this.state.categoryId || ""}
+                  name="categoryId"
+                  className="choose-category"
+                >
+                  <option value="">None</option>
+                  {categories
+                    ? categories
+                        .filter((category) => {
+                          if (this.state.modaltype === "tasks") {
+                            return category.isShopping === false;
+                          } else {
+                            return category.isShopping === true;
+                          }
+                        })
+                        .map((category) => (
+                          <option key={category.id} value={category.id}>
+                            {category.name}
+                          </option>
+                        ))
+                    : null}
+                </select>
+              </div>
             </form>
           </div>
         </div>

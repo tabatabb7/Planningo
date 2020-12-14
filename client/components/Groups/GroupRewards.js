@@ -18,7 +18,6 @@ import {
 class GroupRewards extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       selected: "",
       points: "",
@@ -26,12 +25,7 @@ class GroupRewards extends React.Component {
   }
   async componentDidMount() {
     await this.props.fetchGroup(this.props.match.params.groupId);
-    // this.props.fetchUserPoints(this.props.userId);
     await this.props.fetchGroupPoints(this.props.match.params.groupId);
-    // this.props.fetchUserGroupPoints(
-    //   this.props.userId,
-    //   this.props.match.params.groupId
-    // );
   }
 
   pointCalc(points, userId) {
@@ -108,9 +102,9 @@ class GroupRewards extends React.Component {
           ) : (
             "This group has no members."
           )
-        ) : (
-          <h1>Loading...</h1>
-        )}
+        ) : 
+          <h1>0</h1>
+        }
       </div>
     );
   }

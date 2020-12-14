@@ -227,6 +227,7 @@ router.get("/:groupId/shopping", async (req, res, next) => {
 router.post("/:groupId/tasks", async (req, res, next) => {
   try {
     const selected = req.body.selected;
+
     const selectedNames = selected.split(" ");
 
     const user = await User.findOne({
@@ -247,6 +248,7 @@ router.post("/:groupId/tasks", async (req, res, next) => {
       name: req.body.name,
       points: req.body.points,
       isShopping: false,
+      categoryId: req.body.categoryId,
     });
     await User_Task.create({
       userId: user.id,
