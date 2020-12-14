@@ -1,5 +1,12 @@
 const router = require("express").Router();
-const { Point, User_Task, User, Task_Group, Task } = require("../db/models");
+const {
+  Point,
+  User_Task,
+  User,
+  Task_Group,
+  Task,
+  Category,
+} = require("../db/models");
 const Op = require("sequelize").Op;
 
 // GET api/points
@@ -23,6 +30,12 @@ router.post("/", async (req, res, next) => {
     const taskId = taskNum[0];
 
     const task = await Task.findByPk(taskId);
+
+    const taskCat = await Category.findOne({
+      where: {
+        id: task.categoryId,
+      },
+    });
 
     const groupTask = await Task_Group.findOne({
       where: {
@@ -49,6 +62,7 @@ router.post("/", async (req, res, next) => {
         userId: user.id,
         groupId: groupTask.groupId,
         firstName: user.firstName,
+        categoryName: taskCat.categoryName,
       },
     });
 

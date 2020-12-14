@@ -7,7 +7,13 @@ import {
   fetchUserGroupPointsThunk,
 } from "../../store/point";
 import "./grouprewards.css";
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from "victory";
+import {
+  VictoryBar,
+  VictoryChart,
+  VictoryAxis,
+  VictoryTheme,
+  VictoryPie,
+} from "victory";
 
 class GroupRewards extends React.Component {
   constructor(props) {
@@ -39,7 +45,23 @@ class GroupRewards extends React.Component {
   render() {
     const group = this.props.group;
     const points = this.props.points;
-    console.log("is it updated");
+    const groupUsers = this.props.group.users;
+    let mappedUsers;
+
+    {
+      groupUsers && groupUsers.length > 0 ? (
+        (mappedUsers = groupUsers.map((user) => {
+          return {
+            x: user.firstName,
+            y: user.tasksCompleted,
+            label: user.firstName,
+          };
+        }))
+      ) : (
+        <h3>Group Users not available yet</h3>
+      );
+    }
+    console.log(this.props, "this.props in groupreward render");
     return (
       <div className="group-reward-wrapper">
         <h1>Number of Points</h1>
@@ -68,6 +90,19 @@ class GroupRewards extends React.Component {
                     style={{ data: { fill: "#ff7290" } }}
                   />
                 </VictoryChart>
+
+                {groupUsers && groupUsers.length > 0 ? (
+                  <div>
+                    <h3>Tasks Completed</h3>
+                    <VictoryPie
+                      data={mappedUsers}
+                      labels={mappedUsers.label}
+                      colorScale={["tomato", "orange", "gold", "cyan", "navy"]}
+                    />
+                  </div>
+                ) : (
+                  <h3>Number of Tasks not available yet</h3>
+                )}
               </div>
             </div>
           ) : (

@@ -51,6 +51,10 @@ const User = db.define("user", {
   googleId: {
     type: Sequelize.STRING,
   },
+  tasksCompleted: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
+  },
 });
 
 /**

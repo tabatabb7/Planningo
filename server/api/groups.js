@@ -103,7 +103,7 @@ router.post("/", async (req, res, next) => {
         groupId: group.id,
         isShopping: true,
         imageUrl: "/assets/icons/misc/004-commerceshop.png",
-      }
+      },
     ]);
     res.json(group);
   } catch (err) {

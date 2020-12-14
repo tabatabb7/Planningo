@@ -89,7 +89,7 @@ export const updateUserThunk = (
         firstName: firstName,
         lastName: lastName,
         email: email,
-        avatarUrl,
+        avatarUrl: avatarUrl,
       });
 
       dispatch(updateUser(data));

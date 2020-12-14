@@ -29,6 +29,9 @@ const Category = db.define("category", {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
   },
+  categoryName: {
+    type: Sequelize.STRING,
+  },
 });
 
 module.exports = Category;
