@@ -4,12 +4,6 @@ import { connect } from "react-redux";
 import { fetchSingleGroup } from "../../store/singleGroup";
 import { fetchUserPointsThunk } from "../../store/point";
 
-const data = [
-  { task: 1, points: 130 },
-  { task: 2, points: 16 },
-  { task: 1, points: 142 },
-  { task: 4, points: 19 },
-];
 //write a formula for data
 //write a formula for custom tasks
 class MyStats extends React.Component {
