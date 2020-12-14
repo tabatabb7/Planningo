@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { updateTaskThunk } from "../../store/tasks";
 import { fetchTasksThunk } from "../../store/tasks";
+import { fetchGroupsThunk } from "../../store/allGroups";
 import "./taskmodal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -11,12 +12,22 @@ class UpdateTaskModal extends Component {
     super(props);
     this.state = {
       name: this.props.task.name,
-      selected: this.props.task.selected,
+      group: "",
+      groupId: "",
       description: this.props.task.description,
+      points: this.props.task.points,
       taskId: this.props.task.id,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  async componentDidMount() {
+    await this.props.fetchGroups();
+    this.setState({
+      groupId: this.props.groups.length ? this.props.groups[0].id : "",
+      group: this.props.groups.length ? this.props.groups[0] : "",
+    });
   }
 
   handleChange(event) {
@@ -28,23 +39,25 @@ class UpdateTaskModal extends Component {
   async handleSubmit(event) {
     event.preventDefault();
       if (this.state.name == "") {
-        alert("task name can't be empty!");
-      } else {
-        await this.props.updateTask(this.state);
         this.setState({
-          name: "",
-          selected: "",
-          description: "",
+          error: "Name can't be empty!",
         });
-        this.props.onClose();
+      } else if (this.state.groupId == "") {
+        this.setState({
+          error: "Please select a group!",
+        });
       }
+      await this.props.updateTask(this.state);
+      this.props.onClose();
   }
+
 
   onClose = (e) => {
     this.props.onClose && this.props.onClose(e);
   };
 
   render() {
+    let categories = this.state.group.categories;
     let { groups } = this.props.tasks;
 
     if (!this.props.showTask || !this.props.selectedTask) {
@@ -52,7 +65,6 @@ class UpdateTaskModal extends Component {
     }
     return (
       <div>
-        <div>{this.props.children}</div>
         <div className="task-modal-content">
           <div id="top-taskmodal-div">
             <div id="modal-title">{this.props.task.name}</div>
@@ -70,7 +82,7 @@ class UpdateTaskModal extends Component {
               <input
                 name="name"
                 type="text"
-                className="modal-input"
+                className="modal-input name"
                 onChange={this.handleChange}
                 value={this.state.name}
               />
@@ -80,28 +92,80 @@ class UpdateTaskModal extends Component {
                 name="description"
                 type="text"
                 rows="4"
-                className="modal-input"
+                className="modal-input desc"
                 onChange={this.handleChange}
                 value={this.state.description}
               />
-            </form>
 
-            <form id="group-form" onSubmit={this.handleSubmit}>
-              <label htmlFor="selected"></label>
-              <select
-                value={this.state.selected}
+              <label htmlFor="points">Points:</label>
+              <textarea
+                name="points"
+                type="text"
+                className="modal-input points"
                 onChange={this.handleChange}
-                name="selected"
-              >
-                <option value="" disabled>
-                  Select Group
-                </option>
-                {groups && groups.length
-                  ? groups.map((group) => (
-                      <option key={group.id}>{group.name} </option>
-                    ))
-                  : "There are no groups"}
-              </select>
+                value={this.state.points}
+              />
+          
+
+            <div id="group-category-wrap">
+                <div id="modal-group-wrap">
+                  <label htmlFor="groupId">Select Group:</label>
+                  {!this.props.groups.length ? (
+                    "You are not a part of any groups."
+                  ) : (
+                    <div id="select-group">
+                      {this.props.groups.map((group) => (
+                        <div
+                          key={group.id}
+                          className={
+                            this.state.groupId === group.id
+                              ? "each-select-group selected"
+                              : "each-select-group"
+                          }
+                          onClick={() => {
+                            this.setState({
+                              group: group,
+                              groupId: group.id,
+                              categoryId: null,
+                            });
+                          }}
+                        >
+                          <img
+                            src={group.imageUrl}
+                            className="choose-group-image"
+                          ></img>
+                          {group.name}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <div id="modal-category-wrap">
+                  <label htmlFor="categoryId">Category:</label>
+                <select
+                    onChange={(e) =>
+                      this.setState({ categoryId: e.target.value || null })
+                    }
+                    value={this.state.categoryId || ""}
+                    name="categoryId"
+                    className="choose-category"
+                  >
+                    <option value="">None</option>
+                    {categories
+                      ? categories
+                          .filter((category) => {
+                              return category.isShopping === false;
+                          })
+                          .map((category) => (
+                            <option key={category.id} value={category.id}>
+                              {category.name}
+                            </option>
+                          ))
+                      : null}
+                  </select>
+                </div>
+              </div>
+              {<div> {this.state.error} </div>}
               <button type="submit" id="modal-submit-button">
                 Update
               </button>
@@ -113,13 +177,16 @@ class UpdateTaskModal extends Component {
   }
 }
 
+
 const mapState = (state) => ({
   tasks: state.tasks,
+  groups: state.groups,
 });
 
 const mapDispatch = (dispatch) => ({
   fetchTasks: (userId) => dispatch(fetchTasksThunk(userId)),
   updateTask: (task) => dispatch(updateTaskThunk(task)),
+  fetchGroups: () => dispatch(fetchGroupsThunk()),
 });
 
 export default connect(mapState, mapDispatch)(UpdateTaskModal);

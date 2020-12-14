@@ -46,7 +46,6 @@
   right: 0;
   color: #fefde9;
   margin-right: 2%;
-
 }
 
 #modal-title {
@@ -55,7 +54,7 @@
   font-family: "Poppins", sans-serif;
   color: #fefde9;
   font-size: 20px;
-  font-weight:600;
+  font-weight: 600;
 }
 
 #lower-taskmodal-div {
@@ -85,7 +84,7 @@
   color: white;
 }
 
-.modal-input{
+.modal-input {
   width: 80%;
   resize: none;
   margin-bottom: 2%;
@@ -93,7 +92,7 @@
   border: 1px solid #a0c391;
 }
 
-.modal-input.name{
+.modal-input.name {
   height: 5%;
   max-height: 35px;
 }
@@ -109,7 +108,7 @@
 }
 
 /* CHOOSE GROUPS AND CATEGORIES */
-#group-category-wrap{
+#group-category-wrap {
   display: flex;
   width: 80%;
   height: 30%;
@@ -117,7 +116,7 @@
   max-height: 250px;
 }
 
-#modal-group-wrap{
+#modal-group-wrap {
   display: flex;
   flex-direction: column;
   width: 70%;
@@ -158,14 +157,14 @@
   background-color: pink;
 }
 
-#modal-category-wrap{
+#modal-category-wrap {
   display: flex;
   flex-direction: column;
   height: 100%;
   width: 30%;
 }
 
-.choose-category{
+.choose-category {
   width: 100%;
   max-width: 150px;
   height: 25%;
@@ -193,7 +192,6 @@
   width: 20%;
   max-width: 100px;
 }
-
 
 .select-cat-icon {
   width: 25px;

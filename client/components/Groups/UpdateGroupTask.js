@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { updateGroupTaskThunk, fetchTasksThunk } from "../../store/tasks";
+import "../Tasks/taskmodal.css";
 import { fetchSingleGroupTasks } from "../../store/singleGroup";
 
 class UpdateGroupTaskModal extends Component {
@@ -59,24 +60,24 @@ class UpdateGroupTaskModal extends Component {
     return (
       <div>
         <div>{this.props.children}</div>
-        <div className="group-task-modal-content">
-          <div id="group-top-taskmodal-div">
-            <div id="group-modal-title">UPDATE TASK</div>
+        <div className="task-modal-content">
+          <div id="top-taskmodal-div">
+            <div id="modal-title">UPDATE TASK</div>
             <button
               onClick={(e) => this.onClose(e)}
-              className="group-close-modal-btn"
+              className="close-modal-btn"
             >
               <FontAwesomeIcon icon={faTimes} />
             </button>
           </div>
 
-          <div id="group-lower-taskmodal-div">
-            <form id="group-add-task-form" onSubmit={this.handleSubmit}>
+          <div id="lower-taskmodal-div">
+            <form id="add-task-form" onSubmit={this.handleSubmit}>
               <label htmlFor="name">Task:</label>
               <input
                 name="name"
                 type="text"
-                className="group-modal-input"
+                className="modal-input"
                 onChange={this.handleChange}
                 value={this.state.name}
               />
@@ -86,7 +87,7 @@ class UpdateGroupTaskModal extends Component {
                 name="description"
                 type="text"
                 rows="4"
-                className="group-modal-input"
+                className="modal-input"
                 onChange={this.handleChange}
                 value={this.state.description}
               />
@@ -118,7 +119,7 @@ class UpdateGroupTaskModal extends Component {
                     ))
                   : "There are no users"}
               </select>
-              <button id="group-modal-submit-button" type="submit">
+              <button id="modal-submit-button" type="submit">
                 Update
               </button>
             </form>
