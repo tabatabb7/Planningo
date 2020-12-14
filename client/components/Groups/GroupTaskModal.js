@@ -40,21 +40,13 @@ class GroupTaskModal extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     try {
-      {
-        if (this.state.modaltype === "tasks") {
-          await this.props.addGroupTask(this.props.groupId);
-          await this.props.fetchGroup(this.props.groupId);
-        } else {
-          // await this.props.addItem(this.state);
-          // await this.props.fetchItems();
-        }
-      }
       await this.props.addGroupTask(this.props.groupId, this.state);
       this.setState({
         name: "",
         selected: "",
         description: "",
         points: 0,
+        categoryId: null,
       });
       await this.props.fetchGroup(this.props.groupId);
       this.props.onClose();

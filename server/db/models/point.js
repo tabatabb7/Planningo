@@ -9,6 +9,9 @@ const Point = db.define("points", {
   firstName: {
     type: Sequelize.STRING,
   },
+  categoryName: {
+    type: Sequelize.STRING,
+  },
 });
 
 module.exports = Point;
