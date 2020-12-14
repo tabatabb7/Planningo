@@ -17,6 +17,7 @@ class CreateTaskModal extends Component {
     super(props);
     //modal depends on whether path name ends in /tasks or /shoppinglist
     let path = window.location.pathname;
+    console.log(path)
     let part = path.split("/").pop();
     this.state = {
       modaltype: part,
@@ -152,7 +153,7 @@ class CreateTaskModal extends Component {
 
               <div id="group-category-wrap">
                 <div id="modal-group-wrap">
-                  <label htmlFor="groupId">Group:</label>
+                  <label htmlFor="groupId">Select Group:</label>
                   {!this.props.groups.length ? (
                     "You are not a part of any groups."
                   ) : (
