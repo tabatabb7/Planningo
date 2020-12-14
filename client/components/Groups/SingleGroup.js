@@ -9,10 +9,11 @@ class SingleGroup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: "",
+      email: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  //   this.deleteUser = this.deleteUser.bind(this);
   }
 
   componentDidMount() {
@@ -27,11 +28,16 @@ class SingleGroup extends React.Component {
   async handleSubmit(event) {
     event.preventDefault();
     try {
-      await this.props.addUser(this.props.group.id, this.state.userId);
+      await this.props.addUser(this.props.group.id, this.state.email);
       this.props.fetchGroup(this.props.match.params.groupId);
     } catch (err) {
       console.log("handlesubmit err", err);
     }
+  }
+
+  async deleteUser(userId) {
+    await this.props.deleteUser(this.props.group.id, userId)
+    await this.props.fetchGroup(this.props.match.params.groupId);
   }
 
   render() {
@@ -41,13 +47,13 @@ class SingleGroup extends React.Component {
       <div key={group.id} id="group-info">
         Edit group
         <form id="addform" onSubmit={this.handleSubmit}>
-          <h3>Add a User</h3>
-          <label htmlFor="userId">id</label>
+          <h3>Add a User By Email</h3>
+          <label htmlFor="email"></label>
           <input
-            name="userId"
+            name="email"
             type="text"
             onChange={this.handleChange}
-            value={this.props.userId}
+            value={this.props.email}
           />
           <button type="submit">Submit</button>
         </form>
@@ -74,22 +80,32 @@ class SingleGroup extends React.Component {
             {group.users.map((user) => (
               <div key={user.id}>
                 <img src={user.avatarUrl} className="user-avatar" />
+                <button onClick={() => this.deleteUser(user.id)}>X</button>
                 {(() => {
                   if (user.User_Group.role === "admin") {
                     return (
+                      <div>
                       <h3>
                         {user.firstName} {user.lastName} 🏅
                       </h3>
+                    
+                      </div>
+                      
                     );
                   } else {
                     return (
+                      <div>
                       <h3>
                         {user.firstName} {user.lastName}
                       </h3>
+   
+                      </div>
                     );
                   }
+                 
                 })()}
               </div>
+              
             ))}
           </div>
         ) : (
@@ -105,6 +121,7 @@ const mapState = (state) => ({
 });
 
 const mapDispatch = (dispatch) => ({
+  deleteUser: (groupId, userId) => dispatch(deleteFromGroupThunk(groupId, userId)),
   fetchGroup: (group) => dispatch(fetchSingleGroup(group)),
   updateGroup: (group) => dispatch(updateGroupThunk(group)),
   addUser: (groupId, userId) => dispatch(addToGroupThunk(groupId, userId)),

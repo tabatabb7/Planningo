@@ -68,11 +68,11 @@ export const updateGroupThunk = (group) => {
 };
 
 // add user to group
-export const addToGroupThunk = (groupId, userId) => {
+export const addToGroupThunk = (groupId, email) => {
   return async (dispatch) => {
     try {
       const { data: newUser } = await axios.post(`/api/groups/${groupId}`, {
-        userId,
+        email,
       });
       dispatch(setSingleGroup(newUser));
     } catch (err) {
@@ -86,10 +86,7 @@ export const deleteFromGroupThunk = (groupId, userId) => {
   return async (dispatch) => {
     try {
       const { data: deletedUser } = await axios.delete(
-        `/api/groups/${groupId}`,
-        {
-          userId,
-        }
+        `/api/groups/${groupId}/${userId}`
       );
       dispatch(setSingleGroup(deletedUser));
     } catch (err) {
