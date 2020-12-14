@@ -12,7 +12,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
-import "./grouptasks.css";
+import "../Tasks/Tasks.css";
 import { VictoryScatter, VictoryLabel } from 'victory';
 
 class GroupTaskList extends React.Component {
