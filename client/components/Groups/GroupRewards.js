@@ -102,9 +102,9 @@ class GroupRewards extends React.Component {
           ) : (
             "This group has no members."
           )
-        ) : 
+        ) : (
           <h1>0</h1>
-        }
+        )}
       </div>
     );
   }
