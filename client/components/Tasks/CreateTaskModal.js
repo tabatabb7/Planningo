@@ -75,6 +75,13 @@ class CreateTaskModal extends Component {
     //     : (mapcats = null);
     // }
 
+    // newData = categories.map((category) => {
+    //   return {
+    //     x: category.id,
+    //     y: this.props.points
+    //   }
+    // })
+
 
     // const taskStyles = {
     //   option: (provided, state) => ({

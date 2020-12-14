@@ -13,6 +13,7 @@ class UpdateTaskModal extends Component {
       name: this.props.task.name,
       selected: this.props.task.selected,
       description: this.props.task.description,
+      points: this.props.task.points,
       taskId: this.props.task.id,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -83,6 +84,14 @@ class UpdateTaskModal extends Component {
                 className="modal-input"
                 onChange={this.handleChange}
                 value={this.state.description}
+              />
+              <label htmlFor="points">Points:</label>
+              <textarea
+                name="points"
+                type="text"
+                className="modal-input"
+                onChange={this.handleChange}
+                value={this.state.points}
               />
             </form>
 
