@@ -48,16 +48,17 @@ class CreateTaskModal extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    if (this.state.name == "") {
+     if (this.state.name == "") {
       this.setState({
         error: "Name can't be empty!",
       });
+      return false
     } else if (this.state.groupId == "") {
       this.setState({
         error: "Please select a group!",
       });
-    }
-    {
+      return false
+    } else {
       if (this.state.modaltype === "tasks") {
         await this.props.addTask(this.state);
         await this.props.fetchTasks();
@@ -76,14 +77,13 @@ class CreateTaskModal extends Component {
     this.props.onClose();
   }
 
+
   onClose = (e) => {
     this.props.onClose && this.props.onClose(e);
   };
 
   render() {
     let categories = this.state.group.categories;
-
-    let { groups } = this.props.tasks;
 
     // let mapcats;
     // {
