@@ -7,7 +7,7 @@ import { fetchSingleGroupShopping } from "../../store/singleGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
-import "./grouptasks.css";
+import "../tasks/tasks.css";
 
 class GroupShoppingList extends React.Component {
   constructor(props) {
@@ -59,13 +59,13 @@ class GroupShoppingList extends React.Component {
     let categories = this.props.group.categories;
 
     return (
-      <div className="group-task-wrapper">
-        <div id="group-task-box">
-          <div className="group-task-box-header">
+      <div className="task-wrapper">
+        <div id="task-box">
+          <div className="task-box-header">
             Shopping List - {group.name}
           </div>
-          <div className="group-task-box-body">
-            <div id="group-task-box-categories">
+          <div className="task-box-body">
+            <div id="task-box-categories">
               Category
               {categories
                 ? categories.map((category) => (
@@ -86,15 +86,15 @@ class GroupShoppingList extends React.Component {
             </div>
 
             {/* LIST OF TASKS */}
-            <div id="group-task-box-list">
+            <div id="task-box-list">
               {tasks && tasks.length
                 ? tasks.map((task) => (
-                    <div key={task.id} className="group-singletask">
+                    <div key={task.id} className="singletask">
                       <button
                         onClick={() =>
                           this.toggleCompleted(task.id, task.isCompleted)
                         }
-                        className="group-completeTask"
+                        className="completeTask"
                       >
                         <div
                           className={
@@ -109,7 +109,7 @@ class GroupShoppingList extends React.Component {
                       {task.name}
                       <button
                         onClick={() => this.handleDelete(task.id)}
-                        className="group-deleteTask"
+                        className="deleteTask"
                       >
                         X
                       </button>
@@ -117,14 +117,14 @@ class GroupShoppingList extends React.Component {
                   ))
                 : "This shopping list has no items!"}
             </div>
-            <div id="group-just-another-layout-div"></div>
+            <div id="just-another-layout-div"></div>
           </div>
-          <div id="group-add-button-div">
+          <div id="add-button-div">
             <button
               onClick={(e) => {
                 this.showModal(e);
               }}
-              className="group-add-task-button"
+              className="add-task-button"
             >
               <div id="ahhh">
                 <FontAwesomeIcon icon={faPlusSquare} />

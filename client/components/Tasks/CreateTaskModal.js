@@ -28,6 +28,7 @@ class CreateTaskModal extends Component {
     await this.props.fetchGroups();
     this.setState({
       groupId: this.props.groups.length ? this.props.groups[0].id : "",
+      group: this.props.groups.length ? this.props.groups[0] : ""
     });
   }
 
@@ -151,7 +152,7 @@ class CreateTaskModal extends Component {
                               : "each-select-group"
                           }
                           onClick={() => {
-                            this.setState({ group: group, groupId: group.id });
+                            this.setState({ group: group, groupId: group.id, categoryId: null });
                           }}
                         >
                           <img
@@ -175,6 +176,7 @@ class CreateTaskModal extends Component {
                     options={mapcats}
                     styles={taskStyles}
                   /> */}
+
                   <select
                     onChange={(e) =>
                       this.setState({ categoryId: e.target.value || null })
