@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { updateTaskCompletion } from "../../store/singletask";
-import ShoppingModal from "./ShoppingModal";
 import "./Tasks.css";
+import CreateTaskModal from "./CreateTaskModal";
+import UpdateTaskModal from "./UpdateTaskModal";
 import { fetchShoppingItemsThunk, removeTaskThunk } from "../../store/tasks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
@@ -50,27 +51,17 @@ class ShoppingList extends React.Component {
     return (
       <div className="task-wrapper">
         <div id="task-box">
-          <div className="task-box-header">
-            Shopping List
-            {/* <select name="selected">
-          <option value="" disabled>
-            Select Group
-          </option>
-          {groups && groups.length
-            ? groups.map((group) => (
-                <option key={group.id}>{group.name} </option>
-              ))
-            : "There are no groups"}
-        </select> */}
-          </div>
+          <div className="task-box-header">Shopping List</div>
           <div className="task-box-body">
-            <div id="task-box-categories">Category</div>
+            <div id="task-box-categories">div</div>
 
             {/* LIST OF TASKS */}
             <div id="task-box-list">
               {tasks && tasks.length
                 ? tasks.map((task) => (
-                    <p key={task.id} className="singletask">
+                    <div key={task.id} className="singletask">
+
+
                       <button
                         onClick={() =>
                           this.toggleCompleted(task.id, task.isCompleted)
@@ -87,16 +78,26 @@ class ShoppingList extends React.Component {
                           <FontAwesomeIcon icon={faCheckCircle} />
                         </div>
                       </button>
-                      {task.name}
+
+                      <a onClick={(e) => this.showTaskModal(e, task.id)}>
+                        {task.name}
+                      </a>
+
+                      <UpdateTaskModal
+                        selectedTask={task.id === this.state.taskId}
+                        task={task}
+                        onClose={(e) => this.showTaskModal(e)}
+                        showTask={this.state.showTask}
+                      />
                       <button
                         onClick={() => this.handleDelete(task.id)}
                         className="deleteTask"
                       >
                         X
                       </button>
-                    </p>
+                    </div>
                   ))
-                : "You have no items in your shopping list!"}
+                : "You have no tasks"}
             </div>
             <div id="just-another-layout-div"></div>
           </div>
@@ -110,9 +111,9 @@ class ShoppingList extends React.Component {
               <div id="ahhh">
                 <FontAwesomeIcon icon={faPlusSquare} />
               </div>
-              Add Item
+              Add New Task
             </button>
-            <ShoppingModal
+            <CreateTaskModal
               onClose={(e) => this.showModal(e)}
               show={this.state.show}
             />

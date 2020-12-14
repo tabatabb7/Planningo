@@ -15,7 +15,7 @@ export { default as TaskList } from "./Tasks/TaskList";
 export { default as GroupTaskList } from "./Groups/GroupTasks";
 
 //shopping
-export { default as ShoppingList } from "./ShoppingList/ShoppingList";
+export { default as ShoppingList } from "./Tasks/ShoppingList";
 export { default as GroupShoppingList } from "./Groups/GroupShoppingList";
 //groups
 export { default as GroupList } from "./Groups/GroupList";

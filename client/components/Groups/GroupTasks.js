@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 import "./grouptasks.css";
+import { VictoryScatter, VictoryLabel } from 'victory';
 
 class GroupTaskList extends React.Component {
   constructor(props) {
@@ -110,7 +111,7 @@ class GroupTaskList extends React.Component {
                         {task.name}
                       </a>
 
-                      <UpdateGroupTaskModal
+    <UpdateGroupTaskModal
                         selectedTask={task.id === this.state.taskId}
                         task={task}
                         onClose={(e) => this.showTaskModal(e)}
@@ -156,6 +157,7 @@ class GroupTaskList extends React.Component {
               }}
               className="add-task-button"
             >
+
               <div id="ahhh">
                 <FontAwesomeIcon icon={faPlusSquare} />
               </div>
@@ -166,6 +168,8 @@ class GroupTaskList extends React.Component {
               onClose={(e) => this.showModal(e)}
               show={this.state.show}
             />
+
+
           </div>
         </div>
       </div>
