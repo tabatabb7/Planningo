@@ -66,35 +66,35 @@ router.post("/", async (req, res, next) => {
         color: "#FFBF00",
         groupId: group.id,
         isShopping: false,
-        imageUrl: "/assets/icons/misc/041-family.png",
+        imageUrl: "/assets/icons/misc/041-family.jpg",
       },
       {
         name: "Work",
         color: "#FF7F50",
         groupId: group.id,
         isShopping: false,
-        imageUrl: "/assets/icons/misc/002-folders.png",
+        imageUrl: "/assets/icons/misc/002-folders.jpg",
       },
       {
         name: "Finance",
         color: "#DE3163",
         groupId: group.id,
         isShopping: false,
-        imageUrl: "/assets/icons/misc/026-business and finance.png",
+        imageUrl: "/assets/icons/misc/026-business and finance.jpg",
       },
       {
         name: "School",
         color: "#CCCCFF",
         groupId: group.id,
         isShopping: false,
-        imageUrl: "/assets/icons/misc/003-book.png",
+        imageUrl: "/assets/icons/misc/003-book.jpg",
       },
       {
         name: "Family",
         color: "#40E0D0",
         groupId: group.id,
         isShopping: false,
-        imageUrl: "/assets/icons/misc/012-avatar.png",
+        imageUrl: "/assets/icons/misc/012-avatar.jpg",
       },
 
       {
@@ -102,7 +102,7 @@ router.post("/", async (req, res, next) => {
         color: "#FFBF00",
         groupId: group.id,
         isShopping: true,
-        imageUrl: "/assets/icons/misc/004-commerceshop.png",
+        imageUrl: "/assets/icons/misc/004-commerceshop.jpg",
       }
     ]);
     res.json(group);
@@ -137,16 +137,10 @@ router.delete("/:groupId", async (req, res, next) => {
 //POST USER to group
 router.post("/:groupId", async (req, res, next) => {
   try {
-
-    const user = await User.findOne({
-      where: {
-        email: req.body.email
-      }
-    })
     const newUser = await User_Group.findOrCreate({
       where: {
         groupId: req.params.groupId,
-        userId: user.id,
+        userId: req.body.userId,
       },
     });
     res.json(newUser);
@@ -161,7 +155,7 @@ router.delete("/:groupId/:userId", async (req, res, next) => {
     await User_Group.destroy({
       where: {
         groupId: req.params.groupId,
-        userId: req.params.userId
+        userId: req.params.userId,
       },
     });
     res.sendStatus(204);
