@@ -92,6 +92,7 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   font-size: 12px;
+  text-align: center;
 }
 
 /* list of tasks */
@@ -130,6 +131,7 @@
 .coin {
   width: 13px;
   height: auto;
+  margin-left: 5px;
 }
 
 #numberpoints {

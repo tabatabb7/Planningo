@@ -15,8 +15,7 @@ import { fetchTasksThunk, removeTaskThunk } from "../../store/tasks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare, faSort } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle, faTrashAlt } from "@fortawesome/free-regular-svg-icons";
-import { format } from 'date-fns';
-
+import { format } from "date-fns";
 
 class TaskList extends React.Component {
   constructor(props) {
@@ -77,7 +76,10 @@ class TaskList extends React.Component {
         <div id="task-box">
           <div className="task-box-header">My Tasks</div>
           <div className="task-box-body">
-            <div id="task-box-categories">Categories</div>
+            <div id="task-box-categories">
+              <div>Categories</div>
+              <div>Select a group to filter by its categories!</div>
+            </div>
 
             {/* LIST OF TASKS */}
             <div id="task-box-list">
@@ -113,8 +115,12 @@ class TaskList extends React.Component {
                         onClick={(e) => this.showTaskModal(e, task.id)}
                         id="task-name-click"
                       >
-                      <div id="name-date-wrap">
-                        {task.name}<p id="date-created">{format(new Date(task.createdAt), 'MMM d')}</p></div>
+                        <div id="name-date-wrap">
+                          {task.name}
+                          <p id="date-created">
+                            {format(new Date(task.createdAt), "MMM d")}
+                          </p>
+                        </div>
 
                         {/* {task.category.name ? task.category.name : "No Category"} */}
                         {task.points > 0 ? (
