@@ -4,27 +4,36 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import "./UserHome.css";
 import { fetchUserTasksThunk } from "../../store/tasks";
+import { format } from "date-fns";
 
 class UserHome extends React.Component {
   constructor(props) {
     super(props);
   }
-  componentDidMount() {
-    this.props.fetchUserTasks();
+  async componentDidMount() {
+    await this.props.fetchUserTasks();
   }
   render() {
-    console.log(this.props, "this.props inside render of UH");
     const { firstName } = this.props;
     const { tasks } = this.props;
+    const month = format(new Date(), "M");
+    const date = format(new Date(), "d");
+    const year = format(new Date(), "y");
+    const today = `${year}-${month}-${date}`;
+
     return (
       <div className="userhome-wrapper">
         <h3>{`Hello, ${firstName}`}</h3>
         <p>{`On your dashboard for today...`}</p>
         {tasks && tasks.length > 0 ? (
           <ul>
-            {tasks.map((task) => {
-              <li>{task.name}</li>;
-            })}
+            {tasks
+              .filter((task) => {
+                return task.start === today;
+              })
+              .map((task) => {
+                return <li>{task.name}</li>;
+              })}
           </ul>
         ) : (
           <Link to="/tasks">Add a new task!</Link>
