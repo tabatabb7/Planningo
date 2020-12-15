@@ -18,6 +18,7 @@ class ShoppingList extends React.Component {
       show: false,
     };
     this.showModal = this.showModal.bind(this);
+    this.showTaskModal = this.showTaskModal.bind(this);
   }
   componentDidMount() {
     this.props.fetchItems();
@@ -44,6 +45,10 @@ class ShoppingList extends React.Component {
 
   showModal(e) {
     this.setState({ show: !this.state.show });
+  }
+
+  showTaskModal(e, taskId) {
+    this.setState({ taskId, showTask: !this.state.showTask });
   }
 
   render() {
