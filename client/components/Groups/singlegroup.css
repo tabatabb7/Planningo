@@ -6,8 +6,8 @@
 }
 
 #group-info {
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
 }
 
 .single-grp-body {
@@ -17,9 +17,15 @@
   display: flex;
   justify-content: space-between;
   font-family: "Roboto", sans-serif;
-  letter-spacing: 2px;
   font-size: 15px;
+  justify-content: center;
 }
+
+/* .ui.comments{
+  width: 1000px !important;
+
+  max-width: 1200px !important;
+} */
 
 .single-grp-sidebar {
   background-color:#fefde9;
@@ -92,6 +98,12 @@
   align-items: center;
 }
 
+#groupmsg{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 #grp-link-button{
   width: 150px;
   height: 40px;
@@ -107,5 +119,13 @@
 }
 
 .single-group-body-main{
-  width: 100%;
+  width: 88%;
+}
+
+.ui.dividing.header{
+  margin-top: 30px !important;
+}
+
+.ui.primary.buttons .button, .ui.primary.button{
+  background-color: pink !important;
 }

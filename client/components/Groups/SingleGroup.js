@@ -4,6 +4,7 @@ import { updateGroupThunk, fetchSingleGroup } from "../../store/singleGroup";
 import { Link } from "react-router-dom";
 import { addToGroupThunk, deleteFromGroupThunk } from "../../store/singleGroup";
 import "./singlegroup.css";
+import GroupMessages from "./GroupMessages";
 
 class SingleGroup extends React.Component {
   constructor(props) {
@@ -62,7 +63,9 @@ class SingleGroup extends React.Component {
               </Link>
 
               <Link to={`/groups/${this.props.group.id}/rewards`}><button id="grp-link-button">Rewards</button></Link>
+
             </div>
+            <div id="groupmsg">            <GroupMessages/></div>
           </div>
           <div className="single-grp-sidebar">
             {group.users ? (
