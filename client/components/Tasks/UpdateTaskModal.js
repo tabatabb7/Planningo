@@ -13,7 +13,7 @@ class UpdateTaskModal extends Component {
     this.state = {
       name: this.props.task.name,
       group: "",
-      groupId: "",
+      groupId: this.props.groupId,
       description: this.props.task.description,
       points: this.props.task.points,
       taskId: this.props.task.id,
@@ -24,10 +24,10 @@ class UpdateTaskModal extends Component {
 
   async componentDidMount() {
     await this.props.fetchGroups();
-    this.setState({
-      groupId: this.props.groups.length ? this.props.groups[0].id : "",
-      group: this.props.groups.length ? this.props.groups[0] : "",
-    });
+    // this.setState({
+    //   groupId: this.props.groups.length ? this.props.group.id : "",
+    //   group: this.props.groups.length ? this.props.groups[0] : "",
+    // });
   }
 
   handleChange(event) {

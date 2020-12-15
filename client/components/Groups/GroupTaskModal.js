@@ -4,7 +4,8 @@ import { fetchSingleGroup, addGroupTaskThunk } from "../../store/singleGroup";
 import "../Tasks/taskmodal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import DatePicker from "../Calendar/Datepicker";
+import KeyboardDatePickerTab from "../Calendar/DatePicker"
+
 
 class GroupTaskModal extends Component {
   constructor(props) {
@@ -19,14 +20,25 @@ class GroupTaskModal extends Component {
       groupId: this.props.groupId,
       error: null,
       categoryId: null,
+      selectedDate: null,
       modaltype: part,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDate = this.handleDate.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchGroup(this.props.groupId);
+  }
+
+  handleDate() {
+    let date = document.getElementById("key-datepicker").value
+    console.log('DATE!!!--->', date)
+    this.setState({
+      selectedDate: date
+    })
+    console.log('SELECTED DATE!', this.state.selectedDate)
   }
 
   handleChange(event) {
@@ -37,6 +49,8 @@ class GroupTaskModal extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
+    await this.handleDate();
+    (console.log(this.state, "THIS STATE SUBMIT"))
     try {
       await this.props.addGroupTask(this.props.groupId, this.state);
       this.setState({
@@ -45,6 +59,7 @@ class GroupTaskModal extends Component {
         description: "",
         points: 0,
         categoryId: null,
+        selectedDate: null,
       });
       await this.props.fetchGroup(this.props.groupId);
       this.props.onClose();
@@ -68,6 +83,7 @@ class GroupTaskModal extends Component {
   render() {
     let group = this.props.group;
     let categories = this.props.group.categories;
+
     if (!this.props.show) {
       return null;
     }
@@ -135,7 +151,7 @@ class GroupTaskModal extends Component {
                     ))
                   : "There are no users"}
               </select>
-              <DatePicker />
+              <KeyboardDatePickerTab selectedDates={this.state.selectedDate}/>
               <button id="modal-submit-button" type="submit">
                 Add
               </button>
