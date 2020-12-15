@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { addGroupThunk } from "../../store/allGroups";
+import "./creategroup.css";
 
 class CreateGroup extends React.Component {
   constructor() {
@@ -48,9 +49,11 @@ class CreateGroup extends React.Component {
     } else {
       return (
         <div className="group-wrapper">
-          <h3>Create your first group and add members! 
-            If you would like to use Planningo as a personal task manager, 
+        <div className="create-group-header">
+          <h3>Create your first group and add members! <br/>
+            If you would like to use Planningo as a personal task manager,
             you can create a group for just yourself.</h3>
+            </div>
 
           <form id="add-group-form" onSubmit={this.handleSubmit}>
             <label htmlFor="name">Name:</label>

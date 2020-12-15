@@ -82,6 +82,7 @@ class GroupTaskList extends React.Component {
         ) : null}
         <div id="task-box">
           <div className="task-box-header">Tasks -- {group.name}</div>
+          <div className="task-box-header"><Link to={`/groups/${group.id}`}> Go back</Link></div>
           <div className="task-box-body">
             <div id="task-box-categories">
               <h3 id="category-title">Category</h3>

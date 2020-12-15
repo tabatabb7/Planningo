@@ -140,12 +140,38 @@ router.post("/shopping", async (req, res, next) => {
 router.put("/", async (req, res, next) => {
   try {
     const task = await Task.findByPk(req.body.taskId);
-    task.update(req.body);
+
+    task.update({
+      name: req.body.name,
+      description: req.body.description,
+      points: req.body.points,
+      categoryId: req.body.categoryId,
+      start: req.body.selectedDate,
+      end: req.body.selectedDate,
+    })
+
+    const taskGroup = await Task_Group.findOne({
+      where: {
+        taskId: task.id
+      }
+    })
+    
+    Task_Group.update({
+      groupdId: req.body.groupId
+    }, 
+    {
+      where: {
+        taskId: task.id,
+        groupId: taskGroup.groupId
+      }
+    })
+
     res.json(task);
   } catch (err) {
     next(err);
   }
 });
+
 
 //PATCH task
 router.patch("/:taskId", async (req, res, next) => {

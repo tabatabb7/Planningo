@@ -4,6 +4,7 @@ import GroupShoppingModal from "./GroupShoppingModal";
 import { removeTaskThunk } from "../../store/tasks";
 import { updateTaskCompletion } from "../../store/singletask";
 import UpdateGroupTaskModal from "./UpdateGroupTask";
+import { Link } from "react-router-dom";
 
 import { fetchSingleGroupShopping } from "../../store/singleGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -73,7 +74,10 @@ class GroupShoppingList extends React.Component {
           <div id="darken-page"></div>
         ) : null}
         <div id="task-box">
-          <div className="task-box-header">Tasks -- {group.name}</div>
+          <div className="task-box-header">
+            Shopping List - {group.name}
+          </div>
+          <div className="task-box-header"><Link to={`/groups/${group.id}`}> Go back</Link></div>
           <div className="task-box-body">
             <div id="task-box-categories">
               <h3 id="category-title">Category</h3>

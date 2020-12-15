@@ -13,7 +13,7 @@ class SingleGroup extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  //   this.deleteUser = this.deleteUser.bind(this);
+    //   this.deleteUser = this.deleteUser.bind(this);
   }
 
   componentDidMount() {
@@ -36,81 +36,81 @@ class SingleGroup extends React.Component {
   }
 
   async deleteUser(userId) {
-    await this.props.deleteUser(this.props.group.id, userId)
+    await this.props.deleteUser(this.props.group.id, userId);
     await this.props.fetchGroup(this.props.match.params.groupId);
   }
 
-  render() {
+  render(){
     const group = this.props.group;
 
     return (
       <div key={group.id} id="group-info">
-        Edit group
-        <form id="addform" onSubmit={this.handleSubmit}>
-          <h3>Add a User By Email</h3>
-          <label htmlFor="email"></label>
-          <input
-            name="email"
-            type="text"
-            onChange={this.handleChange}
-            value={this.props.email}
-          />
-          <button type="submit">Submit</button>
-        </form>
-        <h1 className="tool-title">Group: {group.name}</h1>
-        <img src={group.imageUrl}></img>
-        <h3>Description: {group.description}</h3>
-        <ul>
-          <li>
-            <Link to={`/groups/${this.props.group.id}/tasks`}>Group Tasks</Link>
-          </li>
-          <li>
-            {" "}
-            <Link to={`/groups/${this.props.group.id}/shoppinglist`}>
-              Shopping
-            </Link>
-          </li>
-          <li>
-            <Link to={`/groups/${this.props.group.id}/rewards`}>Rewards</Link>
-          </li>
-        </ul>
-        Users:
-        {group.users ? (
-          <div>
-            {group.users.map((user) => (
-              <div key={user.id}>
-                <img src={user.avatarUrl} className="user-avatar" />
-                <button onClick={() => this.deleteUser(user.id)}>X</button>
-                {(() => {
-                  if (user.User_Group.role === "admin") {
-                    return (
-                      <div>
-                      <h3>
-                        {user.firstName} {user.lastName} 🏅
-                      </h3>
-                    
-                      </div>
-                      
-                    );
-                  } else {
-                    return (
-                      <div>
-                      <h3>
-                        {user.firstName} {user.lastName}
-                      </h3>
-   
-                      </div>
-                    );
-                  }
-                 
-                })()}
-              </div>
-              
-            ))}
+        <div id="single-grp-header" style={{ backgroundColor: group.color }}>
+          <img src={group.imageUrl} id="grp-icon"></img>
+          <h1 id="single-grp-name">{group.name}</h1>
+          <h3 id="single-grp-desc">{group.description}</h3>
+        </div>
+        <div className="single-grp-body">
+          <div className="single-group-body-main">
+            <div id="single-grp-links">
+              <Link to={`/groups/${this.props.group.id}/tasks`}>
+                <button id="grp-link-button">Group Tasks</button>
+              </Link>
+
+              <Link to={`/groups/${this.props.group.id}/shoppinglist`}>
+              <button id="grp-link-button">Shopping</button>
+              </Link>
+
+              <Link to={`/groups/${this.props.group.id}/rewards`}><button id="grp-link-button">Rewards</button></Link>
+            </div>
           </div>
-        ) : (
-          "This group has no members."
-        )}
+          <div className="single-grp-sidebar">
+            {group.users ? (
+              <div className="single-grp-user-wrap">
+                <h3>Group Members</h3>
+
+                {group.users.map((user) => (
+                  <div key={user.id}>
+                    <img
+                      src={user.avatarUrl}
+                      className="user-avatar"
+                      style={{ backgroundColor: user.User_Group.color }}
+                    />
+                    {/* <button onClick={() => this.deleteUser(user.id)}>X</button> */}
+                    {(() => {
+                      if (user.User_Group.role === "admin") {
+                        return (
+                          <div>
+                            {user.firstName} {user.lastName} 🌟
+                          </div>
+                        );
+                      } else {
+                        return (
+                          <div>
+                            {user.firstName} {user.lastName}
+                          </div>
+                        );
+                      }
+                    })()}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              "This group has no members."
+            )}
+            <form id="add-grp-form" onSubmit={this.handleSubmit}>
+              <label htmlFor="email"></label>
+              <input
+                name="email"
+                type="text"
+                placeholder="Add a user by email"
+                onChange={this.handleChange}
+                value={this.props.email}
+              />
+              <button type="submit">Add</button>
+            </form>
+          </div>
+        </div>
       </div>
     );
   }
@@ -121,7 +121,8 @@ const mapState = (state) => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  deleteUser: (groupId, userId) => dispatch(deleteFromGroupThunk(groupId, userId)),
+  deleteUser: (groupId, userId) =>
+    dispatch(deleteFromGroupThunk(groupId, userId)),
   fetchGroup: (group) => dispatch(fetchSingleGroup(group)),
   updateGroup: (group) => dispatch(updateGroupThunk(group)),
   addUser: (groupId, userId) => dispatch(addToGroupThunk(groupId, userId)),
