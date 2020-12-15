@@ -31,9 +31,13 @@ class UserHome extends React.Component {
               .filter((task) => {
                 return task.start === today;
               })
+              .filter((task) => {
+                return task.isCompleted === false;
+              })
               .map((task) => {
-                return <li>{task.name}</li>;
+                return <li key={task.id}>{task.name}</li>;
               })}
+            <Link to="/tasks">Add a new task!</Link>
           </ul>
         ) : (
           <Link to="/tasks">Add a new task!</Link>
