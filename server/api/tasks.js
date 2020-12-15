@@ -9,6 +9,16 @@ const {
   Category,
 } = require("../db/models");
 
+//GET /api/tasks/home
+router.get("/home", async (req, res, next) => {
+  try {
+    const tasks = await req.user.getTasks();
+    res.json(tasks);
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.get("/", async (req, res, next) => {
   try {
     const user = await User.findByPk(req.user.id, {
@@ -84,7 +94,7 @@ router.post("/", async (req, res, next) => {
       shoppingId: null,
       categoryId: req.body.categoryId,
       start: req.body.selectedDate,
-      end: req.body.selectedDate
+      end: req.body.selectedDate,
     });
 
     await User_Task.create({
