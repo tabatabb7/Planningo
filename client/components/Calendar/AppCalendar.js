@@ -158,8 +158,6 @@ const localizer = dateFnsLocalizer({
     render() {
 
       const date = toDate((new Date()))
-      console.log('DATE--->', date)
-      console.log("USERTASKS!!!! --->", this.props.userTasks)
       const tasks = this.props.userTasks.tasks
 
       return (
@@ -184,7 +182,7 @@ const localizer = dateFnsLocalizer({
     userTasks: state.tasks,
     userId: state.user.id,
   });
-  
+
   const mapDispatch = (dispatch) => ({
     fetchTasks: () => dispatch(fetchTasksThunk()),
     deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
@@ -193,4 +191,3 @@ const localizer = dateFnsLocalizer({
   export default connect(mapState, mapDispatch)(AppCalendar);
 
 
-  

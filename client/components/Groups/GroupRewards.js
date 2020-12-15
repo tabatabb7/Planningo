@@ -39,12 +39,9 @@ class GroupRewards extends React.Component {
   render() {
     const group = this.props.group;
     const points = this.props.points;
-
-    console.log('PROPS POINTS!!!!', this.props.points)
     const groupUsers = this.props.group.users;
-    
+
     let mappedUsers;
-    console.log('groupUSERS!!!!!', groupUsers)
 
     {
       groupUsers && groupUsers.length > 0 ? (
@@ -59,7 +56,6 @@ class GroupRewards extends React.Component {
         <h3>Group Users not available yet</h3>
       );
     }
-    console.log(this.props, "this.props in groupreward render");
     return (
       <div className="group-reward-wrapper">
         <h1>Number of Points</h1>

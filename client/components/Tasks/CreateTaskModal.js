@@ -7,10 +7,10 @@ import {
   addShoppingItemThunk,
 } from "../../store/tasks";
 import "./taskmodal.css";
-import KeyboardDatePickerTab from "../Calendar/DatePicker"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { fetchGroupsThunk } from "../../store/allGroups";
+import Select from "react-select";
 
 class CreateTaskModal extends Component {
   constructor(props) {
@@ -27,12 +27,10 @@ class CreateTaskModal extends Component {
       description: "",
       categoryId: null,
       points: 0,
-      selectedDate: null,
       error: null,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleDate = this.handleDate.bind(this);
   }
 
   async componentDidMount() {
@@ -43,30 +41,17 @@ class CreateTaskModal extends Component {
     });
   }
 
-  handleDate() {
-    let date = document.getElementById("key-datepicker").value
-    console.log('DATE!!!--->', date)
-    this.setState({
-      selectedDate: date
-    })
-    console.log('SELECTED DATE!', this.state.selectedDate)
-  }
-
   handleChange(event) {
-    // let date = document.getElementById("key-datepicker").value
-    // console.log('DATE!!!--->', date)
     this.setState({
       [event.target.name]: event.target.value,
     });
-    this.handleDate()
   }
 
   async handleSubmit(event) {
     event.preventDefault();
-    await this.handleDate()
      if (this.state.name == "") {
       this.setState({
-        error: "Name can't be empty!",
+        error: "Please enter a name.",
       });
       return false
     } else if (this.state.groupId == "") {
@@ -162,7 +147,7 @@ class CreateTaskModal extends Component {
                     className="modal-input points"
                     onChange={this.handleChange}
                     value={this.state.points}
-                  />{" "}
+                  />
                 </div>
               ) : null}
 
@@ -238,8 +223,6 @@ class CreateTaskModal extends Component {
                 </div>
               </div>
               {<div> {this.state.error} </div>}
-            
-              <KeyboardDatePickerTab selectedDates={this.state.selectedDate}/>
               <button type="submit" id="modal-submit-button">
                 Add
               </button>

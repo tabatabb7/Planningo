@@ -47,7 +47,6 @@
     "express-session": "^1.15.1",
     "globalize": "^1.6.0",
     "history": "^4.9.0",
-    "html-webpack-plugin": "^4.5.0",
     "install": "^0.13.0",
     "jwks-rsa": "^1.11.0",
     "lit-element": "^2.4.0",

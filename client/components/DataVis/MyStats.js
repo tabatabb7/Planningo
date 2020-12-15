@@ -16,7 +16,6 @@ class MyStats extends React.Component {
   }
 
   render() {
-    console.log(this.props, "this.props in the mystats render");
     const newData = this.props.points;
 
     return (

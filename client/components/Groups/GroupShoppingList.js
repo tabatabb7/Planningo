@@ -7,7 +7,7 @@ import { fetchSingleGroupShopping } from "../../store/singleGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
-import "../Tasks/Tasks.css";
+import "./grouptasks.css";
 
 class GroupShoppingList extends React.Component {
   constructor(props) {

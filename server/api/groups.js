@@ -12,7 +12,6 @@ const {
 
 router.get("/", async (req, res, next) => {
   try {
-    console.log(req.user)
     const group = await req.user.getGroups({
       include: [
         {

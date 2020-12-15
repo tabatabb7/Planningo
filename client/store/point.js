@@ -69,13 +69,11 @@ export const fetchUserGroupPointsThunk = (userId, groupId) => {
 };
 
 export const postCompletedPointsThunk = (taskId) => {
-  // console.log("INSIDE POINTS COMPLETE THUNK!");
   return async (dispatch) => {
     try {
       const { data: pointEntry } = await axios.post(`/api/points/`, taskId);
       dispatch(addCompletedPoints(pointEntry));
     } catch (err) {
-      console.error("There was a problem adding points!");
       console.error(err);
     }
   };
@@ -88,7 +86,6 @@ export const removeCompletedPointsThunk = (taskId) => {
       const { data: pointEntry } = await axios.delete(`/api/points/${taskId}`);
       dispatch(deletePoints(pointEntry));
     } catch (err) {
-      console.error("There was a problem deleting points!");
       console.error(err);
     }
   };
