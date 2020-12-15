@@ -1,5 +1,6 @@
 import React from "react";
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import { connect } from "react-redux";
 
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar'
 import format from 'date-fns/format'
@@ -7,6 +8,16 @@ import parse from 'date-fns/parse'
 import startOfWeek from 'date-fns/startOfWeek'
 import getDay from 'date-fns/getDay'
 import toDate from 'date-fns/toDate'
+import { fetchTasksThunk, removeTaskThunk } from "../../store/tasks";
+// // import { set } from 'react-big-calendar/lib/formats'
+// // import { set as setLocalizer } from 'react-big-calendar/lib/localizer'
+// // import dates from 'react-big-calendar/lib/utils/dates'
+// import globalize from 'globalize'
+
+// const localizer = globalizeLocalizer(globalize)
+
+import { DateTime } from 'luxon';
+
 const locales = {
   'en-US': require('date-fns/locale/en-US'),
 }
@@ -27,8 +38,8 @@ const localizer = dateFnsLocalizer({
             id: 0,
             title: 'All Day Event very long title',
             allDay: true,
-            start: new Date(2015, 3, 0),
-            end: new Date(2015, 3, 1),
+            start: new Date(2020, 12, 15),
+            end: new Date(2020, 12, 15),
         },
         {
             id: 1,
@@ -140,15 +151,23 @@ const localizer = dateFnsLocalizer({
       };
     }
 
+    componentDidMount() {
+      this.props.fetchTasks();
+    }
+
     render() {
 
       const date = toDate((new Date()))
+      console.log('DATE--->', date)
+      console.log("USERTASKS!!!! --->", this.props.userTasks)
+      const tasks = this.props.userTasks.tasks
 
       return (
         <div>
-          <div style={{ height: '500pt'}}>
+          <div style={{ height: '400pt'}}>
             <Calendar
-              events={this.state.events}
+              events={tasks && tasks.length > 0 ? tasks : []}
+              titleAccessor="name"
               startAccessor="start"
               endAccessor="end"
               defaultDate={date}
@@ -161,4 +180,17 @@ const localizer = dateFnsLocalizer({
     }
   }
 
-  export default AppCalendar;
+  const mapState = (state) => ({
+    userTasks: state.tasks,
+    userId: state.user.id,
+  });
+  
+  const mapDispatch = (dispatch) => ({
+    fetchTasks: () => dispatch(fetchTasksThunk()),
+    deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
+  });
+
+  export default connect(mapState, mapDispatch)(AppCalendar);
+
+
+  

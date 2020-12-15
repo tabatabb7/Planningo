@@ -76,7 +76,7 @@ router.get("/:taskId", async (req, res, next) => {
 router.post("/", async (req, res, next) => {
   try {
     const group = await Group.findByPk(req.body.groupId);
-    console.log("cate id in post route", req.body.categoryId, req.body);
+    console.log("req body in post route", req.body);
     const task = await Task.create({
       userId: req.user.id,
       name: req.body.name,
@@ -84,6 +84,8 @@ router.post("/", async (req, res, next) => {
       points: req.body.points,
       shoppingId: null,
       categoryId: req.body.categoryId,
+      start: req.body.selectedDate,
+      end: req.body.selectedDate
     });
 
     await User_Task.create({
