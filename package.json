@@ -61,6 +61,8 @@
     "react-big-calendar": "^0.30.0",
     "react-dom": "^16.8.6",
     "react-hook-form": "^6.12.2",
+    "react-open-weather": "^1.1.1",
+    "react-open-weather-widget": "^1.1.0",
     "react-overlay-pack": "^3.1.1",
     "react-redux": "^7.0.1",
     "react-router": "^5.2.0",

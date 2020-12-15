@@ -34,11 +34,9 @@ class GroupTaskModal extends Component {
 
   handleDate() {
     let date = document.getElementById("key-datepicker").value
-    console.log('DATE!!!--->', date)
     this.setState({
       selectedDate: date
     })
-    console.log('SELECTED DATE!', this.state.selectedDate)
   }
 
   handleChange(event) {

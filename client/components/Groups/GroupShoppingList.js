@@ -7,6 +7,7 @@ import { fetchSingleGroupShopping } from "../../store/singleGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
+import { Link } from "react-router-dom";
 import "./grouptasks.css";
 
 class GroupShoppingList extends React.Component {
@@ -64,6 +65,7 @@ class GroupShoppingList extends React.Component {
           <div className="task-box-header">
             Shopping List - {group.name}
           </div>
+          <div className="task-box-header"><Link to={`/groups/${group.id}`}> Go back</Link></div>
           <div className="task-box-body">
             <div id="task-box-categories">
               Category

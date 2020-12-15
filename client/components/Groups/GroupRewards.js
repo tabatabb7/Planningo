@@ -7,6 +7,7 @@ import {
   fetchUserGroupPointsThunk,
 } from "../../store/point";
 import "./grouprewards.css";
+import { Link } from "react-router-dom";
 import {
   VictoryBar,
   VictoryChart,
@@ -105,6 +106,7 @@ class GroupRewards extends React.Component {
         ) : (
           <h1>0</h1>
         )}
+        <div className="task-box-header"><Link to={`/groups/${group.id}`}> Go back</Link></div>
       </div>
     );
   }

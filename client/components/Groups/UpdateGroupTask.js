@@ -27,12 +27,9 @@ class UpdateGroupTaskModal extends Component {
 
   handleDate() {
     let date = document.getElementById("key-datepicker").value
-    console.log('DATE!!!--->', date)
     this.setState({
       selectedDate: date
     })
-
-    console.log('SELECTED DATE!', this.state.selectedDate)
   }
 
   handleChange(event) {
@@ -43,8 +40,6 @@ class UpdateGroupTaskModal extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    console.log('SELECTED DATE INSIDE SUBMIT!', this.state.selectedDate)
-    console.log('THIS.STATE!!!!!', this.state)
     await this.handleDate();
     try {
       if (this.state.name == "") {

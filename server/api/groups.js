@@ -275,6 +275,8 @@ router.post("/:groupId/tasks", async (req, res, next) => {
 router.put("/:groupId/tasks", async (req, res, next) => {
   try {
 
+    console.log('req.body', req.body)
+
     const selected = req.body.selected;
     const selectedNames = selected.split(" ");
     const user = await User.findOne({
@@ -284,7 +286,6 @@ router.put("/:groupId/tasks", async (req, res, next) => {
       },
     });
     const task = await Task.findByPk(req.body.taskId);
-    console.log(req.body)
 
     task.update({
       name: req.body.name,

@@ -12,6 +12,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
+import { Link } from "react-router-dom";
 import "./grouptasks.css";
 import "../Tasks/Tasks.css";
 
@@ -78,6 +79,7 @@ class GroupTaskList extends React.Component {
       <div className="task-wrapper">
         <div id="task-box">
           <div className="task-box-header">Tasks -- {group.name}</div>
+          <div className="task-box-header"><Link to={`/groups/${group.id}`}> Go back</Link></div>
           <div className="task-box-body">
             <div id="task-box-categories">
               <h3 id="category-title">Category</h3>
