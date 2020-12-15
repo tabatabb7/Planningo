@@ -22,14 +22,6 @@ class UpdateTaskModal extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  async componentDidMount() {
-    await this.props.fetchGroups();
-    // this.setState({
-    //   groupId: this.props.groups.length ? this.props.group.id : "",
-    //   group: this.props.groups.length ? this.props.groups[0] : "",
-    // });
-  }
-
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value,
@@ -67,7 +59,7 @@ class UpdateTaskModal extends Component {
     }
     return (
       <div>
-        <div className="task-modal-content">
+        <div className="task-modal-content edit">
           <div id="top-taskmodal-div">
             <div id="modal-title">{this.props.task.name}</div>
             <button
@@ -84,7 +76,7 @@ class UpdateTaskModal extends Component {
               <input
                 name="name"
                 type="text"
-                className="modal-input name"
+                className="edit-modal-input name"
                 onChange={this.handleChange}
                 value={this.state.name}
               />
@@ -94,7 +86,7 @@ class UpdateTaskModal extends Component {
                 name="description"
                 type="text"
                 rows="4"
-                className="modal-input desc"
+                className="edit-modal-input desc"
                 onChange={this.handleChange}
                 value={this.state.description}
               />
@@ -103,7 +95,7 @@ class UpdateTaskModal extends Component {
               <textarea
                 name="points"
                 type="text"
-                className="modal-input points"
+                className="edit-modal-input points"
                 onChange={this.handleChange}
                 value={this.state.points}
               />
@@ -150,7 +142,7 @@ class UpdateTaskModal extends Component {
                     }
                     value={this.state.categoryId || ""}
                     name="categoryId"
-                    className="choose-category"
+                    className="edit-choose-category"
                   >
                     <option value="">None</option>
                     {categories

@@ -18,6 +18,7 @@ class ShoppingList extends React.Component {
       show: false,
     };
     this.showModal = this.showModal.bind(this);
+    this.showTaskModal = this.showTaskModal.bind(this);
   }
   componentDidMount() {
     this.props.fetchItems();
@@ -46,21 +47,32 @@ class ShoppingList extends React.Component {
     this.setState({ show: !this.state.show });
   }
 
+  showTaskModal(e, taskId) {
+    this.setState({ taskId, showTask: !this.state.showTask });
+  }
+
   render() {
-    let { tasks, groups } = this.props.tasks;
+    let { tasks} = this.props.tasks;
 
     return (
       <div className="task-wrapper">
+        {this.state.show === true || this.state.showTask === true ? (
+          <div id="darken-page"></div>
+        ) : null}
         <div id="task-box">
           <div className="task-box-header">Shopping List</div>
           <div className="task-box-body">
-            <div id="task-box-categories">div</div>
+            <div id="task-box-categories">Categories</div>
 
             {/* LIST OF TASKS */}
             <div id="task-box-list">
               {tasks && tasks.length
                 ? tasks.map((task) => (
                     <div key={task.id} className="singletask">
+                      <div
+                        id="catcolor"
+                        style={ { backgroundColor: task.category ? task.category.color : '#E8E8E8' } }
+                      ></div>
                       <button
                         onClick={() =>
                           this.toggleCompleted(task.id, task.isCompleted)
@@ -78,7 +90,10 @@ class ShoppingList extends React.Component {
                         </div>
                       </button>
 
-                      <a onClick={(e) => this.showTaskModal(e, task.id)}>
+                      <a
+                        onClick={(e) => this.showTaskModal(e, task.id)}
+                        id="task-name-click"
+                      >
                         {task.name}
                       </a>
 
@@ -98,7 +113,7 @@ class ShoppingList extends React.Component {
                   ))
                 : "You have no tasks"}
             </div>
-            <div id="just-another-layout-div"></div>
+            <div id="just-another-layout-div"> <div>Show Bought</div> <div>Show All</div></div>
           </div>
           <div id="add-button-div">
             <button
@@ -110,7 +125,7 @@ class ShoppingList extends React.Component {
               <div id="ahhh">
                 <FontAwesomeIcon icon={faPlusSquare} />
               </div>
-              Add New Item
+              Add New Task
             </button>
             <CreateTaskModal
               onClose={(e) => this.showModal(e)}

@@ -65,7 +65,6 @@
     "react-redux": "^7.0.1",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.0.0",
-    "react-select": "^3.1.1",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
@@ -73,9 +72,6 @@
     "sequelize": "^5.3.1",
     "socket.io": "^2.3.0",
     "styled-components": "^5.2.1",
-    "styled-icons": "^10.22.0",
-    "uuid": "^8.3.1",
-    "uuidv4": "^6.2.5",
     "victory": "^35.4.2"
   },
   "devDependencies": {
