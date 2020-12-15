@@ -4,6 +4,7 @@ import axios from "axios";
  * ACTION TYPES
  */
 const GET_TASKS = "GET_TASKS";
+const GET_USER_TASKS = "GET_USER_TASKS";
 const ADD_TASK = "ADD_TASK";
 const DELETE_TASK = "DELETE_TASK";
 const GET_SHOPPING_ITEMS = "GET_SHOPPING_ITEMS";
@@ -22,6 +23,7 @@ const initialState = {};
  */
 
 const getTasks = (tasks) => ({ type: GET_TASKS, tasks });
+const getUserTasks = (tasks) => ({ type: GET_USER_TASKS, tasks });
 const addTask = (task) => ({ type: ADD_TASK, task });
 const deleteTask = (taskId) => ({ type: DELETE_TASK, taskId });
 const getShoppingItems = (tasks) => ({ type: GET_SHOPPING_ITEMS, tasks });
@@ -33,6 +35,14 @@ const updateGroupTask = (newTask) => ({ type: UPDATE_GROUP_TASK, newTask });
  * THUNK CREATORS
  */
 
+export const fetchUserTasksThunk = () => async (dispatch) => {
+  try {
+    const { data: tasks } = await axios.get(`/api/tasks/home`);
+    dispatch(getUserTasks(tasks));
+  } catch (error) {
+    console.log("error fetching your tasks");
+  }
+};
 export const fetchTasksThunk = () => async (dispatch) => {
   try {
     const { data: tasks } = await axios.get(`/api/tasks`);
@@ -107,6 +117,8 @@ export const updateGroupTaskThunk = (task) => async (dispatch) => {
 export default function tasksReducer(state = initialState, action) {
   switch (action.type) {
     case GET_TASKS:
+      return action.tasks;
+    case GET_USER_TASKS:
       return action.tasks;
     case GET_SHOPPING_ITEMS:
       return action.tasks;
