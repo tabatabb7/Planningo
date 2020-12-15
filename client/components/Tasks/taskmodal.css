@@ -55,6 +55,7 @@
   color: #fefde9;
   font-size: 20px;
   font-weight: 600;
+  text-align: center;
 }
 
 #lower-taskmodal-div {
@@ -87,31 +88,34 @@
 .modal-input {
   width: 80%;
   resize: none;
-  margin-bottom: 2%;
+  margin-bottom: 10px;
   border-radius: 5px;
   border: 1px solid #a0c391;
 }
 
 .modal-input.name {
   height: 5%;
+  min-height: 30px;
   max-height: 35px;
 }
 
 .modal-input.desc {
   height: 10%;
   max-height: 80px;
+  min-height: 70px;
 }
 
 .modal-input.points {
   max-height: 35px;
   width: 20%;
+  margin-bottom: 10px;
 }
 
 /* CHOOSE GROUPS AND CATEGORIES */
 #group-category-wrap {
   display: flex;
   width: 80%;
-  height: 30%;
+  height: max-content;
   align-items: center;
   max-height: 250px;
 }
@@ -121,6 +125,7 @@
   flex-direction: column;
   width: 70%;
   height: 100%;
+  text-align: center;
 }
 
 #select-group {
@@ -151,10 +156,14 @@
   width: 30%;
   height: 100%;
   max-height: 120px;
+  text-align: center;
+  filter: grayscale(1);
+  opacity: 0.7;
 }
 
 .each-select-group.selected {
-  background-color: pink;
+  filter: none;
+  opacity: 1;
 }
 
 #modal-category-wrap {
@@ -191,10 +200,30 @@
   max-height: 50px;
   width: 20%;
   max-width: 100px;
+  margin-top: 20px;
 }
 
 .select-cat-icon {
   width: 25px;
   height: auto;
   background: transparent;
+}
+
+#choose-date{
+  display: flex;
+  align-items: center;
+  width: 60%;
+  justify-content: space-evenly;
+  font-family: "Poppins", sans-serif;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: white;
+}
+
+.MuiInputBase-input{
+  color: white !important;
+}
+
+.MuiSvgIcon-root{
+  fill: white !important;
 }

@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-
 import CreateTaskModal from "./CreateTaskModal";
 import UpdateTaskModal from "./UpdateTaskModal";
 
@@ -14,8 +13,10 @@ import "./Tasks.css";
 import { fetchGroupsThunk } from "../../store/allGroups";
 import { fetchTasksThunk, removeTaskThunk } from "../../store/tasks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
+import { faPlusSquare, faSort } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle, faTrashAlt } from "@fortawesome/free-regular-svg-icons";
+import { format } from 'date-fns';
+
 
 class TaskList extends React.Component {
   constructor(props) {
@@ -85,7 +86,11 @@ class TaskList extends React.Component {
                     <div key={task.id} className="singletask">
                       <div
                         id="catcolor"
-                        style={ { backgroundColor: task.category ? task.category.color : 'none' } }
+                        style={{
+                          backgroundColor: task.category
+                            ? task.category.color
+                            : "#E8E8E8",
+                        }}
                       ></div>
                       <button
                         onClick={() =>
@@ -108,9 +113,15 @@ class TaskList extends React.Component {
                         onClick={(e) => this.showTaskModal(e, task.id)}
                         id="task-name-click"
                       >
-                        {task.name}{" "}
+                      <div id="name-date-wrap">
+                        {task.name}<p id="date-created">{format(new Date(task.createdAt), 'MMM d')}</p></div>
+
+                        {/* {task.category.name ? task.category.name : "No Category"} */}
                         {task.points > 0 ? (
-                          <div>- {task.points} points</div>
+                          <div id="numberpoints">
+                            {task.points}
+                            <img src="/assets/coin.png" className="coin"></img>
+                          </div>
                         ) : null}
                       </a>
 
@@ -130,7 +141,13 @@ class TaskList extends React.Component {
                   ))
                 : "You have no tasks"}
             </div>
-            <div id="just-another-layout-div"> Filter By </div>
+            <div id="just-another-layout-div">
+              <div>
+                Filters <FontAwesomeIcon icon={faSort} />
+              </div>
+              <div>Show Active</div> <div>Show Completed</div>
+              <div>Show All</div>
+            </div>
           </div>
           <div id="add-button-div">
             <button

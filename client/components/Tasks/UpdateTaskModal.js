@@ -22,14 +22,6 @@ class UpdateTaskModal extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  async componentDidMount() {
-    await this.props.fetchGroups();
-    // this.setState({
-    //   groupId: this.props.groups.length ? this.props.group.id : "",
-    //   group: this.props.groups.length ? this.props.groups[0] : "",
-    // });
-  }
-
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value,

@@ -10,8 +10,6 @@ import getDay from 'date-fns/getDay'
 import toDate from 'date-fns/toDate'
 import { fetchTasksThunk, removeTaskThunk } from "../../store/tasks";
 
-import { DateTime } from 'luxon';
-
 const locales = {
   'en-US': require('date-fns/locale/en-US'),
 }
