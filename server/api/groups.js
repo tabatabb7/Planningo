@@ -317,34 +317,6 @@ router.put("/:groupId/tasks", async (req, res, next) => {
   }
 });
 
-router.get("/:groupId/shopping", async (req, res, next) => {
-  try {
-    const group = await Group.findByPk(req.params.groupId, {
-      include: [
-        {
-          model: User,
-        },
-        {
-          model: Task,
-          where: {
-            isShopping: true,
-          },
-          required: false,
-        },
-        {
-          model: Category,
-          where: {
-            isShopping: true,
-          },
-          required: false,
-        },
-      ],
-    });
-    res.json(group);
-  } catch (err) {
-    next(err);
-  }
-});
 
 //GET /api/groups/:groupId/rewards
 router.get("/:groupId/rewards", async (req, res, next) => {

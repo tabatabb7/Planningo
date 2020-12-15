@@ -61,4 +61,4 @@ export default connect(mapState, mapDispatch)(UserHome);
 
 UserHome.propTypes = {
   firstName: PropTypes.string,
-};
+}

@@ -75,7 +75,7 @@ router.get("/:taskId", async (req, res, next) => {
     const task = await Task.findOne({
       where: {
         id: req.params.taskId,
-      },
+      }
     });
     res.json(task);
   } catch (err) {
