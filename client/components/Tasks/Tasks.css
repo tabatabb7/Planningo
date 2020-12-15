@@ -7,8 +7,13 @@
   flex-direction: column;
 }
 
-.task-wrapper.open{
-  filter: Alpha(Opacity=50);
+#darken-page{
+  opacity:0.6 !important;
+  position:fixed;
+  min-height:100vh !important;
+  min-width: 100vw !important;
+  background-color: black;
+  z-index: 80;
 }
 
 #task-box {
@@ -27,7 +32,7 @@
   max-height: 200px;
   background-color: white;
   box-shadow: 0 4px 4px -4px rgba(0, 0, 0, 0.2);
-  z-index: 10;
+  z-index: 60;
   font-family: "Poppins", sans-serif;
   text-transform: uppercase;
   letter-spacing: 1px;

@@ -71,7 +71,7 @@ class TaskList extends React.Component {
     return (
       <div className="task-wrapper">
         {this.state.show === true || this.state.showTask === true ? (
-          <div id="cover-page"></div>
+          <div id="darken-page"></div>
         ) : null}
         <div id="task-box">
           <div className="task-box-header">My Tasks</div>
@@ -85,7 +85,7 @@ class TaskList extends React.Component {
                     <div key={task.id} className="singletask">
                       <div
                         id="catcolor"
-                        style={{ backgroundColor: task.category.color }}
+                        style={ { backgroundColor: task.category ? task.category.color : 'none' } }
                       ></div>
                       <button
                         onClick={() =>
