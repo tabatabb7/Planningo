@@ -10,7 +10,6 @@ function KeyboardDatePickerTab(props) {
     <MuiPickersUtilsProvider utils={LuxonUtils}>
       <KeyboardDatePicker id="key-datepicker"
         clearable
-        // name="selectedDate"
         value={selectedDate}
         onChange={(date) => handleDateChange(date)}
         minDate={new Date()}
@@ -21,16 +20,3 @@ function KeyboardDatePickerTab(props) {
 }
 
 export default KeyboardDatePickerTab;
-
-
-// function DatePickerTab() {
-//   const [selectedDate, handleDateChange] = useState(new Date());
-
-//   return (
-//     <MuiPickersUtilsProvider utils={LuxonUtils}>
-//       <DatePicker value={selectedDate} onChange={handleDateChange} />
-//     </MuiPickersUtilsProvider>
-//   );
-// }
-
-// export default DatePickerTab

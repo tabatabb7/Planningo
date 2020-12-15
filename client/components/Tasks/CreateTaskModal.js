@@ -45,25 +45,20 @@ class CreateTaskModal extends Component {
 
   handleDate() {
     let date = document.getElementById("key-datepicker").value
-    console.log('DATE!!!--->', date)
     this.setState({
       selectedDate: date
     })
-    console.log('SELECTED DATE!', this.state.selectedDate)
   }
 
   handleChange(event) {
-    // let date = document.getElementById("key-datepicker").value
-    // console.log('DATE!!!--->', date)
     this.setState({
       [event.target.name]: event.target.value,
     });
-    this.handleDate()
   }
 
   async handleSubmit(event) {
     event.preventDefault();
-    await this.handleDate()
+    await this.handleDate();
      if (this.state.name == "") {
       this.setState({
         error: "Name can't be empty!",
@@ -89,6 +84,7 @@ class CreateTaskModal extends Component {
       description: "",
       points: 0,
       error: null,
+      selectedDate: null,
     });
     this.props.onClose();
   }

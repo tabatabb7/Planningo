@@ -138,10 +138,15 @@ router.delete("/:groupId", async (req, res, next) => {
 //POST USER to group
 router.post("/:groupId", async (req, res, next) => {
   try {
+    const user = await User.findOne({
+      where: {
+        email: req.body.email
+      }
+    })
     const newUser = await User_Group.findOrCreate({
       where: {
         groupId: req.params.groupId,
-        userId: req.body.userId,
+        userId: user.id,
       },
     });
     res.json(newUser);
@@ -250,6 +255,8 @@ router.post("/:groupId/tasks", async (req, res, next) => {
       points: req.body.points,
       isShopping: false,
       categoryId: req.body.categoryId,
+      start: req.body.selectedDate,
+      end: req.body.selectedDate
     });
     await User_Task.create({
       userId: user.id,
@@ -268,8 +275,43 @@ router.post("/:groupId/tasks", async (req, res, next) => {
 // POST /api/groups/:groupId/tasks
 router.put("/:groupId/tasks", async (req, res, next) => {
   try {
+
+    const selected = req.body.selected;
+    const selectedNames = selected.split(" ");
+    const user = await User.findOne({
+      where: {
+        firstName: selectedNames[0],
+        lastName: selectedNames[1],
+      },
+    });
     const task = await Task.findByPk(req.body.taskId);
-    task.update(req.body);
+    console.log(req.body)
+
+    task.update({
+      name: req.body.name,
+      description: req.body.description,
+      points: req.body.points,
+      categoryId: req.body.categoryId,
+      start: req.body.selectedDate,
+      end: req.body.selectedDate,
+    })
+
+    const userTask = await User_Task.findOne({
+      where: {
+        taskId: task.id
+      }
+    })
+
+    User_Task.update({
+      userId: user.id
+    },
+    {
+      where: {
+        taskId: task.id,
+        userId: userTask.userId
+      }
+    })
+
     res.json(task);
   } catch (err) {
     next(err);
