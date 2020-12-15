@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import "./UserHome.css";
 import { fetchUserTasksThunk } from "../../store/tasks";
 import { format } from "date-fns";
+
 import Weather from "./Weather";
 
 class UserHome extends React.Component {
@@ -21,6 +22,7 @@ class UserHome extends React.Component {
       this.longitude = position.coords.longitude.toString();
       console.log(latitude, longitude, "lat and long string");
     });
+
   }
   render() {
     const { firstName } = this.props;

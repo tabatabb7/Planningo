@@ -4,6 +4,7 @@ import { updateTaskThunk } from "../../store/tasks";
 import { fetchTasksThunk } from "../../store/tasks";
 import { fetchGroupsThunk } from "../../store/allGroups";
 import "./taskmodal.css";
+import KeyboardDatePickerTab from "../Calendar/DatePicker";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
@@ -13,13 +14,16 @@ class UpdateTaskModal extends Component {
     this.state = {
       name: this.props.task.name,
       group: "",
-      groupId: this.props.groupId,
+      groupId: "",
       description: this.props.task.description,
       points: this.props.task.points,
+      categoryId: this.props.task.categoryId,
       taskId: this.props.task.id,
+      selectedDate: null,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDate = this.handleDate.bind(this);
   }
 
   handleChange(event) {
@@ -28,8 +32,20 @@ class UpdateTaskModal extends Component {
     });
   }
 
+  handleDate() {
+    let date = document.getElementById("key-datepicker").value;
+    console.log("DATE!", date)
+    this.setState({
+      selectedDate: date,
+    });
+
+    console.log("SELECTED DATE", this.state.selectedDate)
+  }
+
   async handleSubmit(event) {
     event.preventDefault();
+    console.log("THIS STATE", this.state)
+    await this.handleDate();
       if (this.state.name == "") {
         this.setState({
           error: "Name can't be empty!",
@@ -91,6 +107,7 @@ class UpdateTaskModal extends Component {
                 value={this.state.description}
               />
 
+            <div>
               <label htmlFor="points">Points:</label>
               <textarea
                 name="points"
@@ -99,6 +116,8 @@ class UpdateTaskModal extends Component {
                 onChange={this.handleChange}
                 value={this.state.points}
               />
+              <img src="/assets/coin.png" className="coin"></img>
+            </div>
 
 
             <div id="group-category-wrap">
@@ -160,6 +179,12 @@ class UpdateTaskModal extends Component {
                 </div>
               </div>
               {<div> {this.state.error} </div>}
+              <div id="choose-date">
+                Due By:
+                <KeyboardDatePickerTab
+                  selectedDates={this.state.selectedDate}
+                />
+              </div>
               <button type="submit" id="modal-submit-button">
                 Update
               </button>
