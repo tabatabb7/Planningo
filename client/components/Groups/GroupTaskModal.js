@@ -11,9 +11,7 @@ class GroupTaskModal extends Component {
   constructor(props) {
     super(props);
     let path = window.location.pathname;
-    console.log(path, "path inside constructor");
     let part = path.split("/").pop();
-    console.log(part, "part inside constructor");
     this.state = {
       name: "",
       selected: "",

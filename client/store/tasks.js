@@ -97,7 +97,6 @@ export const updateGroupTaskThunk = (task) => async (dispatch) => {
       `/api/groups/:groupId/tasks/`,
       task
     );
-    // console.log('UPDATED GROUP TASK', updatedGroupTask)
     dispatch(updateGroupTask(updatedGroupTask));
   } catch (error) {
     console.error("Error updating group task!");
@@ -126,7 +125,6 @@ export default function tasksReducer(state = initialState, action) {
         }),
       };
     case UPDATE_GROUP_TASK:
-      // console.log('STATE TASKS!!!!--->', state)
       return { ...state, ...action.newTask };
     default:
       return state;

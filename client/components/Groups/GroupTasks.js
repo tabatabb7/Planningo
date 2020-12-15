@@ -12,8 +12,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
+import "./grouptasks.css";
 import "../Tasks/Tasks.css";
-import { VictoryScatter, VictoryLabel } from 'victory';
 
 class GroupTaskList extends React.Component {
   constructor(props) {
@@ -72,7 +72,6 @@ class GroupTaskList extends React.Component {
   render() {
     let tasks = this.props.group.tasks;
     let group = this.props.group;
-    // console.log("GROUP!!!!!-->", group)
     let categories = this.props.group.categories;
 
     return (
@@ -178,7 +177,6 @@ class GroupTaskList extends React.Component {
 }
 
 const mapState = (state) => ({
-  // tasks: state.tasks,
   userId: state.user.id,
   group: state.singleGroup,
 });

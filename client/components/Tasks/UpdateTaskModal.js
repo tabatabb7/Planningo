@@ -42,10 +42,12 @@ class UpdateTaskModal extends Component {
         this.setState({
           error: "Name can't be empty!",
         });
+        return false;
       } else if (this.state.groupId == "") {
         this.setState({
           error: "Please select a group!",
         });
+        return false;
       }
       await this.props.updateTask(this.state);
       this.props.onClose();
@@ -105,7 +107,7 @@ class UpdateTaskModal extends Component {
                 onChange={this.handleChange}
                 value={this.state.points}
               />
-          
+
 
             <div id="group-category-wrap">
                 <div id="modal-group-wrap">

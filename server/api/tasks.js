@@ -76,7 +76,6 @@ router.get("/:taskId", async (req, res, next) => {
 router.post("/", async (req, res, next) => {
   try {
     const group = await Group.findByPk(req.body.groupId);
-    console.log("req body in post route", req.body);
     const task = await Task.create({
       userId: req.user.id,
       name: req.body.name,
@@ -146,14 +145,13 @@ router.patch("/:taskId", async (req, res, next) => {
     const userTask = await User_Task.findOne({
       where: {
         taskId: req.params.taskId,
-      },
+      }
     });
     const user = await User.findOne({
       where: {
         id: userTask.userId,
       },
     });
-    console.log(userTask, user, "userTask and user from patch route");
     user.update({
       tasksCompleted: (user.tasksCompleted += 1),
     });

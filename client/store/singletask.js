@@ -23,7 +23,6 @@ export const fetchTaskThunk = (taskId) => async (dispatch) => {
 
     const tasks = users.tasks;
     const task = tasks.filter((task) => task.id === taskId);
-    console.log("SINGLE TASK NEEDED", task);
 
     dispatch(getTask(task));
   } catch (error) {
@@ -36,7 +35,6 @@ export const updateSingleTask = (taskId) => async (dispatch) => {
     const { data: updatedTask } = await axios.put(`/api/tasks/${taskId}`);
     dispatch(updateTask(updatedTask));
   } catch (error) {
-    console.error("Error updating task!");
     console.error(error);
   }
 };
@@ -50,7 +48,6 @@ export const updateTaskCompletion = (taskId, isCompleted) => async (
     });
     dispatch(updateTaskComplete(taskId, isCompleted));
   } catch (error) {
-    console.error("Error updating task!");
     console.error(error);
   }
 };

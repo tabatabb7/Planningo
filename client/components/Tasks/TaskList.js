@@ -15,7 +15,7 @@ import { fetchGroupsThunk } from "../../store/allGroups";
 import { fetchTasksThunk, removeTaskThunk } from "../../store/tasks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
-import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
+import { faCheckCircle, faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 
 class TaskList extends React.Component {
   constructor(props) {
@@ -70,23 +70,28 @@ class TaskList extends React.Component {
 
     return (
       <div className="task-wrapper">
+        {this.state.show === true || this.state.showTask === true ? (
+          <div id="cover-page"></div>
+        ) : null}
         <div id="task-box">
           <div className="task-box-header">My Tasks</div>
           <div className="task-box-body">
-            <div id="task-box-categories">div</div>
+            <div id="task-box-categories">Categories</div>
 
             {/* LIST OF TASKS */}
             <div id="task-box-list">
               {tasks && tasks.length
                 ? tasks.map((task) => (
                     <div key={task.id} className="singletask">
-
-
+                      <div
+                        id="catcolor"
+                        style={{ backgroundColor: task.category.color }}
+                      ></div>
                       <button
                         onClick={() =>
                           this.toggleCompleted(task.id, task.isCompleted)
                         }
-                        className="group-completeTask"
+                        className="completeTask"
                       >
                         <div
                           className={
@@ -99,8 +104,14 @@ class TaskList extends React.Component {
                         </div>
                       </button>
 
-                      <a onClick={(e) => this.showTaskModal(e, task.id)}>
-                        {task.name}
+                      <a
+                        onClick={(e) => this.showTaskModal(e, task.id)}
+                        id="task-name-click"
+                      >
+                        {task.name}{" "}
+                        {task.points > 0 ? (
+                          <div>- {task.points} points</div>
+                        ) : null}
                       </a>
 
                       <UpdateTaskModal
@@ -113,13 +124,13 @@ class TaskList extends React.Component {
                         onClick={() => this.handleDelete(task.id)}
                         className="deleteTask"
                       >
-                        X
+                        <FontAwesomeIcon icon={faTrashAlt} />
                       </button>
                     </div>
                   ))
                 : "You have no tasks"}
             </div>
-            <div id="just-another-layout-div"></div>
+            <div id="just-another-layout-div"> Filter By </div>
           </div>
           <div id="add-button-div">
             <button
