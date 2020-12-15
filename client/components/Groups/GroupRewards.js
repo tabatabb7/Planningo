@@ -39,8 +39,12 @@ class GroupRewards extends React.Component {
   render() {
     const group = this.props.group;
     const points = this.props.points;
+
+    console.log('PROPS POINTS!!!!', this.props.points)
     const groupUsers = this.props.group.users;
+    
     let mappedUsers;
+    console.log('groupUSERS!!!!!', groupUsers)
 
     {
       groupUsers && groupUsers.length > 0 ? (

@@ -23,6 +23,16 @@ const Task = db.define("tasks", {
   points: {
     type: Sequelize.INTEGER,
   },
+  start: {
+    type: Sequelize.DATEONLY
+  },
+  end: {
+    type: Sequelize.DATEONLY
+  },
+  allDay: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: true
+  }
 });
 
 module.exports = Task;
