@@ -41,6 +41,15 @@ class CreateTaskModal extends Component {
     });
   }
 
+
+  handleDate() {
+    let date = document.getElementById("key-datepicker").value
+    this.setState({
+      selectedDate: date
+    })
+  }
+
+
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value,
@@ -49,6 +58,9 @@ class CreateTaskModal extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
+
+    await this.handleDate();
+
      if (this.state.name == "") {
       this.setState({
         error: "Please enter a name.",
@@ -74,6 +86,7 @@ class CreateTaskModal extends Component {
       description: "",
       points: 0,
       error: null,
+      selectedDate: null,
     });
     this.props.onClose();
   }
