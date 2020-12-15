@@ -132,8 +132,6 @@ class ShoppingList extends React.Component {
               <div>
                 Filters <FontAwesomeIcon icon={faSort} />
               </div>
-              <div>Show Active</div> <div>Show Completed</div>
-              <div>Show All</div>
             </div>
           </div>
           <div id="add-button-div">

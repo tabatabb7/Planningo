@@ -10,8 +10,9 @@ import {
   removeCompletedPointsThunk,
 } from "../../store/point";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
-import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
+import { faPlusSquare, faSort } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle, faTrashAlt } from "@fortawesome/free-regular-svg-icons";
+import { format } from "date-fns";
 import "./grouptasks.css";
 import "../Tasks/Tasks.css";
 
@@ -76,6 +77,9 @@ class GroupTaskList extends React.Component {
 
     return (
       <div className="task-wrapper">
+        {this.state.show === true || this.state.showTask === true ? (
+          <div id="darken-page"></div>
+        ) : null}
         <div id="task-box">
           <div className="task-box-header">Tasks -- {group.name}</div>
           <div className="task-box-body">
@@ -105,18 +109,14 @@ class GroupTaskList extends React.Component {
               {tasks && tasks.length
                 ? tasks.map((task) => (
                     <div key={task.id} className="singletask">
-                      <a onClick={(e) => this.showTaskModal(e, task.id)}>
-
-                        {task.name}
-                      </a>
-
-    <UpdateGroupTaskModal
-                        selectedTask={task.id === this.state.taskId}
-                        task={task}
-                        onClose={(e) => this.showTaskModal(e)}
-                        showTask={this.state.showTask}
-                        groupId={this.props.match.params.groupId}
-                      />
+                      <div
+                        id="catcolor"
+                        style={{
+                          backgroundColor: task.category
+                            ? task.category.color
+                            : "#E8E8E8",
+                        }}
+                      ></div>
 
                       <button
                         onClick={() =>
@@ -135,13 +135,42 @@ class GroupTaskList extends React.Component {
                         </div>
                       </button>
 
-                      <div>---worth {task.points} POINTS</div>
+                      <a
+                        onClick={(e) => this.showTaskModal(e, task.id)}
+                        id="task-name-click"
+                      >
+                        <div id="name-date-wrap">
+                          {task.name}
+                          {/* <p id="date-created">
+                            added {format(new Date(task.createdAt), "MMM d")}
+                          </p> */}
+                          <p id="date-created">
+                            {format(new Date(task.start), "MMM d")}
+                          </p>
+                        </div>
+
+                        {/* {task.category.name ? task.category.name : "No Category"} */}
+                        {task.points > 0 ? (
+                          <div id="numberpoints">
+                            {task.points}
+                            <img src="/assets/coin.png" className="coin"></img>
+                          </div>
+                        ) : null}
+                      </a>
+
+                      <UpdateGroupTaskModal
+                        selectedTask={task.id === this.state.taskId}
+                        task={task}
+                        onClose={(e) => this.showTaskModal(e)}
+                        showTask={this.state.showTask}
+                        groupId={this.props.match.params.groupId}
+                      />
 
                       <button
                         onClick={() => this.handleDelete(task.id)}
                         className="deleteTask"
                       >
-                        X
+                        <FontAwesomeIcon icon={faTrashAlt} />
                       </button>
                     </div>
                   ))
@@ -156,7 +185,6 @@ class GroupTaskList extends React.Component {
               }}
               className="add-task-button"
             >
-
               <div id="ahhh">
                 <FontAwesomeIcon icon={faPlusSquare} />
               </div>
@@ -167,8 +195,6 @@ class GroupTaskList extends React.Component {
               onClose={(e) => this.showModal(e)}
               show={this.state.show}
             />
-
-
           </div>
         </div>
       </div>
