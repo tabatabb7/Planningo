@@ -6,10 +6,10 @@ import CreateTaskModal from "./CreateTaskModal";
 import UpdateTaskModal from "./UpdateTaskModal";
 import { fetchShoppingItemsThunk, removeTaskThunk } from "../../store/tasks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusSquare} from "@fortawesome/free-solid-svg-icons";
-import {
-  faCheckCircle, faTrashAlt
-} from "@fortawesome/free-regular-svg-icons";
+import { faPlusSquare, faSort } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle, faTrashAlt } from "@fortawesome/free-regular-svg-icons";
+import { format } from "date-fns";
+
 class ShoppingList extends React.Component {
   constructor(props) {
     super(props);
@@ -52,7 +52,7 @@ class ShoppingList extends React.Component {
   }
 
   render() {
-    let { tasks} = this.props.tasks;
+    let { tasks } = this.props.tasks;
 
     return (
       <div className="task-wrapper">
@@ -71,8 +71,13 @@ class ShoppingList extends React.Component {
                     <div key={task.id} className="singletask">
                       <div
                         id="catcolor"
-                        style={ { backgroundColor: task.category ? task.category.color : '#E8E8E8' } }
+                        style={{
+                          backgroundColor: task.category
+                            ? task.category.color
+                            : "#E8E8E8",
+                        }}
                       ></div>
+
                       <button
                         onClick={() =>
                           this.toggleCompleted(task.id, task.isCompleted)
@@ -94,7 +99,17 @@ class ShoppingList extends React.Component {
                         onClick={(e) => this.showTaskModal(e, task.id)}
                         id="task-name-click"
                       >
-                        {task.name}
+                        <div id="name-date-wrap">
+                          {task.name}
+                          {/* <p id="date-created">
+                            added {format(new Date(task.createdAt), "MMM d")}
+                          </p> */}
+                          <p id="date-created">
+                            {format(new Date(task.start), "MMM d")}
+                          </p>
+                        </div>
+
+                        {task.category ? <img src={task.category.imageUrl}></img>: "No Category"}
                       </a>
 
                       <UpdateTaskModal
@@ -113,7 +128,13 @@ class ShoppingList extends React.Component {
                   ))
                 : "You have no tasks"}
             </div>
-            <div id="just-another-layout-div"> <div>Show Bought</div> <div>Show All</div></div>
+            <div id="just-another-layout-div">
+              <div>
+                Filters <FontAwesomeIcon icon={faSort} />
+              </div>
+              <div>Show Active</div> <div>Show Completed</div>
+              <div>Show All</div>
+            </div>
           </div>
           <div id="add-button-div">
             <button

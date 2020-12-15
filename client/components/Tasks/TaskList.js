@@ -94,6 +94,7 @@ class TaskList extends React.Component {
                             : "#E8E8E8",
                         }}
                       ></div>
+
                       <button
                         onClick={() =>
                           this.toggleCompleted(task.id, task.isCompleted)
@@ -117,8 +118,11 @@ class TaskList extends React.Component {
                       >
                         <div id="name-date-wrap">
                           {task.name}
+                          {/* <p id="date-created">
+                            added {format(new Date(task.createdAt), "MMM d")}
+                          </p> */}
                           <p id="date-created">
-                            {format(new Date(task.createdAt), "MMM d")}
+                            {format(new Date(task.start), "MMM d")}
                           </p>
                         </div>
 
