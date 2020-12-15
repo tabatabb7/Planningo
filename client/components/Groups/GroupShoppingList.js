@@ -3,12 +3,16 @@ import { connect } from "react-redux";
 import GroupShoppingModal from "./GroupShoppingModal";
 import { removeTaskThunk } from "../../store/tasks";
 import { updateTaskCompletion } from "../../store/singletask";
+import UpdateGroupTaskModal from "./UpdateGroupTask";
+import { Link } from "react-router-dom";
+
 import { fetchSingleGroupShopping } from "../../store/singleGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
-import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
-import { Link } from "react-router-dom";
+import { faPlusSquare, faSort } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle, faTrashAlt } from "@fortawesome/free-regular-svg-icons";
+import { format } from "date-fns";
 import "./grouptasks.css";
+import "../Tasks/Tasks.css";
 
 class GroupShoppingList extends React.Component {
   constructor(props) {
@@ -19,6 +23,7 @@ class GroupShoppingList extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.showModal = this.showModal.bind(this);
+    this.showTaskModal = this.showTaskModal.bind(this);
   }
 
   componentDidMount() {
@@ -54,6 +59,10 @@ class GroupShoppingList extends React.Component {
     this.setState({ show: !this.state.show });
   }
 
+  showTaskModal(e, taskId) {
+    this.setState({ taskId, showTask: !this.state.showTask });
+  }
+
   render() {
     let tasks = this.props.group.tasks;
     let group = this.props.group;
@@ -61,6 +70,9 @@ class GroupShoppingList extends React.Component {
 
     return (
       <div className="task-wrapper">
+        {this.state.show === true || this.state.showTask === true ? (
+          <div id="darken-page"></div>
+        ) : null}
         <div id="task-box">
           <div className="task-box-header">
             Shopping List - {group.name}
@@ -68,9 +80,11 @@ class GroupShoppingList extends React.Component {
           <div className="task-box-header"><Link to={`/groups/${group.id}`}> Go back</Link></div>
           <div className="task-box-body">
             <div id="task-box-categories">
-              Category
+              <h3 id="category-title">Category</h3>
+              <div className="each-category-wrap">All</div>
+
               {categories
-                ? categories.map((category) => (
+                ? categories.filter((category) => {return category.isShopping === false}).map((category) => (
                     <div key={category.id} className="each-category-wrap">
                       <div
                         id="category-icon-wrap"
@@ -84,14 +98,22 @@ class GroupShoppingList extends React.Component {
                       {category.name}
                     </div>
                   ))
-                : "null"}
+                : null}
             </div>
-
             {/* LIST OF TASKS */}
             <div id="task-box-list">
               {tasks && tasks.length
                 ? tasks.map((task) => (
                     <div key={task.id} className="singletask">
+                      <div
+                        id="catcolor"
+                        style={{
+                          backgroundColor: task.category
+                            ? task.category.color
+                            : "#E8E8E8",
+                        }}
+                      ></div>
+
                       <button
                         onClick={() =>
                           this.toggleCompleted(task.id, task.isCompleted)
@@ -108,16 +130,47 @@ class GroupShoppingList extends React.Component {
                           <FontAwesomeIcon icon={faCheckCircle} />
                         </div>
                       </button>
-                      {task.name}
+
+                      <a
+                        onClick={(e) => this.showTaskModal(e, task.id)}
+                        id="task-name-click"
+                      >
+                        <div id="name-date-wrap">
+                          {task.name}
+                          {/* <p id="date-created">
+                            added {format(new Date(task.createdAt), "MMM d")}
+                          </p> */}
+                          <p id="date-created">
+                            {format(new Date(task.start), "MMM d")}
+                          </p>
+                        </div>
+
+                        {/* {task.category.name ? task.category.name : "No Category"} */}
+                        {task.points > 0 ? (
+                          <div id="numberpoints">
+                            {task.points}
+                            <img src="/assets/coin.png" className="coin"></img>
+                          </div>
+                        ) : null}
+                      </a>
+
+                      <UpdateGroupTaskModal
+                        selectedTask={task.id === this.state.taskId}
+                        task={task}
+                        onClose={(e) => this.showTaskModal(e)}
+                        showTask={this.state.showTask}
+                        groupId={this.props.match.params.groupId}
+                      />
+
                       <button
                         onClick={() => this.handleDelete(task.id)}
                         className="deleteTask"
                       >
-                        X
+                        <FontAwesomeIcon icon={faTrashAlt} />
                       </button>
                     </div>
                   ))
-                : "This shopping list has no items!"}
+                : "Your group has no tasks"}
             </div>
             <div id="just-another-layout-div"></div>
           </div>
@@ -131,7 +184,7 @@ class GroupShoppingList extends React.Component {
               <div id="ahhh">
                 <FontAwesomeIcon icon={faPlusSquare} />
               </div>
-              Add Item
+              Add New Task
             </button>
             <GroupShoppingModal
               groupId={this.props.match.params.groupId}
