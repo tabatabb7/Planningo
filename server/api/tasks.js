@@ -76,7 +76,6 @@ router.get("/:taskId", async (req, res, next) => {
 router.post("/", async (req, res, next) => {
   try {
     const group = await Group.findByPk(req.body.groupId);
-    console.log("cate id in post route", req.body.categoryId, req.body);
     const task = await Task.create({
       userId: req.user.id,
       name: req.body.name,
@@ -84,6 +83,8 @@ router.post("/", async (req, res, next) => {
       points: req.body.points,
       shoppingId: null,
       categoryId: req.body.categoryId,
+      start: req.body.selectedDate,
+      end: req.body.selectedDate
     });
 
     await User_Task.create({
@@ -151,7 +152,6 @@ router.patch("/:taskId", async (req, res, next) => {
         id: userTask.userId,
       },
     });
-    console.log(userTask, user, "userTask and user from patch route");
     user.update({
       tasksCompleted: (user.tasksCompleted += 1),
     });

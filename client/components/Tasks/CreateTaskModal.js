@@ -51,7 +51,7 @@ class CreateTaskModal extends Component {
     event.preventDefault();
      if (this.state.name == "") {
       this.setState({
-        error: "Name can't be empty!",
+        error: "Please enter a name.",
       });
       return false
     } else if (this.state.groupId == "") {
@@ -147,7 +147,7 @@ class CreateTaskModal extends Component {
                     className="modal-input points"
                     onChange={this.handleChange}
                     value={this.state.points}
-                  />{" "}
+                  />
                 </div>
               ) : null}
 

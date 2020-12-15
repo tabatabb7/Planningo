@@ -49,7 +49,6 @@ export const fetchSingleGroupShopping = (groupId) => {
       );
       dispatch(setSingleGroup(group));
     } catch (err) {
-      console.error("There was a problem fetching this group!");
       console.error(err);
     }
   };

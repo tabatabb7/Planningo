@@ -14,8 +14,8 @@ import "./Tasks.css";
 import { fetchGroupsThunk } from "../../store/allGroups";
 import { fetchTasksThunk, removeTaskThunk } from "../../store/tasks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
-import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
+import { faPlusSquare, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle, faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 
 class TaskList extends React.Component {
   constructor(props) {
@@ -73,7 +73,7 @@ class TaskList extends React.Component {
         <div id="task-box">
           <div className="task-box-header">My Tasks</div>
           <div className="task-box-body">
-            <div id="task-box-categories">div</div>
+            <div id="task-box-categories">Categories</div>
 
             {/* LIST OF TASKS */}
             <div id="task-box-list">
@@ -86,7 +86,7 @@ class TaskList extends React.Component {
                         onClick={() =>
                           this.toggleCompleted(task.id, task.isCompleted)
                         }
-                        className="group-completeTask"
+                        className="completeTask"
                       >
                         <div
                           className={
@@ -94,8 +94,9 @@ class TaskList extends React.Component {
                               ? "check-circle complete"
                               : "check-circle incomplete"
                           }
-                        >
-                          <FontAwesomeIcon icon={faCheckCircle} />
+                        >{task.isCompleted ?
+                          <FontAwesomeIcon icon={faCheckCircle} /> :
+                          <FontAwesomeIcon icon={faTimesCircle} />}
                         </div>
                       </button>
 
@@ -113,13 +114,13 @@ class TaskList extends React.Component {
                         onClick={() => this.handleDelete(task.id)}
                         className="deleteTask"
                       >
-                        X
+                       <FontAwesomeIcon icon={faTrashAlt} />
                       </button>
                     </div>
                   ))
                 : "You have no tasks"}
             </div>
-            <div id="just-another-layout-div"></div>
+            <div id="just-another-layout-div"> Group Members </div>
           </div>
           <div id="add-button-div">
             <button
