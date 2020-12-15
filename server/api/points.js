@@ -33,7 +33,7 @@ router.post("/", async (req, res, next) => {
 
     const taskCat = await Category.findOne({
       where: {
-        id: task.categoryId,
+        id: task.categoryId
       },
     });
 
@@ -63,7 +63,7 @@ router.post("/", async (req, res, next) => {
         groupId: groupTask.groupId,
         firstName: user.firstName,
         categoryId: taskCat.id,
-        categoryName: taskCat.categoryName,
+        categoryName: taskCat.name,
       },
     });
 

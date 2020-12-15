@@ -34,11 +34,19 @@
   z-index: 60;
   font-family: "Poppins", sans-serif;
   text-transform: uppercase;
-  letter-spacing: 3px;
   font-size: 25px;
+  letter-spacing: 3px;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.task-box-header a {
+  font-family: "Poppins", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 15px;
+  margin-left: 700px;
 }
 
 .task-box-body {
@@ -148,14 +156,14 @@
   justify-content: space-between;
 }
 
-#name-date-wrap{
+#name-date-wrap {
   display: flex;
   flex-direction: column;
   width: 100%;
   justify-content: center;
 }
 
-#date-created{
+#date-created {
   font-size: 10px;
   color: #a58482;
 }
@@ -166,7 +174,7 @@
   width: 10%;
   min-width: 150px;
   max-width: 150px;
-  background-color: #D6EFF4;
+  background-color: #d6eff4;
   overflow-y: auto;
   display: flex;
   flex-direction: column;

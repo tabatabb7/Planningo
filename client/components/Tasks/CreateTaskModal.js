@@ -17,7 +17,6 @@ class CreateTaskModal extends Component {
     super(props);
     //modal depends on whether path name ends in /tasks or /shoppinglist
     let path = window.location.pathname;
-    console.log(path);
     let part = path.split("/").pop();
     this.state = {
       modaltype: part,
