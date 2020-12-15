@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import "./UserHome.css";
 import { fetchUserTasksThunk } from "../../store/tasks";
 import { format } from "date-fns";
+import WeatherScript from "./WeatherScript"
 
 class UserHome extends React.Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class UserHome extends React.Component {
   }
   async componentDidMount() {
     await this.props.fetchUserTasks();
+    <WeatherScript />
   }
   render() {
     const { firstName } = this.props;
