@@ -6,9 +6,10 @@ import CreateTaskModal from "./CreateTaskModal";
 import UpdateTaskModal from "./UpdateTaskModal";
 import { fetchShoppingItemsThunk, removeTaskThunk } from "../../store/tasks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
-import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
-
+import { faPlusSquare} from "@fortawesome/free-solid-svg-icons";
+import {
+  faCheckCircle, faTrashAlt
+} from "@fortawesome/free-regular-svg-icons";
 class ShoppingList extends React.Component {
   constructor(props) {
     super(props);
@@ -60,13 +61,11 @@ class ShoppingList extends React.Component {
               {tasks && tasks.length
                 ? tasks.map((task) => (
                     <div key={task.id} className="singletask">
-
-
                       <button
                         onClick={() =>
                           this.toggleCompleted(task.id, task.isCompleted)
                         }
-                        className="group-completeTask"
+                        className="completeTask"
                       >
                         <div
                           className={
@@ -93,7 +92,7 @@ class ShoppingList extends React.Component {
                         onClick={() => this.handleDelete(task.id)}
                         className="deleteTask"
                       >
-                        X
+                        <FontAwesomeIcon icon={faTrashAlt} />
                       </button>
                     </div>
                   ))
