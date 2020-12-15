@@ -19,48 +19,41 @@ class UpdateTaskModal extends Component {
       points: this.props.task.points,
       categoryId: this.props.task.categoryId,
       taskId: this.props.task.id,
-      selectedDate: null,
+      selectedDate: `${this.props.task.start}T12:00:00.000Z`,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleDate = this.handleDate.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
   }
-
+  handleDateChange(newValue) {
+    this.setState({
+      selectedDate: newValue,
+    });
+  }
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value,
     });
   }
 
-  handleDate() {
-    let date = document.getElementById("key-datepicker").value;
-    console.log("DATE!", date)
-    this.setState({
-      selectedDate: date,
-    });
-
-    console.log("SELECTED DATE", this.state.selectedDate)
-  }
-
   async handleSubmit(event) {
     event.preventDefault();
-    console.log("THIS STATE", this.state)
-    await this.handleDate();
-      if (this.state.name == "") {
-        this.setState({
-          error: "Name can't be empty!",
-        });
-        return false;
-      } else if (this.state.groupId == "") {
-        this.setState({
-          error: "Please select a group!",
-        });
-        return false;
-      }
-      await this.props.updateTask(this.state);
-      this.props.onClose();
-  }
+    console.log("THIS STATE", this.state);
 
+    if (this.state.name == "") {
+      this.setState({
+        error: "Name can't be empty!",
+      });
+      return false;
+    } else if (this.state.groupId == "") {
+      this.setState({
+        error: "Please select a group!",
+      });
+      return false;
+    }
+    await this.props.updateTask(this.state);
+    this.props.onClose();
+  }
 
   onClose = (e) => {
     this.props.onClose && this.props.onClose(e);
@@ -69,7 +62,7 @@ class UpdateTaskModal extends Component {
   render() {
     let categories = this.state.group.categories;
     let { groups } = this.props.tasks;
-
+    console.log(this.props, "thisprops in render of UTM");
     if (!this.props.showTask || !this.props.selectedTask) {
       return null;
     }
@@ -107,20 +100,19 @@ class UpdateTaskModal extends Component {
                 value={this.state.description}
               />
 
-            <div>
-              <label htmlFor="points">Points:</label>
-              <textarea
-                name="points"
-                type="text"
-                className="edit-modal-input points"
-                onChange={this.handleChange}
-                value={this.state.points}
-              />
-              <img src="/assets/coin.png" className="coin"></img>
-            </div>
+              <div>
+                <label htmlFor="points">Points:</label>
+                <textarea
+                  name="points"
+                  type="text"
+                  className="edit-modal-input points"
+                  onChange={this.handleChange}
+                  value={this.state.points}
+                />
+                <img src="/assets/coin.png" className="coin"></img>
+              </div>
 
-
-            <div id="group-category-wrap">
+              <div id="group-category-wrap">
                 <div id="modal-group-wrap">
                   <label htmlFor="groupId">Select Group:</label>
                   {!this.props.groups.length ? (
@@ -155,7 +147,7 @@ class UpdateTaskModal extends Component {
                 </div>
                 <div id="modal-category-wrap">
                   <label htmlFor="categoryId">Category:</label>
-                <select
+                  <select
                     onChange={(e) =>
                       this.setState({ categoryId: e.target.value || null })
                     }
@@ -167,7 +159,7 @@ class UpdateTaskModal extends Component {
                     {categories
                       ? categories
                           .filter((category) => {
-                              return category.isShopping === false;
+                            return category.isShopping === false;
                           })
                           .map((category) => (
                             <option key={category.id} value={category.id}>
@@ -182,7 +174,8 @@ class UpdateTaskModal extends Component {
               <div id="choose-date">
                 Due By:
                 <KeyboardDatePickerTab
-                  selectedDates={this.state.selectedDate}
+                  selectedDate={this.state.selectedDate}
+                  handleDateChange={this.handleDateChange}
                 />
               </div>
               <button type="submit" id="modal-submit-button">
@@ -195,7 +188,6 @@ class UpdateTaskModal extends Component {
     );
   }
 }
-
 
 const mapState = (state) => ({
   tasks: state.tasks,

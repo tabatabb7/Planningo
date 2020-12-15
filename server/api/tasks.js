@@ -32,9 +32,14 @@ router.get("/", async (req, res, next) => {
             isShopping: false,
           },
           required: false,
-          include: {
-            model: Category,
-          },
+          include: [
+            {
+              model: Category,
+            },
+            {
+              model: Task_Group,
+            },
+          ],
         },
       ],
     });
@@ -75,7 +80,7 @@ router.get("/:taskId", async (req, res, next) => {
     const task = await Task.findOne({
       where: {
         id: req.params.taskId,
-      }
+      },
     });
     res.json(task);
   } catch (err) {
@@ -148,30 +153,30 @@ router.put("/", async (req, res, next) => {
       categoryId: req.body.categoryId,
       start: req.body.selectedDate,
       end: req.body.selectedDate,
-    })
+    });
 
     const taskGroup = await Task_Group.findOne({
       where: {
-        taskId: task.id
-      }
-    })
-    
-    Task_Group.update({
-      groupdId: req.body.groupId
-    }, 
-    {
-      where: {
         taskId: task.id,
-        groupId: taskGroup.groupId
+      },
+    });
+
+    Task_Group.update(
+      {
+        groupdId: req.body.groupId,
+      },
+      {
+        where: {
+          taskId: task.id,
+        },
       }
-    })
+    );
 
     res.json(task);
   } catch (err) {
     next(err);
   }
 });
-
 
 //PATCH task
 router.patch("/:taskId", async (req, res, next) => {
@@ -181,7 +186,7 @@ router.patch("/:taskId", async (req, res, next) => {
     const userTask = await User_Task.findOne({
       where: {
         taskId: req.params.taskId,
-      }
+      },
     });
     const user = await User.findOne({
       where: {
