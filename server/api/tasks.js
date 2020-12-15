@@ -145,7 +145,7 @@ router.patch("/:taskId", async (req, res, next) => {
     const userTask = await User_Task.findOne({
       where: {
         taskId: req.params.taskId,
-      },
+      }
     });
     const user = await User.findOne({
       where: {

@@ -7,6 +7,10 @@
   flex-direction: column;
 }
 
+.task-wrapper.open{
+  filter: Alpha(Opacity=50);
+}
+
 #task-box {
   width: 100%;
   height: 100%;
@@ -48,21 +52,25 @@
   height: 100%;
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .deleteTask{
-  font-size: 30px;
+  font-size: 18px;
+  color: #f2afa6;
 }
 
 .check-circle {
-  font-size: 40px;
+  font-size: 35px;
+  -webkit-text-stroke: 1px;
 }
 
 .check-circle.complete {
-  color: blue;
+  color: #f2afa6;
 }
 .check-circle.incomplete {
-  color: red;
+  color: gray;
+  opacity: 0.2;
 }
 
 /* show all categories of tasks  */
@@ -98,13 +106,29 @@
   width: 100%;
   height: 10%;
   max-height: 50px;
-  border-bottom: 1px solid #f7e1dc;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-shrink: 0;
+  border-bottom: 1px solid #F7E1DC;
+  font-family: "Poppins", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 15px;
+  cursor: pointer;
 }
 
+#catcolor{
+  width: 10px;
+  height: 100%;
+}
+
+#task-name-click{
+  height: 100%;
+  width: 85%;
+  display: flex;
+  align-items: center;
+}
 /* bottom add task div (running out of names) */
 #just-another-layout-div {
   height: 100%;
