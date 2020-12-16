@@ -70,21 +70,24 @@ class GroupShoppingList extends React.Component {
 
     return (
       <div className="task-wrapper">
+        {/* <Link to={`/groups/${group.id}`}> Go back</Link> */}
+
         {this.state.show === true || this.state.showTask === true ? (
           <div id="darken-page"></div>
         ) : null}
         <div id="task-box">
-          <div className="task-box-header">
-            Shopping List - {group.name}
+          <div className="task-box-header"> Shopping List for
+            <div id="grpname" style={{ color: group.color }}>
+              {group.name}
+            </div>
           </div>
-          <div className="task-box-header"><Link to={`/groups/${group.id}`}> Go back</Link></div>
           <div className="task-box-body">
             <div id="task-box-categories">
               <h3 id="category-title">Category</h3>
               <div className="each-category-wrap">All</div>
 
               {categories
-                ? categories.filter((category) => {return category.isShopping === false}).map((category) => (
+                ? categories.map((category) => (
                     <div key={category.id} className="each-category-wrap">
                       <div
                         id="category-icon-wrap"
@@ -170,9 +173,9 @@ class GroupShoppingList extends React.Component {
                       </button>
                     </div>
                   ))
-                : "Your group has no tasks"}
+                : null}
             </div>
-            <div id="just-another-layout-div"></div>
+            <div id="just-another-layout-div">Filters</div>
           </div>
           <div id="add-button-div">
             <button

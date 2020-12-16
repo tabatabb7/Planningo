@@ -6,13 +6,13 @@
 }
 
 #group-info {
-  height: 100vh;
+  height: 100%;
   width: 100vw;
 }
 
 .single-grp-body {
   background-color: white;
-  height: 75%;
+  height: 80%;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -21,11 +21,10 @@
   justify-content: center;
 }
 
-/* .ui.comments{
+.ui.comments{
   width: 1000px !important;
-
   max-width: 1200px !important;
-} */
+}
 
 .single-grp-sidebar {
   background-color:#fefde9;
@@ -65,6 +64,7 @@
   height: auto;
   border-radius: 50%;
   border: 3px solid #fefde9;
+  margin-bottom: 10px;
 }
 
 #single-grp-name {
@@ -85,7 +85,7 @@
 
 #single-grp-header {
   width: 100%;
-  height: 25%;
+  height: 20%;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -41,6 +41,10 @@
   align-items: center;
 }
 
+#grpname{
+  margin-left: 10px
+}
+
 .task-box-header a {
   font-family: "Poppins", sans-serif;
   text-transform: uppercase;
@@ -129,6 +133,10 @@
   font-size: 15px;
   cursor: pointer;
   font-weight: 200;
+}
+
+.singletask:hover {
+  background-color:#fffcf7;
 }
 
 #catcolor {
