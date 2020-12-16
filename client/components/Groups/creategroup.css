@@ -1,15 +1,66 @@
-.group-wrapper {
-  width: 50%;
+.create-group-wrapper {
+  width: 70%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  font-family: "Poppins", sans-serif;
+  font-family: "Open Sans", sans-serif;
+  margin-top: 100px;
 }
 
-#create-group-header {
-  font-family: "Poppins", sans-serif;
+.create-group-header {
+  text-align: center;
+  max-width: 75%;
+  font-weight: 200;
+  font-family: "Roboto", sans-serif;
   color: #000000;
-  font-size: 20px;
+  font-size: 18px;
+}
+
+.pick-color {
+  width: 50px;
+  height: 40px;
+  cursor: pointer;
+  border-radius: 50%;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+/* .pick-color.selected {
+  width: 80px;
+  height: auto;
+  cursor: pointer;
+  background-color: #ff511e;
+} */
+
+#color-picker {
+  overflow-x: auto;
+  display: flex;
+  /* height: 30%; */
+}
+#add-group-form {
+  width: 70%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  font-size: 15px;
+  /* margin-top: 20px; */
+}
+
+.create-group-form-button {
+  border: none;
+  background-color: #ff7290;
+  padding: 3%;
+  padding-left: 10%;
+  padding-right: 16%;
+  margin-left: 170px;
+  text-align: center;
+  font-size: 17px;
+  color: white;
+  font-family: "Open Sans", sans-serif;
+  border-radius: 20px;
+  cursor: pointer;
+  width: 50px;
 }
