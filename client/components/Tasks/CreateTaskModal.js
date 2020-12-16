@@ -162,7 +162,7 @@ class CreateTaskModal extends Component {
 
               <div id="group-category-wrap">
                 <div id="modal-group-wrap">
-                  <label htmlFor="groupId">Select Group:</label>
+                  <label htmlFor="groupId">Assign to Group:</label>
                   {!this.props.groups.length ? (
                     "You are not a part of any groups."
                   ) : (
@@ -175,6 +175,7 @@ class CreateTaskModal extends Component {
                               ? "each-select-group selected"
                               : "each-select-group"
                           }
+
                           onClick={() => {
                             this.setState({
                               group: group,
