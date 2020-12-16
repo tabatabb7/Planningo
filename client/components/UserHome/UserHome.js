@@ -5,8 +5,7 @@ import { Link } from "react-router-dom";
 import "./UserHome.css";
 import { fetchUserTasksThunk } from "../../store/tasks";
 import { format } from "date-fns";
-import { Search, Grid } from 'semantic-ui-react'
-import 'semantic-ui-css/components/button.css'
+import "semantic-ui-css/components/button.css";
 
 import Weather from "./Weather";
 
@@ -36,11 +35,8 @@ class UserHome extends React.Component {
     const year = format(new Date(), "y");
     const today = `${year}-${month}-${date}`;
 
-    
-
     return (
       <div className="userhome-wrapper">
-        
         <h3>{`Hello, ${firstName}`}</h3>
         <br></br>
 
@@ -53,8 +49,6 @@ class UserHome extends React.Component {
           <p>Fetching Weather Info...</p>
         )}
 
-
-        <Weather latitude={this.latitude} longitude={this.longitude} />
         <p>{`On your dashboard for today...`}</p>
         <br></br>
         <div className="search-container">
@@ -62,7 +56,7 @@ class UserHome extends React.Component {
             <input type="search"></input>
           </form>
         </div>
-        <p>{`${today}`}</p>
+
         {tasks && tasks.length > 0 ? (
           <ul>
             {tasks
@@ -79,9 +73,16 @@ class UserHome extends React.Component {
           </ul>
         ) : (
           <Link to="/tasks">Add a new task!</Link>
-          
         )}
-        </div>
+        {this.state.latitude && this.state.longitude ? (
+          <Weather
+            latitude={this.state.latitude}
+            longitude={this.state.longitude}
+          />
+        ) : (
+          <p>Fetching Weather Info...</p>
+        )}
+      </div>
     );
   }
 }

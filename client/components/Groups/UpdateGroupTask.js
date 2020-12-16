@@ -12,7 +12,7 @@ class UpdateGroupTaskModal extends Component {
     super(props);
     this.state = {
       name: this.props.task.name,
-      userId: this.props.task.users && this.props.tasks.users[0].id,
+      userId: "",
       description: this.props.task.description,
       points: this.props.task.points,
       categoryId: this.props.task.categoryId,
