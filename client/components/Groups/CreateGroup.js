@@ -11,8 +11,8 @@ class CreateGroup extends React.Component {
     this.state = {
       name: "",
       description: "",
+      selected: "",
       redirectTo: null,
-      // showError: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -44,11 +44,39 @@ class CreateGroup extends React.Component {
   }
 
   render() {
+    const colors = [
+      "#DFFF00", 
+      "#FFBF00", 
+      "#FF7F50", 
+      "#DE3163", 
+      "#9FE2BF", 
+      "#40E0D0", 
+      "#6495ED", 
+      "#CCCCFF"
+    ]
+
+    const singleColors = colors.map((color) => {
+      return (
+        <div 
+          key={color} 
+          style={{backgroundColor: color}}
+          className="pick-color"
+          onClick={() => {
+            this.setState({ selected: color})
+          }}
+          value={color}
+        >
+        </div>
+      )
+    })
+
+
+
     if (this.state.redirectTo) {
       return <Redirect to={{ pathname: this.state.redirectTo }} />;
     } else {
       return (
-        <div className="group-wrapper">
+        <div className="create-group-wrapper">
         <div className="create-group-header">
           <h3>Create your first group and add members! <br/>
             If you would like to use Planningo as a personal task manager,
@@ -72,7 +100,17 @@ class CreateGroup extends React.Component {
               onChange={this.handleChange}
               value={this.state.description}
             />
-            <button type="submit">Add</button>
+            <label htmlFor="color">Color:</label>
+            <div id="color-picker">{singleColors}</div>
+            <input
+              name="color"
+              // type="text"
+              placeholder="Choose a color"
+              // onChange={this.handleChange}
+              value={this.state.selected}
+              readOnly={true}
+            />
+            <button className="create-group-form-button" type="submit">Add</button>
           </form>
         </div>
       );
@@ -85,3 +123,4 @@ const mapDispatch = (dispatch) => ({
 });
 
 export default connect(null, mapDispatch)(CreateGroup);
+
