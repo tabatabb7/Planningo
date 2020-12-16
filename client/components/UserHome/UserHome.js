@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import "./UserHome.css";
 import { fetchUserTasksThunk } from "../../store/tasks";
 import { format } from "date-fns";
-import { Search, Grid } from 'semantic-ui-react'
 import 'semantic-ui-css/components/button.css'
 
 import Weather from "./Weather";
@@ -36,11 +35,11 @@ class UserHome extends React.Component {
     const year = format(new Date(), "y");
     const today = `${year}-${month}-${date}`;
 
-    
+
 
     return (
       <div className="userhome-wrapper">
-        
+
         <h3>{`Hello, ${firstName}`}</h3>
         <br></br>
 
@@ -79,7 +78,7 @@ class UserHome extends React.Component {
           </ul>
         ) : (
           <Link to="/tasks">Add a new task!</Link>
-          
+
         )}
         </div>
     );
