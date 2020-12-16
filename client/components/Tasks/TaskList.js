@@ -13,7 +13,7 @@ import "./Tasks.css";
 import { fetchGroupsThunk } from "../../store/allGroups";
 import { fetchTasksThunk, removeTaskThunk } from "../../store/tasks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusSquare, faSort } from "@fortawesome/free-solid-svg-icons";
+import { faPlusSquare, faSort, faFilter } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle, faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 import { format } from "date-fns";
 
@@ -77,8 +77,9 @@ class TaskList extends React.Component {
           <div className="task-box-header">My Tasks</div>
           <div className="task-box-body">
             <div id="task-box-categories">
+            <div>Sort By                           <FontAwesomeIcon icon={faSort} />
+</div>
               <div>Categories</div>
-              <div>Select a group to filter by its categories!</div>
             </div>
 
             {/* LIST OF TASKS */}
@@ -94,6 +95,7 @@ class TaskList extends React.Component {
                             : "#E8E8E8",
                         }}
                       ></div>
+
                       <button
                         onClick={() =>
                           this.toggleCompleted(task.id, task.isCompleted)
@@ -117,8 +119,11 @@ class TaskList extends React.Component {
                       >
                         <div id="name-date-wrap">
                           {task.name}
+                          {/* <p id="date-created">
+                            added {format(new Date(task.createdAt), "MMM d")}
+                          </p> */}
                           <p id="date-created">
-                            {format(new Date(task.createdAt), "MMM d")}
+                            {format(new Date(task.start), "MMM d")}
                           </p>
                         </div>
 
@@ -149,10 +154,8 @@ class TaskList extends React.Component {
             </div>
             <div id="just-another-layout-div">
               <div>
-                Filters <FontAwesomeIcon icon={faSort} />
+                Filters <FontAwesomeIcon icon={faFilter} />
               </div>
-              <div>Show Active</div> <div>Show Completed</div>
-              <div>Show All</div>
             </div>
           </div>
           <div id="add-button-div">
