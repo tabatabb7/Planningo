@@ -5,34 +5,33 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { updateGroupTaskThunk, fetchTasksThunk } from "../../store/tasks";
 import "../Tasks/taskmodal.css";
 import { fetchSingleGroupTasks } from "../../store/singleGroup";
-import KeyboardDatePickerTab from "../Calendar/DatePicker"
-
+import KeyboardDatePickerTab from "../Calendar/DatePicker";
 
 class UpdateGroupTaskModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
       name: this.props.task.name,
-      selected: this.props.task.selected,
+      userId: this.props.task.users && this.props.tasks.users[0].id,
       description: this.props.task.description,
       points: this.props.task.points,
       categoryId: this.props.task.categoryId,
-      selectedDate: this.props.task.selectedDate,
+      selectedDate: this.props.task.start,
       taskId: this.props.task.id,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleDate = this.handleDate.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
   }
 
-  handleDate() {
-    let date = document.getElementById("key-datepicker").value
+  handleDateChange(newValue) {
     this.setState({
-      selectedDate: date
-    })
+      selectedDate: newValue,
+    });
   }
 
   handleChange(event) {
+    console.log(event, "event in handlechange of UGT");
     this.setState({
       [event.target.name]: event.target.value,
     });
@@ -40,12 +39,12 @@ class UpdateGroupTaskModal extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    await this.handleDate();
+
     try {
       if (this.state.name == "") {
         alert("Task name can't be empty!");
       } else {
-        await this.props.updateGroupTask(this.state);
+        await this.props.updateGroupTask(this.state, this.props.group.id);
         alert(`Task was updated! Redirecting you to the tasks page.`);
         await this.props.fetchGroup(this.props.group.id);
         this.props.onClose();
@@ -111,24 +110,27 @@ class UpdateGroupTaskModal extends Component {
             </form>
 
             <form id="user-form" onSubmit={this.handleSubmit}>
-              <label htmlFor="selected"></label>
+              <label htmlFor="userId"></label>
               <select
-                value={this.state.selected}
+                value={this.state.userId}
                 onChange={this.handleChange}
-                name="selected"
+                name="userId"
               >
                 <option value="" disabled>
                   Select User
                 </option>
                 {group && group.users
                   ? group.users.map((user) => (
-                      <option key={user.id}>
+                      <option key={user.id} value={user.id}>
                         {user.firstName} {user.lastName}
                       </option>
                     ))
                   : "There are no users"}
               </select>
-              <KeyboardDatePickerTab selectedDates={this.state.selectedDate}/>
+              <KeyboardDatePickerTab
+                selectedDate={this.state.selectedDate}
+                handleDateChange={this.handleDateChange}
+              />
               <button id="modal-submit-button" type="submit">
                 Update
               </button>
@@ -147,7 +149,7 @@ class UpdateGroupTaskModal extends Component {
                   {categories
                     ? categories
                         .filter((category) => {
-                            return category.isShopping === false;
+                          return category.isShopping === false;
                         })
                         .map((category) => (
                           <option key={category.id} value={category.id}>
@@ -172,7 +174,8 @@ const mapState = (state) => ({
 
 const mapDispatch = (dispatch) => ({
   fetchGroup: (groupId) => dispatch(fetchSingleGroupTasks(groupId)),
-  updateGroupTask: (task) => dispatch(updateGroupTaskThunk(task)),
+  updateGroupTask: (task, groupId) =>
+    dispatch(updateGroupTaskThunk(task, groupId)),
 });
 
 export default connect(mapState, mapDispatch)(UpdateGroupTaskModal);

@@ -13,18 +13,20 @@ import Weather from "./Weather";
 class UserHome extends React.Component {
   constructor(props) {
     super(props);
-    let latitude;
-    let longitude;
+    this.state = {
+      longitude: "",
+      latitude: "",
+    };
   }
 
   async componentDidMount() {
     await this.props.fetchUserTasks();
-    await navigator.geolocation.getCurrentPosition(function (position) {
-      this.latitude = position.coords.latitude.toString();
-      this.longitude = position.coords.longitude.toString();
-      console.log(latitude, longitude, "lat and long string");
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.setState({
+        longitude: position.coords.longitude,
+        latitude: position.coords.latitude,
+      });
     });
-
   }
   render() {
     const { firstName } = this.props;
@@ -41,6 +43,17 @@ class UserHome extends React.Component {
         
         <h3>{`Hello, ${firstName}`}</h3>
         <br></br>
+
+        {this.state.latitude && this.state.longitude ? (
+          <Weather
+            latitude={this.state.latitude}
+            longitude={this.state.longitude}
+          />
+        ) : (
+          <p>Fetching Weather Info...</p>
+        )}
+
+
         {/* <Weather latitude={this.latitude} longitude={this.longitude} /> */}
         <p>{`On your dashboard for today...`}</p>
         <br></br>

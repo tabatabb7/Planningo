@@ -1,13 +1,6 @@
 const router = require("express").Router();
 
-const {
-  Task,
-  User_Task,
-  Group,
-  User,
-  Task_Group,
-  Category,
-} = require("../db/models");
+const { Task, User_Task, Group, User, Category } = require("../db/models");
 
 //GET /api/tasks/home
 router.get("/home", async (req, res, next) => {
@@ -75,7 +68,7 @@ router.get("/:taskId", async (req, res, next) => {
     const task = await Task.findOne({
       where: {
         id: req.params.taskId,
-      }
+      },
     });
     res.json(task);
   } catch (err) {
@@ -85,7 +78,6 @@ router.get("/:taskId", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    const group = await Group.findByPk(req.body.groupId);
     const task = await Task.create({
       userId: req.user.id,
       name: req.body.name,
@@ -93,16 +85,13 @@ router.post("/", async (req, res, next) => {
       points: req.body.points,
       shoppingId: null,
       categoryId: req.body.categoryId,
+      groupId: req.body.groupId,
       start: req.body.selectedDate,
       end: req.body.selectedDate,
     });
 
     await User_Task.create({
       userId: req.user.id,
-      taskId: task.id,
-    });
-    await Task_Group.create({
-      groupId: group.id,
       taskId: task.id,
     });
 
@@ -114,20 +103,16 @@ router.post("/", async (req, res, next) => {
 
 router.post("/shopping", async (req, res, next) => {
   try {
-    const group = await Group.findByPk(req.body.groupId);
     const task = await Task.create({
       userId: req.user.id,
       name: req.body.name,
       isShopping: true,
       description: req.body.description,
       categoryId: req.body.categoryId,
+      groupId: req.body.groupId,
     });
     await User_Task.create({
       userId: req.user.id,
-      taskId: task.id,
-    });
-    await Task_Group.create({
-      groupId: group.id,
       taskId: task.id,
     });
 
@@ -146,32 +131,16 @@ router.put("/", async (req, res, next) => {
       description: req.body.description,
       points: req.body.points,
       categoryId: req.body.categoryId,
+      groupId: req.body.groupId,
       start: req.body.selectedDate,
       end: req.body.selectedDate,
-    })
-
-    const taskGroup = await Task_Group.findOne({
-      where: {
-        taskId: task.id
-      }
-    })
-    
-    Task_Group.update({
-      groupdId: req.body.groupId
-    }, 
-    {
-      where: {
-        taskId: task.id,
-        groupId: taskGroup.groupId
-      }
-    })
+    });
 
     res.json(task);
   } catch (err) {
     next(err);
   }
 });
-
 
 //PATCH task
 router.patch("/:taskId", async (req, res, next) => {
@@ -181,7 +150,7 @@ router.patch("/:taskId", async (req, res, next) => {
     const userTask = await User_Task.findOne({
       where: {
         taskId: req.params.taskId,
-      }
+      },
     });
     const user = await User.findOne({
       where: {

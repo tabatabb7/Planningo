@@ -101,10 +101,10 @@ export const updateTaskThunk = (task) => async (dispatch) => {
   }
 };
 
-export const updateGroupTaskThunk = (task) => async (dispatch) => {
+export const updateGroupTaskThunk = (task, groupId) => async (dispatch) => {
   try {
     const { data: updatedGroupTask } = await axios.put(
-      `/api/groups/:groupId/tasks/`,
+      `/api/groups/${groupId}/tasks/`,
       task
     );
     dispatch(updateGroupTask(updatedGroupTask));
