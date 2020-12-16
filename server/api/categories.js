@@ -1,13 +1,6 @@
 const router = require("express").Router();
 
-const {
-  Task,
-  User_Task,
-  Group,
-  User,
-  Task_Group,
-  Category,
-} = require("../db/models");
+const { Task, User_Task, Group, User, Category } = require("../db/models");
 
 // router.get("/", async (req, res, next) => {
 //   try {
@@ -72,21 +65,18 @@ const {
 
 // router.post("/", async (req, res, next) => {
 //   try {
-//     const group = await Group.findByPk(req.body.groupId);
+
 //     const task = await Task.create({
 //       userId: req.user.id,
 //       name: req.body.name,
 //       description: req.body.description,
 //       points: req.body.points,
 //       categoryId: req.body.categoryId,
+//      groupId: req.body.groupId
 //     });
 
 //     await User_Task.create({
 //       userId: req.user.id,
-//       taskId: task.id,
-//     });
-//     await Task_Group.create({
-//       groupId: group.id,
 //       taskId: task.id,
 //     });
 
@@ -98,22 +88,20 @@ const {
 
 // router.post("/shopping", async (req, res, next) => {
 //   try {
-//     const group = await Group.findByPk(req.body.groupId);
+
 //     const task = await Task.create({
 //       userId: req.user.id,
 //       name: req.body.name,
 //       isShopping: true,
 //       description: req.body.description,
 //       categoryId: req.body.categoryId,
+//      groupId: req.body.groupId
 //     });
 //     await User_Task.create({
 //       userId: req.user.id,
 //       taskId: task.id,
 //     });
-//     await Task_Group.create({
-//       groupId: group.id,
-//       taskId: task.id,
-//     });
+//
 
 //     res.json(task);
 //   } catch (err) {

@@ -27,17 +27,9 @@ User.belongsToMany(Group, { through: "User_Group" });
 Group.belongsToMany(User, { through: "User_Group" });
 //***************************************************************** */
 
-//Task and Group --- one-to-many with through table
+//Task and Group --- one-to-many
 
-const Task_Group = db.define("Task_Group", {
-  points: {
-    type: Sequelize.INTEGER,
-    defaultValue: 0,
-  },
-});
-
-Task.belongsToMany(Group, { through: "Task_Group" });
-Group.belongsToMany(Task, { through: "Task_Group" });
+Group.hasMany(Task), Task.belongsTo(Group);
 
 const User_Task = db.define("User_Task", {});
 
@@ -70,7 +62,6 @@ module.exports = {
   Group,
   User_Group,
   User_Task,
-  Task_Group,
   Category,
   Point,
 };
