@@ -79,16 +79,21 @@ class GroupTaskList extends React.Component {
 
     return (
       <div className="task-wrapper">
+        {/* <Link to={`/groups/${group.id}`}> Go back</Link> */}
+
         {this.state.show === true || this.state.showTask === true ? (
           <div id="darken-page"></div>
         ) : null}
         <div id="task-box">
-          <div className="task-box-header">Tasks -- {group.name}</div>
-          <div className="task-box-header"><Link to={`/groups/${group.id}`}> Go back</Link></div>
+          <div className="task-box-header"> Tasks for
+            <div id="grpname" style={{ color: group.color }}>
+              {group.name}
+            </div>
+          </div>
           <div className="task-box-body">
             <div id="task-box-categories">
-              <h3 id="category-title">Category</h3>
-              <div className="each-category-wrap">All</div>
+              <div id="category-title">Categories</div>
+              {/* <div className="category-icon-wrap">All</div> */}
 
               {categories
                 ? categories.map((category) => (
