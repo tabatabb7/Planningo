@@ -54,7 +54,7 @@ class UserHome extends React.Component {
         )}
 
 
-        {/* <Weather latitude={this.latitude} longitude={this.longitude} /> */}
+        <Weather latitude={this.latitude} longitude={this.longitude} />
         <p>{`On your dashboard for today...`}</p>
         <br></br>
         <div className="search-container">
