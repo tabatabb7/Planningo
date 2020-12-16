@@ -13,8 +13,7 @@ class UpdateTaskModal extends Component {
     super(props);
     this.state = {
       name: this.props.task.name,
-      group: "",
-      groupId: "",
+      groupId: this.props.task.groupId,
       description: this.props.task.description,
       points: this.props.task.points,
       categoryId: this.props.task.categoryId,
@@ -60,8 +59,9 @@ class UpdateTaskModal extends Component {
   };
 
   render() {
-    let categories = this.state.group.categories;
-    let { groups } = this.props.tasks;
+    const group = this.props.groups.find((x) => x.id === this.state.groupId);
+    const categories = group && group.categories;
+
     console.log(this.props, "thisprops in render of UTM");
     if (!this.props.showTask || !this.props.selectedTask) {
       return null;
@@ -129,7 +129,6 @@ class UpdateTaskModal extends Component {
                           }
                           onClick={() => {
                             this.setState({
-                              group: group,
                               groupId: group.id,
                               categoryId: null,
                             });

@@ -5,7 +5,6 @@ const {
   User,
   Task,
   User_Task,
-  Task_Group,
   Category,
   Point,
 } = require("../db/models");
@@ -35,6 +34,10 @@ router.get("/:groupId", async (req, res, next) => {
         },
         {
           model: Task,
+          include: {
+            model: User,
+            attributes: ["id"],
+          },
         },
         {
           model: Category,
@@ -139,9 +142,9 @@ router.post("/:groupId", async (req, res, next) => {
   try {
     const user = await User.findOne({
       where: {
-        email: req.body.email
-      }
-    })
+        email: req.body.email,
+      },
+    });
     const newUser = await User_Group.findOrCreate({
       where: {
         groupId: req.params.groupId,
@@ -231,40 +234,21 @@ router.get("/:groupId/shopping", async (req, res, next) => {
 // POST /api/groups/:groupId/tasks
 router.post("/:groupId/tasks", async (req, res, next) => {
   try {
-    const selected = req.body.selected;
-
-    const selectedNames = selected.split(" ");
-
-    const user = await User.findOne({
-      where: {
-        firstName: selectedNames[0],
-        lastName: selectedNames[1],
-      },
-    });
-
-    const userGroup = await User_Group.findOne({
-      where: {
-        groupId: req.body.groupId,
-      },
-    });
-
     const task = await Task.create({
-      userId: user.id,
+      userId: req.body.userId,
       name: req.body.name,
       points: req.body.points,
       isShopping: false,
       categoryId: req.body.categoryId,
+      groupId: req.body.groupId,
       start: req.body.selectedDate,
-      end: req.body.selectedDate
+      end: req.body.selectedDate,
     });
     await User_Task.create({
-      userId: user.id,
+      userId: req.body.userId,
       taskId: task.id,
     });
-    await Task_Group.create({
-      taskId: task.id,
-      groupId: userGroup.groupId,
-    });
+
     res.json(task);
   } catch (err) {
     next(err);
@@ -274,17 +258,8 @@ router.post("/:groupId/tasks", async (req, res, next) => {
 // POST /api/groups/:groupId/tasks
 router.put("/:groupId/tasks", async (req, res, next) => {
   try {
+    console.log("req.body", req.body);
 
-    console.log('req.body', req.body)
-
-    const selected = req.body.selected;
-    const selectedNames = selected.split(" ");
-    const user = await User.findOne({
-      where: {
-        firstName: selectedNames[0],
-        lastName: selectedNames[1],
-      },
-    });
     const task = await Task.findByPk(req.body.taskId);
 
     task.update({
@@ -292,32 +267,35 @@ router.put("/:groupId/tasks", async (req, res, next) => {
       description: req.body.description,
       points: req.body.points,
       categoryId: req.body.categoryId,
+      groupId: req.params.groupId,
       start: req.body.selectedDate,
       end: req.body.selectedDate,
-    })
+      userId: req.body.userId,
+    });
 
     const userTask = await User_Task.findOne({
       where: {
-        taskId: task.id
-      }
-    })
-
-    User_Task.update({
-      userId: user.id
-    },
-    {
-      where: {
         taskId: task.id,
-        userId: userTask.userId
+      },
+    });
+
+    User_Task.update(
+      {
+        userId: req.body.userId,
+      },
+      {
+        where: {
+          taskId: task.id,
+          userId: userTask.userId,
+        },
       }
-    })
+    );
 
     res.json(task);
   } catch (err) {
     next(err);
   }
 });
-
 
 //GET /api/groups/:groupId/rewards
 router.get("/:groupId/rewards", async (req, res, next) => {

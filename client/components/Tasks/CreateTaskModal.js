@@ -26,12 +26,12 @@ class CreateTaskModal extends Component {
       description: "",
       categoryId: null,
       points: 0,
-      selectedDate: null,
+      selectedDate: new Date(),
       error: null,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleDate = this.handleDate.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
   }
 
   async componentDidMount() {
@@ -42,10 +42,9 @@ class CreateTaskModal extends Component {
     });
   }
 
-  handleDate() {
-    let date = document.getElementById("key-datepicker").value;
+  handleDateChange(newValue) {
     this.setState({
-      selectedDate: date,
+      selectedDate: newValue,
     });
   }
 
@@ -57,7 +56,7 @@ class CreateTaskModal extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    await this.handleDate();
+
     if (this.state.name == "") {
       this.setState({
         error: "Name can't be empty!",
@@ -83,7 +82,7 @@ class CreateTaskModal extends Component {
       description: "",
       points: 0,
       error: null,
-      selectedDate: null,
+      selectedDate: new Date(),
     });
     this.props.onClose();
   }
@@ -228,7 +227,8 @@ class CreateTaskModal extends Component {
               <div id="choose-date">
                 Due By:
                 <KeyboardDatePickerTab
-                  selectedDates={this.state.selectedDate}
+                  selectedDate={this.state.selectedDate}
+                  handleDateChange={this.handleDateChange}
                 />
               </div>
               <button type="submit" id="modal-submit-button">
