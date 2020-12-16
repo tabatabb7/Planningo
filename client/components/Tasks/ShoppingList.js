@@ -5,6 +5,7 @@ import "./Tasks.css";
 import CreateTaskModal from "./CreateTaskModal";
 import UpdateTaskModal from "./UpdateTaskModal";
 import { fetchShoppingItemsThunk, removeTaskThunk } from "../../store/tasks";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare, faSort } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle, faTrashAlt } from "@fortawesome/free-regular-svg-icons";
@@ -132,8 +133,6 @@ class ShoppingList extends React.Component {
               <div>
                 Filters <FontAwesomeIcon icon={faSort} />
               </div>
-              <div>Show Active</div> <div>Show Completed</div>
-              <div>Show All</div>
             </div>
           </div>
           <div id="add-button-div">
