@@ -118,35 +118,6 @@ class GroupTaskModal extends Component {
                 value={this.state.description}
               />
 
-              <label htmlFor="userId"></label>
-              <select
-                onChange={(e) =>
-                  this.setState({ userId: e.target.value || null })
-                }
-                value={this.state.userId || ""}
-                name="userId"
-              >
-                <option value="" disabled>
-                  Select User
-                </option>
-                {group && group.users
-                  ? group.users.map((user) => (
-                      <option key={user.id} value={user.id} >
-                        {user.firstName} {user.lastName}
-                      </option>
-                    ))
-                  : "There are no users"}
-              </select>
-              <KeyboardDatePickerTab
-                selectedDate={this.state.selectedDate}
-                handleDateChange={this.handleDateChange}
-              />
-              <button id="modal-submit-button" type="submit">
-                Add
-              </button>
-
-              <div id="modal-category-wrap">
-
                {this.state.modaltype === "tasks" ? (
                 <div>
                   <label htmlFor="points">Points:</label>
@@ -163,7 +134,6 @@ class GroupTaskModal extends Component {
 
 
               <div id="modal-category-user-wrap">
-
                 <label htmlFor="categoryId">Category:</label>
 
                 <select
@@ -192,19 +162,22 @@ class GroupTaskModal extends Component {
                     : null}
                 </select>
 
-                <label htmlFor="selected">User:</label>
+                <label htmlFor="userId"></label>
               <select
-                value={this.state.selected}
-                onChange={this.handleChange}
-                name="selected"
+                onChange={(e) =>
+                  this.setState({ userId: e.target.value || null })
+                }
+                value={this.state.userId || ""}
+                name="userId"
                 className="choose-category"
+
               >
                 <option value="" disabled>
-                 None
+                  Select User
                 </option>
                 {group && group.users
                   ? group.users.map((user) => (
-                      <option key={user.id}>
+                      <option key={user.id} value={user.id} >
                         {user.firstName} {user.lastName}
                       </option>
                     ))
