@@ -83,7 +83,9 @@ class GroupTaskList extends React.Component {
           <div id="darken-page"></div>
         ) : null}
         <div id="task-box">
-          <div className="task-box-header"> Tasks for
+          <div className="task-box-header">
+            {" "}
+            Tasks for
             <div id="grpname" style={{ color: group.color }}>
               {group.name}
             </div>
@@ -151,7 +153,10 @@ class GroupTaskList extends React.Component {
                             added {format(new Date(task.createdAt), "MMM d")}
                           </p> */}
                           <p id="date-created">
-                            {format(new Date(task.start), "MMM d")}
+                            {format(
+                              new Date(`${task.start}T07:00:00.000Z`),
+                              "MMM d"
+                            )}
                           </p>
                         </div>
 

@@ -40,15 +40,6 @@ class UserHome extends React.Component {
         <h3>{`Hello, ${firstName}`}</h3>
         <br></br>
 
-        {this.state.latitude && this.state.longitude ? (
-          <Weather
-            latitude={this.state.latitude}
-            longitude={this.state.longitude}
-          />
-        ) : (
-          <p>Fetching Weather Info...</p>
-        )}
-
         <p>{`On your dashboard for today...`}</p>
         <br></br>
         <div className="search-container">
