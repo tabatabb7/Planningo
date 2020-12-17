@@ -94,19 +94,6 @@ class CreateTaskModal extends Component {
   render() {
     let categories = this.state.group.categories;
 
-    // let mapcats;
-    // {
-    //   categories
-    //     ? (mapcats = categories.map((category) => {
-    //         return {
-    //           key: category.id,
-    //           label: <div style={{backgroundColor: category.color}}><img src={category.imageUrl}  className="select-cat-icon"/>  {category.name} </div>,
-    //           value: category.id,
-    //         };
-    //       }))
-    //     : (mapcats = null);
-    // }
-
     if (!this.props.show) {
       return null;
     }
@@ -162,7 +149,7 @@ class CreateTaskModal extends Component {
 
               <div id="group-category-wrap">
                 <div id="modal-group-wrap">
-                  <label htmlFor="groupId">Select Group:</label>
+                  <label htmlFor="groupId">Assign to Group:</label>
                   {!this.props.groups.length ? (
                     "You are not a part of any groups."
                   ) : (
@@ -175,6 +162,7 @@ class CreateTaskModal extends Component {
                               ? "each-select-group selected"
                               : "each-select-group"
                           }
+
                           onClick={() => {
                             this.setState({
                               group: group,
