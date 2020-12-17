@@ -79,7 +79,7 @@ router.get("/:taskId", async (req, res, next) => {
 router.post("/", async (req, res, next) => {
   try {
     const task = await Task.create({
-      userId: req.user.id,
+      userId: req.body.userId,
       name: req.body.name,
       description: req.body.description,
       points: req.body.points,
@@ -89,12 +89,10 @@ router.post("/", async (req, res, next) => {
       start: req.body.selectedDate,
       end: req.body.selectedDate,
     });
-
     await User_Task.create({
-      userId: req.user.id,
+      userId: req.body.userId,
       taskId: task.id,
     });
-
     res.json(task);
   } catch (err) {
     next(err);
@@ -115,7 +113,6 @@ router.post("/shopping", async (req, res, next) => {
       userId: req.user.id,
       taskId: task.id,
     });
-
     res.json(task);
   } catch (err) {
     next(err);
@@ -135,7 +132,6 @@ router.put("/", async (req, res, next) => {
       start: req.body.selectedDate,
       end: req.body.selectedDate,
     });
-
     res.json(task);
   } catch (err) {
     next(err);
@@ -180,4 +176,4 @@ router.delete("/:taskId", async (req, res, next) => {
   }
 });
 
-module.exports = router;
+module.exports = router

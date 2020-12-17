@@ -13,12 +13,12 @@ class GroupTaskModal extends Component {
     let part = path.split("/").pop();
     this.state = {
       name: "",
-      selected: "",
       description: "",
       points: 0,
       groupId: this.props.groupId,
       error: null,
       categoryId: null,
+      userId: null,
       selectedDate: new Date(),
       modaltype: part,
     };
@@ -45,13 +45,12 @@ class GroupTaskModal extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-
-    console.log(this.state, "THIS STATE SUBMIT");
+    console.log('THIS STATE', this.state)
     try {
       await this.props.addGroupTask(this.props.groupId, this.state);
       this.setState({
         name: "",
-        selected: "",
+        userId: null,
         description: "",
         points: 0,
         categoryId: null,
@@ -127,21 +126,21 @@ class GroupTaskModal extends Component {
                 onChange={this.handleChange}
                 value={this.state.points}
               />
-            </form>
 
-            <form id="user-form" onSubmit={this.handleSubmit}>
-              <label htmlFor="selected"></label>
+              <label htmlFor="userId"></label>
               <select
-                value={this.state.selected}
-                onChange={this.handleChange}
-                name="selected"
+                onChange={(e) =>
+                  this.setState({ userId: e.target.value || null })
+                }
+                value={this.state.userId || ""}
+                name="userId"
               >
                 <option value="" disabled>
                   Select User
                 </option>
                 {group && group.users
                   ? group.users.map((user) => (
-                      <option key={user.id}>
+                      <option key={user.id} value={user.id} >
                         {user.firstName} {user.lastName}
                       </option>
                     ))
