@@ -41,7 +41,7 @@ class SingleGroup extends React.Component {
     await this.props.fetchGroup(this.props.match.params.groupId);
   }
 
-  render(){
+  render() {
     const group = this.props.group;
 
     return (
@@ -59,13 +59,17 @@ class SingleGroup extends React.Component {
               </Link>
 
               <Link to={`/groups/${this.props.group.id}/shoppinglist`}>
-              <button id="grp-link-button">Shopping</button>
+                <button id="grp-link-button">Shopping</button>
               </Link>
 
-              <Link to={`/groups/${this.props.group.id}/rewards`}><button id="grp-link-button">Rewards</button></Link>
-
+              <Link to={`/groups/${this.props.group.id}/rewards`}>
+                <button id="grp-link-button">Rewards</button>
+              </Link>
             </div>
-            <div id="groupmsg">            <GroupMessages/></div>
+            <div id="groupmsg">
+
+              <GroupMessages />
+            </div>
           </div>
           <div className="single-grp-sidebar">
             {group.users ? (

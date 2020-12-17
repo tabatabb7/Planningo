@@ -94,19 +94,6 @@ class CreateTaskModal extends Component {
   render() {
     let categories = this.state.group.categories;
 
-    // let mapcats;
-    // {
-    //   categories
-    //     ? (mapcats = categories.map((category) => {
-    //         return {
-    //           key: category.id,
-    //           label: <div style={{backgroundColor: category.color}}><img src={category.imageUrl}  className="select-cat-icon"/>  {category.name} </div>,
-    //           value: category.id,
-    //         };
-    //       }))
-    //     : (mapcats = null);
-    // }
-
     if (!this.props.show) {
       return null;
     }

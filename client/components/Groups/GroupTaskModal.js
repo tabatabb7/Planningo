@@ -168,10 +168,9 @@ class GroupTaskModal extends Component {
                 onChange={this.handleChange}
                 name="selected"
                 className="choose-category"
-
               >
                 <option value="" disabled>
-                 Select User
+                 None
                 </option>
                 {group && group.users
                   ? group.users.map((user) => (
@@ -181,8 +180,6 @@ class GroupTaskModal extends Component {
                     ))
                   : "There are no users"}
               </select>
-
-
 
               </div>
               {<div> {this.state.error} </div>}
