@@ -6,7 +6,6 @@ import { removeTaskThunk } from "../../store/tasks";
 import { updateTaskCompletion } from "../../store/singletask";
 import { fetchSingleGroupTasks } from "../../store/singleGroup";
 import { Link } from "react-router-dom";
-
 import {
   postCompletedPointsThunk,
   removeCompletedPointsThunk,
@@ -21,7 +20,6 @@ import "../Tasks/Tasks.css";
 class GroupTaskList extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       show: false,
     };

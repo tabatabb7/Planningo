@@ -13,12 +13,12 @@ class GroupTaskModal extends Component {
     let part = path.split("/").pop();
     this.state = {
       name: "",
-      selected: "",
       description: "",
       points: 0,
       groupId: this.props.groupId,
       error: null,
       categoryId: null,
+      userId: null,
       selectedDate: new Date(),
       modaltype: part,
     };
@@ -49,7 +49,7 @@ class GroupTaskModal extends Component {
       await this.props.addGroupTask(this.props.groupId, this.state);
       this.setState({
         name: "",
-        selected: "",
+        userId: null,
         description: "",
         points: 0,
         categoryId: null,
@@ -118,6 +118,35 @@ class GroupTaskModal extends Component {
                 value={this.state.description}
               />
 
+              <label htmlFor="userId"></label>
+              <select
+                onChange={(e) =>
+                  this.setState({ userId: e.target.value || null })
+                }
+                value={this.state.userId || ""}
+                name="userId"
+              >
+                <option value="" disabled>
+                  Select User
+                </option>
+                {group && group.users
+                  ? group.users.map((user) => (
+                      <option key={user.id} value={user.id} >
+                        {user.firstName} {user.lastName}
+                      </option>
+                    ))
+                  : "There are no users"}
+              </select>
+              <KeyboardDatePickerTab
+                selectedDate={this.state.selectedDate}
+                handleDateChange={this.handleDateChange}
+              />
+              <button id="modal-submit-button" type="submit">
+                Add
+              </button>
+
+              <div id="modal-category-wrap">
+
                {this.state.modaltype === "tasks" ? (
                 <div>
                   <label htmlFor="points">Points:</label>
@@ -134,6 +163,7 @@ class GroupTaskModal extends Component {
 
 
               <div id="modal-category-user-wrap">
+
                 <label htmlFor="categoryId">Category:</label>
 
                 <select

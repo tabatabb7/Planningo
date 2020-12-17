@@ -31,7 +31,6 @@ class UpdateGroupTaskModal extends Component {
   }
 
   handleChange(event) {
-    console.log(event, "event in handlechange of UGT");
     this.setState({
       [event.target.name]: event.target.value,
     });
@@ -107,13 +106,13 @@ class UpdateGroupTaskModal extends Component {
                 onChange={this.handleChange}
                 value={this.state.points}
               />
-            </form>
 
-            <form id="user-form" onSubmit={this.handleSubmit}>
               <label htmlFor="userId"></label>
               <select
-                value={this.state.userId}
-                onChange={this.handleChange}
+                onChange={(e) =>
+                  this.setState({ userId: e.target.value || null })
+                }
+                value={this.state.userId || ""}
                 name="userId"
               >
                 <option value="" disabled>
