@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import GroupShoppingModal from "./GroupShoppingModal";
+import GroupTaskModal from "./GroupTaskModal";
 import { removeTaskThunk } from "../../store/tasks";
 import { updateTaskCompletion } from "../../store/singletask";
 import UpdateGroupTaskModal from "./UpdateGroupTask";
@@ -189,7 +189,7 @@ class GroupShoppingList extends React.Component {
               </div>
               Add New Task
             </button>
-            <GroupShoppingModal
+            <GroupTaskModal
               groupId={this.props.match.params.groupId}
               onClose={(e) => this.showModal(e)}
               show={this.state.show}

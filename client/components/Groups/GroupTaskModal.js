@@ -45,8 +45,6 @@ class GroupTaskModal extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-
-    console.log(this.state, "THIS STATE SUBMIT");
     try {
       await this.props.addGroupTask(this.props.groupId, this.state);
       this.setState({
@@ -105,7 +103,7 @@ class GroupTaskModal extends Component {
               <input
                 name="name"
                 type="text"
-                className="modal-input"
+                className="modal-input name"
                 onChange={this.handleChange}
                 value={this.state.name}
               />
@@ -115,47 +113,27 @@ class GroupTaskModal extends Component {
                 name="description"
                 type="text"
                 rows="4"
-                className="modal-input"
+                className="modal-input desc"
                 onChange={this.handleChange}
                 value={this.state.description}
               />
-              <label htmlFor="points">Points:</label>
-              <textarea
-                name="points"
-                type="text"
-                className="modal-input"
-                onChange={this.handleChange}
-                value={this.state.points}
-              />
-            </form>
 
-            <form id="user-form" onSubmit={this.handleSubmit}>
-              <label htmlFor="selected"></label>
-              <select
-                value={this.state.selected}
-                onChange={this.handleChange}
-                name="selected"
-              >
-                <option value="" disabled>
-                  Select User
-                </option>
-                {group && group.users
-                  ? group.users.map((user) => (
-                      <option key={user.id}>
-                        {user.firstName} {user.lastName}
-                      </option>
-                    ))
-                  : "There are no users"}
-              </select>
-              <KeyboardDatePickerTab
-                selectedDate={this.state.selectedDate}
-                handleDateChange={this.handleDateChange}
-              />
-              <button id="modal-submit-button" type="submit">
-                Add
-              </button>
+               {this.state.modaltype === "tasks" ? (
+                <div>
+                  <label htmlFor="points">Points:</label>
+                  <input
+                    name="points"
+                    type="text"
+                    className="modal-input points"
+                    onChange={this.handleChange}
+                    value={this.state.points}
+                  />
+                  <img src="/assets/coin.png" className="coin"></img>
+                </div>
+              ) : null}
 
-              <div id="modal-category-wrap">
+
+              <div id="modal-category-user-wrap">
                 <label htmlFor="categoryId">Category:</label>
 
                 <select
@@ -183,7 +161,38 @@ class GroupTaskModal extends Component {
                         ))
                     : null}
                 </select>
+
+                <label htmlFor="selected">User:</label>
+              <select
+                value={this.state.selected}
+                onChange={this.handleChange}
+                name="selected"
+                className="choose-category"
+              >
+                <option value="" disabled>
+                 None
+                </option>
+                {group && group.users
+                  ? group.users.map((user) => (
+                      <option key={user.id}>
+                        {user.firstName} {user.lastName}
+                      </option>
+                    ))
+                  : "There are no users"}
+              </select>
+
               </div>
+              {<div> {this.state.error} </div>}
+              <div id="choose-date-grp">
+                Due By:
+                <KeyboardDatePickerTab
+                  selectedDate={this.state.selectedDate}
+                  handleDateChange={this.handleDateChange}
+                />
+              </div>
+              <button id="modal-submit-button-grp" type="submit">
+                Add
+              </button>
             </form>
           </div>
         </div>
