@@ -113,7 +113,7 @@ router.post("/", async (req, res, next) => {
         color: "#FFBF00",
         groupId: group.id,
         isShopping: true,
-        imageUrl: "/assets/icons/misc/004-commerceshop.png",
+        imageUrl: "/assets/icons/misc/004-commerce and shopping.png",
       },
     ]);
     res.json(group);
