@@ -70,17 +70,13 @@ class GroupTaskList extends React.Component {
     let tasks = this.props.group.tasks;
     let group = this.props.group;
     let categories = this.props.group.categories;
-    console.log(this.props.group, "this.props.group in render of grouptasks");
     return (
       <div className="task-wrapper">
-        {/* <Link to={`/groups/${group.id}`}> Go back</Link> */}
-
         {this.state.show === true || this.state.showTask === true ? (
           <div id="darken-page"></div>
         ) : null}
         <div id="task-box">
           <div className="task-box-header">
-            {" "}
             Tasks for
             <div id="grpname" style={{ color: group.color }}>
               {group.name}

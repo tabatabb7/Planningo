@@ -60,7 +60,6 @@ class UpdateTaskModal extends Component {
     const group = this.props.groups.find((x) => x.id === this.state.groupId);
     const categories = group && group.categories;
 
-    console.log(this.props, "thisprops in render of UTM");
     if (!this.props.showTask || !this.props.selectedTask) {
       return null;
     }

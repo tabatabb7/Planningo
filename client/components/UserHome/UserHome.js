@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import "./UserHome.css";
 import { fetchUserTasksThunk } from "../../store/tasks";
 import { format } from "date-fns";
-import "semantic-ui-css/components/button.css";
 
 import Weather from "./Weather";
 
@@ -38,7 +37,6 @@ class UserHome extends React.Component {
     return (
       <div className="userhome-wrapper">
         <h3>{`Hello, ${firstName}`}</h3>
-        <br></br>
 
         <p>{`On your dashboard for today...`}</p>
         <br></br>

@@ -35,7 +35,6 @@ class GroupShoppingModal extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    try {
       await this.props.addGroupShoppingItem(this.state, this.props.groupId);
 
       this.setState({

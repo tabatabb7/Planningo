@@ -5,9 +5,8 @@ import "./Tasks.css";
 import CreateTaskModal from "./CreateTaskModal";
 import UpdateTaskModal from "./UpdateTaskModal";
 import { fetchShoppingItemsThunk, removeTaskThunk } from "../../store/tasks";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusSquare, faSort } from "@fortawesome/free-solid-svg-icons";
+import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle, faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 import { format } from "date-fns";
 
@@ -103,10 +102,18 @@ class ShoppingList extends React.Component {
                         </div>
 
                         {task.category ? (
-                          <div id="singletask-category"><div id="singletask-cat-wrap" style={{backgroundColor: task.category.color}}><img src={task.category.imageUrl} id="task-cat-icon"></img></div></div>
-                        ) : (
-                          null
-                        )}
+                          <div id="singletask-category">
+                            <div
+                              id="singletask-cat-wrap"
+                              style={{ backgroundColor: task.category.color }}
+                            >
+                              <img
+                                src={task.category.imageUrl}
+                                id="task-cat-icon"
+                              ></img>
+                            </div>
+                          </div>
+                        ) : null}
                       </a>
 
                       <UpdateTaskModal
@@ -127,7 +134,7 @@ class ShoppingList extends React.Component {
             </div>
             <div id="just-another-layout-div">
               <div>
-                Filters <FontAwesomeIcon icon={faSort} />
+                Filters
               </div>
             </div>
           </div>

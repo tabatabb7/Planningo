@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 import { fetchSingleGroupShopping } from "../../store/singleGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusSquare, faSort } from "@fortawesome/free-solid-svg-icons";
+import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle, faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 import { format } from "date-fns";
 import "./grouptasks.css";
@@ -37,14 +37,13 @@ class GroupShoppingList extends React.Component {
   }
 
   async handleDelete(id) {
-      await this.props.deleteTask(id);
-      this.props.fetchGroup(this.props.match.params.groupId);
+    await this.props.deleteTask(id);
+    this.props.fetchGroup(this.props.match.params.groupId);
   }
 
   async toggleCompleted(taskId, isCompleted) {
-      await this.props.updateTaskCompletion(taskId, !isCompleted);
-
-      this.props.fetchGroup(this.props.match.params.groupId);
+    await this.props.updateTaskCompletion(taskId, !isCompleted);
+    this.props.fetchGroup(this.props.match.params.groupId);
   }
 
   showModal(e) {
@@ -59,10 +58,8 @@ class GroupShoppingList extends React.Component {
     let tasks = this.props.group.tasks;
     let group = this.props.group;
     let categories = this.props.group.categories;
-    console.log(this.props, "this.props in shopping");
     return (
       <div className="task-wrapper">
-        {/* <Link to={`/groups/${group.id}`}> Go back</Link> */}
 
         {this.state.show === true || this.state.showTask === true ? (
           <div id="darken-page"></div>
