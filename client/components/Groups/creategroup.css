@@ -3,59 +3,85 @@
   height: 100%;
   display: flex;
   align-items: center;
+  flex-direction: column;
   justify-content: center;
 }
 
-.new-group-form-wrap{
-  width: 90%;
-  height: 90%;
-  background-color: white;
+#wrap-icons {
+  width: 100%;
+  height: 25%;
+  margin-bottom: 15px;
+}
+
+.current-icon {
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+  border-radius: 50%;
 }
 
-.create-group-header {
-  text-align: center;
-  width: 75%;
+.current-icon-image {
+  width: 40px;
+  height: 40px;
+}
+
+#create-group-header {
   font-family: "Poppins", sans-serif;
   letter-spacing: 3px;
-  color: #f2afa6;
-  font-size: 14px;
+  color: black;
+  font-size: 25px;
+  font-weight: 400;
+  margin-top: 2%;
+}
+
+.create-group-input {
+  width: 80%;
+  resize: none;
+  border-radius: 2px;
+}
+
+.create-group-wrapper label{
+  color: black;
+}
+.create-group-input::placeholder {
+  color: black;
+  font-size: 90%;
+}
+
+.create-group-input.color {
+  display: none;
 }
 
 .pick-color {
-  width: 10%;
+  width: 8%;
   height: auto;
   cursor: pointer;
   border-radius: 50%;
-  padding-top: 10%;
+  padding-top: 8%;
 }
 
 #color-picker {
   display: flex;
   width: 90%;
-  height: 12%;
+  height: max-content;
   align-items: center;
   justify-content: space-evenly;
+  margin-bottom: 15px;
 }
 
 #add-group-form-create-group {
-  width: 70%;
-  height: 60%;
+  width: 90%;
+  height: 95%;
   display: flex;
   flex-direction: column;
   font-family: "Poppins", sans-serif;
-  color: #f2afa6;
-  justify-content: center;
+  background-color: white;
   align-items: center;
   font-size: 14px;
-}
-
-.add-button {
-  text-align: center;
-  align-items: center;
+  justify-content: center;
 }
 
 .create-group-form-button {
@@ -69,7 +95,18 @@
   letter-spacing: 1px;
   font-size: 16px;
   border-radius: 10px;
-  min-height: 40px;
-  max-height: 50px;
-  max-width: 150px;
+  width: max-content;
+  padding: 2%;
+  margin-top: 2%;
+}
+
+@media (max-width: 730px) {
+  .create-group-wrapper {
+    max-height: 90vh;
+  }
+}
+
+#errormsg{
+  color: red;
+  font-weight: 400;
 }

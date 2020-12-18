@@ -1,5 +1,6 @@
 import React from "react";
 import LazyLoad from "react-lazy-load";
+import "./icons.css";
 
 class MiscIcons extends React.Component {
   constructor(props) {
@@ -304,14 +305,13 @@ class MiscIcons extends React.Component {
     ];
     const images = array.map((image) => {
       return (
-        <LazyLoad>
+        <LazyLoad key={image}>
           <img
-            key={image}
             src={`/assets/icons/users/${image}.png`}
             className={
               this.state.selected === `/assets/icons/users/${image}.png`
-                ? "pick-avatar selected"
-                : "pick-avatar"
+                ? "pick-icon-widget selected"
+                : "pick-icon-widget"
             }
             onClick={() => {
               this.setState({ selected: `/assets/icons/users/${image}.png` });
@@ -322,7 +322,7 @@ class MiscIcons extends React.Component {
       );
     });
 
-    return <div>{images}</div>;
+    return <div className="icon-component">{images}</div>;
   }
 }
 

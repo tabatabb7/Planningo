@@ -35,8 +35,9 @@ class GroupList extends React.Component {
             {groups.map((group) => (
               <div key={group.id} className="singlegroup">
                 <Link to={`/groups/${group.id}`}>
+                  <div id="grp-img-wrap" style={{backgroundColor: group.color}}>
                   <img className="group-image" src={group.imageUrl}></img>
-                  <br></br>
+                  </div>
                   {group.name}
                 </Link>
                 <button

@@ -59,7 +59,8 @@ router.post("/", async (req, res, next) => {
     const group = await Group.create({
       name: req.body.name,
       description: req.body.description,
-      color: req.body.color
+      color: req.body.color,
+      imageUrl: req.body.imageUrl
     });
     await User_Group.create({
       userId: req.user.id,

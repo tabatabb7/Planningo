@@ -13,8 +13,8 @@ const Group = db.define("group", {
     type: Sequelize.STRING,
   },
   imageUrl: {
-    type: Sequelize.TEXT,
-    defaultValue: "https://picsum.photos/100/100",
+    type: Sequelize.STRING,
+    defaultValue: "/assets/icons/misc/001-sofa.png",
   },
   color: {
     type: Sequelize.STRING,

@@ -1,13 +1,10 @@
 import React from "react";
 import LazyLoad from "react-lazy-load";
+import "./icons.css";
 
 class MiscIcons extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      selected: "/assets/icons/users/001-sofa.png",
-    };
   }
 
   render() {
@@ -15,8 +12,6 @@ class MiscIcons extends React.Component {
       "001-cinema",
       "001-frame",
       "001-sofa",
-      "001-stroller",
-      "002-crayons",
       "002-folders",
       "002-painting-roller",
       "002-television",
@@ -24,15 +19,11 @@ class MiscIcons extends React.Component {
       "003-book",
       "003-paint-bucket",
       "003-school",
-      "003-sofa",
       "004-bunk",
       "004-commerce and shopping",
-      "004-commerceshop",
-      "004-fishbowl",
       "004-lamp",
       "004-park",
       "005-architecture and city",
-      "005-architecturecity",
       "005-beach-ball",
       "005-bed",
       "005-cactus",
@@ -41,27 +32,22 @@ class MiscIcons extends React.Component {
       "006-clock",
       "006-crib",
       "006-groceries",
-      "006-workingwoman",
       "007-access",
       "007-cooking-pot",
       "007-house-1",
       "007-Nightstand",
       "007-parenting",
       "008-clothes",
-      "008-parenting",
       "008-table lamp",
       "008-table",
       "008-tree",
       "009-diaper",
       "009-farming and gardening",
-      "009-grandfather",
       "009-vacuum",
       "009-wardrobe",
       "010-cabinet",
       "010-dishes",
       "010-fish",
-      "010-grandmother",
-      "011-cactus",
       "011-closet",
       "011-elderly",
       "011-key",
@@ -70,7 +56,6 @@ class MiscIcons extends React.Component {
       "012-avatar",
       "012-blender",
       "012-dinner",
-      "012-fireplace",
       "013-beach-umbrella",
       "013-boxes",
       "013-desk",
@@ -79,27 +64,22 @@ class MiscIcons extends React.Component {
       "014-animal kingdom",
       "014-coat-stand",
       "014-counter",
-      "014-housewife",
       "014-photo-album",
       "015-animal",
       "015-bookcase",
-      "015-housewife",
       "015-mug-1",
       "015-sink",
       "016-ancestry",
       "016-chimney",
-      "016-housewife",
       "016-makeup",
       "016-sink",
       "017-child",
       "017-fridge",
-      "017-housewife",
       "017-portfolio",
       "017-wall-clock",
       "018-bin",
       "018-document",
       "018-pacifier",
-      "018-tv",
       "018-wc",
       "019-aeroplane",
       "019-pipe",
@@ -113,7 +93,6 @@ class MiscIcons extends React.Component {
       "020-towel",
       "021-blinds",
       "021-brush",
-      "021-decoration",
       "021-dinning table",
       "021-mug",
       "022-chair",
@@ -121,7 +100,6 @@ class MiscIcons extends React.Component {
       "022-luggage",
       "022-rug",
       "023-animal",
-      "023-barbecue",
       "023-cabinet",
       "023-roller-skate",
       "023-trash-can",
@@ -129,7 +107,6 @@ class MiscIcons extends React.Component {
       "024-Dining table",
       "024-entry",
       "024-home-2",
-      "024-home",
       "025-birthday cake",
       "025-chair",
       "025-commerce and shopping",
@@ -141,7 +118,6 @@ class MiscIcons extends React.Component {
       "026-home",
       "027-basket",
       "027-clean",
-      "027-diaper",
       "027-night",
       "027-tree-house",
       "028-bathtub",
@@ -150,19 +126,16 @@ class MiscIcons extends React.Component {
       "028-piggy bank",
       "028-tea",
       "029-budget",
-      "029-cradle",
       "029-desk",
       "029-exam",
       "029-first aid kit",
       "030-communications",
       "030-food",
-      "030-pacifier",
       "030-wardrobe",
       "030-washing machine",
       "031-access",
       "031-chandelier",
       "031-clapperboard",
-      "031-gift",
       "031-toilet",
       "032-boy",
       "032-church",
@@ -170,7 +143,6 @@ class MiscIcons extends React.Component {
       "032-fishbowl",
       "032-sofa",
       "033-dressing-table",
-      "033-education",
       "033-feeding-bottle",
       "033-human",
       "033-plant",
@@ -242,10 +214,8 @@ class MiscIcons extends React.Component {
       "048-bed",
       "048-bookshelf",
       "048-kid and baby",
-      "048-pyramid",
       "049-boyfriend",
       "049-coat hanger",
-      "049-cups",
       "049-jar",
       "050-alcohol",
       "050-frame-1",
@@ -259,63 +229,22 @@ class MiscIcons extends React.Component {
       "1115-mug-1",
       "1116-makeup",
       "1117-portfolio",
-      "1118-pacifier",
-      "1119-pipe",
-      "1121-mug",
-      "1122-rug",
-      "1123-roller-skate",
-      "1124-home-2",
-      "1125-home-1",
-      "1126-home",
-      "1127-tree-house",
-      "1128-car",
-      "1129-exam",
-      "1131-clapperboard",
-      "1132-sofa",
-      "1133-feeding-bottle",
-      "1134-ultrasound",
-      "1135-stroller",
-      "1136-picture",
-      "1137-wedding-rings",
-      "1138-bicycle",
-      "1139-cake",
-      "1142-pregnant",
-      "1143-house",
-      "1144-baby",
-      "1145-cat",
-      "1146-dog",
-      "11111-fish",
-      "11113-school",
-      "11114-park",
-      "11115-beach-ball",
-      "11116-groceries",
-      "11117-house-1",
-      "11118-tree",
-      "11119-diaper",
-      "11211-plant",
-      "11311-food",
     ];
     const images = array.map((image) => {
       return (
-        <LazyLoad>
+        <LazyLoad key={image}>
           <img
-            key={image}
-            src={`/assets/icons/users/${image}.png`}
-            className={
-              this.state.selected === `/assets/icons/users/${image}.png`
-                ? "pick-avatar selected"
-                : "pick-avatar"
-            }
+            src={`/assets/icons/misc/${image}.png`}
+            className="pick-icon-widget"
             onClick={() => {
-              this.setState({ selected: `/assets/icons/users/${image}.png` });
+              this.props.changeImage(`/assets/icons/misc/${image}.png`);
             }}
-            value={image}
           />
         </LazyLoad>
       );
     });
 
-    return <div>{images}</div>;
+    return <div className="icon-component">{images}</div>;
   }
 }
 

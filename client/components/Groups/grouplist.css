@@ -37,8 +37,17 @@
   font-size: 25px;
 }
 
-.group-image {
+#grp-img-wrap{
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.group-image {
+  width: 50px;
+  height: auto;
 }
 
 .singlegroup {

@@ -7,7 +7,6 @@ import {
 
 
 function KeyboardDatePickerTab(props) {
-  // const [selectedDate, handleDateChange] = useState(new Date());
 
   return (
     <MuiPickersUtilsProvider utils={LuxonUtils}>
