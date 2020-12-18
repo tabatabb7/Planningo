@@ -38,6 +38,7 @@ class UserHome extends React.Component {
     return (
       <div className="userhome-wrapper">
         <h3>{`Hello, ${firstName}`}</h3>
+        <br></br>
 
         <p>{`On your dashboard for today...`}</p>
         <br></br>

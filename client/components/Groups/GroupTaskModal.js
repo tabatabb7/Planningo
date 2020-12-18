@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchSingleGroup, addGroupTaskThunk } from "../../store/singleGroup";
+import { addGroupShoppingItemThunk } from "../../store/tasks";
 import "../Tasks/taskmodal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -45,8 +46,17 @@ class GroupTaskModal extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
+    console.log(this.state.modaltype, "modaltype");
+    console.log(this.props, "this.props inside handlesubdmit");
     try {
-      await this.props.addGroupTask(this.props.groupId, this.state);
+      {
+        this.state.modaltype === "tasks"
+          ? await this.props.addGroupTask(this.props.groupId, this.state)
+          : await this.props.addGroupShoppingItem(
+              this.state,
+              this.props.groupId
+            );
+      }
       this.setState({
         name: "",
         userId: null,
@@ -95,7 +105,9 @@ class GroupTaskModal extends Component {
 
           <div id="lower-taskmodal-div">
             <form id="add-task-form" onSubmit={this.handleSubmit}>
-              <label htmlFor="name">Task:</label>
+              <label htmlFor="name">
+                {this.state.modaltype === "tasks" ? "TASK:" : "ITEM:"}
+              </label>
               <input
                 name="name"
                 type="text"
@@ -114,7 +126,7 @@ class GroupTaskModal extends Component {
                 value={this.state.description}
               />
 
-               {this.state.modaltype === "tasks" ? (
+              {this.state.modaltype === "tasks" ? (
                 <div>
                   <label htmlFor="points">Points:</label>
                   <input
@@ -128,7 +140,6 @@ class GroupTaskModal extends Component {
                 </div>
               ) : null}
 
-
               <div id="modal-category-user-wrap">
                 <label htmlFor="categoryId">Category:</label>
 
@@ -141,7 +152,7 @@ class GroupTaskModal extends Component {
                   className="choose-category"
                 >
                   <option value="">None</option>
-                  {categories
+                  {categories && categories.length > 0
                     ? categories
                         .filter((category) => {
                           if (this.state.modaltype === "tasks") {
@@ -159,27 +170,25 @@ class GroupTaskModal extends Component {
                 </select>
 
                 <label htmlFor="userId"></label>
-              <select
-                onChange={(e) =>
-                  this.setState({ userId: e.target.value || null })
-                }
-                value={this.state.userId || ""}
-                name="userId"
-                className="choose-category"
-
-              >
-                <option value="" disabled>
-                  Select User
-                </option>
-                {group && group.users
-                  ? group.users.map((user) => (
-                      <option key={user.id} value={user.id} >
-                        {user.firstName} {user.lastName}
-                      </option>
-                    ))
-                  : "There are no users"}
-              </select>
-
+                <select
+                  onChange={(e) =>
+                    this.setState({ userId: e.target.value || null })
+                  }
+                  value={this.state.userId || ""}
+                  name="userId"
+                  className="choose-category"
+                >
+                  <option value="" disabled>
+                    Select User
+                  </option>
+                  {group && group.users
+                    ? group.users.map((user) => (
+                        <option key={user.id} value={user.id}>
+                          {user.firstName} {user.lastName}
+                        </option>
+                      ))
+                    : "There are no users"}
+                </select>
               </div>
               {<div> {this.state.error} </div>}
               <div id="choose-date-grp">
@@ -209,6 +218,8 @@ const mapDispatch = (dispatch) => ({
   fetchGroup: (groupId) => dispatch(fetchSingleGroup(groupId)),
   addGroupTask: (groupId, task) => dispatch(addGroupTaskThunk(groupId, task)),
   updateTask: (task) => dispatch(updateSingleTask(task)),
+  addGroupShoppingItem: (task, groupId) =>
+    dispatch(addGroupShoppingItemThunk(task, groupId)),
 });
 
 export default connect(mapState, mapDispatch)(GroupTaskModal);

@@ -9,6 +9,7 @@ const ADD_TASK = "ADD_TASK";
 const DELETE_TASK = "DELETE_TASK";
 const GET_SHOPPING_ITEMS = "GET_SHOPPING_ITEMS";
 const ADD_SHOPPING_ITEM = "ADD_SHOPPING_ITEM";
+const ADD_GROUP_SHOPPING_ITEM = "ADD_GROUP_SHOPPING_ITEM";
 const UPDATE_TASK = "UPDATE_TASK";
 const UPDATE_GROUP_TASK = "UPDATE_GROUP_TASK";
 
@@ -28,6 +29,10 @@ const addTask = (task) => ({ type: ADD_TASK, task });
 const deleteTask = (taskId) => ({ type: DELETE_TASK, taskId });
 const getShoppingItems = (tasks) => ({ type: GET_SHOPPING_ITEMS, tasks });
 const addShoppingItem = (task) => ({ type: ADD_SHOPPING_ITEM, task });
+const addGroupShoppingItem = (task) => ({
+  type: ADD_GROUP_SHOPPING_ITEM,
+  task,
+});
 const updateTask = (task) => ({ type: UPDATE_TASK, task });
 const updateGroupTask = (newTask) => ({ type: UPDATE_GROUP_TASK, newTask });
 
@@ -90,7 +95,19 @@ export const addShoppingItemThunk = (task) => async (dispatch) => {
     console.error(error);
   }
 };
-
+export const addGroupShoppingItemThunk = (task, groupId) => async (
+  dispatch
+) => {
+  try {
+    const { data: newTask } = await axios.post(
+      `/api/groups/${groupId}/shopping`,
+      task
+    );
+    dispatch(addGroupShoppingItem(newTask));
+  } catch (error) {
+    console.error("Error adding shopping item!");
+  }
+};
 export const updateTaskThunk = (task) => async (dispatch) => {
   try {
     const { data: updatedTask } = await axios.put(`/api/tasks/`, task);
@@ -125,6 +142,8 @@ export default function tasksReducer(state = initialState, action) {
     case ADD_TASK:
       return { ...state, ...action.task };
     case ADD_SHOPPING_ITEM:
+      return { ...state, ...action.task };
+    case ADD_GROUP_SHOPPING_ITEM:
       return { ...state, ...action.task };
     case DELETE_TASK:
       return { ...state };
