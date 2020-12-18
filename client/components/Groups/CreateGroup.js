@@ -80,11 +80,12 @@ class CreateGroup extends React.Component {
             you can create a group for just yourself.</h3>
             </div>
 
-          <form id="add-group-form" onSubmit={this.handleSubmit}>
+          <form id="add-group-form-create-group" onSubmit={this.handleSubmit}>
             <label htmlFor="name">Name:</label>
             <input
               name="name"
               type="text"
+              className="modal-input"
               placeholder="Your new group's name"
               onChange={this.handleChange}
               value={this.state.name}
@@ -94,6 +95,7 @@ class CreateGroup extends React.Component {
               name="description"
               type="textarea"
               placeholder="Write a description"
+              className="modal-input"
               onChange={this.handleChange}
               value={this.state.description}
             />
@@ -101,13 +103,12 @@ class CreateGroup extends React.Component {
             <div id="color-picker">{singleColors}</div>
             <input
               name="color"
-              // type="text"
               placeholder="Choose a color"
-              // onChange={this.handleChange}
+              className="modal-input"
               value={this.state.selected}
               readOnly={true}
             />
-            <button className="create-group-form-button" type="submit">Add</button>
+            <div className="add-button"><button className="create-group-form-button" type="submit">Add</button></div>
           </form>
         </div>
       );

@@ -75,7 +75,7 @@ router.get("/:taskId", async (req, res, next) => {
 router.post("/", async (req, res, next) => {
   try {
     const task = await Task.create({
-      userId: req.body.userId,
+      userId: req.user.id,
       name: req.body.name,
       description: req.body.description,
       points: req.body.points,
@@ -86,7 +86,7 @@ router.post("/", async (req, res, next) => {
       end: req.body.selectedDate,
     });
     await User_Task.create({
-      userId: req.body.userId,
+      userId: req.user.id,
       taskId: task.id,
     });
     res.json(task);
