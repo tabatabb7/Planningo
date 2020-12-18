@@ -79,7 +79,9 @@ class UpdateTaskModal extends Component {
 
           <div id="lower-taskmodal-div">
             <form id="add-task-form" onSubmit={this.handleSubmit}>
-              <label htmlFor="name">Task:</label>
+              <label htmlFor="name">
+                {this.props.task.isShopping === false ? "Task:" : "Item:"}
+              </label>
               <input
                 name="name"
                 type="text"
@@ -153,10 +155,22 @@ class UpdateTaskModal extends Component {
                     className="edit-choose-category"
                   >
                     <option value="">None</option>
-                    {categories
+                    {this.props.task.isShopping === false
+                      ? categories
+                        ? categories
+                            .filter((category) => {
+                              return category.isShopping === false;
+                            })
+                            .map((category) => (
+                              <option key={category.id} value={category.id}>
+                                {category.name}
+                              </option>
+                            ))
+                        : null
+                      : categories
                       ? categories
                           .filter((category) => {
-                            return category.isShopping === false;
+                            return category.isShopping === true;
                           })
                           .map((category) => (
                             <option key={category.id} value={category.id}>
