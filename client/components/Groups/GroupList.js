@@ -53,7 +53,7 @@ class GroupList extends React.Component {
                   <Link to={`/groups/${group.id}`}>
                     <h2>{group.name}</h2>
                     <div>{group.description}</div>
-                    {group && group.User_Group.role === "admin" ? (
+                    {group.users && group.User_Group.role === "admin" ? (
                       <div><Link to={`/groups/${group.id}`} id="link-group-edit">Edit Group</Link></div>
                     ) : (
                       null
