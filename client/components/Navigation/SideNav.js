@@ -31,14 +31,14 @@ class SideNav extends React.Component {
         <div id="nav-user-wrap">
           <div id="user-nav">
             <Link to="/account" onClick={toggleSideNav}>
-              <img src={user.avatarUrl} id="user-icon"></img>{" "}
+              <img src={user.avatarUrl} id="user-icon" style={{backgroundColor: user.color}}></img>
             </Link>
-            {user.firstName}
+            {user.firstName}{" "}{user.lastName}
           </div>
 
           <h4 className="nav-tool-title">My Groups</h4>
           {!groups.length ? (
-            <Link to={'/groups/create'}>You are not a part of any groups. Create a group to start.</Link>
+            <Link to={'/groups/create'} id="linktogroup" onClick={toggleSideNav}>You are not a part of any groups. <span>Create or Join one?</span></Link>
           ) : (
             <div id="nav-group">
               {groups.map((group) => (

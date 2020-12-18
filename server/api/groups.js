@@ -38,6 +38,9 @@ router.get("/:groupId", async (req, res, next) => {
             model: User,
             attributes: ["id"],
           },
+          include: {
+            model: Category,
+          },
         },
         {
           model: Category,
