@@ -109,16 +109,11 @@ export const addGroupTaskThunk = (groupId, task) => async (dispatch) => {
 };
 
 export const addGroupItemThunk = (groupId, task) => async (dispatch) => {
-  try {
     const { data: newGroupTask } = await axios.post(
       `/api/groups/${groupId}/shopping`,
       task
     );
     dispatch(addGroupTask(newGroupTask));
-  } catch (error) {
-    console.error("Error adding shopping item!");
-    console.error(error);
-  }
 };
 
 //INITIAL STATE

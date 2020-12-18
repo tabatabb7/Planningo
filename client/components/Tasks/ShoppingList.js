@@ -26,22 +26,14 @@ class ShoppingList extends React.Component {
   }
 
   async handleDelete(id) {
-    try {
-      await this.props.deleteItem(id);
-      this.props.fetchItems();
-    } catch (err) {
-      console.error(err);
-    }
+    await this.props.deleteItem(id);
+    this.props.fetchItems();
   }
 
   async toggleCompleted(taskId, isCompleted) {
-    try {
-      await this.props.updateTaskCompletion(taskId, !isCompleted);
+    await this.props.updateTaskCompletion(taskId, !isCompleted);
 
-      this.props.fetchItems();
-    } catch (err) {
-      console.error(err);
-    }
+    this.props.fetchItems();
   }
 
   showModal(e) {
@@ -110,7 +102,11 @@ class ShoppingList extends React.Component {
                           </p>
                         </div>
 
-                        {task.category ? <img src={task.category.imageUrl}></img>: "No Category"}
+                        {task.category ? (
+                          <div id="singletask-category"><div id="singletask-cat-wrap" style={{backgroundColor: task.category.color}}><img src={task.category.imageUrl} id="task-cat-icon"></img></div></div>
+                        ) : (
+                          null
+                        )}
                       </a>
 
                       <UpdateTaskModal

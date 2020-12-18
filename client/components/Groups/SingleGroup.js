@@ -4,7 +4,6 @@ import { updateGroupThunk, fetchSingleGroup } from "../../store/singleGroup";
 import { Link } from "react-router-dom";
 import { addToGroupThunk, deleteFromGroupThunk } from "../../store/singleGroup";
 import "./singlegroup.css";
-import GroupMessages from "./GroupMessages";
 
 class SingleGroup extends React.Component {
   constructor(props) {
@@ -26,14 +25,12 @@ class SingleGroup extends React.Component {
       [event.target.name]: event.target.value,
     });
   }
+
   async handleSubmit(event) {
     event.preventDefault();
-    try {
-      await this.props.addUser(this.props.group.id, this.state.email);
-      this.props.fetchGroup(this.props.match.params.groupId);
-    } catch (err) {
-      console.log("handlesubmit err", err);
-    }
+
+    await this.props.addUser(this.props.group.id, this.state.email);
+    this.props.fetchGroup(this.props.match.params.groupId);
   }
 
   async deleteUser(userId) {
@@ -66,11 +63,8 @@ class SingleGroup extends React.Component {
                 <button id="grp-link-button">Rewards</button>
               </Link>
             </div>
-            <div id="groupmsg">
-
-              <GroupMessages />
-            </div>
           </div>
+
           <div className="single-grp-sidebar">
             {group.users ? (
               <div className="single-grp-user-wrap">

@@ -39,12 +39,8 @@ class GroupTaskList extends React.Component {
   }
 
   async handleDelete(id) {
-    try {
       await this.props.deleteTask(id);
       this.props.fetchGroup(this.props.match.params.groupId);
-    } catch (err) {
-      console.error(err);
-    }
   }
 
   async toggleCompleted(taskId, isCompleted) {

@@ -1,18 +1,12 @@
-.user-avatar {
-  border-radius: 50%;
-  width: 80px;
-  height: auto;
-  margin-top: 10px;
-}
-
 #group-info {
   height: 100%;
-  width: 100vw;
+  width: 100%;
+  max-width: 100vw;
 }
 
 .single-grp-body {
   background-color: white;
-  height: 80%;
+  height: 78%;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -21,25 +15,14 @@
   justify-content: center;
 }
 
-.ui.comments{
-  width: 1000px !important;
-  max-width: 1200px !important;
+.user-avatar {
+  border-radius: 50%;
+  width: 80px;
+  height: auto;
+  margin-top: 10px;
 }
 
-.single-grp-sidebar {
-  background-color:#fefde9;
-  ;
-  height: 100%;
-  width: 12%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  font-family: "Roboto", sans-serif;
-  letter-spacing: 2px;
-  font-size: 14px;
-}
-
+/* SIDEBAR */
 .single-grp-user-wrap {
   overflow-y: auto;
   display: flex;
@@ -66,6 +49,7 @@
   border-radius: 50%;
   border: 3px solid #fefde9;
   margin-bottom: 10px;
+  max-width: 30%;
 }
 
 #single-grp-name {
@@ -86,47 +70,34 @@
 
 #single-grp-header {
   width: 100%;
-  height: 20%;
+  height: 22%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 }
 
-#single-grp-links{
+/* SIDEBAR */
+.single-grp-sidebar {
+  background-color: #fefde9;
+  height: 100%;
+  flex-basis: 15%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 2px;
+  font-size: 14px;
+}
+
+.single-group-body-main {
+  flex-basis: 85%;
+  height: 100%;
+}
+
+#single-grp-links {
   display: flex;
   width: 100%;
   align-items: center;
-}
-
-#groupmsg{
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-#grp-link-button{
-  width: 150px;
-  height: 40px;
-  border: none;
-  margin: 5px;
-  background-color: pink;
-  color: white;
-  font-family: "Poppins", sans-serif;
-  letter-spacing: 2px;
-  font-size: 15px;
-  font-weight: 400;
-  text-transform: uppercase;
-}
-
-.single-group-body-main{
-  width: 88%;
-}
-
-.ui.dividing.header{
-  margin-top: 30px !important;
-}
-
-.ui.primary.buttons .button, .ui.primary.button{
-  background-color: pink !important;
 }

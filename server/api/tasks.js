@@ -4,12 +4,8 @@ const { Task, User_Task, Group, User, Category } = require("../db/models");
 
 //GET /api/tasks/home
 router.get("/home", async (req, res, next) => {
-  try {
     const tasks = await req.user.getTasks();
     res.json(tasks);
-  } catch (error) {
-    next(error);
-  }
 });
 
 router.get("/", async (req, res, next) => {
@@ -177,5 +173,4 @@ router.delete("/:taskId", async (req, res, next) => {
     next(err);
   }
 });
-
 module.exports = router;

@@ -12,8 +12,19 @@
   height: auto;
   border-radius: 50%;
   background-color: #fefde9;
-  /* border: 3px solid #fefde9; */
+  border: 3px solid white;
   margin-bottom: 15px;
+}
+
+#linktogroup{
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 1px;
+  font-size: 15px;
+  color: white;
+}
+
+#linktogroup span{
+  text-decoration: underline;
 }
 
 #nav-user-wrap {
@@ -60,7 +71,7 @@
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  height: 30px;
+  height: 40px;
 }
 
 .nav-user-links {
@@ -68,6 +79,7 @@
   text-align: center;
   font-family: "Poppins", sans-serif;
   text-transform: uppercase;
+  font-weight: 600;
   letter-spacing: 1px;
   font-size: 12px;
   justify-content: flex-end;

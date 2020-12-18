@@ -73,11 +73,7 @@ class GroupTaskModal extends Component {
   }
 
   async handleDelete(id) {
-    try {
       await this.props.deleteTask(id);
-    } catch (err) {
-      console.error(err);
-    }
   }
 
   onClose = (e) => {

@@ -1,5 +1,5 @@
 import React from "react";
-import "react-big-calendar/lib/css/react-big-calendar.css";
+import "./calendar.css";
 import { connect } from "react-redux";
 
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
@@ -7,7 +7,6 @@ import format from "date-fns/format";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import getDay from "date-fns/getDay";
-import toDate from "date-fns/toDate";
 import { fetchTasksThunk, removeTaskThunk } from "../../store/tasks";
 
 const locales = {
@@ -31,7 +30,6 @@ class AppCalendar extends React.Component {
   }
 
   render() {
-    const date = toDate(new Date());
 
     const tasks =
       this.props.userTasks &&
@@ -44,17 +42,23 @@ class AppCalendar extends React.Component {
         };
       });
 
-    console.log();
-    return (
-      <div>
-        <div style={{ height: "400pt" }}>
+      let formats = {
+        weekdayFormat: (date, culture, localizer) => localizer.format(date, 'EEEEE', culture),
+        dateFormat: (date, culture, localizer) =>
+          localizer.format(date, 'dd', culture),
+      }
+
+      return (
+      <div className="calendar-wrap">
+        <div className="big-calendar">
           <Calendar
             events={tasks && tasks.length > 0 ? tasks : []}
             titleAccessor="name"
             startAccessor="start"
             endAccessor="end"
-            defaultDate={date}
+            defaultDate={new Date()}
             localizer={localizer}
+            formats={formats}
           />
         </div>
       </div>

@@ -14,9 +14,7 @@ import { fetchGroupsThunk } from "../../store/allGroups";
 import { fetchTasksThunk, removeTaskThunk } from "../../store/tasks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faPlusSquare,
-  faSort,
-  faFilter,
+  faPlusSquare
 } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle, faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 import { format } from "date-fns";
@@ -81,9 +79,6 @@ class TaskList extends React.Component {
           <div className="task-box-header">My Tasks</div>
           <div className="task-box-body">
             <div id="task-box-categories">
-              <div>
-                Sort By <FontAwesomeIcon icon={faSort} />
-              </div>
               <div>Categories</div>
             </div>
 
@@ -159,7 +154,7 @@ class TaskList extends React.Component {
             </div>
             <div id="just-another-layout-div">
               <div>
-                Filters <FontAwesomeIcon icon={faFilter} />
+                Filters
               </div>
             </div>
           </div>
