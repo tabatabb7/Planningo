@@ -108,6 +108,8 @@ router.post("/shopping", async (req, res, next) => {
       description: req.body.description,
       categoryId: req.body.categoryId,
       groupId: req.body.groupId,
+      start: new Date(),
+      end: new Date(),
     });
     await User_Task.create({
       userId: req.user.id,
@@ -176,4 +178,4 @@ router.delete("/:taskId", async (req, res, next) => {
   }
 });
 
-module.exports = router
+module.exports = router;

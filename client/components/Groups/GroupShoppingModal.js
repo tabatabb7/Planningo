@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import {
   fetchSingleGroupShopping,
   addGroupItemThunk,
+  addGroupShoppingItemThunk,
 } from "../../store/singleGroup";
 import "../Tasks/taskmodal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -35,7 +36,7 @@ class GroupShoppingModal extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     try {
-      await this.props.addGroupTask(this.props.groupId, this.state);
+      await this.props.addGroupShoppingItem(this.state, this.props.groupId);
       this.setState({
         name: "",
         selected: "",
@@ -119,6 +120,8 @@ const mapDispatch = (dispatch) => ({
   fetchGroup: (groupId) => dispatch(fetchSingleGroupShopping(groupId)),
   addGroupTask: (groupId, task) => dispatch(addGroupItemThunk(groupId, task)),
   updateTask: (task) => dispatch(updateSingleTask(task)),
+  addGroupShoppingItem: (task, groupId) =>
+    dispatch(addGroupShoppingItemThunk(task, groupId)),
 });
 
 export default connect(mapState, mapDispatch)(GroupShoppingModal);

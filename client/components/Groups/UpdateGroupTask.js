@@ -16,7 +16,7 @@ class UpdateGroupTaskModal extends Component {
       description: this.props.task.description,
       points: this.props.task.points,
       categoryId: this.props.task.categoryId,
-      selectedDate: this.props.task.start,
+      selectedDate: `${this.props.task.start}T12:00:00.000Z`,
       taskId: this.props.task.id,
     };
     this.handleChange = this.handleChange.bind(this);

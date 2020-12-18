@@ -67,7 +67,7 @@ class GroupShoppingList extends React.Component {
     let tasks = this.props.group.tasks;
     let group = this.props.group;
     let categories = this.props.group.categories;
-
+    console.log(this.props, "this.props in shopping");
     return (
       <div className="task-wrapper">
         {/* <Link to={`/groups/${group.id}`}> Go back</Link> */}
@@ -76,7 +76,9 @@ class GroupShoppingList extends React.Component {
           <div id="darken-page"></div>
         ) : null}
         <div id="task-box">
-          <div className="task-box-header"> Shopping List for
+          <div className="task-box-header">
+            {" "}
+            Shopping List for
             <div id="grpname" style={{ color: group.color }}>
               {group.name}
             </div>
@@ -106,73 +108,83 @@ class GroupShoppingList extends React.Component {
             {/* LIST OF TASKS */}
             <div id="task-box-list">
               {tasks && tasks.length
-                ? tasks.map((task) => (
-                    <div key={task.id} className="singletask">
-                      <div
-                        id="catcolor"
-                        style={{
-                          backgroundColor: task.category
-                            ? task.category.color
-                            : "#E8E8E8",
-                        }}
-                      ></div>
-
-                      <button
-                        onClick={() =>
-                          this.toggleCompleted(task.id, task.isCompleted)
-                        }
-                        className="completeTask"
-                      >
+                ? tasks
+                    .filter((task) => {
+                      return task.isShopping === true;
+                    })
+                    .map((task) => (
+                      <div key={task.id} className="singletask">
                         <div
-                          className={
-                            task.isCompleted
-                              ? "check-circle complete"
-                              : "check-circle incomplete"
-                          }
-                        >
-                          <FontAwesomeIcon icon={faCheckCircle} />
-                        </div>
-                      </button>
+                          id="catcolor"
+                          style={{
+                            backgroundColor: task.category
+                              ? task.category.color
+                              : "#E8E8E8",
+                          }}
+                        ></div>
 
-                      <a
-                        onClick={(e) => this.showTaskModal(e, task.id)}
-                        id="task-name-click"
-                      >
-                        <div id="name-date-wrap">
-                          {task.name}
-                          {/* <p id="date-created">
+                        <button
+                          onClick={() =>
+                            this.toggleCompleted(task.id, task.isCompleted)
+                          }
+                          className="completeTask"
+                        >
+                          <div
+                            className={
+                              task.isCompleted
+                                ? "check-circle complete"
+                                : "check-circle incomplete"
+                            }
+                          >
+                            <FontAwesomeIcon icon={faCheckCircle} />
+                          </div>
+                        </button>
+
+                        <a
+                          onClick={(e) => this.showTaskModal(e, task.id)}
+                          id="task-name-click"
+                        >
+                          <div id="name-date-wrap">
+                            {task.name}
+                            {/* <p id="date-created">
                             added {format(new Date(task.createdAt), "MMM d")}
                           </p> */}
-                          <p id="date-created">
-                            {format(new Date(task.start), "MMM d")}
-                          </p>
-                        </div>
-
-                        {/* {task.category.name ? task.category.name : "No Category"} */}
-                        {task.points > 0 ? (
-                          <div id="numberpoints">
-                            {task.points}
-                            <img src="/assets/coin.png" className="coin"></img>
+                            <p id="date-created">
+                              {format(
+                                new Date(`${task.start}T07:00:00.000Z`),
+                                "MMM d"
+                              )}
+                            </p>
                           </div>
-                        ) : null}
-                      </a>
 
-                      <UpdateGroupTaskModal
-                        selectedTask={task.id === this.state.taskId}
-                        task={task}
-                        onClose={(e) => this.showTaskModal(e)}
-                        showTask={this.state.showTask}
-                        groupId={this.props.match.params.groupId}
-                      />
+                          {/* {task.category.name ? task.category.name : "No Category"} */}
+                          {task.points > 0 ? (
+                            <div id="numberpoints">
+                              {task.points}
+                              <img
+                                src="/assets/coin.png"
+                                className="coin"
+                              ></img>
+                            </div>
+                          ) : null}
+                        </a>
 
-                      <button
-                        onClick={() => this.handleDelete(task.id)}
-                        className="deleteTask"
-                      >
-                        <FontAwesomeIcon icon={faTrashAlt} />
-                      </button>
-                    </div>
-                  ))
+                        <UpdateGroupTaskModal
+                          selectedTask={task.id === this.state.taskId}
+                          task={task}
+                          onClose={(e) => this.showTaskModal(e)}
+                          showTask={this.state.showTask}
+                          groupId={this.props.match.params.groupId}
+                        />
+
+                        <button
+                          onClick={() => this.handleDelete(task.id)}
+                          className="deleteTask"
+                        >
+                          <FontAwesomeIcon icon={faTrashAlt} />
+                        </button>
+                      </div>
+                    ))
                 : null}
             </div>
             <div id="just-another-layout-div">Filters</div>
@@ -187,7 +199,7 @@ class GroupShoppingList extends React.Component {
               <div id="ahhh">
                 <FontAwesomeIcon icon={faPlusSquare} />
               </div>
-              Add New Task
+              Add New Item
             </button>
             <GroupTaskModal
               groupId={this.props.match.params.groupId}

@@ -230,11 +230,27 @@ router.get("/:groupId/shopping", async (req, res, next) => {
     next(err);
   }
 });
-
+//POST /api/groups/:groupId/shopping
+router.post("/:groupId/shopping", async (req, res, next) => {
+  try {
+    const shopping = await Task.create({
+      userId: req.body.userId,
+      name: req.body.name,
+      isShopping: true,
+      groupId: req.body.groupId,
+      categoryId: req.body.categoryId,
+      start: new Date(),
+      end: new Date(),
+    });
+    res.json(shopping);
+  } catch (error) {
+    next(error);
+  }
+});
 // POST /api/groups/:groupId/tasks
 router.post("/:groupId/tasks", async (req, res, next) => {
   try {
-    console.log('REQ.BODY', req.body)
+    console.log("REQ.BODY", req.body);
     const task = await Task.create({
       userId: req.body.userId,
       name: req.body.name,
