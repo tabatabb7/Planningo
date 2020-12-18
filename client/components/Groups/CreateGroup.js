@@ -37,27 +37,24 @@ class CreateGroup extends React.Component {
   //clears boxes after submit
   async handleSubmit(event) {
     event.preventDefault();
-    try {
-      await this.props.addGroup(this.state);
-      if (this.state.name === "") {
-        this.setState({
-          error: "Please enter a group name!",
-        });
-        return false;
-      } else {
-        alert(
-          `Your group "${this.state.name}" was created! Redirecting you to your groups page..`
-        );
-        this.setState({
-          redirectTo: "/groups",
-          name: "",
-          description: "",
-          color: "",
-          imageUrl: "",
-        });
-      }
-    } catch (err) {
-      console.err("error adding group!");
+
+    await this.props.addGroup(this.state);
+    if (this.state.name === "") {
+      this.setState({
+        error: "Please enter a group name!",
+      });
+      return false;
+    } else {
+      alert(
+        `Your group "${this.state.name}" was created! Redirecting you to your groups page..`
+      );
+      this.setState({
+        redirectTo: "/groups",
+        name: "",
+        description: "",
+        color: "",
+        imageUrl: "",
+      });
     }
   }
 
