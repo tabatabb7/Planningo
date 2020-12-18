@@ -117,13 +117,10 @@ class TaskList extends React.Component {
                       >
                         <div id="name-date-wrap">
                           {task.name}
-                          {/* <p id="date-created">
-                            added {format(new Date(task.createdAt), "MMM d")}
-                          </p> */}
                           <p id="date-created">
                             {format(
                               new Date(
-                                `${this.props.task.start}T12:00:00.000Z`
+                                `${task.start}T12:00:00.000Z`
                               ),
                               "MMM d"
                             )}
