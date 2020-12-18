@@ -278,7 +278,6 @@ router.post("/:groupId/tasks", async (req, res, next) => {
 // POST /api/groups/:groupId/tasks
 router.put("/:groupId/tasks", async (req, res, next) => {
   try {
-    console.log("req.body", req.body);
 
     const task = await Task.findByPk(req.body.taskId);
 
