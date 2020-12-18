@@ -7,7 +7,6 @@ import format from "date-fns/format";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import getDay from "date-fns/getDay";
-import toDate from "date-fns/toDate";
 import { fetchTasksThunk, removeTaskThunk } from "../../store/tasks";
 
 const locales = {
@@ -43,8 +42,13 @@ class AppCalendar extends React.Component {
         };
       });
 
-    console.log();
-    return (
+      let formats = {
+        weekdayFormat: (date, culture, localizer) => localizer.format(date, 'EEEEE', culture),
+        dateFormat: (date, culture, localizer) =>
+          localizer.format(date, 'd', culture),
+      }
+
+      return (
       <div className="calendar-wrap">
         <div className="big-calendar">
           <Calendar
@@ -54,6 +58,7 @@ class AppCalendar extends React.Component {
             endAccessor="end"
             defaultDate={new Date()}
             localizer={localizer}
+            formats={formats}
           />
         </div>
       </div>

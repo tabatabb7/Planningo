@@ -24,7 +24,7 @@ button[disabled].rbc-btn {
 }
 
 .rbc-calendar {
-  height: 100%;
+  height: 98%;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -61,7 +61,7 @@ button[disabled].rbc-btn {
 }
 
 .rbc-off-range-bg {
-  background: #e6e6e6;
+  background: #e9f1f7;
 }
 
 .rbc-header {
@@ -107,9 +107,6 @@ button[disabled].rbc-btn {
 }
 
 /* TOP BUTTONS */
-.rbc-today {
-  background-color: #eaf6ff;
-}
 
 .rbc-toolbar {
   display: flex;
@@ -119,10 +116,9 @@ button[disabled].rbc-btn {
   font-family: "Poppins", sans-serif;
   text-transform: uppercase;
   letter-spacing: 1px;
-  font-size: 20px;
-  height: 12%;
+  font-size: 26px;
+  height: 20%;
   width: 100%;
-
   border-bottom: 1px solid #6690ad;
 }
 
@@ -136,28 +132,29 @@ button[disabled].rbc-btn {
   line-height: normal;
   white-space: nowrap;
   border: none;
+  font-size: 15px;
 }
+
 .rbc-toolbar button:active,
 .rbc-toolbar button.rbc-active {
   background-image: none;
-  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  background-color: #e6e6e6;
+  background-color: #deeefa;
 }
 
 .rbc-toolbar button:active:hover,
 .rbc-toolbar button:active:focus,
 .rbc-toolbar button.rbc-active:hover,
 .rbc-toolbar button.rbc-active:focus {
-  color: #373a3c;
-  background-color: #d4d4d4;
+  background-color: #bfd3e3;
+  text-decoration: underline;
 }
 .rbc-toolbar button:focus {
-  color: #373a3c;
   background-color: #e6e6e6;
 }
 .rbc-toolbar button:hover {
-  color: #373a3c;
-  background-color: #e6e6e6;
+  background-color: #bfd3e3;
+  text-decoration: underline;
+
 }
 
 .rbc-btn-group {
@@ -167,13 +164,13 @@ button[disabled].rbc-btn {
 
 /* EVENTS */
 .rbc-event {
-  margin: 0;
+  margin-top: 8px;
   background-color: #b3cfe3;
   cursor: pointer;
   color: white;
-  border-bottom: 1px solid white;
   font-size: 15px;
   width: 100%;
+  border-radius: 3px;
   text-align: center;
 }
 
@@ -242,8 +239,14 @@ button[disabled].rbc-btn {
   flex: 1 1 0;
   min-width: 0;
   text-align: center;
+  padding-top: 10px;
 }
 
+.rbc-date-cell.rbc-now.rbc-current a{
+  background-color: #f9c7bb;
+  border-radius: 50%;
+  padding: 5px;
+}
 /* each calendar date number */
 .rbc-date-cell > a,
 .rbc-date-cell > a:active,
@@ -277,6 +280,10 @@ button[disabled].rbc-btn {
   background-color: white;
   width: 95%;
   height: 95%;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 1px;
+  font-size: 13px;
+  text-align: center;
 }
 .rbc-agenda-view table.rbc-agenda-table {
   width: 100%;
@@ -303,7 +310,8 @@ button[disabled].rbc-btn {
 
 .rbc-agenda-event-cell {
   width: 100%;
-  background-color: #c2deae;
+  height: 40px;
+  margin-bottom: 2px;
 }
 
 .rbc-time-column {
@@ -315,12 +323,21 @@ button[disabled].rbc-btn {
 .rbc-timeslot-group {
   min-height: 40px;
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-flow: column nowrap;
+  font-family: "Poppins", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 14px;
 }
 
 .rbc-time-gutter,
 .rbc-header-gutter {
   flex: none;
+  width: 15%;
+  min-width: max-content;
+  max-width: 100px;
 }
 
 .rbc-day-slot {
@@ -333,7 +350,6 @@ button[disabled].rbc-btn {
   position: absolute;
   right: 0;
   top: 0;
-  background-color: aliceblue;
 }
 
 .rbc-day-slot .rbc-event {
@@ -352,7 +368,7 @@ button[disabled].rbc-btn {
 }
 
 .rbc-day-slot .rbc-event-content {
-  width: 100%;
+  width: 99%;
   flex: 1 1 0;
   word-wrap: break-word;
   line-height: 1;
@@ -406,12 +422,13 @@ button[disabled].rbc-btn {
   display: flex;
   flex-direction: column;
   flex: 1;
-  width: 100%;
+  width: 97%;
   min-height: 0;
 }
 .rbc-time-view .rbc-time-gutter {
   white-space: nowrap;
 }
+
 .rbc-time-view .rbc-allday-cell {
   box-sizing: content-box;
   width: 100%;
