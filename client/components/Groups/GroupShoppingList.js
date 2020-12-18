@@ -1,25 +1,23 @@
 import React from "react";
 import { connect } from "react-redux";
 import GroupTaskModal from "./GroupTaskModal";
-import UpdateGroupTaskModal from "./UpdateGroupTask";
 import { removeTaskThunk } from "../../store/tasks";
 import { updateTaskCompletion } from "../../store/singletask";
-import { fetchSingleGroupTasks } from "../../store/singleGroup";
+import UpdateGroupTaskModal from "./UpdateGroupTask";
 import { Link } from "react-router-dom";
-import {
-  postCompletedPointsThunk,
-  removeCompletedPointsThunk,
-} from "../../store/point";
+
+import { fetchSingleGroupShopping } from "../../store/singleGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusSquare, faSort } from "@fortawesome/free-solid-svg-icons";
+import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle, faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 import { format } from "date-fns";
 import "./grouptasks.css";
 import "../Tasks/Tasks.css";
 
-class GroupTaskList extends React.Component {
+class GroupShoppingList extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       show: false,
     };
@@ -39,23 +37,13 @@ class GroupTaskList extends React.Component {
   }
 
   async handleDelete(id) {
-      await this.props.deleteTask(id);
-      this.props.fetchGroup(this.props.match.params.groupId);
+    await this.props.deleteTask(id);
+    this.props.fetchGroup(this.props.match.params.groupId);
   }
 
   async toggleCompleted(taskId, isCompleted) {
-    try {
-      if (isCompleted === false) {
-        await this.props.updateTaskCompletion(taskId, !isCompleted);
-        await this.props.postAwardedPoints(taskId);
-      } else {
-        await this.props.updateTaskCompletion(taskId, !isCompleted);
-        await this.props.removePoints(taskId);
-      }
-      this.props.fetchGroup(this.props.match.params.groupId);
-    } catch (err) {
-      console.error(err);
-    }
+    await this.props.updateTaskCompletion(taskId, !isCompleted);
+    this.props.fetchGroup(this.props.match.params.groupId);
   }
 
   showModal(e) {
@@ -72,20 +60,22 @@ class GroupTaskList extends React.Component {
     let categories = this.props.group.categories;
     return (
       <div className="task-wrapper">
+
         {this.state.show === true || this.state.showTask === true ? (
           <div id="darken-page"></div>
         ) : null}
         <div id="task-box">
           <div className="task-box-header">
-            Tasks for
+            {" "}
+            Shopping List for
             <div id="grpname" style={{ color: group.color }}>
               {group.name}
             </div>
           </div>
           <div className="task-box-body">
             <div id="task-box-categories">
-              <div id="category-title">Categories</div>
-              {/* <div className="category-icon-wrap">All</div> */}
+              <h3 id="category-title">Category</h3>
+              <div className="each-category-wrap">All</div>
 
               {categories
                 ? categories.map((category) => (
@@ -108,7 +98,9 @@ class GroupTaskList extends React.Component {
             <div id="task-box-list">
               {tasks && tasks.length
                 ? tasks
-                    .filter((task) => task.isShopping === false)
+                    .filter((task) => {
+                      return task.isShopping === true;
+                    })
                     .map((task) => (
                       <div key={task.id} className="singletask">
                         <div
@@ -182,9 +174,9 @@ class GroupTaskList extends React.Component {
                         </button>
                       </div>
                     ))
-                : "Your group has no tasks"}
+                : null}
             </div>
-            <div id="just-another-layout-div"></div>
+            <div id="just-another-layout-div">Filters</div>
           </div>
           <div id="add-button-div">
             <button
@@ -196,7 +188,7 @@ class GroupTaskList extends React.Component {
               <div id="ahhh">
                 <FontAwesomeIcon icon={faPlusSquare} />
               </div>
-              Add New Task
+              Add New Item
             </button>
             <GroupTaskModal
               groupId={this.props.match.params.groupId}
@@ -211,17 +203,16 @@ class GroupTaskList extends React.Component {
 }
 
 const mapState = (state) => ({
+  tasks: state.tasks,
   userId: state.user.id,
   group: state.singleGroup,
 });
 
 const mapDispatch = (dispatch) => ({
-  fetchGroup: (groupId) => dispatch(fetchSingleGroupTasks(groupId)),
+  fetchGroup: (groupId) => dispatch(fetchSingleGroupShopping(groupId)),
   deleteTask: (taskId) => dispatch(removeTaskThunk(taskId)),
   updateTaskCompletion: (taskId, isCompleted) =>
     dispatch(updateTaskCompletion(taskId, isCompleted)),
-  postAwardedPoints: (taskId) => dispatch(postCompletedPointsThunk(taskId)),
-  removePoints: (taskId) => dispatch(removeCompletedPointsThunk(taskId)),
 });
 
-export default connect(mapState, mapDispatch)(GroupTaskList);
+export default connect(mapState, mapDispatch)(GroupShoppingList);

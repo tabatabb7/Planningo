@@ -27,7 +27,6 @@ class CreateGroup extends React.Component {
   //clears boxes after submit
   async handleSubmit(event) {
     event.preventDefault();
-    try {
       await this.props.addGroup(this.state);
       if (this.state.name === "") {
         alert("group name can't be empty!");
@@ -39,10 +38,7 @@ class CreateGroup extends React.Component {
       alert(
         `Your group "${this.state.name}" was created! Redirecting you to your groups page..`
       );}
-    } catch (err) {
-      console.log("error creating group", err);
     }
-  }
 
   render() {
     const colors = [

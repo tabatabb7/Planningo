@@ -174,8 +174,4 @@ router.delete("/:taskId", async (req, res, next) => {
   }
 });
 
-<<<<<<< HEAD
 module.exports = router
-=======
-module.exports = router;
->>>>>>> 60a65dd06ed457e8415a59d7922b4532ad0e4306

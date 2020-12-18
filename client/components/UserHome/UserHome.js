@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import "./UserHome.css";
 import { fetchUserTasksThunk } from "../../store/tasks";
 import { format } from "date-fns";
-import "semantic-ui-css/components/button.css";
 
 import Weather from "./Weather";
 

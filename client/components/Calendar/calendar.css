@@ -246,7 +246,7 @@ button[disabled].rbc-btn {
 .rbc-date-cell.rbc-now.rbc-current a{
   background-color: #f9c7bb;
   border-radius: 50%;
-    padding: 5%;
+  padding: 5%;
 }
 /* each calendar date number */
 .rbc-date-cell > a,

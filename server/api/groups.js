@@ -253,7 +253,6 @@ router.post("/:groupId/shopping", async (req, res, next) => {
 // POST /api/groups/:groupId/tasks
 router.post("/:groupId/tasks", async (req, res, next) => {
   try {
-    console.log("REQ.BODY", req.body);
     const task = await Task.create({
       userId: req.body.userId,
       name: req.body.name,
@@ -278,8 +277,6 @@ router.post("/:groupId/tasks", async (req, res, next) => {
 // POST /api/groups/:groupId/tasks
 router.put("/:groupId/tasks", async (req, res, next) => {
   try {
-    console.log("req.body", req.body);
-
     const task = await Task.findByPk(req.body.taskId);
 
     task.update({

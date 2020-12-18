@@ -46,8 +46,6 @@ class GroupTaskModal extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state.modaltype, "modaltype");
-    console.log(this.props, "this.props inside handlesubdmit");
     try {
       {
         this.state.modaltype === "tasks"
