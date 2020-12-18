@@ -67,6 +67,7 @@ class TaskList extends React.Component {
 
   render() {
     let { tasks } = this.props.userTasks;
+    console.log(this.props, "this.props in tasklist");
 
     return (
       <div className="task-wrapper">
@@ -122,9 +123,7 @@ class TaskList extends React.Component {
                           </p> */}
                           <p id="date-created">
                             {format(
-                              new Date(
-                                `${this.props.task.start}T12:00:00.000Z`
-                              ),
+                              new Date(`${task.start}T12:00:00.000Z`),
                               "MMM d"
                             )}
                           </p>
