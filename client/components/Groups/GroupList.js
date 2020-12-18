@@ -2,8 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import { updateGroupThunk } from "../../store/singleGroup";
 import { Link } from "react-router-dom";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 import { fetchGroupsThunk, removeGroupThunk } from "../../store/allGroups";
+import "./grouplist.css"
 
 class GroupList extends React.Component {
   constructor(props) {
@@ -27,7 +29,7 @@ class GroupList extends React.Component {
     return (
       <div className="group-wrapper">
         <h1 className="tool-title">My Groups</h1>
-        <Link to="/groups/create">Create a Group</Link>
+        <div className="create-group"><Link to="/groups/create">Create a Group</Link></div>
         {!groups.length ? (
           "You are not a part of any groups."
         ) : (
@@ -35,14 +37,15 @@ class GroupList extends React.Component {
             {groups.map((group) => (
               <div key={group.id} className="singlegroup">
                 <Link to={`/groups/${group.id}`}>
-                  <img src={group.imageUrl}></img>
+                  <img className="group-image"src={group.imageUrl}></img>
+                  <br></br>
                   {group.name}
                 </Link>
                 <button
                   onClick={() => this.handleDelete(group.id)}
                   className="deletegroup"
                 >
-                  X
+                  <FontAwesomeIcon icon={faTrashAlt}/>
                 </button>
               </div>
             ))}
