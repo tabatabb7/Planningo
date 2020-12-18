@@ -39,8 +39,8 @@ class GroupTaskList extends React.Component {
   }
 
   async handleDelete(id) {
-      await this.props.deleteTask(id);
-      this.props.fetchGroup(this.props.match.params.groupId);
+    await this.props.deleteTask(id);
+    this.props.fetchGroup(this.props.match.params.groupId);
   }
 
   async toggleCompleted(taskId, isCompleted) {
@@ -148,7 +148,7 @@ class GroupTaskList extends React.Component {
                           </p> */}
                             <p id="date-created">
                               {format(
-                                new Date(`${task.start}T07:00:00.000Z`),
+                                new Date(`${task.start}T12:00:00.000Z`),
                                 "MMM d"
                               )}
                             </p>
