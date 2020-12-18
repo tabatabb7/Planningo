@@ -5,7 +5,7 @@ import { auth } from "../../store";
 import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "./authform.css";
-
+// import UserIcons from './Images/UserIcons'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

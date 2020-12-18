@@ -16,14 +16,14 @@
   margin-bottom: 15px;
 }
 
-#linktogroup{
+#linktogroup {
   font-family: "Poppins", sans-serif;
   letter-spacing: 1px;
   font-size: 15px;
   color: white;
 }
 
-#linktogroup span{
+#linktogroup span {
   text-decoration: underline;
 }
 
@@ -134,7 +134,6 @@
 
 #nav-group-name {
   height: 100%;
-  display: inline-block;
   width: 60%;
 }
 

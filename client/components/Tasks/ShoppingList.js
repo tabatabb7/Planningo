@@ -99,7 +99,7 @@ class ShoppingList extends React.Component {
                           <p id="date-created">
                             {format(
                               new Date(
-                                `${this.props.task.start}T12:00:00.000Z`
+                                `${task.start}T12:00:00.000Z`
                               ),
                               "MMM d"
                             )}
