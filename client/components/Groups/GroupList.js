@@ -40,12 +40,12 @@ class GroupList extends React.Component {
                     <img className="group-image" src={group.imageUrl}></img>
                   </div>
                 </Link>
-                {/* <button
+                <button
                   onClick={() => this.handleDelete(group.id)}
                   className="deletegroup"
                 >
                   <FontAwesomeIcon icon={faTrashAlt} />
-                </button> */}
+                </button>
                 <div
                   id="single-grp-info"
                   style={{ backgroundColor: group.color }}
@@ -53,7 +53,7 @@ class GroupList extends React.Component {
                   <Link to={`/groups/${group.id}`}>
                     <h2>{group.name}</h2>
                     <div>{group.description}</div>
-                    {group.User_Group.role === "admin" ? (
+                    {group && group.User_Group.role === "admin" ? (
                       <div><Link to={`/groups/${group.id}`} id="link-group-edit">Edit Group</Link></div>
                     ) : (
                       null
@@ -65,7 +65,6 @@ class GroupList extends React.Component {
           </div>
         )}
                 <Link to="/groups/create">
-          {" "}
           <div className="create-group-btn">Create a Group </div>
         </Link>
 

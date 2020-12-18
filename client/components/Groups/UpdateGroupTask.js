@@ -60,8 +60,9 @@ class UpdateGroupTaskModal extends Component {
 
   render() {
     let group = this.props.group;
-    let categories = this.props.group.categories;
+    let categories = group && group.categories;
     console.log(this.props.group, " this props group in UGT");
+    console.log(this.props, "this.props in UGT");
     if (!this.props.showTask || !this.props.selectedTask) {
       return null;
     }
@@ -71,7 +72,7 @@ class UpdateGroupTaskModal extends Component {
         <div className="task-modal-content">
           <div id="top-taskmodal-div">
             <div id="modal-title">
-              UPDATE {group.tasks.isShopping === false ? "TASK" : "ITEM"}{" "}
+              UPDATE {this.props.task.isShopping === false ? "TASK" : "ITEM"}{" "}
             </div>
             <button
               onClick={(e) => this.onClose(e)}
@@ -84,7 +85,7 @@ class UpdateGroupTaskModal extends Component {
           <div id="lower-taskmodal-div">
             <form id="add-task-form" onSubmit={this.handleSubmit}>
               <label htmlFor="name">
-                {group.tasks.isShopping === false ? "Task:" : "Item:"}
+                {this.props.task.isShopping === false ? "Task:" : "Item:"}
               </label>
               <input
                 name="name"
@@ -103,14 +104,18 @@ class UpdateGroupTaskModal extends Component {
                 onChange={this.handleChange}
                 value={this.state.description}
               />
-              <label htmlFor="points">Points:</label>
-              <textarea
-                name="points"
-                type="text"
-                className="modal-input"
-                onChange={this.handleChange}
-                value={this.state.points}
-              />
+              {this.props.task.isShopping === false ? (
+                <div>
+                  <label htmlFor="points">Points:</label>
+                  <textarea
+                    name="points"
+                    type="text"
+                    className="modal-input"
+                    onChange={this.handleChange}
+                    value={this.state.points}
+                  />
+                </div>
+              ) : null}
 
               <label htmlFor="userId"></label>
               <select
@@ -150,7 +155,31 @@ class UpdateGroupTaskModal extends Component {
                   className="choose-category"
                 >
                   <option value="">None</option>
-                  {group.tasks.isShopping === false
+                  {this.props.task.isShopping === false
+                    ? categories
+                        .filter((category) => {
+                          return category.isShopping === false;
+                        })
+                        .map((category) => {
+                          return (
+                            <option key={category.id} value={category.id}>
+                              {category.name}
+                            </option>
+                          );
+                        })
+                    : categories
+                        .filter((category) => {
+                          return category.isShopping === true;
+                        })
+                        .map((category) => {
+                          return (
+                            <option key={category.id} value={category.id}>
+                              {category.name}
+                            </option>
+                          );
+                        })}
+
+                  {/* {this.props.task.isShopping === false
                     ? categories
                       ? categories
                           .filter((category) => {
@@ -172,7 +201,7 @@ class UpdateGroupTaskModal extends Component {
                             {category.name}
                           </option>
                         ))
-                    : null}
+                    : null} */}
                 </select>
               </div>
             </form>

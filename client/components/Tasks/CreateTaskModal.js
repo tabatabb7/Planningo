@@ -84,6 +84,7 @@ class CreateTaskModal extends Component {
       points: 0,
       error: null,
       selectedDate: new Date(),
+      groupId: null
     });
     this.props.onClose();
   }

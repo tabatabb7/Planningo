@@ -95,7 +95,6 @@ class CreateGroup extends React.Component {
               name="name"
               type="text"
               className="create-group-input"
-              placeholder="Group name"
               onChange={this.handleChange}
               value={this.state.name}
             />
@@ -104,7 +103,6 @@ class CreateGroup extends React.Component {
               name="description"
               type="text"
               rows="3"
-              placeholder="Group description"
               className="create-group-input"
               onChange={this.handleChange}
               value={this.state.description}

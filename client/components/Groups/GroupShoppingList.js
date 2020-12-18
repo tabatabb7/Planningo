@@ -27,7 +27,12 @@ class GroupShoppingList extends React.Component {
   componentDidMount() {
     this.props.fetchGroup(this.props.match.params.groupId);
   }
-
+  // componentDidUpdate(prevProps) {
+  //   // Typical usage (don't forget to compare props):
+  //   if (this.props.group.tasks !== prevProps.tasks) {
+  //     this.props.fetchGroup(this.props.match.params.groupId);
+  //   }
+  // }
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value,
