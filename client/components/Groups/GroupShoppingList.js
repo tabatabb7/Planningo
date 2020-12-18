@@ -4,8 +4,6 @@ import GroupTaskModal from "./GroupTaskModal";
 import { removeTaskThunk } from "../../store/tasks";
 import { updateTaskCompletion } from "../../store/singletask";
 import UpdateGroupTaskModal from "./UpdateGroupTask";
-import { Link } from "react-router-dom";
-
 import { fetchSingleGroupShopping } from "../../store/singleGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
@@ -60,7 +58,6 @@ class GroupShoppingList extends React.Component {
     let categories = this.props.group.categories;
     return (
       <div className="task-wrapper">
-
         {this.state.show === true || this.state.showTask === true ? (
           <div id="darken-page"></div>
         ) : null}
@@ -140,7 +137,7 @@ class GroupShoppingList extends React.Component {
                           </p> */}
                             <p id="date-created">
                               {format(
-                                new Date(`${task.start}T07:00:00.000Z`),
+                                new Date(`${task.start}T12:00:00.000Z`),
                                 "MMM d"
                               )}
                             </p>

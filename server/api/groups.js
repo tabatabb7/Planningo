@@ -16,6 +16,9 @@ router.get("/", async (req, res, next) => {
         {
           model: Category,
         },
+        {
+          model: User
+        }
       ],
     });
     res.json(group);
@@ -59,6 +62,8 @@ router.post("/", async (req, res, next) => {
     const group = await Group.create({
       name: req.body.name,
       description: req.body.description,
+      color: req.body.color,
+      imageUrl: req.body.imageUrl
     });
     await User_Group.create({
       userId: req.user.id,
@@ -108,7 +113,7 @@ router.post("/", async (req, res, next) => {
         color: "#FFBF00",
         groupId: group.id,
         isShopping: true,
-        imageUrl: "/assets/icons/misc/004-commerceshop.png",
+        imageUrl: "/assets/icons/misc/004-commerce and shopping.png",
       },
     ]);
     res.json(group);

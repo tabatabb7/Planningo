@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 import { fetchGroupsThunk, removeGroupThunk } from "../../store/allGroups";
-import "./grouplist.css"
+import "./grouplist.css";
 
 class GroupList extends React.Component {
   constructor(props) {
@@ -16,8 +16,8 @@ class GroupList extends React.Component {
   }
 
   async handleDelete(id) {
-      await this.props.deleteGroup(id);
-      this.props.fetchGroups();
+    await this.props.deleteGroup(id);
+    this.props.fetchGroups();
   }
 
   render() {
@@ -25,7 +25,7 @@ class GroupList extends React.Component {
     return (
       <div className="group-wrapper">
         <h1 className="tool-title">My Groups</h1>
-        <div className="create-group"><Link to="/groups/create">Create a Group</Link></div>
+
         {!groups.length ? (
           "You are not a part of any groups."
         ) : (
@@ -33,20 +33,42 @@ class GroupList extends React.Component {
             {groups.map((group) => (
               <div key={group.id} className="singlegroup">
                 <Link to={`/groups/${group.id}`}>
-                  <img className="group-image"src={group.imageUrl}></img>
-                  <br></br>
-                  {group.name}
+                  <div
+                    id="grp-img-wrap"
+                    style={{ backgroundColor: group.color }}
+                  >
+                    <img className="group-image" src={group.imageUrl}></img>
+                  </div>
                 </Link>
-                <button
+                {/* <button
                   onClick={() => this.handleDelete(group.id)}
                   className="deletegroup"
                 >
-                  <FontAwesomeIcon icon={faTrashAlt}/>
-                </button>
+                  <FontAwesomeIcon icon={faTrashAlt} />
+                </button> */}
+                <div
+                  id="single-grp-info"
+                  style={{ backgroundColor: group.color }}
+                >
+                  <Link to={`/groups/${group.id}`}>
+                    <h2>{group.name}</h2>
+                    <div>{group.description}</div>
+                    {group.User_Group.role === "admin" ? (
+                      <div><Link to={`/groups/${group.id}`} id="link-group-edit">Edit Group</Link></div>
+                    ) : (
+                      null
+                    )}
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
         )}
+                <Link to="/groups/create">
+          {" "}
+          <div className="create-group-btn">Create a Group </div>
+        </Link>
+
       </div>
     );
   }

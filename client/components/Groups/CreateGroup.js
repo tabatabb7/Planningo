@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { addGroupThunk } from "../../store/allGroups";
 import "./creategroup.css";
+import MiscIcons from "../Images/MiscIcons";
 
 class CreateGroup extends React.Component {
   constructor() {
@@ -11,11 +12,14 @@ class CreateGroup extends React.Component {
     this.state = {
       name: "",
       description: "",
-      selected: "",
+      color: "#FFBF00",
       redirectTo: null,
+      error: "",
+      imageUrl: "/assets/icons/misc/001-sofa.png",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.changeImage = this.changeImage.bind(this);
   }
 
   handleChange(event) {
@@ -24,91 +28,120 @@ class CreateGroup extends React.Component {
     });
   }
 
+  changeImage(image) {
+    this.setState({
+      imageUrl: image,
+    });
+  }
+
   //clears boxes after submit
   async handleSubmit(event) {
     event.preventDefault();
-      await this.props.addGroup(this.state);
-      if (this.state.name === "") {
-        alert("group name can't be empty!");
-        return false;
-      } else {
+
+    await this.props.addGroup(this.state);
+    if (this.state.name === "") {
       this.setState({
-        redirectTo: "/groups",
+        error: "Please enter a group name!",
       });
+      return false;
+    } else {
       alert(
         `Your group "${this.state.name}" was created! Redirecting you to your groups page..`
-      );}
+      );
+      this.setState({
+        redirectTo: "/groups",
+        name: "",
+        description: "",
+        color: "",
+        imageUrl: "",
+      });
     }
+  }
 
   render() {
     const colors = [
-      "#DFFF00",
       "#FFBF00",
       "#FF7F50",
       "#DE3163",
       "#9FE2BF",
       "#40E0D0",
       "#6495ED",
-      "#CCCCFF"
-    ]
+      "#CCCCFF",
+    ];
 
     const singleColors = colors.map((color) => {
       return (
         <div
           key={color}
-          style={{backgroundColor: color}}
+          style={{ backgroundColor: color }}
           className="pick-color"
           onClick={() => {
-            this.setState({ selected: color})
+            this.setState({ color: color });
           }}
           value={color}
-        >
-        </div>
-      )
-    })
-
-
+        ></div>
+      );
+    });
 
     if (this.state.redirectTo) {
       return <Redirect to={{ pathname: this.state.redirectTo }} />;
     } else {
       return (
         <div className="create-group-wrapper">
-        <div className="create-group-header">
-          <h3>Create your first group and add members! <br/>
-            If you would like to use Planningo as a personal task manager,
-            you can create a group for just yourself.</h3>
-            </div>
-
           <form id="add-group-form-create-group" onSubmit={this.handleSubmit}>
+            <h3 id="create-group-header">New Group</h3>
             <label htmlFor="name">Name:</label>
             <input
               name="name"
               type="text"
-              className="modal-input"
-              placeholder="Your new group's name"
+              className="create-group-input"
+              placeholder="Group name"
               onChange={this.handleChange}
               value={this.state.name}
             />
             <label htmlFor="name">Description:</label>
-            <input
+            <textarea
               name="description"
-              type="textarea"
-              placeholder="Write a description"
-              className="modal-input"
+              type="text"
+              rows="3"
+              placeholder="Group description"
+              className="create-group-input"
               onChange={this.handleChange}
               value={this.state.description}
             />
-            <label htmlFor="color">Color:</label>
+            <label htmlFor="imageUrl">Select an Icon:</label>
+            <input
+              name="imageUrl"
+              type="text"
+              className="create-group-input color"
+              value={this.state.imageUrl}
+              onChange={this.handleChange}
+            />
+            <div id="wrap-icons">
+              <MiscIcons changeImage={this.changeImage} />
+            </div>
+            <label htmlFor="color">Group Color:</label>
             <div id="color-picker">{singleColors}</div>
             <input
               name="color"
-              placeholder="Choose a color"
-              className="modal-input"
-              value={this.state.selected}
+              className="create-group-input color"
+              value={this.state.color}
               readOnly={true}
             />
-            <div className="add-button"><button className="create-group-form-button" type="submit">Add</button></div>
+            Current Icon:
+            <div
+              className="current-icon"
+              style={{ backgroundColor: this.state.color }}
+            >
+              <img
+                src={this.state.imageUrl}
+                className="current-icon-image"
+              ></img>
+            </div>
+            <h3 id="errormsg">{this.state.error}</h3>
+            <button className="create-group-form-button" type="submit">
+              Add Group
+            </button>
           </form>
         </div>
       );
@@ -121,4 +154,3 @@ const mapDispatch = (dispatch) => ({
 });
 
 export default connect(null, mapDispatch)(CreateGroup);
-

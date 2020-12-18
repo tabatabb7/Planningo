@@ -97,7 +97,12 @@ class ShoppingList extends React.Component {
                             added {format(new Date(task.createdAt), "MMM d")}
                           </p> */}
                           <p id="date-created">
-                            {format(new Date(task.start), "MMM d")}
+                            {format(
+                              new Date(
+                                `${task.start}T12:00:00.000Z`
+                              ),
+                              "MMM d"
+                            )}
                           </p>
                         </div>
 
@@ -133,9 +138,7 @@ class ShoppingList extends React.Component {
                 : "You have no tasks"}
             </div>
             <div id="just-another-layout-div">
-              <div>
-                Filters
-              </div>
+              <div>Filters</div>
             </div>
           </div>
           <div id="add-button-div">

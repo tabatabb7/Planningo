@@ -11,6 +11,7 @@ import {
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { faCalendar } from "@fortawesome/free-regular-svg-icons";
+import getDate from "date-fns/getDate";
 
 const TopNav = ({ toggleSideNav, sideNavOpen }) => {
   return (
@@ -51,7 +52,8 @@ const TopNav = ({ toggleSideNav, sideNavOpen }) => {
       <div id="right-nav-links">
         <div id="each-top-nav-link">
           <Link to="/calendar">
-            <div className="top-nav-icon">
+            <div className={getDate(new Date()).length === 1 ? "top-nav-date two" : "top-nav-date"}>{getDate(new Date())}</div>
+            <div className="top-nav-icon cal">
               <FontAwesomeIcon icon={faCalendar} />
             </div>
           </Link>

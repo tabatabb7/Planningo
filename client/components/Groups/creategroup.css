@@ -1,52 +1,87 @@
 .create-group-wrapper {
-  width: 70%;
+  width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
   flex-direction: column;
-  text-transform: uppercase;
-  margin-top: 100px;
+  justify-content: center;
 }
 
-.create-group-header {
-  text-align: center;
-  max-width: 75%;
+#wrap-icons {
+  width: 100%;
+  height: 25%;
+  margin-bottom: 15px;
+}
+
+.current-icon {
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.current-icon-image {
+  width: 40px;
+  height: 40px;
+}
+
+#create-group-header {
   font-family: "Poppins", sans-serif;
   letter-spacing: 3px;
-  color: #f2afa6;
-  text-transform: uppercase;
-  font-size: 14px;
+  color: black;
+  font-size: 25px;
+  font-weight: 400;
+  margin-top: 2%;
+}
+
+.create-group-input {
+  width: 80%;
+  resize: none;
+  border-radius: 2px;
+}
+
+.create-group-wrapper label{
+  color: black;
+}
+.create-group-input::placeholder {
+  color: black;
+  font-size: 90%;
+}
+
+.create-group-input.color {
+  display: none;
 }
 
 .pick-color {
-  width: 50px;
-  height: 40px;
+  width: 8%;
+  height: auto;
   cursor: pointer;
   border-radius: 50%;
-  margin-left: 10px;
-  margin-right: 10px;
+  padding-top: 8%;
 }
 
 #color-picker {
-  overflow-x: auto;
   display: flex;
+  width: 90%;
+  height: max-content;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-bottom: 15px;
 }
 
 #add-group-form-create-group {
-  width: 70%;
-  height: 90%;
+  width: 90%;
+  height: 95%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   font-family: "Poppins", sans-serif;
-  color: #f2afa6;
-  font-size: 14px;
-}
-
-.add-button {
-  text-align: center;
+  background-color: white;
   align-items: center;
+  font-size: 14px;
+  justify-content: center;
 }
 
 .create-group-form-button {
@@ -60,14 +95,18 @@
   letter-spacing: 1px;
   font-size: 16px;
   border-radius: 10px;
-  min-height: 40px;
-  max-height: 50px;
-  width: 25%;
-  max-width: 150px;
-  margin-top: 20px;
+  width: max-content;
+  padding: 2%;
+  margin-top: 2%;
 }
 
-.modal-input {
-  font-family: "Poppins", sans-serif;
-  width: 100%;
+@media (max-width: 730px) {
+  .create-group-wrapper {
+    max-height: 90vh;
+  }
+}
+
+#errormsg{
+  color: red;
+  font-weight: 400;
 }
