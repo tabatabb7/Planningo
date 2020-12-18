@@ -61,7 +61,7 @@ class UpdateGroupTaskModal extends Component {
   render() {
     let group = this.props.group;
     let categories = this.props.group.categories;
-
+    console.log(this.props.group, " this props group in UGT");
     if (!this.props.showTask || !this.props.selectedTask) {
       return null;
     }
@@ -70,7 +70,9 @@ class UpdateGroupTaskModal extends Component {
         <div>{this.props.children}</div>
         <div className="task-modal-content">
           <div id="top-taskmodal-div">
-            <div id="modal-title">UPDATE TASK</div>
+            <div id="modal-title">
+              UPDATE {group.tasks.isShopping === false ? "TASK" : "ITEM"}{" "}
+            </div>
             <button
               onClick={(e) => this.onClose(e)}
               className="close-modal-btn"
@@ -81,7 +83,9 @@ class UpdateGroupTaskModal extends Component {
 
           <div id="lower-taskmodal-div">
             <form id="add-task-form" onSubmit={this.handleSubmit}>
-              <label htmlFor="name">Task:</label>
+              <label htmlFor="name">
+                {group.tasks.isShopping === false ? "Task:" : "Item:"}
+              </label>
               <input
                 name="name"
                 type="text"
@@ -146,10 +150,22 @@ class UpdateGroupTaskModal extends Component {
                   className="choose-category"
                 >
                   <option value="">None</option>
-                  {categories
+                  {group.tasks.isShopping === false
+                    ? categories
+                      ? categories
+                          .filter((category) => {
+                            return category.isShopping === false;
+                          })
+                          .map((category) => (
+                            <option key={category.id} value={category.id}>
+                              {category.name}
+                            </option>
+                          ))
+                      : null
+                    : categories
                     ? categories
                         .filter((category) => {
-                          return category.isShopping === false;
+                          return category.isShopping === true;
                         })
                         .map((category) => (
                           <option key={category.id} value={category.id}>
