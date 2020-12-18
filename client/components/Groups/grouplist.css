@@ -3,7 +3,7 @@
   width: 80%;
   text-align: center;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   display: flex;
   flex-direction: column;
   font-family: "Poppins", sans-serif;
@@ -15,7 +15,10 @@
   display: flex;
   text-align: center;
   align-items: center;
-  height: 60%;
+  width: 90%;
+  height: 70%;
+  flex-direction: column;
+  overflow-y: auto;
 }
 
 .group-wrapper a {
@@ -23,10 +26,11 @@
   color: black;
 }
 
-.create-group {
-  align-items: center;
-  padding-bottom: 30px;
+.create-group-btn {
   font-size: 15px;
+  background-color: pink;
+  width: max-content;
+  padding: 10%;
 }
 
 .tool-title {
@@ -45,21 +49,31 @@
   align-items: center;
   justify-content: center;
 }
+
 .group-image {
   width: 50px;
   height: auto;
 }
 
 .singlegroup {
-  text-align: center;
-  margin-bottom: 20px;
   font-size: 12px;
-  padding: 15px;
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  height: 20%;
+  justify-content: space-between;
   align-items: center;
-  text-align: center;
+  margin-bottom: 20px;
+  max-height: 120px;
+  min-height: 100px;
+}
+
+#single-grp-info{
+height: 100%;
+width: 78%;
+margin-left: 10px;
+display: flex;
+justify-content: center;
+align-items: center;
 }
 
 .deletegroup {

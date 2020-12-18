@@ -16,6 +16,9 @@ router.get("/", async (req, res, next) => {
         {
           model: Category,
         },
+        {
+          model: User
+        }
       ],
     });
     res.json(group);

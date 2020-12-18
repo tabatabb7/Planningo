@@ -25,9 +25,11 @@ class GroupList extends React.Component {
     return (
       <div className="group-wrapper">
         <h1 className="tool-title">My Groups</h1>
-        <div className="create-group">
-          <Link to="/groups/create">Create a Group</Link>
-        </div>
+        <Link to="/groups/create">
+          {" "}
+          <div className="create-group-btn">Create a Group </div>
+        </Link>
+
         {!groups.length ? (
           "You are not a part of any groups."
         ) : (
@@ -35,17 +37,34 @@ class GroupList extends React.Component {
             {groups.map((group) => (
               <div key={group.id} className="singlegroup">
                 <Link to={`/groups/${group.id}`}>
-                  <div id="grp-img-wrap" style={{backgroundColor: group.color}}>
-                  <img className="group-image" src={group.imageUrl}></img>
+                  <div
+                    id="grp-img-wrap"
+                    style={{ backgroundColor: group.color }}
+                  >
+                    <img className="group-image" src={group.imageUrl}></img>
                   </div>
-                  {group.name}
                 </Link>
-                <button
+                {/* <button
                   onClick={() => this.handleDelete(group.id)}
                   className="deletegroup"
                 >
                   <FontAwesomeIcon icon={faTrashAlt} />
-                </button>
+                </button> */}
+                <div
+                  id="single-grp-info"
+                  style={{ backgroundColor: group.color }}
+                >
+                  <Link to={`/groups/${group.id}`}>
+                    <h2>{group.name}</h2>
+                    <h4>{group.description}</h4>
+                    Your role:{" "}
+                    {group.User_Group.role === "admin" ? (
+                      <div>{group.User_Group.role} 🌟   <Link to={`/groups/${group.id}`}>Edit Group</Link></div>
+                    ) : (
+                      group.User_Group.role
+                    )}
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
