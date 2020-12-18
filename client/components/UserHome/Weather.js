@@ -2,7 +2,7 @@ import ReactWeather, { useOpenWeather } from "react-open-weather";
 import React from "react";
 
 const Weather = (props) => {
-  console.log(props.latitude, "props  in weather func. comp.");
+
   const { data, isLoading, errorMessage } = useOpenWeather({
     key: "4551bac685e686628b7a9997d7e6c1f6",
     lat: props.latitude,

@@ -14,7 +14,7 @@ class UpdateTaskModal extends Component {
     this.state = {
       name: this.props.task.name,
       groupId: this.props.task.groupId,
-      description: this.props.task.description,
+      description: this.props.task.description || "",
       points: this.props.task.points,
       categoryId: this.props.task.categoryId,
       taskId: this.props.task.id,
@@ -37,8 +37,6 @@ class UpdateTaskModal extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    console.log("THIS STATE", this.state);
-
     if (this.state.name == "") {
       this.setState({
         error: "Name can't be empty!",

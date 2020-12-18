@@ -42,6 +42,7 @@ class UpdateGroupTaskModal extends Component {
     try {
       if (this.state.name == "") {
         alert("Task name can't be empty!");
+        return false;
       } else {
         await this.props.updateGroupTask(this.state, this.props.group.id);
         alert(`Task was updated! Redirecting you to the tasks page.`);

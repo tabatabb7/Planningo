@@ -240,12 +240,13 @@ button[disabled].rbc-btn {
   min-width: 0;
   text-align: center;
   padding-top: 10px;
+  width: 100%;
 }
 
 .rbc-date-cell.rbc-now.rbc-current a{
   background-color: #f9c7bb;
   border-radius: 50%;
-  padding: 5px;
+    padding: 5%;
 }
 /* each calendar date number */
 .rbc-date-cell > a,
@@ -254,6 +255,13 @@ button[disabled].rbc-btn {
   text-decoration: none;
   color: black;
 }
+
+.rbc-date-cell > a:hover {
+  background-color: #c2deae;
+  border-radius: 50%;
+  padding: 5%;
+}
+
 
 .rbc-row-bg {
   display: flex;

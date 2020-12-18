@@ -34,7 +34,6 @@ class GroupShoppingModal extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    try {
       await this.props.addGroupTask(this.props.groupId, this.state);
       this.setState({
         name: "",
@@ -42,17 +41,10 @@ class GroupShoppingModal extends Component {
       });
       await this.props.fetchGroup(this.props.groupId);
       this.props.onClose();
-    } catch (err) {
-      console.log("error creating task", err);
-    }
   }
 
   async handleDelete(id) {
-    try {
       await this.props.deleteTask(id);
-    } catch (err) {
-      console.error(err);
-    }
   }
 
   onClose = (e) => {

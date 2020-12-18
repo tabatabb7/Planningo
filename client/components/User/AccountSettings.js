@@ -39,7 +39,7 @@ class AccountSettings extends Component {
             <div>
               <button onClick={this.toggleFormStatus}>Cancel Edit</button>
               <form id="edit-profile-form">
-                <label htmlFor="name"> Icon: </label>
+                <label htmlFor="name">Icon: </label>
                 <input
                   name="avatarUrl"
                   id="avatarUrl"

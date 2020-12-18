@@ -7,6 +7,7 @@ import {
   addShoppingItemThunk,
 } from "../../store/tasks";
 import "./taskmodal.css";
+import { Link } from "react-router-dom";
 import KeyboardDatePickerTab from "../Calendar/DatePicker";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -151,7 +152,8 @@ class CreateTaskModal extends Component {
                 <div id="modal-group-wrap">
                   <label htmlFor="groupId">Assign to Group:</label>
                   {!this.props.groups.length ? (
-                    "You are not a part of any groups."
+                    <div id="createjoinmodal">You are not a part of any groups.
+                    <Link to="/groups/create"> Create or Join one to start creating tasks.</Link></div>
                   ) : (
                     <div id="select-group">
                       {this.props.groups.map((group) => (

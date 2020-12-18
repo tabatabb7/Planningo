@@ -45,7 +45,7 @@ class AppCalendar extends React.Component {
       let formats = {
         weekdayFormat: (date, culture, localizer) => localizer.format(date, 'EEEEE', culture),
         dateFormat: (date, culture, localizer) =>
-          localizer.format(date, 'd', culture),
+          localizer.format(date, 'dd', culture),
       }
 
       return (

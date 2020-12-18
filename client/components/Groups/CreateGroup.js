@@ -31,13 +31,14 @@ class CreateGroup extends React.Component {
       await this.props.addGroup(this.state);
       if (this.state.name === "") {
         alert("group name can't be empty!");
-      }
+        return false;
+      } else {
       this.setState({
         redirectTo: "/groups",
       });
       alert(
         `Your group "${this.state.name}" was created! Redirecting you to your groups page..`
-      );
+      );}
     } catch (err) {
       console.log("error creating group", err);
     }
@@ -45,20 +46,20 @@ class CreateGroup extends React.Component {
 
   render() {
     const colors = [
-      "#DFFF00", 
-      "#FFBF00", 
-      "#FF7F50", 
-      "#DE3163", 
-      "#9FE2BF", 
-      "#40E0D0", 
-      "#6495ED", 
+      "#DFFF00",
+      "#FFBF00",
+      "#FF7F50",
+      "#DE3163",
+      "#9FE2BF",
+      "#40E0D0",
+      "#6495ED",
       "#CCCCFF"
     ]
 
     const singleColors = colors.map((color) => {
       return (
-        <div 
-          key={color} 
+        <div
+          key={color}
           style={{backgroundColor: color}}
           className="pick-color"
           onClick={() => {

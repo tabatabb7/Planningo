@@ -16,12 +16,8 @@ class SideNav extends React.Component {
   }
 
   async handleDelete(id) {
-    try {
       await this.props.deleteGroup(id);
       this.props.fetchGroups();
-    } catch (err) {
-      console.error(err);
-    }
   }
 
   render() {

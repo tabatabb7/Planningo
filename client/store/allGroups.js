@@ -28,26 +28,17 @@ const setGroupUsers = (groups) => ({ type: GET_GROUP_USERS, groups });
  */
 
 export const fetchGroupsThunk = () => async (dispatch) => {
-  try {
     const { data: groups } = await axios.get(`/api/groups`);
     dispatch(getGroups(groups));
-  } catch (error) {
-    console.log("error fetching groups");
-  }
 };
 
 export const fetchGroupUsersThunk = (groupId) => {
   return async (dispatch) => {
-    try {
       const { data: groups } = await axios.get(
         `/api/groups/${groupId}/tasks/add`
       );
       dispatch(setGroupUsers(groups));
-    } catch (err) {
-      console.error("There was a problem fetching this group!");
-      console.error(err);
-    }
-  };
+  }
 };
 
 export const addGroupThunk = (group) => async (dispatch) => {
