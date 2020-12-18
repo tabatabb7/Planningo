@@ -25,10 +25,6 @@ class GroupList extends React.Component {
     return (
       <div className="group-wrapper">
         <h1 className="tool-title">My Groups</h1>
-        <Link to="/groups/create">
-          {" "}
-          <div className="create-group-btn">Create a Group </div>
-        </Link>
 
         {!groups.length ? (
           "You are not a part of any groups."
@@ -56,12 +52,11 @@ class GroupList extends React.Component {
                 >
                   <Link to={`/groups/${group.id}`}>
                     <h2>{group.name}</h2>
-                    <h4>{group.description}</h4>
-                    Your role:{" "}
+                    <div>{group.description}</div>
                     {group.User_Group.role === "admin" ? (
-                      <div>{group.User_Group.role} 🌟   <Link to={`/groups/${group.id}`}>Edit Group</Link></div>
+                      <div><Link to={`/groups/${group.id}`} id="link-group-edit">Edit Group</Link></div>
                     ) : (
-                      group.User_Group.role
+                      null
                     )}
                   </Link>
                 </div>
@@ -69,6 +64,11 @@ class GroupList extends React.Component {
             ))}
           </div>
         )}
+                <Link to="/groups/create">
+          {" "}
+          <div className="create-group-btn">Create a Group </div>
+        </Link>
+
       </div>
     );
   }

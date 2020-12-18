@@ -16,7 +16,7 @@
   text-align: center;
   align-items: center;
   width: 90%;
-  height: 70%;
+  height: 60%;
   flex-direction: column;
   overflow-y: auto;
 }
@@ -41,7 +41,7 @@
   font-size: 25px;
 }
 
-#grp-img-wrap{
+#grp-img-wrap {
   width: 100px;
   height: 100px;
   border-radius: 50%;
@@ -67,13 +67,13 @@
   min-height: 100px;
 }
 
-#single-grp-info{
-height: 100%;
-width: 78%;
-margin-left: 10px;
-display: flex;
-justify-content: center;
-align-items: center;
+#single-grp-info {
+  height: 100%;
+  width: 78%;
+  margin-left: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .deletegroup {
@@ -83,4 +83,9 @@ align-items: center;
   font-size: 18px;
   color: #f2afa6;
   background-color: transparent;
+}
+
+#link-group-edit {
+  color: white;
+  font-size: 15px;
 }
