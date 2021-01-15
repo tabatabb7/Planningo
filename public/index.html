@@ -2,15 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="/favicon.ico" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta name="description" content="Our PWA" />
-    <link rel="apple-touch-icon" href="/logo192.png" />
+    <meta name="theme-color" content="#f9c7bb" />
+    <meta name="description" content="Planningo" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.json" />
 
     <script>
-      var host = "https://taskpwa.herokuapp.com/";
+      var host = "https://planningo.herokuapp.com/";
       if (
         host == window.location.host &&
         window.location.protocol != "https:"
@@ -41,32 +41,28 @@
       }
     </style>
 
-    <title>Task PWA</title>
+    <title>Planningo</title>
+
 
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <script defer src="/bundle.js"></script>
+    <script type="module" src="/pwabuilder-sw-register.js"></script>
+    <link rel="icon" href="/favicon.ico" />
     <link
-      media="print"
-      onload="this.onload=null;this.removeAttribute('media');"
-      href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Open+Sans&family=Poppins:wght@500;600;800&family=Roboto:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
+    media="print"
+    onload="this.onload=null;this.removeAttribute('media');"
+    href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Open+Sans&family=Poppins:wght@500;600;800&family=Roboto:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
 
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Open+Sans&family=Poppins:wght@400;800&family=Roboto:wght@400;700&display=swap"
-      />
-    </noscript>
-
+  <noscript>
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.9/css/weather-icons.min.css"
-      type="text/css"
+      href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Open+Sans&family=Poppins:wght@400;800&family=Roboto:wght@400;700&display=swap"
     />
+  </noscript>
   </head>
   <body>
-    <script defer src="/bundle.js"></script>
-
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="app"></div>
   </body>
